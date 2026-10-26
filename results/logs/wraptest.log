@@ -1,0 +1,5 @@
+nohup: ignoring input
+phase hold tgt 0.068 hold 28 open 0.11 eef [0.0915 0.271  0.7866]
+maxdz 0.0169 nlift 0 maxf 1.32 crush 6
+top [1, 5, 2, 0, 3] [0.0169, 0.0129, 0.0097, 0.0097, 0.007]
+DONE

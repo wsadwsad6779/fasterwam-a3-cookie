@@ -1,0 +1,16 @@
+nohup: ignoring input
+eef [ 0.1   0.25  0.92  0.5  -0.5   0.5  -0.5   0.1  -0.25  0.92  0.5   0.5
+  0.5   0.5 ]
+13 L_finger_inner p=[0.1    0.2826 1.0101] bp=[ 0.     -0.0326  0.0549]
+16 L_finger_outer p=[0.1    0.2174 1.0101] bp=[0.     0.0326 0.0549]
+31 R_finger_inner p=[ 0.1    -0.2826  1.0101] bp=[ 0.     -0.0326  0.0549]
+34 R_finger_outer p=[ 0.1    -0.2174  1.0101] bp=[0.     0.0326 0.0549]
+26 L_finger_inner_geom sz=[0.01   0.0005 0.0168] gp=[0.1    0.2957 0.9347]
+27 L_finger_inner_pad_visual sz=[0.01   0.0005 0.0168] gp=[0.1    0.2957 0.9347]
+31 L_finger_outer_geom sz=[0.01   0.0005 0.0168] gp=[0.1    0.2043 0.9347]
+32 L_finger_outer_pad_visual sz=[0.01   0.0005 0.0168] gp=[0.1    0.2043 0.9347]
+55 R_finger_inner_geom sz=[0.01   0.0032 0.0168] gp=[ 0.1    -0.2957  0.9347]
+56 R_finger_inner_pad_visual sz=[0.01   0.0032 0.0168] gp=[ 0.1    -0.2957  0.9347]
+60 R_finger_outer_geom sz=[0.01   0.0032 0.0168] gp=[ 0.1    -0.2043  0.9347]
+61 R_finger_outer_pad_visual sz=[0.01   0.0032 0.0168] gp=[ 0.1    -0.2043  0.9347]
+cookie z 0.7684993680288226 0.7684993680288226

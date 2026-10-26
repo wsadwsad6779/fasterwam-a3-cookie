@@ -1,0 +1,92 @@
+nohup: ignoring input
+[wrap] device=cuda
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/workspace/FasterWAM/src/fasterwam/models/wan22/fastwam.py:1185: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  payload = torch.load(path, map_location="cpu")
+[wrap] ckpt=/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt
+[wrap] instruction='transfer 10 cookies into target box'
+[wrap] out=/workspace/fasterwam_a3_bridge/outputs/wrapped/run_20261026_094455
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+[force] bin=[0.1246, -0.0116, 0.7495] inner_half=[0.0502, 0.0166] wall=0.031 replan=5
+/workspace/FasterWAM/src/fasterwam/models/wan22/wan_video_dit.py:19: UserWarning: Using AOTriton backend for Efficient Attention forward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention.hip:1452.)
+  x = F.scaled_dot_product_attention(q, k, v, attn_mask=ctx_mask)
+[force] step=25 ph=descend cookies=0 z=0.885 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.1167 bind=0.282 zf=0 st=0 cyc=0 pl=0
+[force] step=50 ph=descend cookies=0 z=0.822 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.0778 bind=0.210 zf=0 st=0 cyc=0 pl=0
+[force] step=75 ph=descend cookies=0 z=0.844 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.1324 bind=0.160 zf=0 st=0 cyc=0 pl=0
+[force] step=100 ph=descend cookies=0 z=0.840 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.1943 bind=0.086 zf=0 st=0 cyc=0 pl=0
+[force] step=125 ph=descend cookies=0 z=0.835 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2235 bind=0.051 zf=0 st=0 cyc=0 pl=0
+[force] step=150 ph=descend cookies=0 z=0.833 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2419 bind=0.033 zf=0 st=0 cyc=0 pl=0
+[force] step=175 ph=descend cookies=0 z=0.820 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2516 bind=0.022 zf=0 st=0 cyc=0 pl=0
+[force] step=200 ph=descend cookies=0 z=0.796 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2571 bind=0.014 zf=0 st=0 cyc=0 pl=0
+[force] step=225 ph=descend cookies=0 z=0.790 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2626 bind=0.011 zf=0 st=0 cyc=0 pl=0
+[force] step=250 ph=descend cookies=0 z=0.803 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2753 bind=0.016 zf=0 st=0 cyc=0 pl=0
+[force] step=275 ph=descend cookies=0 z=0.811 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2766 bind=0.020 zf=0 st=0 cyc=0 pl=0
+[force] step=300 ph=descend cookies=0 z=0.814 open=0.292 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2728 bind=0.023 zf=0 st=0 cyc=0 pl=0
+[force] step=325 ph=descend cookies=0 z=0.802 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2702 bind=0.026 zf=0 st=0 cyc=0 pl=0
+[force] step=350 ph=descend cookies=0 z=0.795 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2675 bind=0.030 zf=0 st=0 cyc=0 pl=0
+[force] step=375 ph=descend cookies=0 z=0.795 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2636 bind=0.033 zf=0 st=0 cyc=0 pl=0
+[force] step=400 ph=descend cookies=0 z=0.789 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2571 bind=0.035 zf=0 st=0 cyc=0 pl=0
+[force] step=425 ph=descend cookies=0 z=0.776 open=0.299 appl=0.300 tgt=0.30 hold=0 f=(19.74,0.00) dist=0.2555 bind=0.036 zf=0 st=0 cyc=0 pl=0
+[force] step=450 ph=descend cookies=0 z=0.752 open=0.342 appl=0.300 tgt=0.30 hold=0 f=(23.55,5.66) dist=0.2478 bind=0.045 zf=0 st=0 cyc=0 pl=0
+[force] step=475 ph=descend cookies=0 z=0.747 open=0.356 appl=0.300 tgt=0.30 hold=0 f=(60.89,21.45) dist=0.2457 bind=0.046 zf=0 st=0 cyc=0 pl=0
+[force] step=500 ph=descend cookies=0 z=0.746 open=0.365 appl=0.300 tgt=0.30 hold=0 f=(69.42,24.47) dist=0.2419 bind=0.048 zf=0 st=0 cyc=0 pl=0
+[force] step=525 ph=descend cookies=0 z=0.752 open=0.349 appl=0.300 tgt=0.30 hold=0 f=(19.57,2.15) dist=0.2398 bind=0.048 zf=0 st=0 cyc=0 pl=0
+[force] step=550 ph=descend cookies=0 z=0.770 open=0.326 appl=0.300 tgt=0.30 hold=0 f=(0.30,0.19) dist=0.2210 bind=0.045 zf=0 st=0 cyc=0 pl=0
+[force] step=575 ph=descend cookies=0 z=0.768 open=0.318 appl=0.300 tgt=0.30 hold=0 f=(0.19,0.17) dist=0.2163 bind=0.046 zf=0 st=0 cyc=0 pl=0
+[force] step=600 ph=descend cookies=0 z=0.769 open=0.318 appl=0.300 tgt=0.30 hold=0 f=(3.12,0.00) dist=0.2180 bind=0.044 zf=0 st=0 cyc=0 pl=0
+[wrap] force done: {"variant": "force", "seed": 42, "steps": 600, "replans": 120, "success": false, "cookies_in_target": 0, "min_cookie_dist": 0.0694, "min_opening": 0.2854, "min_applied_opening": 0.3, "max_pad_force": 74.535, "final_phase": "descend", "hold_steps": 0, "released": false, "dropped": false, "zfloor_steps": 0, "place_steer_steps": 0, "cycles": 0, "placed": 0, "duration_s": 94.2}
+[guard] bin=[0.1246, -0.0116, 0.7495] inner_half=[0.0502, 0.0166] wall=0.031 replan=5
+[guard] step=25 ph=descend cookies=0 z=0.885 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.1167 bind=0.282 zf=0 st=0 cyc=0 pl=0
+[guard] step=50 ph=descend cookies=0 z=0.822 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.0778 bind=0.210 zf=0 st=0 cyc=0 pl=0
+[guard] step=75 ph=descend cookies=0 z=0.844 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.1324 bind=0.160 zf=0 st=0 cyc=0 pl=0
+[guard] step=100 ph=descend cookies=0 z=0.840 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.1943 bind=0.086 zf=0 st=0 cyc=0 pl=0
+[guard] step=125 ph=descend cookies=0 z=0.835 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2235 bind=0.051 zf=0 st=0 cyc=0 pl=0
+[guard] step=150 ph=descend cookies=0 z=0.833 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2419 bind=0.033 zf=0 st=0 cyc=0 pl=0
+[guard] step=175 ph=descend cookies=0 z=0.820 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2516 bind=0.022 zf=0 st=0 cyc=0 pl=0
+[guard] step=200 ph=descend cookies=0 z=0.796 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2571 bind=0.014 zf=0 st=0 cyc=0 pl=0
+[guard] step=225 ph=descend cookies=0 z=0.790 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2626 bind=0.011 zf=0 st=0 cyc=0 pl=0
+[guard] step=250 ph=descend cookies=0 z=0.803 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2753 bind=0.016 zf=0 st=0 cyc=0 pl=0
+[guard] step=275 ph=descend cookies=0 z=0.811 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2766 bind=0.020 zf=0 st=0 cyc=0 pl=0
+[guard] step=300 ph=descend cookies=0 z=0.814 open=0.292 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2728 bind=0.023 zf=0 st=0 cyc=0 pl=0
+[guard] step=325 ph=descend cookies=0 z=0.802 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2702 bind=0.026 zf=0 st=0 cyc=0 pl=0
+[guard] step=350 ph=descend cookies=0 z=0.795 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2675 bind=0.030 zf=0 st=0 cyc=0 pl=0
+[guard] step=375 ph=descend cookies=0 z=0.795 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2636 bind=0.033 zf=0 st=0 cyc=0 pl=0
+[guard] step=400 ph=descend cookies=0 z=0.789 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2571 bind=0.035 zf=0 st=0 cyc=0 pl=0
+[guard] step=425 ph=descend cookies=0 z=0.776 open=0.299 appl=0.300 tgt=0.30 hold=0 f=(19.74,0.00) dist=0.2555 bind=0.036 zf=0 st=0 cyc=0 pl=0
+[guard] step=450 ph=descend cookies=0 z=0.752 open=0.342 appl=0.300 tgt=0.30 hold=0 f=(23.55,5.66) dist=0.2478 bind=0.045 zf=0 st=0 cyc=0 pl=0
+[guard] step=475 ph=descend cookies=0 z=0.747 open=0.356 appl=0.300 tgt=0.30 hold=0 f=(60.89,21.45) dist=0.2457 bind=0.046 zf=0 st=0 cyc=0 pl=0
+[guard] step=500 ph=descend cookies=0 z=0.746 open=0.365 appl=0.300 tgt=0.30 hold=0 f=(69.42,24.47) dist=0.2419 bind=0.048 zf=0 st=0 cyc=0 pl=0
+[guard] step=525 ph=descend cookies=0 z=0.752 open=0.349 appl=0.300 tgt=0.30 hold=0 f=(19.57,2.15) dist=0.2398 bind=0.048 zf=0 st=0 cyc=0 pl=0
+[guard] step=550 ph=descend cookies=0 z=0.770 open=0.326 appl=0.300 tgt=0.30 hold=0 f=(0.30,0.19) dist=0.2210 bind=0.045 zf=0 st=0 cyc=0 pl=0
+[guard] step=575 ph=descend cookies=0 z=0.768 open=0.318 appl=0.300 tgt=0.30 hold=0 f=(0.19,0.17) dist=0.2163 bind=0.046 zf=0 st=0 cyc=0 pl=0
+[guard] step=600 ph=descend cookies=0 z=0.769 open=0.318 appl=0.300 tgt=0.30 hold=0 f=(3.12,0.00) dist=0.2180 bind=0.044 zf=0 st=0 cyc=0 pl=0
+[wrap] guard done: {"variant": "guard", "seed": 42, "steps": 600, "replans": 120, "success": false, "cookies_in_target": 0, "min_cookie_dist": 0.0694, "min_opening": 0.2854, "min_applied_opening": 0.3, "max_pad_force": 74.535, "final_phase": "descend", "hold_steps": 0, "released": false, "dropped": false, "zfloor_steps": 0, "place_steer_steps": 0, "cycles": 0, "placed": 0, "duration_s": 88.4}
+[full] bin=[0.1246, -0.0116, 0.7495] inner_half=[0.0502, 0.0166] wall=0.031 replan=5
+[full] step=25 ph=descend cookies=0 z=0.885 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.1167 bind=0.282 zf=0 st=0 cyc=0 pl=0
+[full] step=50 ph=descend cookies=0 z=0.822 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.0778 bind=0.210 zf=0 st=0 cyc=0 pl=0
+[full] step=75 ph=descend cookies=0 z=0.844 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.1324 bind=0.160 zf=0 st=0 cyc=0 pl=0
+[full] step=100 ph=descend cookies=0 z=0.840 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.1943 bind=0.086 zf=0 st=0 cyc=0 pl=0
+[full] step=125 ph=descend cookies=0 z=0.835 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2235 bind=0.051 zf=0 st=0 cyc=0 pl=0
+[full] step=150 ph=descend cookies=0 z=0.833 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2419 bind=0.033 zf=0 st=0 cyc=0 pl=0
+[full] step=175 ph=descend cookies=0 z=0.820 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2516 bind=0.022 zf=0 st=0 cyc=0 pl=0
+[full] step=200 ph=descend cookies=0 z=0.796 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2571 bind=0.014 zf=0 st=0 cyc=0 pl=0
+[full] step=225 ph=descend cookies=0 z=0.790 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2626 bind=0.011 zf=0 st=0 cyc=0 pl=0
+[full] step=250 ph=descend cookies=0 z=0.803 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2753 bind=0.016 zf=0 st=0 cyc=0 pl=0
+[full] step=275 ph=descend cookies=0 z=0.811 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2766 bind=0.020 zf=0 st=0 cyc=0 pl=0
+[full] step=300 ph=descend cookies=0 z=0.814 open=0.292 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2728 bind=0.023 zf=0 st=0 cyc=0 pl=0
+[full] step=325 ph=descend cookies=0 z=0.802 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2702 bind=0.026 zf=0 st=0 cyc=0 pl=0
+[full] step=350 ph=descend cookies=0 z=0.795 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2675 bind=0.030 zf=0 st=0 cyc=0 pl=0
+[full] step=375 ph=descend cookies=0 z=0.795 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2636 bind=0.033 zf=0 st=0 cyc=0 pl=0
+[full] step=400 ph=descend cookies=0 z=0.789 open=0.300 appl=0.300 tgt=0.30 hold=0 f=(0.00,0.00) dist=0.2571 bind=0.035 zf=0 st=0 cyc=0 pl=0
+[full] step=425 ph=descend cookies=0 z=0.776 open=0.299 appl=0.300 tgt=0.30 hold=0 f=(19.74,0.00) dist=0.2555 bind=0.036 zf=0 st=0 cyc=0 pl=0
+[full] step=450 ph=descend cookies=0 z=0.752 open=0.342 appl=0.300 tgt=0.30 hold=0 f=(23.55,5.66) dist=0.2478 bind=0.045 zf=0 st=0 cyc=0 pl=0
+[full] step=475 ph=descend cookies=0 z=0.747 open=0.356 appl=0.300 tgt=0.30 hold=0 f=(60.89,21.45) dist=0.2457 bind=0.046 zf=0 st=0 cyc=0 pl=0
+[full] step=500 ph=descend cookies=0 z=0.746 open=0.365 appl=0.300 tgt=0.30 hold=0 f=(69.42,24.47) dist=0.2419 bind=0.048 zf=0 st=0 cyc=0 pl=0
+[full] step=525 ph=descend cookies=0 z=0.752 open=0.349 appl=0.300 tgt=0.30 hold=0 f=(19.57,2.15) dist=0.2398 bind=0.048 zf=0 st=0 cyc=0 pl=0
+[full] step=550 ph=descend cookies=0 z=0.770 open=0.326 appl=0.300 tgt=0.30 hold=0 f=(0.30,0.19) dist=0.2210 bind=0.045 zf=0 st=0 cyc=0 pl=0
+[full] step=575 ph=descend cookies=0 z=0.768 open=0.318 appl=0.300 tgt=0.30 hold=0 f=(0.19,0.17) dist=0.2163 bind=0.046 zf=0 st=0 cyc=0 pl=0
+[full] step=600 ph=descend cookies=0 z=0.769 open=0.318 appl=0.300 tgt=0.30 hold=0 f=(3.12,0.00) dist=0.2180 bind=0.044 zf=0 st=0 cyc=0 pl=0
+[wrap] full done: {"variant": "full", "seed": 42, "steps": 600, "replans": 120, "success": false, "cookies_in_target": 0, "min_cookie_dist": 0.0694, "min_opening": 0.2854, "min_applied_opening": 0.3, "max_pad_force": 74.535, "final_phase": "descend", "hold_steps": 0, "released": false, "dropped": false, "zfloor_steps": 0, "place_steer_steps": 0, "cycles": 0, "placed": 0, "duration_s": 84.7}
+[wrap] all done: /workspace/fasterwam_a3_bridge/outputs/wrapped/run_20261026_094455

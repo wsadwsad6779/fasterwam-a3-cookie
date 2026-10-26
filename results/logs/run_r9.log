@@ -1,0 +1,38 @@
+nohup: ignoring input
+[wrap] device=cuda
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[wrap] ckpt=/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt
+[wrap] instruction='transfer 10 cookies into target box'
+[wrap] out=/workspace/fasterwam_a3_bridge/outputs/wrapped/run_20261026_114539
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+[full] bin=[0.1246, -0.0116, 0.7495] inner_half=[0.0502, 0.0166] wall=0.031 replan=5
+/workspace/FasterWAM/src/fasterwam/models/wan22/wan_video_dit.py:19: UserWarning: Using AOTriton backend for Efficient Attention forward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention.hip:1452.)
+  x = F.scaled_dot_product_attention(q, k, v, attn_mask=ctx_mask)
+[full] step=25 ph=preclose cookies=0 z=0.868 open=0.489 appl=0.500 tgt=0.50 hold=0 f=(0.00,0.00) dist=0.0998 bind=0.277 zf=0 st=0 cyc=0 pl=0
+[full] step=50 ph=descend cookies=0 z=0.822 open=0.450 appl=0.450 tgt=0.45 hold=0 f=(0.00,0.00) dist=0.0543 bind=0.277 zf=0 st=0 cyc=0 pl=0
+[full] step=75 ph=descend cookies=0 z=0.783 open=0.415 appl=0.450 tgt=0.45 hold=0 f=(0.00,45.08) dist=0.0167 bind=0.274 zf=0 st=0 cyc=0 pl=0
+[full] step=100 ph=close cookies=0 z=0.760 open=0.194 appl=0.070 tgt=0.07 hold=0 f=(2.60,0.00) dist=0.0117 bind=0.282 zf=13 st=0 cyc=0 pl=0
+[full] step=125 ph=hold cookies=0 z=0.784 open=0.117 appl=0.060 tgt=0.06 hold=24 f=(0.46,0.60) dist=0.0060 bind=0.282 zf=14 st=0 cyc=0 pl=0
+[full] step=150 ph=hold cookies=0 z=0.827 open=0.179 appl=0.060 tgt=0.06 hold=49 f=(1.88,2.31) dist=0.0081 bind=0.283 zf=14 st=0 cyc=0 pl=0
+[full] step=175 ph=hold cookies=0 z=0.838 open=0.160 appl=0.060 tgt=0.06 hold=74 f=(1.44,0.75) dist=0.0093 bind=0.161 zf=14 st=15 cyc=0 pl=0
+[full] step=200 ph=hold cookies=0 z=0.806 open=0.135 appl=0.060 tgt=0.06 hold=99 f=(1.04,0.25) dist=0.2647 bind=0.000 zf=14 st=40 cyc=0 pl=0
+[full] step=225 ph=done cookies=0 z=0.764 open=0.268 appl=0.240 tgt=0.24 hold=111 f=(7.53,3.15) dist=0.2546 bind=0.006 zf=14 st=51 cyc=0 pl=1
+[full] step=250 ph=done cookies=0 z=0.855 open=0.276 appl=0.240 tgt=0.24 hold=111 f=(6.40,3.00) dist=0.2557 bind=0.002 zf=14 st=51 cyc=0 pl=1
+[full] step=275 ph=done cookies=0 z=0.979 open=0.277 appl=0.240 tgt=0.24 hold=111 f=(5.78,3.19) dist=0.3206 bind=0.002 zf=14 st=51 cyc=0 pl=1
+[full] step=300 ph=done cookies=0 z=1.102 open=0.277 appl=0.240 tgt=0.24 hold=111 f=(5.43,3.10) dist=0.4188 bind=0.001 zf=14 st=51 cyc=0 pl=1
+[full] step=325 ph=done cookies=0 z=1.220 open=0.277 appl=0.240 tgt=0.24 hold=111 f=(5.13,2.78) dist=0.5187 bind=0.003 zf=14 st=51 cyc=0 pl=1
+[full] step=350 ph=done cookies=0 z=1.334 open=0.277 appl=0.240 tgt=0.24 hold=111 f=(4.99,2.73) dist=0.5861 bind=0.007 zf=14 st=51 cyc=0 pl=1
+[full] step=375 ph=done cookies=0 z=1.442 open=0.278 appl=0.240 tgt=0.24 hold=111 f=(4.72,2.76) dist=0.7205 bind=0.010 zf=14 st=51 cyc=0 pl=1
+[full] step=400 ph=done cookies=0 z=1.547 open=0.279 appl=0.240 tgt=0.24 hold=111 f=(3.72,2.96) dist=0.8131 bind=0.013 zf=14 st=51 cyc=0 pl=1
+[full] step=425 ph=done cookies=0 z=1.645 open=0.282 appl=0.240 tgt=0.24 hold=111 f=(2.61,3.49) dist=0.9023 bind=0.014 zf=14 st=51 cyc=0 pl=1
+[full] step=450 ph=done cookies=0 z=1.723 open=0.281 appl=0.240 tgt=0.24 hold=111 f=(2.77,3.78) dist=0.9721 bind=0.012 zf=14 st=51 cyc=0 pl=1
+[full] step=475 ph=done cookies=0 z=1.763 open=0.281 appl=0.240 tgt=0.24 hold=111 f=(2.77,3.73) dist=1.0087 bind=0.010 zf=14 st=51 cyc=0 pl=1
+[full] step=500 ph=done cookies=0 z=1.787 open=0.281 appl=0.240 tgt=0.24 hold=111 f=(2.78,3.70) dist=1.0347 bind=0.009 zf=14 st=51 cyc=0 pl=1
+[full] step=525 ph=done cookies=0 z=1.804 open=0.281 appl=0.240 tgt=0.24 hold=111 f=(2.79,3.67) dist=1.0565 bind=0.008 zf=14 st=51 cyc=0 pl=1
+[full] step=550 ph=done cookies=0 z=1.815 open=0.281 appl=0.240 tgt=0.24 hold=111 f=(2.79,3.64) dist=1.0744 bind=0.007 zf=14 st=51 cyc=0 pl=1
+[full] step=575 ph=done cookies=0 z=1.824 open=0.281 appl=0.240 tgt=0.24 hold=111 f=(2.80,3.62) dist=1.0887 bind=0.006 zf=14 st=51 cyc=0 pl=1
+[full] step=600 ph=done cookies=0 z=1.830 open=0.282 appl=0.240 tgt=0.24 hold=111 f=(2.86,3.68) dist=1.1003 bind=0.006 zf=14 st=51 cyc=0 pl=1
+[wrap] full done: {"variant": "full", "seed": 42, "steps": 600, "replans": 120, "success": false, "cookies_in_target": 0, "min_cookie_dist": 0.0049, "min_opening": 0.0803, "min_applied_opening": 0.06, "max_pad_force": 50.66, "final_phase": "done", "hold_steps": 111, "released": true, "dropped": false, "zfloor_steps": 14, "place_steer_steps": 51, "cycles": 0, "placed": 1, "duration_s": 141.8}
+[wrap] all done: /workspace/fasterwam_a3_bridge/outputs/wrapped/run_20261026_114539

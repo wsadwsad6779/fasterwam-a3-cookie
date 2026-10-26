@@ -1,0 +1,11 @@
+[
+  {
+    "episode": 0,
+    "seed": 11,
+    "steps": 400,
+    "replans": 40,
+    "success": false,
+    "cookies_in_target": 0,
+    "duration_s": 171.9
+  }
+]

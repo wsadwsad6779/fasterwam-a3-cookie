@@ -1,0 +1,23 @@
+[
+  {
+    "variant": "full",
+    "seed": 42,
+    "steps": 600,
+    "replans": 120,
+    "success": false,
+    "cookies_in_target": 5,
+    "min_cookie_dist": 0.0066,
+    "min_opening": 0.3013,
+    "min_applied_opening": 0.22,
+    "max_pad_force": 5.765,
+    "final_phase": "open",
+    "hold_steps": 0,
+    "released": false,
+    "dropped": false,
+    "zfloor_steps": 0,
+    "place_steer_steps": 146,
+    "cycles": 2,
+    "placed": 2,
+    "duration_s": 180.2
+  }
+]

@@ -1,0 +1,37 @@
+nohup: ignoring input
+st=1 ph=open x=0.102 y=0.249 z=0.919 o=1.000 tgt=1.000 f=0.00 bind=0.150 cyc=0 pl=0 ct=0
+st=21 ph=preclose x=0.106 y=0.249 z=0.868 o=0.692 tgt=0.700 f=0.00 bind=0.149 cyc=0 pl=0 ct=0
+st=41 ph=descend x=0.107 y=0.249 z=0.776 o=0.410 tgt=0.410 f=0.00 bind=0.150 cyc=0 pl=0 ct=0
+st=61 ph=close x=0.106 y=0.249 z=0.766 o=0.399 tgt=0.398 f=0.00 bind=0.149 cyc=0 pl=0 ct=0
+st=81 ph=close x=0.106 y=0.249 z=0.766 o=0.368 tgt=0.368 f=0.00 bind=0.149 cyc=0 pl=0 ct=0
+st=101 ph=close x=0.106 y=0.249 z=0.766 o=0.341 tgt=0.338 f=0.14 bind=0.149 cyc=0 pl=0 ct=0
+st=121 ph=close x=0.106 y=0.249 z=0.766 o=0.311 tgt=0.308 f=0.18 bind=0.149 cyc=0 pl=0 ct=0
+st=141 ph=hold x=0.106 y=0.249 z=0.766 o=0.308 tgt=0.272 f=1.73 bind=0.149 cyc=0 pl=0 ct=0
+st=161 ph=hold x=0.106 y=0.249 z=0.766 o=0.307 tgt=0.232 f=3.73 bind=0.149 cyc=0 pl=0 ct=0
+st=181 ph=hold x=0.095 y=0.204 z=0.821 o=0.307 tgt=0.226 f=4.12 bind=0.108 cyc=0 pl=0 ct=0
+st=201 ph=hold x=0.095 y=0.116 z=0.821 o=0.306 tgt=0.226 f=4.11 bind=0.020 cyc=0 pl=0 ct=0
+st=221 ph=release x=0.095 y=0.100 z=0.787 o=0.307 tgt=0.266 f=3.10 bind=0.000 cyc=0 pl=1 ct=0
+st=241 ph=done x=0.095 y=0.100 z=0.787 o=0.490 tgt=0.490 f=0.00 bind=0.000 cyc=0 pl=1 ct=5
+st=261 ph=done x=0.096 y=0.100 z=0.863 o=0.490 tgt=0.490 f=0.00 bind=0.001 cyc=0 pl=1 ct=5
+st=281 ph=done x=0.095 y=0.100 z=0.962 o=0.490 tgt=0.490 f=0.00 bind=0.000 cyc=0 pl=1 ct=5
+st=301 ph=done x=0.093 y=0.100 z=1.051 o=0.490 tgt=0.490 f=0.00 bind=0.001 cyc=0 pl=1 ct=5
+st=321 ph=done x=0.072 y=0.108 z=1.126 o=0.490 tgt=0.490 f=0.00 bind=0.023 cyc=0 pl=1 ct=5
+st=341 ph=done x=0.040 y=0.118 z=1.168 o=0.490 tgt=0.490 f=0.00 bind=0.056 cyc=0 pl=1 ct=5
+st=361 ph=done x=0.011 y=0.125 z=1.188 o=0.490 tgt=0.490 f=0.00 bind=0.086 cyc=0 pl=1 ct=5
+st=381 ph=done x=-0.011 y=0.130 z=1.199 o=0.490 tgt=0.490 f=0.00 bind=0.109 cyc=0 pl=1 ct=5
+st=401 ph=done x=-0.025 y=0.133 z=1.207 o=0.490 tgt=0.490 f=0.00 bind=0.124 cyc=0 pl=1 ct=5
+st=421 ph=done x=-0.035 y=0.136 z=1.213 o=0.490 tgt=0.490 f=0.00 bind=0.134 cyc=0 pl=1 ct=5
+st=441 ph=done x=-0.038 y=0.137 z=1.218 o=0.490 tgt=0.490 f=0.00 bind=0.138 cyc=0 pl=1 ct=5
+st=461 ph=done x=-0.039 y=0.138 z=1.224 o=0.490 tgt=0.490 f=0.00 bind=0.139 cyc=0 pl=1 ct=5
+st=481 ph=done x=-0.039 y=0.139 z=1.230 o=0.490 tgt=0.490 f=0.00 bind=0.140 cyc=0 pl=1 ct=5
+st=501 ph=done x=-0.040 y=0.139 z=1.235 o=0.490 tgt=0.490 f=0.00 bind=0.141 cyc=0 pl=1 ct=5
+st=521 ph=done x=-0.041 y=0.140 z=1.241 o=0.490 tgt=0.490 f=0.00 bind=0.141 cyc=0 pl=1 ct=5
+st=541 ph=done x=-0.041 y=0.141 z=1.247 o=0.490 tgt=0.490 f=0.00 bind=0.142 cyc=0 pl=1 ct=5
+st=561 ph=done x=-0.041 y=0.142 z=1.253 o=0.490 tgt=0.490 f=0.00 bind=0.143 cyc=0 pl=1 ct=5
+st=581 ph=done x=-0.042 y=0.143 z=1.260 o=0.490 tgt=0.490 f=0.00 bind=0.143 cyc=0 pl=1 ct=5
+st=601 ph=done x=-0.042 y=0.144 z=1.266 o=0.490 tgt=0.490 f=0.00 bind=0.144 cyc=0 pl=1 ct=5
+st=621 ph=done x=-0.042 y=0.147 z=1.274 o=0.490 tgt=0.490 f=0.00 bind=0.144 cyc=0 pl=1 ct=5
+st=641 ph=done x=-0.039 y=0.150 z=1.281 o=0.490 tgt=0.490 f=0.00 bind=0.143 cyc=0 pl=1 ct=5
+st=661 ph=done x=-0.035 y=0.153 z=1.290 o=0.490 tgt=0.490 f=0.00 bind=0.141 cyc=0 pl=1 ct=5
+st=681 ph=done x=-0.032 y=0.157 z=1.299 o=0.490 tgt=0.490 f=0.00 bind=0.139 cyc=0 pl=1 ct=5
+END n=700 maxF=4.13 minO=0.306 phase=done pl=1 cyc=0 ct=5 fl=(0.00,0.00)

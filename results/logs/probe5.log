@@ -1,0 +1,5 @@
+nohup: ignoring input
+ng 404 ncon 334
+pads [('L_finger_inner_pad_visual', [0.1062, 0.2721, 0.7808]), ('L_finger_outer_pad_visual', [0.1062, 0.2357, 0.7808]), ('R_finger_inner_pad_visual', [0.1, -0.2957, 0.9347]), ('R_finger_outer_pad_visual', [0.1, -0.2043, 0.9347])]
+cookies [('cookie_0', [0.0994, 0.2302, 0.7685]), ('cookie_1', [0.0994, 0.2399, 0.7685]), ('cookie_2', [0.0994, 0.2488, 0.7685])]
+ctitle [('table_top', 'target_bin_floor'), ('table_top', 'target_bin_floor'), ('table_top', 'target_bin_floor'), ('table_top', 'target_bin_floor'), ('table_top', 'target_bin_front_wall'), ('table_top', 'target_bin_front_wall'), ('table_top', 'target_bin_front_wall'), ('table_top', 'target_bin_front_wall'), ('table_top', 'target_bin_back_wall'), ('table_top', 'target_bin_back_wall'), ('table_top', 'target_bin_back_wall'), ('table_top', 'target_bin_back_wall')]

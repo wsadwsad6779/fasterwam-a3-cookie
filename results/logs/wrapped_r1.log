@@ -1,0 +1,44 @@
+nohup: ignoring input
+[wrap] device=cuda
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/workspace/FasterWAM/src/fasterwam/models/wan22/fastwam.py:1185: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  payload = torch.load(path, map_location="cpu")
+[wrap] ckpt=/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt
+[wrap] instruction='transfer 10 cookies into target box'
+[wrap] out=/workspace/fasterwam_a3_bridge/outputs/wrapped/run_20261026_085427
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+[force] bin=[0.1246, -0.0116, 0.7495] inner_half=[0.0502, 0.0166] wall=0.031 replan=5
+/workspace/FasterWAM/src/fasterwam/models/wan22/wan_video_dit.py:19: UserWarning: Using AOTriton backend for Efficient Attention forward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention.hip:1452.)
+  x = F.scaled_dot_product_attention(q, k, v, attn_mask=ctx_mask)
+[force] step=50 cookies=0 z=0.871 open=0.655 cmd=0.29 hold=0 dist=0.1031 air=0 zf=0 gate=0
+[force] step=100 cookies=0 z=0.874 open=0.604 cmd=0.19 hold=0 dist=0.1068 air=0 zf=0 gate=0
+[force] step=150 cookies=0 z=0.876 open=0.655 cmd=0.29 hold=0 dist=0.1089 air=0 zf=0 gate=0
+[force] step=200 cookies=0 z=0.884 open=0.707 cmd=0.40 hold=0 dist=0.1162 air=0 zf=0 gate=0
+[force] step=250 cookies=0 z=0.888 open=0.655 cmd=0.29 hold=0 dist=0.1210 air=0 zf=0 gate=0
+[force] step=300 cookies=0 z=0.878 open=0.707 cmd=0.40 hold=0 dist=0.1108 air=0 zf=0 gate=0
+[force] step=350 cookies=0 z=0.872 open=0.655 cmd=0.29 hold=0 dist=0.1044 air=0 zf=0 gate=0
+[force] step=400 cookies=0 z=0.886 open=0.707 cmd=0.40 hold=0 dist=0.1179 air=0 zf=0 gate=0
+[wrap] force done: {"variant": "force", "seed": 42, "steps": 400, "replans": 80, "success": false, "cookies_in_target": 0, "min_cookie_dist": 0.0988, "min_opening": 0.4829, "air_gate_steps": 0, "zfloor_steps": 0, "release_suppressed": 0, "place_steer_steps": 0, "duration_s": 53.2}
+[guard] bin=[0.1246, -0.0116, 0.7495] inner_half=[0.0502, 0.0166] wall=0.031 replan=5
+[guard] step=50 cookies=0 z=0.871 open=1.000 cmd=1.00 hold=0 dist=0.1036 air=39 zf=0 gate=0
+[guard] step=100 cookies=0 z=0.839 open=1.000 cmd=1.00 hold=0 dist=0.0722 air=88 zf=0 gate=0
+[guard] step=150 cookies=0 z=0.779 open=0.955 cmd=0.90 hold=1 dist=0.0186 air=94 zf=0 gate=0
+[guard] step=200 cookies=0 z=0.777 open=0.945 cmd=0.90 hold=1 dist=0.0115 air=94 zf=9 gate=0
+[guard] step=250 cookies=0 z=0.777 open=0.880 cmd=0.90 hold=1 dist=0.0107 air=94 zf=17 gate=0
+[guard] step=300 cookies=0 z=0.774 open=0.376 cmd=-0.22 hold=0 dist=0.0109 air=94 zf=27 gate=0
+[guard] step=350 cookies=0 z=0.784 open=0.629 cmd=0.35 hold=0 dist=0.0160 air=94 zf=27 gate=0
+[guard] step=400 cookies=0 z=0.786 open=0.228 cmd=-0.59 hold=1 dist=0.0171 air=94 zf=35 gate=0
+[wrap] guard done: {"variant": "guard", "seed": 42, "steps": 400, "replans": 80, "success": false, "cookies_in_target": 0, "min_cookie_dist": 0.0079, "min_opening": -0.003, "air_gate_steps": 94, "zfloor_steps": 35, "release_suppressed": 0, "place_steer_steps": 0, "duration_s": 78.8}
+[full] bin=[0.1246, -0.0116, 0.7495] inner_half=[0.0502, 0.0166] wall=0.031 replan=5
+[full] step=50 cookies=0 z=0.871 open=1.000 cmd=1.00 hold=0 dist=0.1036 air=39 zf=0 gate=0
+[full] step=100 cookies=0 z=0.839 open=1.000 cmd=1.00 hold=0 dist=0.0722 air=88 zf=0 gate=0
+[full] step=150 cookies=0 z=0.779 open=0.955 cmd=0.90 hold=1 dist=0.0186 air=94 zf=0 gate=0
+[full] step=200 cookies=0 z=0.777 open=0.945 cmd=0.90 hold=1 dist=0.0115 air=94 zf=9 gate=0
+[full] step=250 cookies=0 z=0.777 open=0.880 cmd=0.90 hold=1 dist=0.0107 air=94 zf=17 gate=0
+[full] step=300 cookies=0 z=0.775 open=0.790 cmd=0.90 hold=1 dist=0.0102 air=94 zf=31 gate=29
+[full] step=350 cookies=0 z=0.772 open=0.664 cmd=0.90 hold=1 dist=0.0181 air=94 zf=37 gate=47
+[full] step=400 cookies=0 z=0.783 open=0.479 cmd=0.90 hold=1 dist=0.0155 air=94 zf=48 gate=71
+[wrap] full done: {"variant": "full", "seed": 42, "steps": 400, "replans": 80, "success": false, "cookies_in_target": 0, "min_cookie_dist": 0.0091, "min_opening": 0.4788, "air_gate_steps": 94, "zfloor_steps": 48, "release_suppressed": 71, "place_steer_steps": 0, "duration_s": 74.5}
+[wrap] all done: /workspace/fasterwam_a3_bridge/outputs/wrapped/run_20261026_085427

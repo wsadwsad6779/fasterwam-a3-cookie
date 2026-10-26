@@ -1,0 +1,47 @@
+[
+  {
+    "variant": "force",
+    "seed": 42,
+    "steps": 400,
+    "replans": 80,
+    "success": false,
+    "cookies_in_target": 0,
+    "min_cookie_dist": 0.0988,
+    "min_opening": 0.4829,
+    "air_gate_steps": 0,
+    "zfloor_steps": 0,
+    "release_suppressed": 0,
+    "place_steer_steps": 0,
+    "duration_s": 53.2
+  },
+  {
+    "variant": "guard",
+    "seed": 42,
+    "steps": 400,
+    "replans": 80,
+    "success": false,
+    "cookies_in_target": 0,
+    "min_cookie_dist": 0.0079,
+    "min_opening": -0.003,
+    "air_gate_steps": 94,
+    "zfloor_steps": 35,
+    "release_suppressed": 0,
+    "place_steer_steps": 0,
+    "duration_s": 78.8
+  },
+  {
+    "variant": "full",
+    "seed": 42,
+    "steps": 400,
+    "replans": 80,
+    "success": false,
+    "cookies_in_target": 0,
+    "min_cookie_dist": 0.0091,
+    "min_opening": 0.4788,
+    "air_gate_steps": 94,
+    "zfloor_steps": 48,
+    "release_suppressed": 71,
+    "place_steer_steps": 0,
+    "duration_s": 74.5
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "variant": "baseline",
+    "seed": 42,
+    "steps": 400,
+    "replans": 80,
+    "success": false,
+    "cookies_in_target": 0,
+    "min_cookie_dist": 0.0794,
+    "min_opening": -0.0191,
+    "min_applied_opening": 0.0,
+    "max_pad_force": 0.0,
+    "final_phase": "raw",
+    "hold_steps": 0,
+    "released": false,
+    "dropped": false,
+    "zfloor_steps": 0,
+    "place_steer_steps": 0,
+    "cycles": 0,
+    "placed": 0,
+    "duration_s": 53.1
+  }
+]

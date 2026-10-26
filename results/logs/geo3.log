@@ -1,0 +1,29 @@
+nohup: ignoring input
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+JOINTS [('L_SHOULDER_P', 0), ('L_SHOULDER_R', 1), ('L_SHOULDER_Y', 2), ('L_ELBOW_P', 3), ('L_WRIST_R', 4), ('L_WRIST_P', 5), ('L_WRIST_Y', 6), ('L_finger_inner_joint', 7), ('L_finger_outer_joint', 8), ('R_SHOULDER_P', 9), ('R_SHOULDER_R', 10), ('R_SHOULDER_Y', 11), ('R_ELBOW_P', 12), ('R_WRIST_R', 13), ('R_WRIST_P', 14), ('R_WRIST_Y', 15), ('R_finger_inner_joint', 16), ('R_finger_outer_joint', 17), ('target_bin_free', 18), ('cookie_0_free', 25), ('cookie_1_free', 32), ('cookie_2_free', 39), ('cookie_3_free', 46), ('cookie_4_free', 53), ('cookie_5_free', 60), ('cookie_6_free', 67), ('cookie_7_free', 74), ('cookie_8_free', 81), ('cookie_9_free', 88), ('cookie_10_free', 95), ('cookie_11_free', 102), ('cookie_12_free', 109), ('cookie_13_free', 116), ('cookie_14_free', 123), ('cookie_15_free', 130), ('cookie_16_free', 137), ('cookie_17_free', 144), ('cookie_18_free', 151), ('cookie_19_free', 158), ('cookie_20_free', 165), ('cookie_21_free', 172), ('cookie_22_free', 179), ('cookie_23_free', 186), ('cookie_24_free', 193), ('cookie_25_free', 200), ('cookie_26_free', 207), ('cookie_27_free', 214), ('cookie_28_free', 221), ('cookie_29_free', 228), ('cookie_30_free', 235), ('cookie_31_free', 242), ('cookie_32_free', 249), ('cookie_33_free', 256), ('cookie_34_free', 263), ('cookie_35_free', 270), ('cookie_36_free', 277), ('cookie_37_free', 284), ('cookie_38_free', 291), ('cookie_39_free', 298), ('cookie_40_free', 305), ('cookie_41_free', 312), ('cookie_42_free', 319), ('cookie_43_free', 326), ('cookie_44_free', 333), ('cookie_45_free', 340), ('cookie_46_free', 347), ('cookie_47_free', 354), ('cookie_48_free', 361), ('cookie_49_free', 368), ('cookie_50_free', 375), ('cookie_51_free', 382), ('cookie_52_free', 389), ('cookie_53_free', 396), ('cookie_54_free', 403), ('cookie_55_free', 410), ('cookie_56_free', 417), ('cookie_57_free', 424), ('cookie_58_free', 431), ('cookie_59_free', 438), ('cookie_60_free', 445), ('cookie_61_free', 452), ('cookie_62_free', 459), ('cookie_63_free', 466), ('cookie_64_free', 473), ('cookie_65_free', 480), ('cookie_66_free', 487), ('cookie_67_free', 494), ('cookie_68_free', 501), ('cookie_69_free', 508), ('cookie_70_free', 515), ('cookie_71_free', 522), ('cookie_72_free', 529), ('cookie_73_free', 536), ('cookie_74_free', 543), ('cookie_75_free', 550), ('cookie_76_free', 557), ('cookie_77_free', 564), ('cookie_78_free', 571), ('cookie_79_free', 578)]
+E0 [ 0.1   0.25  0.92  0.5  -0.5   0.5  -0.5   0.1  -0.25  0.92  0.5   0.5
+  0.5   0.5 ]
+JC0 1.0
+JC60 0.393
+PR60 [ 0.106  0.254  0.764 -1.209  1.209 -1.209  0.016 -0.016]
+NC 80
+cookie_0 [0.0994 0.251  0.7685]
+cookie_1 [0.0994 0.2578 0.7685]
+cookie_2 [0.0994 0.2645 0.7685]
+cookie_3 [0.0994 0.2712 0.7685]
+cookie_4 [0.0994 0.278  0.7685]
+cookie_5 [0.0994 0.2847 0.7685]
+cookie_6 [0.0994 0.2914 0.7685]
+cookie_7 [0.0994 0.2982 0.7685]
+Exception ignored in: <function Renderer.__del__ at 0x78302c1a1a80>
+Traceback (most recent call last):
+  File "/opt/venv/lib/python3.12/site-packages/mujoco/renderer.py", line 337, in __del__
+  File "/opt/venv/lib/python3.12/site-packages/mujoco/renderer.py", line 323, in close
+  File "/opt/venv/lib/python3.12/site-packages/mujoco/egl/__init__.py", line 129, in free
+TypeError: 'NoneType' object is not callable
+Exception ignored in: <function GLContext.__del__ at 0x78302c1a1260>
+Traceback (most recent call last):
+  File "/opt/venv/lib/python3.12/site-packages/mujoco/egl/__init__.py", line 138, in __del__
+  File "/opt/venv/lib/python3.12/site-packages/mujoco/egl/__init__.py", line 129, in free
+TypeError: 'NoneType' object is not callable

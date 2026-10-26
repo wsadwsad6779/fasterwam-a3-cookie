@@ -1,0 +1,15 @@
+[
+  {
+    "variant": "oracle_grasp",
+    "seed": 42,
+    "steps": 400,
+    "replans": 40,
+    "success": false,
+    "cookies_in_target": 0,
+    "cookies_in_source": 71,
+    "grasp_triggers": 3,
+    "max_lifted_gt_2cm": 2,
+    "min_cookie_dist": 0.0027,
+    "duration_s": 187.8
+  }
+]

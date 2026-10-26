@@ -1,0 +1,22 @@
+nohup: ignoring input
+[guard] device=cuda
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/workspace/FasterWAM/src/fasterwam/models/wan22/fastwam.py:1185: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  payload = torch.load(path, map_location="cpu")
+[guard] model + processor ready
+[guard] out=/workspace/fasterwam_a3_bridge/outputs/guarded/run_20261026_083608
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+/workspace/FasterWAM/src/fasterwam/models/wan22/wan_video_dit.py:19: UserWarning: Using AOTriton backend for Efficient Attention forward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention.hip:1452.)
+  x = F.scaled_dot_product_attention(q, k, v, attn_mask=ctx_mask)
+[baseline] step=50 cookies=0 dist=0.0802 open=0.697 guard=0
+[baseline] step=100 cookies=0 dist=0.0110 open=0.974 guard=0
+[baseline] step=150 cookies=0 dist=0.0131 open=0.310 guard=0
+[baseline] step=200 cookies=0 dist=0.0132 open=0.325 guard=0
+[baseline] step=250 cookies=0 dist=0.0130 open=0.328 guard=0
+[baseline] step=300 cookies=0 dist=0.0130 open=0.328 guard=0
+[baseline] step=350 cookies=0 dist=0.0878 open=1.000 guard=0
+[baseline] step=400 cookies=0 dist=0.1228 open=1.000 guard=0
+[guard] baseline done: {"variant": "baseline", "seed": 42, "steps": 400, "replans": 40, "success": false, "cookies_in_target": 0, "guard_overrides": 0, "min_cookie_dist": 0.0099, "duration_s": 65.4}
+[guard] all done: /workspace/fasterwam_a3_bridge/outputs/guarded/run_20261026_083608

@@ -1,0 +1,12 @@
+nohup: ignoring input
+cookie geoms [('cookie_0_geom', [0.00317, 0.0125, 0.025]), ('cookie_0_visual', [0.00317, 0.0125, 0.025])]
+pose [0.1066 0.2639 0.7641] open 0.304 fi 0.11 fo 0.32
+pad L_finger_inner_geom [0.106, 0.28, 0.779]
+pad L_finger_outer_geom [0.1059, 0.2478, 0.7786]
+ncon 294
+FC L_finger_inner_geom cookie_4_geom -0.00036
+FC L_finger_inner_geom cookie_4_geom -0.00036
+FC L_finger_outer_geom source_bin_right_wall -0.00025
+FC L_finger_outer_geom source_bin_right_wall -0.00036
+FC L_finger_outer_geom cookie_0_geom -0.00033
+DONE

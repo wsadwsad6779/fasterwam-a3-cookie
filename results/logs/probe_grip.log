@@ -1,0 +1,14 @@
+nohup: ignoring input
+[probe] device=cuda
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[probe] model ready
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+/workspace/FasterWAM/src/fasterwam/models/wan22/wan_video_dit.py:19: UserWarning: Using AOTriton backend for Efficient Attention forward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention.hip:1452.)
+  x = F.scaled_dot_product_attention(q, k, v, attn_mask=ctx_mask)
+[probe] g=1.00 t30 z0.969 d0.201 t60 z1.120 d0.352 t90 z1.215 d0.450 t120 z1.314 d0.553 t150 z1.465 d0.716
+[probe] g=0.80 t30 z1.006 d0.237 t60 z1.119 d0.353 t90 z1.245 d0.486 t120 z1.363 d0.609 t150 z1.548 d0.810
+[probe] g=0.60 t30 z0.982 d0.214 t60 z0.993 d0.261 t90 z1.111 d0.379 t120 z1.291 d0.568 t150 z1.487 d0.776
+[probe] g=0.45 t30 z1.013 d0.245 t60 z1.199 d0.431 t90 z1.309 d0.563 t120 z1.488 d0.762 t150 z1.598 d0.884
+[probe] g=0.30 t30 z1.013 d0.245 t60 z1.225 d0.473 t90 z1.403 d0.674 t120 z1.564 d0.846 t150 z1.653 d0.938

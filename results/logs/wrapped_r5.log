@@ -1,0 +1,35 @@
+nohup: ignoring input
+[wrap] device=cuda
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[wrap] ckpt=/workspace/FasterWAM/checkpoints/fasterwam_release/libero/step_021700.pt
+[wrap] instruction='Pick up the cookie with the left robot arm and transfer it to the right robot arm.'
+[wrap] out=/workspace/fasterwam_a3_bridge/outputs/wrapped/run_20261026_100224
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+[force] bin=[0.1246, -0.0116, 0.7495] inner_half=[0.0502, 0.0166] wall=0.031 replan=5
+/workspace/FasterWAM/src/fasterwam/models/wan22/wan_video_dit.py:19: UserWarning: Using AOTriton backend for Efficient Attention forward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention.hip:1452.)
+  x = F.scaled_dot_product_attention(q, k, v, attn_mask=ctx_mask)
+[force] step=25 ph=open cookies=0 z=0.957 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.1889 bind=0.287 zf=0 st=0 cyc=0 pl=0
+[force] step=50 ph=open cookies=0 z=1.060 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.2918 bind=0.318 zf=0 st=0 cyc=0 pl=0
+[force] step=75 ph=open cookies=0 z=1.174 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.4074 bind=0.339 zf=0 st=0 cyc=0 pl=0
+[force] step=100 ph=open cookies=0 z=1.238 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.4741 bind=0.396 zf=0 st=0 cyc=0 pl=0
+[force] step=125 ph=open cookies=0 z=1.335 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.5765 bind=0.461 zf=0 st=0 cyc=0 pl=0
+[force] step=150 ph=open cookies=0 z=1.465 open=0.999 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.7157 bind=0.526 zf=0 st=0 cyc=0 pl=0
+[force] step=175 ph=open cookies=0 z=1.597 open=0.999 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.8628 bind=0.609 zf=0 st=0 cyc=0 pl=0
+[force] step=200 ph=open cookies=0 z=1.654 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.9330 bind=0.657 zf=0 st=0 cyc=0 pl=0
+[force] step=225 ph=open cookies=0 z=1.679 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.9690 bind=0.676 zf=0 st=0 cyc=0 pl=0
+[force] step=250 ph=open cookies=0 z=1.695 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.9931 bind=0.689 zf=0 st=0 cyc=0 pl=0
+[force] step=275 ph=open cookies=0 z=1.704 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=1.0077 bind=0.697 zf=0 st=0 cyc=0 pl=0
+[force] step=300 ph=open cookies=0 z=1.713 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=1.0208 bind=0.702 zf=0 st=0 cyc=0 pl=0
+[force] step=325 ph=open cookies=0 z=1.720 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=1.0297 bind=0.701 zf=0 st=0 cyc=0 pl=0
+[force] step=350 ph=open cookies=0 z=1.728 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=1.0382 bind=0.697 zf=0 st=0 cyc=0 pl=0
+[force] step=375 ph=open cookies=0 z=1.734 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=1.0433 bind=0.692 zf=0 st=0 cyc=0 pl=0
+[force] step=400 ph=open cookies=0 z=1.739 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=1.0479 bind=0.686 zf=0 st=0 cyc=0 pl=0
+[force] step=425 ph=open cookies=0 z=1.710 open=0.999 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.9975 bind=0.655 zf=0 st=0 cyc=0 pl=0
+[force] step=450 ph=open cookies=0 z=1.672 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.9459 bind=0.635 zf=0 st=0 cyc=0 pl=0
+[force] step=475 ph=open cookies=0 z=1.657 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.9297 bind=0.637 zf=0 st=0 cyc=0 pl=0
+[force] step=500 ph=open cookies=0 z=1.647 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.9231 bind=0.648 zf=0 st=0 cyc=0 pl=0
+[force] step=525 ph=open cookies=0 z=1.635 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.9156 bind=0.665 zf=0 st=0 cyc=0 pl=0
+[force] step=550 ph=open cookies=0 z=1.631 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.9164 bind=0.676 zf=0 st=0 cyc=0 pl=0
+[force] step=575 ph=open cookies=0 z=1.627 open=1.000 appl=1.000 tgt=1.00 hold=0 f=(0.00,0.00) dist=0.9149 bind=0.685 zf=0 st=0 cyc=0 pl=0

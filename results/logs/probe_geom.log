@@ -1,0 +1,22 @@
+nohup: ignoring input
+[geom] reset tcp=[0.1, 0.25, 0.92] cookie0=[0.0994, 0.251, 0.7685]
+[geom] zt=0.9000 reached z=0.9015 in 10 steps dmin=0.1333 open=1.000
+[geom] zt=0.9000 close: peakF=0.00 open_end=0.260 row_moved=0.0000
+[geom] reset tcp=[0.1, 0.25, 0.92] cookie0=[0.0994, 0.251, 0.7685]
+[geom] zt=0.8600 reached z=0.8606 in 31 steps dmin=0.0954 open=1.000
+[geom] zt=0.8600 close: peakF=0.00 open_end=0.260 row_moved=0.0000
+[geom] reset tcp=[0.1, 0.25, 0.92] cookie0=[0.0994, 0.251, 0.7685]
+[geom] zt=0.8200 reached z=0.8208 in 51 steps dmin=0.0580 open=1.000
+[geom] zt=0.8200 close: peakF=0.00 open_end=0.260 row_moved=0.0000
+[geom] reset tcp=[0.1, 0.25, 0.92] cookie0=[0.0994, 0.251, 0.7685]
+[geom] zt=0.8000 reached z=0.8011 in 61 steps dmin=0.0412 open=1.000
+[geom] zt=0.8000 close: peakF=0.00 open_end=0.260 row_moved=0.0000
+[geom] reset tcp=[0.1, 0.25, 0.92] cookie0=[0.0994, 0.251, 0.7685]
+[geom] zt=0.7850 reached z=0.7853 in 69 steps dmin=0.0301 open=0.994
+[geom] zt=0.7850 close: peakF=2.08 open_end=0.303 row_moved=0.0136
+[geom] reset tcp=[0.1, 0.25, 0.92] cookie0=[0.0994, 0.251, 0.7685]
+[geom] zt=0.7700 reached z=0.7704 in 85 steps dmin=0.0251 open=0.940
+[geom] zt=0.7700 close: peakF=13.90 open_end=0.627 row_moved=0.0269
+[geom] reset tcp=[0.1, 0.25, 0.92] cookie0=[0.0994, 0.251, 0.7685]
+[geom] zt=0.7550 reached z=0.7563 in 99 steps dmin=0.0275 open=0.949
+[geom] zt=0.7550 close: peakF=37.36 open_end=0.950 row_moved=0.0068

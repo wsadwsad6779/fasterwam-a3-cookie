@@ -1,0 +1,23 @@
+nohup: ignoring input
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+eef0 [0.1  0.25 0.92]
+L_finger_inner_geom [0.1    0.2957 0.9347]
+L_finger_inner_pad_visual [0.1    0.2957 0.9347]
+L_finger_outer_geom [0.1    0.2043 0.9347]
+L_finger_outer_pad_visual [0.1    0.2043 0.9347]
+R_finger_inner_geom [ 0.1    -0.2744  0.9347]
+R_finger_inner_pad_visual [ 0.1    -0.2744  0.9347]
+R_finger_outer_geom [ 0.1    -0.2256  0.9347]
+R_finger_outer_pad_visual [ 0.1    -0.2256  0.9347]
+Exception ignored in: <function Renderer.__del__ at 0x702fbf495a80>
+Traceback (most recent call last):
+  File "/opt/venv/lib/python3.12/site-packages/mujoco/renderer.py", line 337, in __del__
+  File "/opt/venv/lib/python3.12/site-packages/mujoco/renderer.py", line 323, in close
+  File "/opt/venv/lib/python3.12/site-packages/mujoco/egl/__init__.py", line 129, in free
+TypeError: 'NoneType' object is not callable
+Exception ignored in: <function GLContext.__del__ at 0x702fbf495260>
+Traceback (most recent call last):
+  File "/opt/venv/lib/python3.12/site-packages/mujoco/egl/__init__.py", line 138, in __del__
+  File "/opt/venv/lib/python3.12/site-packages/mujoco/egl/__init__.py", line 129, in free
+TypeError: 'NoneType' object is not callable

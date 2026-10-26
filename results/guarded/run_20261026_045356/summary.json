@@ -1,0 +1,24 @@
+[
+  {
+    "variant": "baseline",
+    "seed": 42,
+    "steps": 400,
+    "replans": 40,
+    "success": false,
+    "cookies_in_target": 0,
+    "guard_overrides": 0,
+    "min_cookie_dist": 0.0028,
+    "duration_s": 202.5
+  },
+  {
+    "variant": "soft",
+    "seed": 42,
+    "steps": 400,
+    "replans": 40,
+    "success": false,
+    "cookies_in_target": 0,
+    "guard_overrides": 0,
+    "min_cookie_dist": 0.046,
+    "duration_s": 49.9
+  }
+]

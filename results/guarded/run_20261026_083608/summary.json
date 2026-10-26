@@ -1,0 +1,13 @@
+[
+  {
+    "variant": "baseline",
+    "seed": 42,
+    "steps": 400,
+    "replans": 40,
+    "success": false,
+    "cookies_in_target": 0,
+    "guard_overrides": 0,
+    "min_cookie_dist": 0.0099,
+    "duration_s": 65.4
+  }
+]
