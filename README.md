@@ -14,7 +14,7 @@
 | A3 场景 | ✅ | `A3CookieTransferEnv`，80 块源饼干 / 目标盘 required 10 |
 | 专家数据 | ✅ | HF dataset `Eter0109/a3-front-close-left-100`（42681 帧，20 Hz），已转成 `frames.dat` + `arrays.npz` |
 | 微调 | ✅ 完成 | LoRA（392 层 q/k/v/o，30.7 M 参数），batch 6、2000 步、lr 2e-4，75 min，峰值显存 28.5/48 GB |
-| 合并权重 | ✅ | `step_002000_merged.pt` 11,117,977,659 B（r26/r27 使用的就是这个） |
+| 合并权重 | ✅ | `step_002000_merged.pt` 11,117,977,659 B（r26/r27 使用的就是这个）；已上传 HF `wsadwsad6779/fasterwam-a3-cookie-lora` |
 | 裸模型评测 | ❌ 0/10 | 合并权重直接跑 400 步：`cookies_in_target=0`，65.4 s |
 | 启发式包装器 r26 | ⚠️ 4/10 | 600 步，175.4 s；第二批插入时倾斜 18–22°，把第一批顶出盒沿 |
 | 启发式包装器 **r27** | ⚠️ **5/10** | 600 步，326.8 s；第一批 5 块全进；第二批已释放但计数没增加，仍未 success |
@@ -95,7 +95,7 @@ for f in special_tokens_map.json tokenizer_config.json spiece.model tokenizer.js
 done
 ```
 
-完整历史复现记录（含每一步的验收输出、hash）在本地 `C:\Users\ASUS\Documents\Qoder\2026-10-24\c3f102f0\README_REBUILD_FASTERWAM_A3.md`。
+完整历史复现记录（含每一步的验收输出、hash）见仓库 `docs/README_REBUILD_FASTERWAM_A3.md`（https://github.com/wsadwsad6779/fasterwam-a3-cookie/blob/a3-cookie-r27/docs/README_REBUILD_FASTERWAM_A3.md）；本机同目录另有一份，不进交接压缩包。
 
 ### 4.4 数据预处理（云上约 10 分钟）
 ```bash
@@ -120,7 +120,16 @@ python3 scripts/export_lora_merged.py data=a3_2cam task=a3_fasterwam \
   lora_ckpt=/workspace/a3_train_runs/a3_lora_r1/checkpoints/step_002000.pt \
   output=/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt
 ```
-> 本次合并完成后训练中间 checkpoint 已删除；如果重训，源文件在 `checkpoints/step_002000.pt`，合并输出就是包外的大文件。
+> 训练器 checkpoint 仍在云端 `/workspace/a3_train_runs/a3_lora_r1/checkpoints/weights/step_002000.pt`（11,179,613,340 B，可续训或重新合并），未进包；`checkpoints/state/` 是优化器状态（约 12 GB，仅精确续训需要）。
+>
+> **不想重训**：合并权重已上传到 HF，直接拉取即可（约 11.1 GB）：
+>
+> ```bash
+> hf download wsadwsad6779/fasterwam-a3-cookie-lora step_002000_merged.pt \
+>   --local-dir /workspace/a3_train_runs/a3_lora_r1
+> ```
+>
+> 直链：`https://huggingface.co/wsadwsad6779/fasterwam-a3-cookie-lora/resolve/main/step_002000_merged.pt`
 
 ### 4.7 裸模型评测（0/10，用于对照）
 ```bash
@@ -150,15 +159,19 @@ python3 run_wrapped.py --seed 42 --max-steps 600 --variants full --replan 10
 
 ```text
 a3_handoff_20261027/
-├── docs/                      README_HANDOFF.md（本文件）
+├── docs/                      README_HANDOFF.md（本文件）+ 三份历史 handoff 文档
+│                              （README_FasterWAM_2026-10-23 / _A3_NATIVE_PATHS_2026-10-21 /
+│                              _Project_Handoff）
 ├── bridge/                    a3_wrap.py（r27 当前版）、patch_col0.py、patch_place2.py、
 │                              run_wrapped.py、infer_a3_worker.py、适配器、全部 r* 诊断脚本、
 │                              a3_wrap.py.bak3–bak10 历史备份
 ├── finetune/                  a3_video_dataset.py、lora.py、export_lora_merged.py、
 │                              prepare/make_stats/verify、configs、a3_lora_r1/config.yaml、
-│                              训练/合并/评测日志
-├── data/                      arrays.npz、dataset_stats.json、summary.json、
-│                              text_embeds_cache、数据集元信息
+│                              训练/合并/评测日志（含 smoke/env/disk/rollout）、
+│                              upstream_backups/（官方 fasterwam.yaml / pyproject / uv.lock 原件）
+├── data/                      arrays.npz、dataset_stats.json、summary.json、info.json、
+│                              a3_left_pickup_actions.npz、text_embeds_cache、数据集元信息、
+│                              _smoke_v2.log / _smoke_eval.log
 ├── results/
 │   ├── wrapped/               run_20261026_164924（r26）、run_20261026_173807（r27）等全部 30 次
 │   ├── guarded/               baseline/soft 对照
@@ -175,7 +188,9 @@ a3_handoff_20261027/
 
 | 路径 | 大小 (B) | 是否必须 |
 |---|---|---|
-| `/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt` | 11,117,977,659 | **建议下载**（本次微调唯一成品） |
+| `/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt` | 11,117,977,659 | **已上传 HF**（`wsadwsad6779/fasterwam-a3-cookie-lora`），不必再下云端 |
+| `/workspace/a3_train_runs/a3_lora_r1/checkpoints/weights/step_002000.pt` | 11,179,613,340 | 可不要（仅续训/重新合并时需要） |
+| `/workspace/a3_train_runs/a3_lora_r1/checkpoints/state/` | ~12 GB | 可不要（仅精确续训需要） |
 | `/workspace/a3_data/a3_fw/frames.dat` | 12,849,371,136 | 可重建（parquet → `prepare_a3_arrays.py`） |
 | `/workspace/FasterWAM/checkpoints/fasterwam_release/libero/step_021700.pt` | 11,117,679,929 | 可下载（HF，sha256 `01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d`） |
 | `/workspace/a3_data/a3-front-close-left-100/` | 4.1 GB 目录 | 可下载（HF dataset） |
@@ -189,6 +204,7 @@ a3_handoff_20261027/
 | FasterWAM 源码 | https://github.com/hustvl/FasterWAM @ `83667817df0d4f823f39d90700e61ea2f432ac45` |
 | A3 仿真源码 | https://github.com/Eter0109/a3_dual_arm_sim @ `ff552c4fe54fe344aeaff4c65270ee0fd2af4153` |
 | 官方基座权重 | HF `hustvl/FasterWAM` → `libero/step_021700.pt` + `libero/dataset_stats.json` |
+| **本工作合并权重** | HF **model** `wsadwsad6779/fasterwam-a3-cookie-lora` → `step_002000_merged.pt`（11.1 GB，r26/r27 实际使用） |
 | 专家数据集 | HF **dataset** `Eter0109/a3-front-close-left-100` @ `8fdd8a7caf8275eba8be8a83b53a99176a084062`（下载必须带 `--repo-type dataset`） |
 | Wan2.2 VAE/T5 | HF `Wan-AI/Wan2.2-TI2V-5B`（`Wan2.2_VAE.pth`、`models_t5_umt5-xxl-enc-bf16.pth`） |
 | Wan2.1 tokenizer | HF `Wan-AI/Wan2.1-T2V-1.3B` → `google/umt5-xxl/*` |
@@ -207,16 +223,8 @@ a3_handoff_20261027/
 
 ## 9. GitHub 发布建议
 
-- 仓库：`fasterwam-a3-cookie`（新分支，例如 `a3-cookie-r27`）。
+- 仓库已建：https://github.com/wsadwsad6779/fasterwam-a3-cookie ，分支 `a3-cookie-r27`（默认分支）。
 - **只上传原创内容**：`bridge/`、`finetune/`、`tools/`、`docs/`、`results/` 里的文本摘要；不要上传 `outputs/`、`.venv/`、`__pycache__/`、大模型和大数据。
 - 上游代码、HF 权重、数据集全部用第 7 节的地址引用，不重复上传。
 - 本包中的 MP4/NPZ 建议留在交接压缩包里，不放进 Git。
-
----
-
-## 10. 本仓库与交接压缩包的区别
-
-- **本仓库只放文本/源码**：`bridge/`、`finetune/`、`tools/`、`results/`（仅 `*.json` / `*.log`）、`docs/`、`data/dataset_stats.json` 与数据集元信息。
-- **视频（103 个 MP4）、逐帧数组（51 个 NPZ）、`arrays.npz`、`text_embeds_cache/*.pt`** 只在交接压缩包 `a3_handoff_20261027.zip`（28,576,429 B，sha256 `14326ce89a40c107f9bfa6bb4c330352af80b1412f28639686cb0b4937fa8d8a`）里。
-- **`step_002000_merged.pt`（11.1 GB）** 不进 Git、也不进压缩包；关闭实例前从 JupyterLab 下载，或按 §4 重训 75 分钟重新合并。
-- 上游代码（FasterWAM / a3_dual_arm_sim）、HF 权重与数据集用 §7 的地址引用，不在本仓库重复存放。
+- 11.1 GB 合并权重放 HF（本文件 §4.6），GitHub 单文件上限 100 MB，不放。

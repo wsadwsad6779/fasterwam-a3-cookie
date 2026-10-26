@@ -1,0 +1,143 @@
+nohup: ignoring input
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+10/26 [06:14:56] INFO     | >> Loading             loader.py:152
+                          Wan2.2-TI2V-5B                        
+                          components...                         
+                 INFO     | >> Skipping pretrained loader.py:171
+                          video DiT load                        
+                          (`skip_dit_load_from_pre              
+                          train=True`);                         
+                          initializing video                    
+                          expert randomly and                   
+                          expecting checkpoint                  
+                          override.                             
+10/26 [06:15:19] INFO     | >> Using        wan_video_dit.py:399
+                          gradient                              
+                          checkpointing for                     
+                          DiT blocks. This                      
+                          will save memory                      
+                          but use more                          
+                          computation.                          
+/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1357: UserWarning: expandable_segments not supported on this platform (Triggered internally at /app/pytorch/c10/hip/HIPAllocatorConfig.h:36.)
+  return t.to(
+10/26 [06:15:28] INFO     | >> Skipping pretrained loader.py:206
+                          text encoder/tokenizer                
+                          load                                  
+                          (`load_text_encoder=Fals              
+                          e`); training must                    
+                          provide cached                        
+                          `context/context_mask`.               
+10/26 [06:15:37] INFO     | >> Finished loading    loader.py:211
+                          Wan2.2-TI2V-5B                        
+                          components in 40.24                   
+                          seconds.                              
+                 INFO     | >> Skipping sparse_action_dit.py:217
+                          SparseActionD                         
+                          iT pretrained                         
+                          load                                  
+                          (`skip_dit_lo                         
+                          ad_from_pretr                         
+                          ain=True`);                           
+                          initializing                          
+                          action expert                         
+                          randomly and                          
+                          expecting                             
+                          checkpoint                            
+                          override.                             
+10/26 [06:15:40] INFO     | >> Using gradient   sparse_mot.py:38
+                          checkpointing for                     
+                          SparseMoT attention.                  
+                          This will save memory                 
+                          but use more                          
+                          computation.                          
+                 INFO     | >> Initialized     sparse_mot.py:106
+                          SparseMoT with                        
+                          layers=30,                            
+                          condition_layers=[0,                  
+                          4, 8, 12, 16, 20,                     
+                          24, 28],                              
+                          condition_heads=24,                   
+                          noncondition_heads=8                  
+                          ,                                     
+                          video_kv_fusion=inte                  
+                          rval_weighted_sum                     
+                 INFO     | >>   Expert        sparse_mot.py:117
+                          'video':                              
+                          num_params=5.00 B                     
+                 INFO     | >>   Expert        sparse_mot.py:117
+                          'action':                             
+                          num_params=0.56 B                     
+                 INFO     | >> MoT Action->Video   fastwam.py:61
+                          attention enabled at                  
+                          layers [0, 4, 8, 12, 16,              
+                          20, 24, 28] (disabled                 
+                          elsewhere).                           
+10/26 [06:15:41] INFO     | >> Accelerate          trainer.py:65
+                          training:                             
+                          distributed_type=Distrib              
+                          utedType.NO                           
+                          zero_stage=none                       
+                          world_size=1                          
+                          process_index=0                       
+                          cfg_mixed_precision=bf16              
+                          accelerator_mixed_precis              
+                          ion=bf16 grad_accum=1                 
+                          grad_clip=1.0000                      
+                 INFO     | >> using               trainer.py:78
+                          accelerator.device=cuda               
+                 INFO     | >> Loading weight     trainer.py:278
+                          checkpoint only:                      
+                          /workspace/FasterWAM/ch               
+                          eckpoints/fasterwam_rel               
+                          ease/libero/step_021700               
+                          .pt                                   
+10/26 [06:15:49] WARNING  | >> Loaded .pt weights trainer.py:280
+                          only;                                 
+                          optimizer/scheduler/ste               
+                          p were not restored                   
+                          under ZeRO2.                          
+                 INFO     | >> Train/val dataset  trainer.py:131
+                          size: 39481/39481                     
+                 INFO     | >> Setting DiT to     trainer.py:284
+                          train mode and freezing               
+                          other model components.               
+                 INFO     | >> Starting training  trainer.py:656
+                          with max_steps=3.                     
+/workspace/FasterWAM/src/fasterwam/models/wan22/wan_video_dit.py:19: UserWarning: Using AOTriton backend for Efficient Attention forward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention.hip:1452.)
+  x = F.scaled_dot_product_attention(q, k, v, attn_mask=ctx_mask)
+/opt/venv/lib/python3.12/site-packages/torch/autograd/graph.py:841: UserWarning: Using AOTriton backend for Efficient Attention backward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention_backward.hip:551.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+Error executing job with overrides: ['task=a3_fasterwam', 'batch_size=1', 'num_workers=0', 'max_steps=3', 'log_every=1', 'save_every=0', 'eval_every=0', 'model.mot_checkpoint_mixed_attn=true', 'resume=/workspace/FasterWAM/checkpoints/fasterwam_release/libero/step_021700.pt', 'output_dir=/workspace/a3_train_runs/smoke2']
+Traceback (most recent call last):
+  File "/workspace/FasterWAM/scripts/train.py", line 12, in main
+    run_training(cfg)
+  File "/workspace/FasterWAM/src/fasterwam/runtime.py", line 390, in run_training
+    trainer.train()
+  File "/workspace/FasterWAM/src/fasterwam/trainer.py", line 681, in train
+    self.optimizer.step()
+  File "/opt/venv/lib/python3.12/site-packages/accelerate/optimizer.py", line 179, in step
+    self.optimizer.step(closure)
+  File "/opt/venv/lib/python3.12/site-packages/torch/optim/lr_scheduler.py", line 133, in wrapper
+    return func.__get__(opt, opt.__class__)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/optim/optimizer.py", line 517, in wrapper
+    out = func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/optim/optimizer.py", line 82, in _use_grad
+    ret = func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/optim/adam.py", line 247, in step
+    adam(
+  File "/opt/venv/lib/python3.12/site-packages/torch/optim/optimizer.py", line 150, in maybe_fallback
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/optim/adam.py", line 953, in adam
+    func(
+  File "/opt/venv/lib/python3.12/site-packages/torch/optim/adam.py", line 777, in _multi_tensor_adam
+    exp_avg_sq_sqrt = torch._foreach_sqrt(device_exp_avg_sqs)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: HIP out of memory. Tried to allocate 18.00 MiB. GPU 0 has a total capacity of 47.98 GiB of which 0 bytes is free. Of the allocated memory 47.18 GiB is allocated by PyTorch, and 96.48 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+[W1026 06:15:52.600636772 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())

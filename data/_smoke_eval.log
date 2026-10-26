@@ -1,0 +1,38 @@
+nohup: ignoring input
+'torchcodec' is not available in your platform, falling back to 'pyav' as a default decoder
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+Skipping seed 9100 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 6.18 mm, angle error 6.39 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9101 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 6.70 mm, angle error 7.13 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9102 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 9.61 mm, angle error 9.50 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9103 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 5.16 mm, angle error 6.10 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9104 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 7.23 mm, angle error 7.82 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9105 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 7.76 mm, angle error 8.39 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9106 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 8.83 mm, angle error 8.45 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9107 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 5.47 mm, angle error 6.02 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9108 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 4.95 mm, angle error 6.03 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9109 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 5.77 mm, angle error 6.09 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9110 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 7.02 mm, angle error 7.38 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9111 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 6.35 mm, angle error 6.79 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9112 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 7.17 mm, angle error 7.82 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9113 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 6.77 mm, angle error 7.02 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9114 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 5.09 mm, angle error 6.34 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9115 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 7.85 mm, angle error 7.64 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9116 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 6.37 mm, angle error 6.18 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9117 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 4.56 mm, angle error 4.84 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9118 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 6.05 mm, angle error 6.93 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9119 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 4.86 mm, angle error 6.10 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9120 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 7.19 mm, angle error 7.35 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9121 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 6.55 mm, angle error 6.63 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9122 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 7.40 mm, angle error 7.57 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9123 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 6.11 mm, angle error 6.22 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Skipping seed 9124 due to setup/unreachable error: target column 1 unreachable with vertical grasp: position error 5.49 mm, angle error 6.31 deg (tolerances 2.0 mm, 2.0 deg); reposition the tabletop target box
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/collect_cookie_benchmark_cli.py", line 222, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/collect_cookie_benchmark_cli.py", line 206, in main
+    raise RuntimeError("25 consecutive failed attempts; inspect before resuming")
+RuntimeError: 25 consecutive failed attempts; inspect before resuming
