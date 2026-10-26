@@ -120,16 +120,23 @@ python3 scripts/export_lora_merged.py data=a3_2cam task=a3_fasterwam \
   lora_ckpt=/workspace/a3_train_runs/a3_lora_r1/checkpoints/step_002000.pt \
   output=/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt
 ```
-> 训练器 checkpoint 仍在云端 `/workspace/a3_train_runs/a3_lora_r1/checkpoints/weights/step_002000.pt`（11,179,613,340 B，可续训或重新合并），未进包；`checkpoints/state/` 是优化器状态（约 12 GB，仅精确续训需要）。
+> `lora_ckpt` 的官方路径是 `checkpoints/step_002000.pt`，本机实际落在
+> `checkpoints/weights/step_002000.pt`（11,179,613,340 B，基座 + 未折叠 LoRA），按实际路径传参即可。
 >
-> **不想重训**：合并权重已上传到 HF，直接拉取即可（约 11.1 GB）：
+> **不想重训**：三个大文件都已上传到 HF 公开仓库 `wsadwsad6779/fasterwam-a3-cookie-lora`：
 >
 > ```bash
-> hf download wsadwsad6779/fasterwam-a3-cookie-lora step_002000_merged.pt \
->   --local-dir /workspace/a3_train_runs/a3_lora_r1
+> cd /workspace/a3_train_runs/a3_lora_r1
+> # 推理用（LoRA 已折叠，r26/r27 实际用的就是它，11.1 GB）
+> hf download wsadwsad6779/fasterwam-a3-cookie-lora step_002000_merged.pt --local-dir .
+> # 重新合并 / 换 scaling 用（基座 + 未折叠 LoRA，11.18 GB）
+> hf download wsadwsad6779/fasterwam-a3-cookie-lora trainer/step_002000.pt --local-dir ckpt_from_hf
+> # 精确续训用（优化器 123 MB + scheduler/RNG + 模型 safetensors 12.59 GB）
+> hf download wsadwsad6779/fasterwam-a3-cookie-lora trainer/state/step_002000 --local-dir state_from_hf
 > ```
 >
-> 直链：`https://huggingface.co/wsadwsad6779/fasterwam-a3-cookie-lora/resolve/main/step_002000_merged.pt`
+> 直链前缀：`https://huggingface.co/wsadwsad6779/fasterwam-a3-cookie-lora/resolve/main/`
+> （`step_002000_merged.pt`、`trainer/step_002000.pt`、`trainer/state/step_002000/*`、`data/frames.dat`）
 
 ### 4.7 裸模型评测（0/10，用于对照）
 ```bash
@@ -186,14 +193,21 @@ a3_handoff_20261027/
 
 ## 6. 未打包的大文件（关闭实例前处理）
 
-| 路径 | 大小 (B) | 是否必须 |
+全部 4 个（约 48 GB）都在 HF 公开仓库 `wsadwsad6779/fasterwam-a3-cookie-lora`，云端实例可以放心销毁。
+
+| 云端路径 | 大小 (B) | HF 内路径 |
 |---|---|---|
-| `/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt` | 11,117,977,659 | **已上传 HF**（`wsadwsad6779/fasterwam-a3-cookie-lora`），不必再下云端 |
-| `/workspace/a3_train_runs/a3_lora_r1/checkpoints/weights/step_002000.pt` | 11,179,613,340 | 可不要（仅续训/重新合并时需要） |
-| `/workspace/a3_train_runs/a3_lora_r1/checkpoints/state/` | ~12 GB | 可不要（仅精确续训需要） |
-| `/workspace/a3_data/a3_fw/frames.dat` | 12,849,371,136 | 可重建（parquet → `prepare_a3_arrays.py`） |
-| `/workspace/FasterWAM/checkpoints/fasterwam_release/libero/step_021700.pt` | 11,117,679,929 | 可下载（HF，sha256 `01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d`） |
-| `/workspace/a3_data/a3-front-close-left-100/` | 4.1 GB 目录 | 可下载（HF dataset） |
+| `/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt` | 11,117,977,659 | `step_002000_merged.pt`（推理用，LoRA 已折叠） |
+| `/workspace/a3_train_runs/a3_lora_r1/checkpoints/weights/step_002000.pt` | 11,179,613,340 | `trainer/step_002000.pt`（基座 + 未折叠 LoRA，可重新合并） |
+| `/workspace/a3_train_runs/a3_lora_r1/checkpoints/state/step_002000/` | 12,712,079,410 | `trainer/state/step_002000/`（`optimizer.bin` 123 MB + `model.safetensors` 12.59 GB + scheduler/RNG/state） |
+| `/workspace/a3_data/a3_fw/frames.dat` | 12,849,371,136 | `data/frames.dat`（训练 memmap，也可用 parquet 重建） |
+
+以下两个本来就不属于本工作，直接按 §7 的地址重下即可：
+
+| 云端路径 | 大小 | 来源 |
+|---|---|---|
+| `/workspace/FasterWAM/checkpoints/fasterwam_release/libero/step_021700.pt` | 11,117,679,929 | HF `hustvl/FasterWAM`（sha256 `01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d`） |
+| `/workspace/a3_data/a3-front-close-left-100/` | 4.1 GB 目录 | HF dataset `Eter0109/a3-front-close-left-100` |
 
 ---
 
@@ -204,7 +218,10 @@ a3_handoff_20261027/
 | FasterWAM 源码 | https://github.com/hustvl/FasterWAM @ `83667817df0d4f823f39d90700e61ea2f432ac45` |
 | A3 仿真源码 | https://github.com/Eter0109/a3_dual_arm_sim @ `ff552c4fe54fe344aeaff4c65270ee0fd2af4153` |
 | 官方基座权重 | HF `hustvl/FasterWAM` → `libero/step_021700.pt` + `libero/dataset_stats.json` |
-| **本工作合并权重** | HF **model** `wsadwsad6779/fasterwam-a3-cookie-lora` → `step_002000_merged.pt`（11.1 GB，r26/r27 实际使用） |
+| **本工作合并权重**（推理用） | HF **model** `wsadwsad6779/fasterwam-a3-cookie-lora` → `step_002000_merged.pt`（11,117,977,659 B，r26/r27 实际使用） |
+| **本工作训练侧权重**（可重合并） | 同仓库 → `trainer/step_002000.pt`（11,179,613,340 B，基座 + 未折叠 LoRA） |
+| **本工作优化器状态**（可续训） | 同仓库 → `trainer/state/step_002000/`（12,712,079,410 B，`model.safetensors` + `optimizer.bin` + scheduler/RNG） |
+| **训练 memmap** | 同仓库 → `data/frames.dat`（12,849,371,136 B = 42681×224×448×3；也可由 parquet 重建） |
 | 专家数据集 | HF **dataset** `Eter0109/a3-front-close-left-100` @ `8fdd8a7caf8275eba8be8a83b53a99176a084062`（下载必须带 `--repo-type dataset`） |
 | Wan2.2 VAE/T5 | HF `Wan-AI/Wan2.2-TI2V-5B`（`Wan2.2_VAE.pth`、`models_t5_umt5-xxl-enc-bf16.pth`） |
 | Wan2.1 tokenizer | HF `Wan-AI/Wan2.1-T2V-1.3B` → `google/umt5-xxl/*` |
@@ -227,4 +244,5 @@ a3_handoff_20261027/
 - **只上传原创内容**：`bridge/`、`finetune/`、`tools/`、`docs/`、`results/` 里的文本摘要；不要上传 `outputs/`、`.venv/`、`__pycache__/`、大模型和大数据。
 - 上游代码、HF 权重、数据集全部用第 7 节的地址引用，不重复上传。
 - 本包中的 MP4/NPZ 建议留在交接压缩包里，不放进 Git。
-- 11.1 GB 合并权重放 HF（本文件 §4.6），GitHub 单文件上限 100 MB，不放。
+- 4 个大文件（合并权重 / 训练侧权重 / 优化器状态 / frames.dat，共约 48 GB）都在 HF 仓库 `wsadwsad6779/fasterwam-a3-cookie-lora`，GitHub 单文件上限 100 MB，不放。
+- HF 仓库内已核对过的路径与字节数见 §6；下载命令见 §4.6。
