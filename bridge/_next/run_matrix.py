@@ -70,6 +70,9 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
     W.set_global_seed(int(seed), get_worker_init_fn=False)
     obs, info = env_factory.reset(env, seed, randomize_cookies=True,
                                   randomize_boxes=args.randomize_boxes)
+    # The policy object is reused across cells, so its call counter has to be
+    # reset per episode or `replans` and `chunk_idx` inherit the previous cell.
+    policy.calls = 0
 
     ctl_state = a3_wrap.new_state() if control == "full" else safety_wrap.new_state()
     profile = a3_wrap.PROFILES["full"]

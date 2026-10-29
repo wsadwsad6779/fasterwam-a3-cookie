@@ -53,7 +53,7 @@ def main():
     env = env_factory.make_env(render_cameras=False)
     obs, _ = env_factory.reset(env, args.seeds[0], randomize_cookies=True)
     force = np.asarray(obs[safety_wrap.FORCE_KEY])
-    print(f"  obs['force'].shape = {force.shape}")
+    print(f"  obs[{safety_wrap.FORCE_KEY!r}].shape = {force.shape}")
     inner = float(env._sensor("L_finger_inner_touch_sensor")[0])
     outer = float(env._sensor("L_finger_outer_touch_sensor")[0])
     ok = (np.isclose(force[safety_wrap.L_INNER], inner)
@@ -105,9 +105,18 @@ def main():
     expert = A3SameColumnBatchExpert(env)
     expert.reset()
     peaks, wrist = [], []
+    # At reset every force channel is exactly 0, so the layout check above only
+    # proves the shape. Re-do it under contact, where the numbers are not zero.
+    gaps, contact_steps = [], 0
     for _ in range(args.expert_steps):
         obs, _, terminated, truncated, info = env.step(expert.act(obs))
         f = np.asarray(obs[safety_wrap.FORCE_KEY])
+        inner = float(env._sensor("L_finger_inner_touch_sensor")[0])
+        outer = float(env._sensor("L_finger_outer_touch_sensor")[0])
+        gaps.append(max(abs(f[safety_wrap.L_INNER] - inner),
+                        abs(f[safety_wrap.L_OUTER] - outer)))
+        if max(inner, outer) > 0.1:
+            contact_steps += 1
         peaks.append(float(max(f[safety_wrap.L_INNER], f[safety_wrap.L_OUTER])))
         wrist.append(float(np.linalg.norm(f[0:3])))
         if terminated or truncated or expert.finished:
@@ -116,6 +125,8 @@ def main():
     peaks = np.asarray(peaks)
     print(f"  steps={len(peaks)} cookies_in_target={info.get('cookies_in_target')} "
           f"failed={expert.failed}")
+    print(f"  obs[12:14] vs _sensor under load: max |diff|={max(gaps):.2e} N "
+          f"over {contact_steps} contact steps")
     print(f"  pad force p50={np.percentile(peaks, 50):.2f} p95={np.percentile(peaks, 95):.2f} "
           f"max={peaks.max():.2f} N")
     for q in (99, 99.5, 99.9):

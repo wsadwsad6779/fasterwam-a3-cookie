@@ -206,7 +206,10 @@ python3 _next/calibrate.py --config /workspace/a3_dual_arm_sim/configs/cookie_ba
 
 1. `--position-noise 0.003` 到底有没有换掉场景（打印每个饼干的 xy 位移，z 单列 ——
    z 是落位堆叠的结果，不是采样出来的）；
-2. `obs["observation.force"][12:14]` 是否等于 `env._sensor("L_finger_inner/outer_touch_sensor")`；
+2. `obs["observation.force"][12:14]` 是否等于 `env._sensor("L_finger_inner/outer_touch_sensor")`。
+   **只在 reset 时比对没有意义** —— 那一刻所有力通道都是 0。`calibrate.py` 现在在专家
+   重放的整个过程里逐步比对，并在结尾打印"接触步数 / 最大差"。本地是 223 个接触步、
+   最大差 0.00 N，所以安全层读 `obs` 而不是 `_sensor` 是等价的，不是近似；
 3. 脚本专家自身的峰值夹持力是多少 —— 本地 1.46 N，而这个专家自己把 8 N 判成卡死，
    所以 `soft` 可以压到 3–6 N 而不碰合法抓取，`hard` 保持执行器上限（~40 N）。
    **不要**再用几何探针的 13.9 N 当依据。
@@ -312,6 +315,7 @@ PYTHONPATH="E:/Innovative_practice/WAM/a3_dual_arm_sim/src;fasterwam_next" \
 | 专家指垫力 | p95 1.45 N，max 1.46 N | 远低于自身判定卡死的 8 N |
 | 左腕 \|f\| | p50 10.7 N，max 14.3 N | 主要是自重，做触地判据必须先减基线 |
 | 噪声 3 mm | xy p95 4.1–5.2 mm，z 受落位影响可达 16 mm | 旋钮真的生效 |
+| 力布局（接触中） | 223 个接触步，`obs[12:14]` 与 `_sensor` 最大差 0.00 N | 安全层读 obs 与读传感器等价 |
 
 「框架自检 + 源码核对」：
 
@@ -319,8 +323,13 @@ PYTHONPATH="E:/Innovative_practice/WAM/a3_dual_arm_sim/src;fasterwam_next" \
   空夹爪低于箱沿时抬升。
 - `OracleProbe` 只统计外部读取，不统计 `env.step` 内部访问。
 - `analyze_runs.py` 的 verbatim / 改写幅度 / 分阶段拆分在合成 npz 上正确。
-- `obs["observation.force"]`（`contracts.FORCE`）的 12/13 维在本地实测等于
-  `env._sensor("L_finger_inner/outer_touch_sensor")`。
+- `obs["observation.force"]`（`contracts.FORCE`，18 维）的 12/13 维在本地实测等于
+  `env._sensor("L_finger_inner/outer_touch_sensor")`，且在 223 个**接触**步上误差
+  仍为 0.00 N（reset 时两边都是 0，那次比对不构成证据）。
+- `run_matrix.py` 的闭环在本地用 stub policy 跑通了整条链（`safety` 格 verbatim 100%、
+  oracle 读取 0；`full` 格 verbatim 0%、`cookie_positions`/`data`/`_sensor` 计数随步数增长）。
+  stub 常驻不动，所以这只证明管线通，不证明能力。相机在这台机器上关掉了（没有 EGL），
+  pod 上 r26/r27 已经证明能渲。
 - 训练数据 `seed_start: 6001`、`policy: same_column`、`stored_action_mode:
   joint_position`，`position_noise_m` 默认 0 且 collector 用
   `randomize_cookies: False` —— 所以训练集是固定场景。
@@ -332,12 +341,13 @@ PYTHONPATH="E:/Innovative_practice/WAM/a3_dual_arm_sim/src;fasterwam_next" \
   所以老脚本里的 `action[:14]` 是无害的，不需要按 16 维关节动作去改写 —— 这一条
   曾经被记成 bug，核对源码后撤回。
 
-本轮因为"在本地真的跑了一遍"而修掉的两处错误（都会让云端实验白跑）：
+本轮因为"在本地真的跑了一遍"而修掉的三处错误（都会让云端实验白跑或白读数据）：
 
 | 问题 | 原写法 | 后果 |
 |---|---|---|
 | 力的键名 | `obs["force"]` | 真实键是 `observation.force`，`run_matrix.py` 第一步就 KeyError |
 | 箱子内壁半宽 | `(0.061, 0.033)` | 真实内壁是 `(0.057, 0.029)`（0.063/0.035 减 6 mm 壁厚）；原值把 4 mm 外的点也当成"箱内"，抬升规则会在箱口外侧误触发 |
+| 每格的 `replans` | `policy.calls` 跨格累加 | 一条命令跑 `--controls safety,full` 时，`full` 格的 `replans` 会把 `safety` 格的次数算进来（3+3=6）。`run_one` 现在每个 episode 开头清零，`chunk_idx` 也随之从 0 开始 |
 
 未验证（必须云端跑出来才算数）：
 
