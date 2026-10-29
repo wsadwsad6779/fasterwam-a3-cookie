@@ -64,6 +64,12 @@ HF_TOKEN=... bash deploy/bootstrap_pod.sh --smoke
 source /workspace/activate_fasterwam_a3.sh
 ```
 
+实例还没起来时可以挂一个每 60 秒重试、成功即退出的启动循环（不会自己开实例）：
+
+```bash
+POD_SSH="ssh -p 45339 root@1.2.3.4" bash deploy/retry_launch.sh
+```
+
 `deploy/README.md` 里列了全部环境变量（镜像、代理、`BRIDGE_SRC` 离线兜底）、磁盘占用和
 两个已知的坑。脚本不写任何密钥，也不改 `~/.bashrc`。
 
@@ -261,7 +267,8 @@ a3_handoff_20261027/
 |---|---|
 | `selftest.py` | 本地自检，不需要权重 |
 | `run_teacher_forcing.py` | 专家驱动、模型只被查询；含不需要权重的动作链自检（`--check-only`） |
-| `run_matrix.py` | 2×2 闭环 + 每步力/腕力记录 |
+| `run_matrix.py` | 闭环矩阵（`--controls C0,C1..C5` 按能力放权）+ 每步力/腕力/执行动作记录 |
+| `b0_probe.py` | 夹爪方向实测：伺服语义、adapter 符号、checkpoint 实际输出 |
 | `analyze_runs.py` | 汇总可控率、改写幅度、成功率、Oracle 读取；按 xyz / 旋转 / 夹爪分通道给放权比例 |
 | `calibrate.py` | 验证噪声真的生效、核对力布局、量出专家自身峰值力 |
 | `scene_audit.py` | 诊断扰动后的饼干重叠 / 倾斜 / 出盘；同时说明"逐块噪声会破坏场景"的证据 |
@@ -280,14 +287,17 @@ python3 -m py_compile _next/*.py && python3 _next/selftest.py
 ```
 
 **2026-10-29 定下的路线**（写在 `bridge/_next/README.md` §3）：A 自检 → B0 stats / 夹爪
-配对 → **E0 无扰动低干预基线** → 按 `full → guard → force → safety` 逐级删规则放权 →
-`--batch-offset` 整批平移。**跳过**完整 B1 teacher forcing 扫描、B2 的 2×2、B3，以及扰动
-场景下的专家成功率。某级放权失败时回到数据 / 模型（必要时 LoRA 微调），不再用任务级
-wrapper 规则替代模型。
+配对 + 夹爪方向实测（`b0_probe.py`）→ **E0 无扰动低干预基线** → **按能力放权**
+（`C1` 搬运 xyz → `C2` 接近 xyz → `C3` 抓取目标 → `C4` 下降与闭合 → `C5` 释放/回收；
+`C0` 是接口+安全的终点参照，`C5` 必须与 `C0` 逐步相同）→ `--batch-offset` 整批平移。
+**跳过**完整 B1 teacher forcing 扫描、B2 的 2×2、B3，以及扰动场景下的专家成功率。
+四档 `full/guard/force` 只留作历史对照。某级放权失败时回到数据 / 模型（必要时 LoRA
+微调），不再用任务级 wrapper 规则替代模型。
 
-每步都记录模型原始动作、实际执行动作、是否被改动、包装器阶段（npz 的 `pre_14d` /
-`post_14d` / `changed` / `phase`），`analyze_runs.py` 再按 xyz / 旋转 / 夹爪分通道给出
-放权比例。`bridge/_next/README.md` §6 记了本地已验证 / 未验证的分界，§5 记了训练数据里
+每步都记录模型原始动作、wrapper 输出、仿真真正执行的 16 维动作、是否被改动、包装器阶段
+（npz 的 `pre_14d` / `post_14d` / `applied_canonical` / `changed` / `phase` / 指垫力 / 腕力），
+`analyze_runs.py` 再按 xyz / 旋转 / 夹爪分通道给出放权比例。E0 每个种子都留完整轨迹，
+至少一个种子带视频；0/10 也要留，用来定位卡在哪一段。`bridge/_next/README.md` §6 记了本地已验证 / 未验证的分界，§5 记了训练数据里
 27.2% 的夹爪标签与 `joint_cmd` 矛盾这件事。
 
 ---

@@ -19,6 +19,21 @@ HF_TOKEN=... bash deploy/bootstrap_pod.sh --with-training
 
 放在 `tmux` 或 `nohup` 里跑：大文件下载要 20–40 分钟。
 
+## 实例开起来之后：每 60 秒重试直到启动成功
+
+实例由操作者手动开启；`retry_launch.sh` 只负责"等它起来，然后按顺序把该做的做完"，
+每次失败睡 60 秒再试，成功即退出：
+
+```bash
+POD_SSH="ssh -p 45339 root@1.2.3.4" bash deploy/retry_launch.sh
+# 可选：INTERVAL=60 MAX_ATTEMPTS=0（0 = 一直重试）REMOTE_DIR=/workspace/...
+```
+
+一次尝试 = SSH 可达 → 仓库拉到 `a3-cookie-r27`（`pull --ff-only`，不覆盖 pod 上的本地改动）
+→ `bootstrap_pod.sh --smoke` → `b0_probe.py`（夹爪方向实测）→ 加载 LoRA 走 2 步。
+任何一步失败都只记日志并重试；日志在 `outputs/launch_retry.log`。
+它不会创建、停止或扩缩容任何实例，也不会把 `HF_TOKEN` 写进任何文件。
+
 ```bash
 source /workspace/activate_fasterwam_a3.sh
 python3 /workspace/fasterwam_a3_bridge/bridge/_next/selftest.py

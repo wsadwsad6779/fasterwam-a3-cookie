@@ -34,11 +34,12 @@
 | `env_factory.py` | 建环境；`position_noise_m` 真正接进 `task_config`；`batch_offset_m` 整批刚性平移；`scene_sanity()` 最低有效性门 | 是 |
 | `safety_wrap.py` | 只做接口 + 安全，不读 `env`，力从 `obs["observation.force"][12:14]` 取 | 否 |
 | `oracle_probe.py` | 统计控制层读了多久仿真真值（`cookie_positions` / `data`） | 否 |
-| `run_matrix.py` | 闭环矩阵；`--controls safety,force,guard,full`，`force/guard/full` 是累积 profile，放权顺序是反过来走 |
+| `run_matrix.py` | 闭环矩阵；`--controls C0,C1..C5` 按能力放权（C0=接口+安全，C5 必须等于 C0），`full/guard/force` 保留为历史对照 |
 | `run_teacher_forcing.py` | 阶段 B1：专家驱动，模型只在专家轨迹上被查询；含不需要权重的动作链自检 | 否（`--check-only`）/ 是 |
 | `analyze_runs.py` | 汇总 2×2：可控率、改写幅度、成功率、Oracle 读取；按 xyz / 旋转 / 夹爪分通道给放权比例 | 否（只要 numpy） |
 | `calibrate.py` | 阶段 C0：验证噪声真的生效、核对力布局、量出专家自身峰值力 | 是 |
 | `scene_audit.py` | 阶段 C0b：加噪后饼干有没有重叠 / 倾斜 / 离开源盘；可选多种子重放专家 | 是 |
+| `b0_probe.py` | 阶段 B0：夹爪伺服方向、adapter 符号、checkpoint 实际输出（A/B 不需要权重） | 是（C 需要） |
 | `gripper_label_audit.py` | 用 `joint_cmd` 校验训练数据里的夹爪标签 | 否（只要 numpy） |
 | `selftest.py` | 本地自检（安全层 no-op、计数器、分析通道） | 否 |
 
@@ -112,12 +113,31 @@ git -C /workspace/a3_dual_arm_sim rev-parse --short HEAD
 **2026-10-29 定的路线（以此为准）**：目标是"模型逐步完全接管"，所以不追求脚本专家或
 wrapper 的成功率。
 
-1. **B0** 权重 manifest：确认每个 checkpoint 配的是自己的 stats 和夹爪模式（各 2 分钟）；
-2. **E0 基线**：无扰动固定场景，`--controls safety`，看 LoRA 自己能完成到哪一步，并按
-   xyz / 旋转 / 夹爪分通道看放权比例（`analyze_runs.py`）；
-3. **逐步放权**：`full → guard → force → safety` 逐级删掉包装器规则，每一级都保留上一级
-   作为对照；哪一级掉下来就回到数据 / 模型，而不是加新规则；
-4. **整批平移**（`--batch-offset`）作为唯一的位置扰动，测"模型能不能用视觉找到饼干"。
+1. **B0** 权重 manifest + **夹爪方向实测**：确认每个 checkpoint 配的是自己的 stats 和夹爪
+   模式（各 2 分钟），再跑 `_next/b0_probe.py` 证明"模型说闭合 → 指垫真的合上"，
+   而不是只靠编码推断；
+2. **E0 基线**：无扰动固定场景，`--controls C0`，看 LoRA 自己能完成到哪一步，并按
+   xyz / 旋转 / 夹爪分通道看放权比例（`analyze_runs.py`）。**每个种子都保留完整轨迹**
+   （npz 的 `pre_14d` / `post_14d` / `changed` / `phase` / `applied_canonical` /
+   指垫力 / 腕力），至少一个种子加 `--video`；0/10 也要留下，失败发生在哪个阶段比分数重要；
+3. **按能力放权**：从 `full` 开始，一级只交还一个能力，每级保留上一级作对照：
+
+   | 阶段 | 交还给模型 | 仍由 wrapper 负责 |
+   |---|---|---|
+   | `C1` | 搬运 xyz | 接近、抓取目标、下降/闭合、释放、姿态 |
+   | `C2` | + 接近 xyz | 抓取目标、下降/闭合、释放、姿态 |
+   | `C3` | + 抓取目标选择 | 下降/闭合、释放、姿态 |
+   | `C4` | + 下降与夹爪闭合 | 释放/回收、姿态 |
+   | `C5` | + 释放/回收与姿态 | 无（只剩安全层） |
+
+   `C0` = 只做接口转换 + 安全层，是所有阶段的终点参照；`C5` 必须与 `C0` 逐步动作完全相同
+   （本地已用 stub 验证 diff = 0），否则说明 wrapper 还在偷偷写某个通道。哪一级掉下来就
+   回到数据 / 模型，而不是加新规则；
+4. **整批平移**（`--batch-offset`）作为唯一的位置扰动，测"模型能不能用视觉找到饼干"，放在
+   放权稳定之后。逐块 `--position-noise` 只作诊断，不混进同一项实验。
+
+四档 `full / guard / force / safety` 保留为历史对照（`--controls full,guard,force`），
+但不再作为研究主线：它们一次删掉多个保护机制，失败无法归因。
 
 **不做**：完整 B1 teacher forcing 扫描、B2 的 2×2、B3，以及扰动场景下的专家成功率复测
 （已有的一次性诊断数据留在下面 C0b/C1）。
@@ -145,6 +165,21 @@ python3 _next/run_matrix.py --model lora --controls safety --seeds 999 --max-ste
 如果两个文件一样，说明 stats 被写死成同一份，先停下来查 `FASTERWAM_A3_STATS`。
 
 注意 `--seeds 999 --max-steps 2` 只是加载检查，不是实验。
+
+**夹爪方向必须实测，不能只看编码。** `b0_probe.py` 分三层，前两层不需要权重：
+
+```bash
+python3 _next/b0_probe.py --out outputs/b0                 # A 伺服方向 + B adapter 符号
+python3 _next/b0_probe.py --model raw  --out outputs/b0_raw # 再加 C：checkpoint 实际输出
+python3 _next/b0_probe.py --model lora --out outputs/b0_lora
+```
+
+- A：不带模型，`a3[6]=+1` 必须把夹爪张开、`-1` 必须闭合（本地实测 1.000 → 0.000）；
+- B：LIBERO `+1`（close）经 `action_adapter_v3` 必须变成 `a3[6]=-1`（本地实测成立）；
+- C：跑一个 chunk，打印原始/适配后的夹爪值，并真的走 40 步看指垫怎么动。起始张开时
+  模型第一帧就要闭合 → `sign_suspect=true`，先查 `gripper_mode` 再谈闭环。
+
+A/B 任一项失败时脚本 `exit 1`，此时不要开闭环。
 
 **夹爪那一列已经查清，结论会改变 B1 的跑法。** 两份 stats 的第 7 维范围不同：
 
@@ -328,16 +363,29 @@ x 方向还有 ±12 mm、y 方向 ±8 mm 的余量，5 mm 以内是安全的。�
 的哪里"，才是"Faster-WAM 能否用视觉找到它"的问题。
 
 ```bash
-# E0 基线（无扰动）
-python3 _next/run_matrix.py --model lora --controls safety --seeds 11 21 22     --out outputs/E0_safety
-# 整批平移（先 3 mm，再 5 mm）
-python3 _next/run_matrix.py --model lora --controls safety --seeds 11 21 22     --batch-offset 0.003 --out outputs/E1_offset3
+# E0 基线（无扰动，只留接口 + 安全层；每个种子留全轨迹，至少一个录像）
+python3 _next/run_matrix.py --model lora --controls C0 --seeds 11 21 22 --video \
+    --out outputs/E0_C0
+python3 _next/analyze_runs.py outputs/E0_C0
+
+# 按能力放权：一条命令跑完一级，和上一级配对比较
+python3 _next/run_matrix.py --model lora --controls C1 --seeds 11 21 22 --out outputs/E0_C1
+python3 _next/run_matrix.py --model lora --controls C2 --seeds 11 21 22 --out outputs/E0_C2
+python3 _next/analyze_runs.py outputs/E0_C1
+python3 _next/analyze_runs.py outputs/E0_C2
+
+# 整批平移（先 3 mm，再 5 mm），等放权稳定之后再做
+python3 _next/run_matrix.py --model lora --controls C0 --seeds 11 21 22 \
+    --batch-offset 0.003 --out outputs/E1_offset3
 python3 _next/analyze_runs.py outputs/E1_offset3
 ```
 
-`run_matrix.py` 的 npz 每步都存了模型原始动作（`pre_14d`）、实际执行动作（`post_14d`）、
-是否被改动（`changed`）和包装器阶段（`phase`），`analyze_runs.py` 额外给出 xyz / 旋转 /
-夹爪三个通道各自的放权比例——这三个数就是"模型真正自己做了多少"。
+`run_matrix.py` 的 npz 每步都存了模型原始动作（`pre_14d`）、wrapper 输出（`post_14d`）、
+仿真真正执行的 16 维 canonical 动作（`applied_canonical`）、是否被改动（`changed`）、
+包装器阶段（`phase`）、指垫力和腕力，`analyze_runs.py` 再给出 xyz / 旋转 / 夹爪三个通道
+各自的放权比例——这三个数就是"模型真正自己做了多少"。E0 即使 0/10 也要保留，因为要回答的
+是"卡在哪一段"，不是"成功了几个"。
+
 
 ## 4. 判读规则（先写下来，避免事后解释）
 
@@ -423,6 +471,10 @@ PYTHONPATH="E:/Innovative_practice/WAM/a3_dual_arm_sim/src;fasterwam_next" \
 | 有效性门 | E0 0/5 不通过；1 mm 5/5 不通过；2 mm 5/5 不通过；平移 3/5 mm 0/5 不通过 | `scene_sanity()` 恰好拦住被破坏的场景，不误伤 E0 与平移 |
 | 力布局（接触中） | 223 个接触步，`obs[12:14]` 与 `_sensor` 最大差 0.00 N | 安全层读 obs 与读传感器等价 |
 | 分通道放权 | stub 冒烟：`safety` 三通道 100%，`full` xyz/rot 0%、grip 60% | `analyze_runs.py` 能分开报告三个通道 |
+| 夹爪方向（B0-A） | `a3[6]=+1` → opening 1.000；`-1` → 0.000 | 伺服语义与 A3 记法一致，`+1` 开、`-1` 合 |
+| adapter 符号（B0-B） | LIBERO `+1` → `a3[6]=-1.0`；`-1` → `+1.0` | `out6=-sign(a6)` 与伺服方向能串起来用 |
+| 能力放权阶梯（C0–C5，stub） | C1 xyz 0%/grip 0%；C2、C3 xyz 100%/grip 0%；C4 grip 100%；C5 全 100% | 每级只动一个通道，grip 辅助在 C4 才交还 |
+| C5 泄漏检查 | `C5` 与 `C0` 执行动作 60 步 max diff = 0.000e+00 | 全部释放后 wrapper 不再写任何通道，也读 0 次 oracle |
 
 「框架自检 + 源码核对」：
 

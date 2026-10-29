@@ -1,24 +1,30 @@
-"""Stage B2: the (model x control) closed-loop matrix.
+"""Stage B2/E0: the (model x control) closed-loop matrix.
 
-    model   in {raw, lora}                   -- released Faster-WAM vs merged A3 LoRA
-    control in {safety, force, guard, full}  -- interface+safety only, then the
-        cumulative wrapper profiles. Authority is released downward
-        (full -> guard -> force -> safety), never by adding task rules.
+    model   in {raw, lora}                      -- released Faster-WAM vs merged A3 LoRA
+    control in {C0, C1..C5, safety, force, guard, full}
+        C0 / safety : interface + safety layer only
+        C1..C5      : full wrapper, one capability handed back per stage
+                      (transport xyz -> approach xyz -> grasp target ->
+                       descend/close -> release/recovery); C5 is all of them and
+                      must reproduce C0
+        force/guard/full : the historical cumulative ablation, kept as a control
+
+Authority moves one capability at a time, never by adding task rules.
 
 Position perturbations use `--batch-offset`, a rigid translation of the whole
 batch; per-cookie `--position-noise` destroys the 2.5 mm/0.4 mm clearances (see
 `scene_audit.py`) and is stopped by the scene sanity gate.
 
-Every cell uses the same seeds and the same reset, so the four cells are paired.
+Every cell uses the same seeds and the same reset, so cells are paired.
 One model per process: two 5.56B checkpoints do not belong in one 48 GB card.
 
-Per step we log the adapted model action *before* the control layer and the
-action actually executed, so control authority can be measured afterwards
-instead of assumed. Simulator-truth reads by the controller are counted through
-`OracleProbe`; the logger itself never touches `env.data` or
-`env.cookie_positions`.
+Per step we log the adapted model action *before* the control layer, the action
+actually executed, and the canonical action the simulator applied, so control
+authority can be measured afterwards instead of assumed. Simulator-truth reads
+by the controller are counted through `OracleProbe`; the logger itself never
+touches `env.data` or `env.cookie_positions`.
 
-    python3 run_matrix.py --model lora --controls safety,full --seeds 11 21 22 23 24
+    python3 run_matrix.py --model lora --controls C0,C1,C2 --seeds 11 21 22
 """
 import argparse
 import json
@@ -37,11 +43,10 @@ from oracle_probe import OracleProbe
 def parse_args():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True, choices=["raw", "lora"])
-    ap.add_argument("--controls", default="safety,full",
-                    help="safety = interface + safety only; full/guard/force = "
-                         "cumulative wrapper profiles, most authority first. "
-                         "Releasing authority means walking full -> guard -> "
-                         "force -> safety, keeping the previous cell as control.")
+    ap.add_argument("--controls", default="C0,C1,C2",
+                    help="C0/safety = interface + safety only; C1..C5 = one "
+                         "capability released per stage (C5 releases all and "
+                         "must match C0); full/guard/force = historical profiles")
     ap.add_argument("--seeds", type=int, nargs="+", default=[11, 21, 22, 23, 24])
     ap.add_argument("--max-steps", type=int, default=600)
     ap.add_argument("--replan", type=int, default=10)
@@ -76,9 +81,31 @@ def make_limits(args):
     return lim
 
 
+def resolve_control(control):
+    """Map a control name to (recorded name, wrapped?, profile, released caps).
+
+    `safety` and `C0` are the same condition: interface + safety layer only.
+    `C1..C4` use the full profile, keep the safety layer, and hand one
+    capability at a time back to the policy. `C5` releases everything, so it is
+    routed through the safety path on purpose: C5 must equal C0 action for
+    action, and a separate code path would hide a leak. `full/guard/force` stay
+    available as the historical ablation.
+    """
+    name = control.strip()
+    upper = name.upper()
+    if name.lower() == "safety" or upper in ("C0", "C5"):
+        return (upper if upper == "C5" else "C0"), False, a3_wrap.PROFILES["full"], frozenset()
+    if upper in a3_wrap.RELEASE_STAGES:
+        return upper, True, a3_wrap.PROFILES["full"], a3_wrap.RELEASE_STAGES[upper]
+    if name in a3_wrap.PROFILES and name != "baseline":
+        return name, True, a3_wrap.PROFILES[name], frozenset()
+    raise SystemExit(f"unknown control {control}")
+
+
 def run_one(policy, args, control, seed, lim, out_dir, src_pts):
     import infer_a3_worker as W
 
+    control_name, wrapped, profile, released = resolve_control(control)
     # Images are the policy input, so cameras are always on; --video only
     # decides whether the front view is written to disk.
     env = env_factory.make_env(position_noise_m=args.position_noise,
@@ -105,12 +132,15 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
     # reset per episode or `replans` and `chunk_idx` inherit the previous cell.
     policy.calls = 0
 
-    wrapped = control != "safety"
     ctl_state = a3_wrap.new_state() if wrapped else safety_wrap.new_state()
-    profile = a3_wrap.PROFILES[control] if wrapped else a3_wrap.PROFILES["full"]
+    # C1..C4 keep the safety layer while the wrapper hands over capabilities;
+    # `safety_st` is unused on the C0/C5 path, which runs safety_wrap itself.
+    staged = wrapped and control_name in ("C1", "C2", "C3", "C4")
+    safety_st = safety_wrap.new_state() if staged else None
 
     pending, chunk_idx, pre_log, post_log, phase_log = [], [], [], [], []
     opening, applied, force_in, force_out, dist, eef = [], [], [], [], [], []
+    applied_canonical = []
     wrist = []
     oracle_cookie, oracle_data, oracle_sensor, frames = [], [], [], []
 
@@ -125,7 +155,9 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
 
         pre = np.asarray(pending.pop(0), dtype=np.float64)
         if wrapped:
-            post = a3_wrap.apply(pre.copy(), obs, probe, ctl_state, profile)
+            post = a3_wrap.apply(pre.copy(), obs, probe, ctl_state, profile, released)
+            if staged:
+                post = safety_wrap.apply(post, obs, safety_st, lim)
             phase_log.append(a3_wrap.PHASES.index(ctl_state["phase"]))
         else:
             post = safety_wrap.apply(pre, obs, ctl_state, lim)
@@ -138,6 +170,7 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
         post_log.append(np.asarray(post, dtype=np.float64))
         opening.append(float(obs["observation.state"][7]))
         applied.append(float(info["applied_action"][7]))
+        applied_canonical.append(np.asarray(info["applied_action"], dtype=np.float64).copy())
         f = np.asarray(obs[safety_wrap.FORCE_KEY], dtype=np.float64)
         force_in.append(float(f[safety_wrap.L_INNER]))
         force_out.append(float(f[safety_wrap.L_OUTER]))
@@ -164,7 +197,7 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
     changed = np.any(np.abs(pre_arr - post_arr) > 1e-9, axis=1)
 
     np.savez_compressed(
-        out_dir / f"{policy.name}_{control}_{seed}.npz",
+        out_dir / f"{policy.name}_{control_name}_{seed}.npz",
         pre_14d=pre_arr,
         post_14d=post_arr,
         changed=changed,
@@ -172,6 +205,7 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
         phase=np.asarray(phase_log, dtype=np.int8),
         opening=np.asarray(opening),
         applied_opening=np.asarray(applied),
+        applied_canonical=np.asarray(applied_canonical),
         pad_force_inner=np.asarray(force_in),
         pad_force_outer=np.asarray(force_out),
         dist_to_source=np.asarray(dist),
@@ -184,11 +218,13 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
     if args.video:
         import imageio
 
-        imageio.mimsave(out_dir / f"{policy.name}_{control}_{seed}_front.mp4", frames, fps=30)
+        imageio.mimsave(out_dir / f"{policy.name}_{control_name}_{seed}_front.mp4", frames, fps=30)
 
     record = {
         "model": policy.name,
-        "control": control,
+        "control": control_name,
+        "released": sorted(released),
+        "safety_layer": bool(staged or not wrapped),
         "seed": int(seed),
         "steps": step + 1,
         "replans": policy.calls,
@@ -244,8 +280,7 @@ def main():
 
     records = []
     for control in [c.strip() for c in args.controls.split(",") if c.strip()]:
-        if control not in ("safety", "full", "guard", "force"):
-            raise SystemExit(f"unknown control {control}")
+        resolve_control(control)  # fail before the first episode, not after it
         for seed in args.seeds:
             rec = run_one(policy, args, control, seed, lim, out_dir, src_pts)
             records.append(rec)

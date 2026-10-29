@@ -6,10 +6,15 @@ Covers the safety layer's no-op contract, the oracle counter, and the analysis
 pass over a synthetic run. Run this after any edit to the npz keys.
 """
 import json
+import sys
 import tempfile
 from pathlib import Path
 
 import numpy as np
+
+# `a3_wrap.py` lives in bridge/ next to _next/, and the pod adds both to
+# PYTHONPATH; do the same here so selftest works from either directory.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import analyze_runs
 import safety_wrap
@@ -161,9 +166,43 @@ def test_teacher_forcing_math():
           and audit["grip_dir_agree_pct"] == 100.0)
 
 
+def test_release_stages():
+    print("capability release")
+    import a3_wrap
+
+    stages = a3_wrap.RELEASE_STAGES
+    check("stages are cumulative",
+          all(stages[a] <= stages[b] for a, b in
+              zip(("C1", "C2", "C3", "C4"), ("C2", "C3", "C4", "C5"))))
+    check("C5 releases every capability",
+          stages["C5"] == frozenset(a3_wrap.CAPABILITIES))
+
+    class PoisonEnv:
+        """Any simulator access at C5 is a leak, so make it fatal."""
+
+        @property
+        def data(self):
+            raise AssertionError("C5 must not read the simulator")
+
+        def _sensor(self, name):
+            raise AssertionError("C5 must not read sensors")
+
+        @property
+        def cookie_positions(self):
+            raise AssertionError("C5 must not read cookies")
+
+    a = np.r_[np.zeros(6), 0.5, np.zeros(7)]
+    st = a3_wrap.new_state()
+    out = a3_wrap.apply(a.copy(), fake_obs(), PoisonEnv(), st,
+                        a3_wrap.PROFILES["full"], stages["C5"])
+    check("C5 is a no-op with zero simulator reads",
+          np.array_equal(a, out) and st["phase"] == "raw")
+
+
 if __name__ == "__main__":
     test_safety()
     test_probe()
     test_analysis()
+    test_release_stages()
     test_teacher_forcing_math()
     print("all local checks passed")
