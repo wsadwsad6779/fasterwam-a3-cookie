@@ -40,7 +40,6 @@ convention-neutral: read it against `sign_agree_moving`.
 import argparse
 import dataclasses
 import json
-import os
 from pathlib import Path
 
 import numpy as np
@@ -159,6 +158,11 @@ def replay_expert(seed, max_steps, stride, position_noise=0.0, yaw_noise=0.0, re
         "eef": np.asarray(eef), "opening": np.asarray(opening),
         "act14": np.asarray(act14), "scales": scales,
         "cookies_in_target": in_target, "failed": bool(expert.failed),
+        # The expert's own verdict: which phase gave up and why. Without this the
+        # noisy replays only say "it failed", which is not enough to tell a bad
+        # scene from a bad grasp.
+        "failure_phase": getattr(expert, "failure_phase", None),
+        "failure_reason": getattr(expert, "failure_reason", None),
     }
 
 
@@ -403,12 +407,17 @@ def main():
         print(f"[chain] seed={seed} steps={chain['frames']} "
               f"pos_p50={chain['pos_err_mm_p50']}mm p95={chain['pos_err_mm_p95']}mm "
               f"rot_p50={chain['rot_err_mrad_p50']}mrad "
-              f"grip_dir={chain['grip_dir_agree_pct']}% ({chain['grip_dir_frames']})",
+              f"grip_dir={chain['grip_dir_agree_pct']}% ({chain['grip_dir_frames']}) "
+              f"cookies={run['cookies_in_target']} failed={run['failure_phase'] or ''}"
+              f"{': ' + run['failure_reason'] if run['failure_reason'] else ''}",
               flush=True)
 
         base = {"seed": int(seed), "chain": chain,
                 "expert_steps": len(run["act14"]),
                 "expert_cookies_in_target": run["cookies_in_target"],
+                "expert_failed": run["failed"],
+                "expert_failure_phase": run["failure_phase"],
+                "expert_failure_reason": run["failure_reason"],
                 "position_noise_m": args.position_noise,
                 "yaw_noise_rad": args.yaw_noise}
 
@@ -417,7 +426,9 @@ def main():
             continue
 
         for mode in modes:
-            os.environ["FASTERWAM_A3_GRIPPER_MODE"] = mode
+            # chunk() pushes policy.gripper_mode into the env var the worker
+            # reads, so the sweep has to set it on the policy, not the environ.
+            policy.gripper_mode = mode
             chunk7, adapted, valid = evaluate(policy, run["snaps"], run["step_ids"],
                                               h_max, args.noise_seed)
             tgt, open_now, open_next, cmd_now, cmd_next, valid = align(

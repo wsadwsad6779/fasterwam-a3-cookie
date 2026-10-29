@@ -20,14 +20,23 @@ FASTERWAM_ROOT = Path("/workspace/FasterWAM")
 # was trained against A3 stats (`pretrained_norm_stats` in a3_2cam.yaml); the
 # released base was trained against the LIBERO stats shipped beside it. Mixing
 # them silently changes the action scale, so each model carries its own file.
+#
+# The gripper column is what makes this concrete: LIBERO's stats say [0, 1]
+# (0/1 labels), A3's say [-1, 1] (the +1=close labels `prepare_a3_arrays.py`
+# writes). `predict_action_chunk` therefore needs a different rewrite per model,
+# so `gripper_mode` travels with the checkpoint instead of being one global
+# env var. Which mode is right is a measurement (stage B1), not a convention
+# this file gets to assume.
 MODELS = {
     "raw": {
         "ckpt": FASTERWAM_ROOT / "checkpoints/fasterwam_release/libero/step_021700.pt",
         "stats": FASTERWAM_ROOT / "checkpoints/fasterwam_release/libero/dataset_stats.json",
+        "gripper_mode": "libero01",
     },
     "lora": {
         "ckpt": Path("/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt"),
         "stats": Path("/workspace/a3_data/a3_fw/dataset_stats.json"),
+        "gripper_mode": "pm1",
     },
 }
 
@@ -63,18 +72,24 @@ def stats_summary(path) -> dict:
 class Policy:
     """One checkpoint + its normalizer + the A3 action adapter."""
 
-    def __init__(self, name, cfg, model, processor, adapter, device):
+    def __init__(self, name, cfg, model, processor, adapter, device, mode="libero01"):
         self.name = name
         self.cfg = cfg
         self.model = model
         self.processor = processor
         self.adapter = adapter
         self.device = device
+        self.gripper_mode = mode
         self.calls = 0
 
     def chunk(self, obs, seed: int) -> np.ndarray:
+        import os
+
         import infer_a3_worker as W
 
+        # The worker reads the mode from the environment at call time; this is
+        # the only seam it exposes, so the per-checkpoint choice is applied here.
+        os.environ["FASTERWAM_A3_GRIPPER_MODE"] = self.gripper_mode
         self.calls += 1
         _, chunk7 = W.predict_action_chunk(obs, self.model, self.processor,
                                            self.cfg, seed, self.device)
@@ -87,7 +102,12 @@ class Policy:
         return [self.adapter.convert(a, rot) for a in chunk7]
 
 
-def load_policy(name: str, ckpt=None, stats=None, instruction=None) -> Policy:
+def gripper_mode(name: str, override=None) -> str:
+    """Which rewrite `predict_action_chunk` should apply for this checkpoint."""
+    return override or MODELS[name].get("gripper_mode", "libero01")
+
+
+def load_policy(name: str, ckpt=None, stats=None, instruction=None, mode=None) -> Policy:
     import torch
     from hydra.utils import instantiate
 
@@ -112,9 +132,11 @@ def load_policy(name: str, ckpt=None, stats=None, instruction=None) -> Policy:
     processor.set_normalizer_from_stats(W.load_dataset_stats_from_json(str(stats)))
     adapter = W.FasterWAMA3ActionAdapterV3()
 
-    print(f"[policy] {name} ckpt={ckpt} stats={stats} device={device}", flush=True)
+    mode = gripper_mode(name, mode)
+    print(f"[policy] {name} ckpt={ckpt} stats={stats} device={device} "
+          f"gripper_mode={mode}", flush=True)
     print(f"[policy] instruction={W.INSTRUCTION!r}", flush=True)
-    return Policy(name, cfg, model, processor, adapter, device)
+    return Policy(name, cfg, model, processor, adapter, device, mode)
 
 
 def describe_policy(name: str, ckpt=None, stats=None) -> dict:

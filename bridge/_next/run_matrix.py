@@ -42,6 +42,9 @@ def parse_args():
     ap.add_argument("--ckpt", default=None)
     ap.add_argument("--stats", default=None)
     ap.add_argument("--instruction", default=None)
+    ap.add_argument("--gripper-mode", default=None, choices=["pm1", "libero01"],
+                    help="default: per checkpoint (raw=libero01, lora=pm1). "
+                         "Stage B1 measures which one is right; this only replays it.")
     ap.add_argument("--soft-force", type=float, default=None)
     ap.add_argument("--hard-force", type=float, default=None)
     ap.add_argument("--out", required=True)
@@ -175,6 +178,7 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
         "position_noise_m": args.position_noise,
         "yaw_noise_rad": args.yaw_noise,
         "randomize_boxes": bool(args.randomize_boxes),
+        "gripper_mode": policy.gripper_mode,
     }
     env.close()
     return record
@@ -186,12 +190,14 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     manifest = describe_policy(args.model, args.ckpt, args.stats)
+    policy = load_policy(args.model, args.ckpt, args.stats, args.instruction,
+                         mode=args.gripper_mode)
     manifest.update({"replan": args.replan, "max_steps": args.max_steps,
-                     "controls": args.controls, "seeds": args.seeds})
+                     "controls": args.controls, "seeds": args.seeds,
+                     "gripper_mode": policy.gripper_mode})
     (out_dir / f"manifest_{args.model}.json").write_text(json.dumps(manifest, indent=2))
     print(f"[matrix] manifest={json.dumps(manifest['normalizer'])}", flush=True)
 
-    policy = load_policy(args.model, args.ckpt, args.stats, args.instruction)
     lim = make_limits(args)
     print(f"[matrix] limits soft={lim.soft_force_n} hard={lim.hard_force_n}", flush=True)
 
