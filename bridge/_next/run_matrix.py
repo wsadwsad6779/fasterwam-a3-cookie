@@ -93,8 +93,13 @@ def resolve_control(control):
     """
     name = control.strip()
     upper = name.upper()
-    if name.lower() == "safety" or upper in ("C0", "C5"):
-        return (upper if upper == "C5" else "C0"), False, a3_wrap.PROFILES["full"], frozenset()
+    if name.lower() == "safety" or upper == "C0":
+        return "C0", False, a3_wrap.PROFILES["full"], frozenset()
+    if upper == "C5":
+        # C5 goes *through* the wrapper with every capability released, then the
+        # safety layer, so it must reproduce C0. Routing it down the C0 branch
+        # would skip the wrapper and make the leak check vacuous.
+        return "C5", True, a3_wrap.PROFILES["full"], a3_wrap.RELEASE_STAGES["C5"]
     if upper in a3_wrap.RELEASE_STAGES:
         return upper, True, a3_wrap.PROFILES["full"], a3_wrap.RELEASE_STAGES[upper]
     if name in a3_wrap.PROFILES and name != "baseline":
@@ -135,7 +140,7 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
     ctl_state = a3_wrap.new_state() if wrapped else safety_wrap.new_state()
     # C1..C4 keep the safety layer while the wrapper hands over capabilities;
     # `safety_st` is unused on the C0/C5 path, which runs safety_wrap itself.
-    staged = wrapped and control_name in ("C1", "C2", "C3", "C4")
+    staged = wrapped and control_name.startswith("C")
     safety_st = safety_wrap.new_state() if staged else None
 
     pending, chunk_idx, pre_log, post_log, phase_log = [], [], [], [], []

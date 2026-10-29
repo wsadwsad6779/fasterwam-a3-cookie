@@ -8,10 +8,12 @@
 #
 #   POD_SSH="ssh -p 45339 root@1.2.3.4" bash deploy/retry_launch.sh
 #   INTERVAL=60 MAX_ATTEMPTS=30 POD_SSH=... bash deploy/retry_launch.sh
+#   E0=0 POD_SSH=... bash deploy/retry_launch.sh      # readiness only
 #
 # One attempt = reachable -> repo at a3-cookie-r27 -> bootstrap --smoke ->
-# 2-step launch probe that actually loads the LoRA checkpoint. Any failure just
-# sleeps and tries again; success exits 0.
+# B0 sign check on the checkpoint -> 2-step LoRA probe -> start the E0 C0
+# baseline (one seed, 600 steps, video) with nohup. Any failure just sleeps and
+# tries again; success exits 0 once E0 is running.
 set -uo pipefail
 
 INTERVAL="${INTERVAL:-60}"
@@ -38,7 +40,7 @@ while :; do
     if $POD_SSH -o BatchMode=yes -o ConnectTimeout=15 true >>"$LOG" 2>&1; then
         echo "[$(date -Is)] ssh reachable; deploying" | tee -a "$LOG"
         if $POD_SSH -o BatchMode=yes -o ConnectTimeout=30 \
-            "REMOTE_DIR='$REMOTE_DIR' REMOTE_WORKSPACE='$REMOTE_WORKSPACE' REPO_URL='$REPO_URL' BRANCH='$BRANCH' bash -s" \
+            "REMOTE_DIR='$REMOTE_DIR' REMOTE_WORKSPACE='$REMOTE_WORKSPACE' REPO_URL='$REPO_URL' BRANCH='$BRANCH' E0='${E0:-1}' E0_STEPS='${E0_STEPS:-600}' bash -s" \
             >>"$LOG" 2>&1 <<'REMOTE'
 set -euo pipefail
 
@@ -60,12 +62,31 @@ bash "$REMOTE_DIR/deploy/bootstrap_pod.sh" --smoke
 #    is the first thing that proves the model is actually up on this box.
 source "$REMOTE_WORKSPACE/activate_fasterwam_a3.sh"
 cd "$REMOTE_WORKSPACE/fasterwam_a3_bridge/bridge"
-python3 _next/b0_probe.py --out "$REMOTE_WORKSPACE/a3_results/b0"
+
+# B0 with the checkpoint: the sign check has to see what the weights actually
+# emit, not only the adapter table.
+python3 _next/b0_probe.py --model lora --out "$REMOTE_WORKSPACE/a3_results/b0"
 python3 _next/run_matrix.py --model lora --controls C0 --seeds 11 \
     --max-steps 2 --out "$REMOTE_WORKSPACE/a3_results/launch_probe"
+
+# First real job: one complete C0 trajectory with video. Kept even at 0/10 --
+# it is the baseline the release ladder is judged against. Backgrounded so a
+# dropped SSH session cannot kill it, and skipped if one is already running.
+if [ "${E0:-1}" = "1" ]; then
+    if pgrep -f "run_matrix.py --model lora --controls C0" >/dev/null 2>&1; then
+        echo "E0 C0 already running; not starting a second one"
+    else
+        mkdir -p "$REMOTE_WORKSPACE/a3_results/E0_C0"
+        nohup setsid python3 _next/run_matrix.py --model lora --controls C0 \
+            --seeds 11 --max-steps "${E0_STEPS:-600}" --video \
+            --out "$REMOTE_WORKSPACE/a3_results/E0_C0" \
+            > "$REMOTE_WORKSPACE/a3_results/E0_C0/run.log" 2>&1 &
+        echo "E0 C0 started: $REMOTE_WORKSPACE/a3_results/E0_C0/run.log"
+    fi
+fi
 REMOTE
         then
-            echo "[$(date -Is)] SUCCESS: pod is up, B0 sign check passed, LoRA stepped" | tee -a "$LOG"
+            echo "[$(date -Is)] SUCCESS: pod up, B0 sign check passed, LoRA stepped, E0 C0 started" | tee -a "$LOG"
             exit 0
         fi
         echo "[$(date -Is)] attempt $attempt failed; retrying in ${INTERVAL}s" | tee -a "$LOG"

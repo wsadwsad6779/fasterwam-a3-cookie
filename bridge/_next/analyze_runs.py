@@ -57,11 +57,19 @@ def per_run(path):
             if pid < 0:
                 continue
             sel = phase == pid
-            out["by_phase"][PHASES[pid] if pid < len(PHASES) else str(pid)] = {
+            entry = {
                 "steps": int(sel.sum()),
                 "verbatim_pct": round(100.0 * float((~changed[sel]).mean()), 2),
                 "rewrite_mm_mean": round(float(np.linalg.norm(dp[sel, :3], axis=1).mean()), 3),
             }
+            # A capability stage (e.g. C1 = transport xyz only) can show 0%
+            # whole-run xyz authority with the model already owning every
+            # approach step, so authority has to be read per phase too.
+            for ch, sl in (("xyz", slice(0, 3)), ("rot", slice(3, 6)),
+                           ("grip", slice(6, 7))):
+                touched = np.any(np.abs(delta[sel, sl]) > 1e-9, axis=1)
+                entry[f"verbatim_{ch}_pct"] = round(100.0 * float((~touched).mean()), 2)
+            out["by_phase"][PHASES[pid] if pid < len(PHASES) else str(pid)] = entry
     return out
 
 
@@ -69,7 +77,9 @@ def load(path):
     runs = {}
     for p in sorted(Path(path).glob("*_*_*.npz")):
         model, control, seed = p.stem.rsplit("_", 2)
-        runs[(model, control, int(seed))] = per_run(p)
+        rec = per_run(p)
+        rec["_path"] = str(p)
+        runs[(model, control, int(seed))] = rec
     return runs
 
 
@@ -140,7 +150,7 @@ def main():
 
     print("\n== self-check: safety control is low-intervention ==")
     for (model, control), recs in sorted(cells.items()):
-        if control != "safety":
+        if control not in ("safety", "C0"):
             continue
         low = [r for r in recs if r["verbatim_pct"] < 99.0]
         print(f"{model}: min verbatim {min(r['verbatim_pct'] for r in recs):.2f}% "
@@ -163,16 +173,73 @@ def main():
             print(f"{control}: n={pairs} d_verbatim={arr[:, 0].mean():+.1f}pp "
                   f"d_rewrite={arr[:, 1].mean():+.2f}mm")
 
-    print("\n== per-phase (full control) ==")
+    # A stage releases one channel for one part of the task (C1 only the
+    # transport phase), so whole-run numbers cannot separate "the wrapper still
+    # owns this channel" from "the model never entered that phase".
+    print("\n== authority per phase x channel ==")
+    print("| cell | phase | steps | verbatim | xyz | rot | grip | rewrite_mm |")
+    print("|---" * 8 + "|")
     for (model, control), recs in sorted(cells.items()):
-        if control != "full":
-            continue
-        names = sorted({n for r in recs for n in r.get("by_phase", {})})
+        names = sorted({n for r in recs for n in r.get("by_phase", {})},
+                       key=lambda n: PHASES.index(n) if n in PHASES else len(PHASES))
         for name in names:
             vals = [r["by_phase"][name] for r in recs if name in r.get("by_phase", {})]
-            print(f"{model}: {name:<9} steps={np.mean([v['steps'] for v in vals]):5.0f} "
-                  f"verbatim={np.mean([v['verbatim_pct'] for v in vals]):5.1f}% "
-                  f"rewrite={np.mean([v['rewrite_mm_mean'] for v in vals]):4.2f}mm")
+            print(f"| {model}/{control} | {name} | {np.mean([v['steps'] for v in vals]):.0f} | "
+                  f"{np.mean([v['verbatim_pct'] for v in vals]):.1f} | "
+                  f"{np.mean([v['verbatim_xyz_pct'] for v in vals]):.1f} | "
+                  f"{np.mean([v['verbatim_rot_pct'] for v in vals]):.1f} | "
+                  f"{np.mean([v['verbatim_grip_pct'] for v in vals]):.1f} | "
+                  f"{np.mean([v['rewrite_mm_mean'] for v in vals]):.2f} |")
+
+    # The success criterion of the whole ladder: C5 must clearly beat C0 with
+    # the same seeds, i.e. the weights -- not the wrapper -- got better. Until a
+    # LoRA update lands between stages, C5 is C0 by construction.
+    print("\n== C5 vs C0 (same model, same seeds) ==")
+    print("criterion: C5 must clearly beat C0; a near-zero delta means the "
+          "weights were not updated, not that the model improved")
+    for model in sorted({m for m, _ in cells}):
+        keys = sorted((k for k in runs if k[0] == model and k[1] == "C5"),
+                      key=lambda k: k[2])
+        pairs = [(k[2], runs[(model, "C5", k[2])], runs.get((model, "C0", k[2])))
+                 for k in keys]
+        pairs = [(seed, c5, c0) for seed, c5, c0 in pairs if c0 is not None]
+        if not pairs:
+            continue
+        d = defaultdict(list)
+        for seed, c5, c0 in pairs:
+            s5 = summaries.get((model, "C5"), {}).get(seed, {})
+            s0 = summaries.get((model, "C0"), {}).get(seed, {})
+            d["cookies"].append(s5.get("cookies_in_target", -1)
+                                - s0.get("cookies_in_target", -1))
+            d["success"].append(int(bool(s5.get("success"))) - int(bool(s0.get("success"))))
+            for ch in ("xyz", "rot", "grip"):
+                d[ch].append(c5[f"verbatim_{ch}_pct"] - c0[f"verbatim_{ch}_pct"])
+            d["rewrite"].append(c5["rewrite_mm_mean"] - c0["rewrite_mm_mean"])
+        n = len(pairs)
+        print(f"{model}: n={n} d_cookies={np.mean(d['cookies']):+.1f} "
+              f"d_success={sum(d['success']):+d}/{n} "
+              f"d_xyz={np.mean(d['xyz']):+.1f}pp d_rot={np.mean(d['rot']):+.1f}pp "
+              f"d_grip={np.mean(d['grip']):+.1f}pp "
+              f"d_rewrite={np.mean(d['rewrite']):+.2f}mm")
+        # Action-stream check: if the wrapper really released everything, C5 and
+        # C0 must be the same trajectory step for step. A difference here is a
+        # capability gate that still writes, not a model improvement.
+        diffs = []
+        for seed, c5, c0 in pairs:
+            a = np.load(c5["_path"])["post_14d"]
+            b = np.load(c0["_path"])["post_14d"]
+            shared = min(len(a), len(b))
+            if shared == 0:
+                continue
+            diff = np.abs(a[:shared] - b[:shared])
+            diffs.append((float(diff.max()),
+                          int(np.any(diff > 1e-9, axis=1).sum()), shared,
+                          abs(len(a) - len(b))))
+        if diffs:
+            print(f"  trace check: max |C5-C0| {max(x[0] for x in diffs):.2e}, "
+                  f"differing steps {sum(x[1] for x in diffs)}/"
+                  f"{sum(x[2] for x in diffs)}, length delta "
+                  f"{[x[3] for x in diffs]}")
 
     csv = base / "analysis.csv"
     with csv.open("w") as f:

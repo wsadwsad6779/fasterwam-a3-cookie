@@ -61,6 +61,10 @@ BRIDGE_DIR="$WORKSPACE/fasterwam_a3_bridge"
 A3_DIR="$WORKSPACE/a3_dual_arm_sim"
 FW_DIR="$WORKSPACE/FasterWAM"
 CKPT_DIR="$FW_DIR/checkpoints"
+# Keep the HF blob cache on the workspace volume: on a pod that volume survives
+# a restart, the container disk does not, so ~/.cache would re-download 37 GB.
+HF_HOME="${HF_HOME:-$WORKSPACE/hf_cache}"
+export HF_HOME
 
 log() { printf '\n[bootstrap] %s\n' "$*"; }
 have() { command -v "$1" >/dev/null 2>&1; }
@@ -77,7 +81,7 @@ log "workspace=$WORKSPACE  hf_endpoint=${HF_ENDPOINT:-https://huggingface.co}  g
 have python3 || { echo "python3 missing" >&2; exit 1; }
 python3 -c 'import sys; assert sys.version_info >= (3, 10), sys.version' \
   || { echo "python3 >= 3.10 required" >&2; exit 1; }
-mkdir -p "$WORKSPACE"
+mkdir -p "$WORKSPACE" "$HF_HOME"
 df -h "$WORKSPACE" | tail -1
 
 gh_url() {  # gh_url https://github.com/org/repo.git
@@ -242,6 +246,8 @@ export FASTERWAM_A3_BRIDGE=$BRIDGE_DIR
 export FASTERWAM_A3_SRC=$A3_DIR/src
 export FASTERWAM_A3_RUNS=$WORKSPACE/a3_train_runs
 export FASTERWAM_A3_DATA=$WORKSPACE/a3_data
+export HF_HOME=$HF_HOME
+export HF_ENDPOINT=$HF_ENDPOINT
 export MUJOCO_GL=egl
 export PYOPENGL_PLATFORM=egl
 export PYTHONPATH=$NEXT_DIR:$A3_DIR/src:$FW_DIR/src:$FW_DIR:$BRIDGE_DIR\${PYTHONPATH:+:\$PYTHONPATH}

@@ -36,7 +36,7 @@
 | `oracle_probe.py` | 统计控制层读了多久仿真真值（`cookie_positions` / `data`） | 否 |
 | `run_matrix.py` | 闭环矩阵；`--controls C0,C1..C5` 按能力放权（C0=接口+安全，C5 必须等于 C0），`full/guard/force` 保留为历史对照 |
 | `run_teacher_forcing.py` | 阶段 B1：专家驱动，模型只在专家轨迹上被查询；含不需要权重的动作链自检 | 否（`--check-only`）/ 是 |
-| `analyze_runs.py` | 汇总 2×2：可控率、改写幅度、成功率、Oracle 读取；按 xyz / 旋转 / 夹爪分通道给放权比例 | 否（只要 numpy） |
+| `analyze_runs.py` | 汇总 2×2：可控率、改写幅度、成功率、Oracle 读取；按「状态机阶段 × 通道」给放权比例，并做 `C5 vs C0` 配对与动作流 trace check | 否（只要 numpy） |
 | `calibrate.py` | 阶段 C0：验证噪声真的生效、核对力布局、量出专家自身峰值力 | 是 |
 | `scene_audit.py` | 阶段 C0b：加噪后饼干有没有重叠 / 倾斜 / 离开源盘；可选多种子重放专家 | 是 |
 | `b0_probe.py` | 阶段 B0：夹爪伺服方向、adapter 符号、checkpoint 实际输出（A/B 不需要权重） | 是（C 需要） |
@@ -116,11 +116,14 @@ wrapper 的成功率。
 1. **B0** 权重 manifest + **夹爪方向实测**：确认每个 checkpoint 配的是自己的 stats 和夹爪
    模式（各 2 分钟），再跑 `_next/b0_probe.py` 证明"模型说闭合 → 指垫真的合上"，
    而不是只靠编码推断；
-2. **E0 基线**：无扰动固定场景，`--controls C0`，看 LoRA 自己能完成到哪一步，并按
-   xyz / 旋转 / 夹爪分通道看放权比例（`analyze_runs.py`）。**每个种子都保留完整轨迹**
-   （npz 的 `pre_14d` / `post_14d` / `changed` / `phase` / `applied_canonical` /
-   指垫力 / 腕力），至少一个种子加 `--video`；0/10 也要留下，失败发生在哪个阶段比分数重要；
-3. **按能力放权**：从 `full` 开始，一级只交还一个能力，每级保留上一级作对照：
+2. **E0 基线（C0）**：无扰动固定场景，`--controls C0`，看 LoRA 自己能完成到哪一步。
+   **每个种子都保留完整轨迹**（npz 的 `pre_14d` / `post_14d` / `changed` / `phase` /
+   `applied_canonical` / 指垫力 / 腕力），至少一个种子加 `--video`；0/10 也要留下，
+   因为这一步的产物是"失败发生在哪个阶段"，不是分数。`analyze_runs.py` 现在同时按
+   **状态机阶段 × 通道**给 verbatim：全程 0% 可能只是"该通道只在 hold 阶段被交还，
+   而这一局没走到 hold"，不能当成实现错误；反过来 C1 的 xyz 全程 0% 也可能完全正常；
+3. **按能力放权**：一级只交还一个能力，每级保留上一级作对照。**每一级单独跑、单独分析，
+   不要 C1→C5 连着跑完**：
 
    | 阶段 | 交还给模型 | 仍由 wrapper 负责 |
    |---|---|---|
@@ -130,10 +133,17 @@ wrapper 的成功率。
    | `C4` | + 下降与夹爪闭合 | 释放/回收、姿态 |
    | `C5` | + 释放/回收与姿态 | 无（只剩安全层） |
 
-   `C0` = 只做接口转换 + 安全层，是所有阶段的终点参照；`C5` 必须与 `C0` 逐步动作完全相同
-   （本地已用 stub 验证 diff = 0），否则说明 wrapper 还在偷偷写某个通道。哪一级掉下来就
-   回到数据 / 模型，而不是加新规则；
-4. **整批平移**（`--batch-offset`）作为唯一的位置扰动，测"模型能不能用视觉找到饼干"，放在
+   `C0` = 只做接口转换 + 安全层，是整条阶梯的终点参照；`C5` 与 `C0` 的执行逻辑相同，
+   所以**必须与 `C0` 逐步动作完全相同**（本地 stub 已验证 trace diff = 0，但那是 stub，
+   真实 Faster-WAM 推理下要再确认一次，`analyze_runs.py` 会打印 trace check）。
+   哪一级掉下来就停在这一级：先看该阶段的阶段 × 通道 verbatim 和失败帧，判断是
+   "模型没有这个能力"还是"wrapper 还在挡"，需要时用这一级的轨迹做 LoRA 微调，
+   **只重跑这一级**，再继续下一级。不要加新的任务级规则去补；
+4. **训练与放权必须耦合**：没有权重更新时 `C5` 与 `C0` 是同一串动作，走完阶梯只等于
+   把辅助一路撤掉，不会自动变好。所以每一级失败后的 LoRA 微调是阶梯的一部分。
+   真正的成功判据是：**`C5` 比初始 `C0` 明显更好**（进箱饼干数 / 成功率），
+   而不是"我们执行到了 C5"；
+5. **整批平移**（`--batch-offset`）作为唯一的位置扰动，测"模型能不能用视觉找到饼干"，放在
    放权稳定之后。逐块 `--position-noise` 只作诊断，不混进同一项实验。
 
 四档 `full / guard / force / safety` 保留为历史对照（`--controls full,guard,force`），
@@ -368,11 +378,18 @@ python3 _next/run_matrix.py --model lora --controls C0 --seeds 11 21 22 --video 
     --out outputs/E0_C0
 python3 _next/analyze_runs.py outputs/E0_C0
 
-# 按能力放权：一条命令跑完一级，和上一级配对比较
+# 按能力放权：一次只跑一级，分析完再决定下一级跑不跑
 python3 _next/run_matrix.py --model lora --controls C1 --seeds 11 21 22 --out outputs/E0_C1
-python3 _next/run_matrix.py --model lora --controls C2 --seeds 11 21 22 --out outputs/E0_C2
-python3 _next/analyze_runs.py outputs/E0_C1
-python3 _next/analyze_runs.py outputs/E0_C2
+python3 _next/analyze_runs.py outputs/E0_C1     # 阶段 × 通道 verbatim + 失败帧
+
+# 该级失败 -> 用这一级的轨迹做 LoRA 微调 -> 只重跑这一级，再继续
+# python3 _next/run_matrix.py --model lora --controls C2 ... --out outputs/E0_C2
+
+# 最终验证：C0 和 C5 放进同一个目录，analyze 才会做配对比较。
+# C5 必须与 C0 动作逐帧相同（trace check），且真实任务指标要明显高于初始 C0。
+python3 _next/run_matrix.py --model lora --controls C0,C5 --seeds 11 21 22 \
+    --out outputs/E0_final
+python3 _next/analyze_runs.py outputs/E0_final
 
 # 整批平移（先 3 mm，再 5 mm），等放权稳定之后再做
 python3 _next/run_matrix.py --model lora --controls C0 --seeds 11 21 22 \
@@ -396,6 +413,13 @@ python3 _next/analyze_runs.py outputs/E1_offset3
 - **包装器主导**：`full` 格的 `verbatim_%` 低（open/preclose/descend ≈0），
   `rewrite_mm` 与 `model_mm` 同量级或更大，同时 `oracle_reads` 每步都在涨。
   这时 `full` 的成功数不能用来说明模型能力。
+- **全程 verbatim 不能单独判读**：先看 `analyze_runs.py` 的"阶段 × 通道"表。C1 的 xyz
+  全程 0% 很正常（xyz 只在 hold 阶段交还，而这一局几乎都在接近段）；如果某个通道在它
+  应该被交还的阶段里仍然是 0%，那才是实现问题。
+- **C5 的判据是"比初始 C0 明显更好"**：`analyze_runs.py` 的 `C5 vs C0` 段落会打印
+  `d_cookies` / `d_success` / 各通道 verbatim 差值和 trace check。没有权重更新时
+  `C5≡C0`（trace diff 应为 0），这时"走完阶梯"不构成任何结论；只有真实指标提升才算
+  模型接管了任务。
 - **拟合好但闭环差**：teacher forcing 的 h0 误差小（< 1 mm），但 `safety` 格失败。
   这指向分布偏移 / 累积误差，而不是数据没学到 —— 下一步是数据增广，不是加 rank。
 - **拟合差**：teacher forcing 的 h0 误差与 `expert_pos_scale_mm` 同量级（比如
@@ -474,7 +498,9 @@ PYTHONPATH="E:/Innovative_practice/WAM/a3_dual_arm_sim/src;fasterwam_next" \
 | 夹爪方向（B0-A） | `a3[6]=+1` → opening 1.000；`-1` → 0.000 | 伺服语义与 A3 记法一致，`+1` 开、`-1` 合 |
 | adapter 符号（B0-B） | LIBERO `+1` → `a3[6]=-1.0`；`-1` → `+1.0` | `out6=-sign(a6)` 与伺服方向能串起来用 |
 | 能力放权阶梯（C0–C5，stub） | C1 xyz 0%/grip 0%；C2、C3 xyz 100%/grip 0%；C4 grip 100%；C5 全 100% | 每级只动一个通道，grip 辅助在 C4 才交还 |
-| C5 泄漏检查 | `C5` 与 `C0` 执行动作 60 步 max diff = 0.000e+00 | 全部释放后 wrapper 不再写任何通道，也读 0 次 oracle |
+| C5 泄漏检查 | `C5` 走 wrapper（全部释放）再进安全层，与 `C0` 执行动作 60 步 max diff = 0.000e+00，oracle 读取 0，phase=`raw` | 全部释放后 wrapper 不再写任何通道；与安全层串联后仍逐帧等于 C0 |
+| 阶段 × 通道统计 | 合成 npz：C1 的 `hold` 段 xyz 100%、`open/descend` 段 0%；stub 矩阵 C1 全程 xyz 0%（只走到 open/preclose/descend） | `analyze_runs.py` 能区分"这一级没交还"和"这一局没走到该阶段" |
+| C5 vs C0 判据 | 合成数据：`d_cookies=+0.0`、trace diff 0 | 没训练时 C5≡C0 是预期，输出会明确写"这不等于模型提升" |
 
 「框架自检 + 源码核对」：
 

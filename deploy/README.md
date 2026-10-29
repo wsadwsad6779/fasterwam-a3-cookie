@@ -30,9 +30,14 @@ POD_SSH="ssh -p 45339 root@1.2.3.4" bash deploy/retry_launch.sh
 ```
 
 一次尝试 = SSH 可达 → 仓库拉到 `a3-cookie-r27`（`pull --ff-only`，不覆盖 pod 上的本地改动）
-→ `bootstrap_pod.sh --smoke` → `b0_probe.py`（夹爪方向实测）→ 加载 LoRA 走 2 步。
-任何一步失败都只记日志并重试；日志在 `outputs/launch_retry.log`。
-它不会创建、停止或扩缩容任何实例，也不会把 `HF_TOKEN` 写进任何文件。
+→ `bootstrap_pod.sh --smoke` → `b0_probe.py --model lora`（夹爪方向实测，含 checkpoint 输出）
+→ 加载 LoRA 走 2 步 → 用 `nohup setsid` 在后台启动 **E0 C0 基线**（seed 11、600 步、带视频）。
+
+启动 E0 后脚本就退出（0），基线在后台继续跑，日志在
+`$WORKSPACE/a3_results/E0_C0/run.log`；已在跑时不会重复启动。`E0=0` 只做就绪检查，
+`E0_STEPS=...` 改长度。任何一步失败都只记日志并重试；重试日志在 `outputs/launch_retry.log`。
+它不会创建、停止或扩缩容任何实例，也不会把 `HF_TOKEN` 写进任何文件；**只有有人持续运行它时
+它才工作**，不会自己后台常驻。
 
 ```bash
 source /workspace/activate_fasterwam_a3.sh
@@ -75,6 +80,14 @@ GitHub 上不放：密钥、`HF_TOKEN`、虚拟环境、`outputs/`、视频（`*
 |---|---|
 | 仅推理（`--skip-weights` 之外） | ≈ 40 GB（权重 37 + 仓库与缓存） |
 | `--with-training` | ≈ 78 GB |
+
+## 权重与缓存放在持久卷上
+
+容器盘随实例销毁而消失，重下 37–78 GB 要 20–40 分钟。能挂持久网络卷时把它挂到
+`/workspace`（Runpod 的 `/workspace` 本身就是网络卷），权重、`hf_cache` 和 `runs/` 就都在卷上，
+下次开新实例只需装环境。`bootstrap_pod.sh` 默认把 `HF_HOME` 指到 `$WORKSPACE/hf_cache`
+（可用同名环境变量覆盖），所以 blob 缓存也不会落在容器盘。卷不存在时行为不变，仍写
+`$WORKSPACE`。
 
 ## 已知的两个坑
 
