@@ -68,7 +68,13 @@ pip3 install -i https://mirrors.aliyun.com/pypi/simple/ easydict av thop wandb j
 ### 4.2 代码就位
 - 上游代码（不进本仓库）：
   - `https://github.com/hustvl/FasterWAM` @ `83667817df0d4f823f39d90700e61ea2f432ac45` → `/workspace/FasterWAM`
-  - `https://github.com/Eter0109/a3_dual_arm_sim` @ `ff552c4fe54fe344aeaff4c65270ee0fd2af4153` → `/workspace/a3_dual_arm_sim`
+  - `https://github.com/Eter0109/a3_dual_arm_sim` @ `08ebe8cb370856051d0b32b07e691cc9b056716b` → `/workspace/a3_dual_arm_sim`
+    > **此处原来是 `ff552c4`，是错的。** `ff552c4`（2026-09-28 14:47）是重构前的扁平布局
+    > （`src/a3_dual_arm_sim/cookie_transfer.py`），而 `bridge/` 里 import 的是
+    > `a3_dual_arm_sim.tasks.cookie_transfer` / `.controllers.same_column_batch_expert`，
+    > 这两个包从 `8088b31`（2026-09-28 21:44）起才存在，按 `ff552c4` 克隆会直接
+    > `ModuleNotFoundError`。`08ebe8c`（2026-10-21）在 `origin/main` 上，是本地跑过
+    > `bridge/_next/selftest.py` 和 `calibrate.py` 的那一版。详见 `bridge/_next/README.md` §2。
 - 本项目原创代码：把本包的 `bridge/`、`finetune/` 放回 `/workspace/fasterwam_a3_bridge/`、`/workspace/FasterWAM/`（finetune 里的文件按包内相对路径覆盖/新增）。
 - 容器内 GitHub 被墙，代码只能用本地上传（JupyterLab 拖拽即可）。
 
@@ -216,7 +222,7 @@ a3_handoff_20261027/
 | 资源 | 地址 / 版本 |
 |---|---|
 | FasterWAM 源码 | https://github.com/hustvl/FasterWAM @ `83667817df0d4f823f39d90700e61ea2f432ac45` |
-| A3 仿真源码 | https://github.com/Eter0109/a3_dual_arm_sim @ `ff552c4fe54fe344aeaff4c65270ee0fd2af4153` |
+| A3 仿真源码 | https://github.com/Eter0109/a3_dual_arm_sim @ `08ebe8c`（**不是 `ff552c4`**，原因见 §4.2） |
 | 官方基座权重 | HF `hustvl/FasterWAM` → `libero/step_021700.pt` + `libero/dataset_stats.json` |
 | **本工作合并权重**（推理用） | HF **model** `wsadwsad6779/fasterwam-a3-cookie-lora` → `step_002000_merged.pt`（11,117,977,659 B，r26/r27 实际使用） |
 | **本工作训练侧权重**（可重合并） | 同仓库 → `trainer/step_002000.pt`（11,179,613,340 B，基座 + 未折叠 LoRA） |
@@ -228,17 +234,66 @@ a3_handoff_20261027/
 
 ---
 
-## 8. 下一步（建议从这里继续）
+## 8. 阶段 B/C：`bridge/_next/`（2026-10-29 加入）
 
-1. **先看视频**：`results/wrapped/run_20261026_173807/full_episode_42_front.mp4`，确认第二批 5 块在释放后是“叠在第一批上”还是“落在盒沿外”。
-2. **加一次释放后诊断**：在 `a3_wrap.apply` 的 done 分支后，记录离 TCP 最近的 5 块饼干的 xyz 与 `cookies_in_target`，跑 600 步即可判定计数体积的边界条件。
-3. **若确认是叠放**：把第二批的落点从“同一条 x 槽位”改为“按实测 free gap 侧向放置”（`patch_place2.goal_tcp_x` 已有雏形），并把释放高度降到盒沿附近（当前 z≈0.798，盒沿 z≈0.775）。
-4. **若确认是落点偏外**：用 `batch_offsets()` 的 min/max 直接对齐盒子内壁，而不是用 TCP 偏置。
-5. 目标：先稳定 10/10，再回头评估是否需要第二轮数据/训练（当前包装器是主要贡献，微调增益尚未证明）。
+`bridge/_next/` 是第二阶段的实验脚本，**不改 `bridge/` 里任何已有文件**，`run_wrapped.py`
+的 npz 格式也保持原样。它要回答的问题换了：不再是"怎么把 5/10 推到 10/10"，而是
+**模型自己到底学到了什么**。
+
+2×2 对照：`{raw, lora}` 权重 × `{safety, full}` 控制层，同 seed、同一次 reset，
+因而是配对的。`safety` 格只做硬件保护（力超限急停、单步位移/转角上限、空手压箱沿），
+`full` 格才是 r27 的启发式包装器。判据写在 `bridge/_next/README.md` §4，先写下来是为了
+避免事后解释。
+
+| 文件 | 作用 |
+|---|---|
+| `selftest.py` | 本地自检，不需要权重 |
+| `run_teacher_forcing.py` | 专家驱动、模型只被查询；含不需要权重的动作链自检（`--check-only`） |
+| `run_matrix.py` | 2×2 闭环 + 每步力/腕力记录 |
+| `analyze_runs.py` | 汇总可控率、改写幅度、成功率、Oracle 读取 |
+| `calibrate.py` | 验证噪声真的生效、核对力布局、量出专家自身峰值力 |
+| `safety_wrap.py` / `oracle_probe.py` / `common.py` / `env_factory.py` | 安全层、真值读取计数、权重与 stats 注册、建环境 |
+| `gripper_label_audit.py` | 用 `joint_cmd` 校验训练数据里的夹爪标签 |
+
+放到 pod 上的最短路径（从 GitHub 直接取，不需要本地上传）：
+
+```bash
+git clone -b a3-cookie-r27 https://github.com/wsadwsad6779/fasterwam-a3-cookie /workspace/fasterwam-a3-cookie
+mkdir -p /workspace/fasterwam_a3_bridge
+cp -r /workspace/fasterwam-a3-cookie/bridge /workspace/fasterwam_a3_bridge/bridge
+cd /workspace/fasterwam_a3_bridge/bridge
+export PYTHONPATH=/workspace/fasterwam_a3_bridge/bridge/_next:$PYTHONPATH
+python3 -m py_compile _next/*.py && python3 _next/selftest.py
+```
+
+完整执行顺序（A 自检 → B0 stats 配对 → B1 teacher forcing → B2 2×2 → C0 标定 → C1 扰动）
+和每一步该看哪个字段，都在 `bridge/_next/README.md`。里面 §6 记了本地已验证 / 未验证的
+分界，§5 记了训练数据里 27.2% 的夹爪标签与 `joint_cmd` 矛盾这件事。
 
 ---
 
-## 9. GitHub 发布建议
+## 9. 下一步（建议从这里继续）
+
+r26/r27 的"把 5/10 推到 10/10"不再是最优先级。现在的顺序是：
+
+1. **先把 2×2 跑完**（`bridge/_next/README.md` §3 的 B0/B1/B2）。没有它，"5/10 是模型的功劳
+   还是包装器的功劳"这个问题没有答案，任何继续调包装器的工作都无法证伪。
+2. **B0 先看 stats 配对**：`raw` 用 LIBERO stats、`lora` 用 A3 stats，两者混用会让动作
+   尺度静默错掉。r26/r27 用的哪份，交接日志里没有记录 —— 这是目前最值得先排除的混淆项。
+3. **B1 看夹爪符号**：`FASTERWAM_A3_GRIPPER_MODE` 的 `pm1` / `libero01` 各跑一遍同一批
+   查询，用 `grip.sign_agree_moving` 决定哪个对。用现有 checkpoint 就能验，不需要重训。
+4. **只有当 B1 证明"模型学到的是错标签"时**，才按 `bridge/_next/README.md` §5 重建夹爪
+   标签（`clip(-Δjoint_cmd/0.08, -1, 1)` + adapter 改 `-action[6]`）并重训。阶段 B 的 2×2
+   必须继续用旧 adapter，否则两列不在同一基准上。
+5. **C0/C1 是场景标定**：本地已量出专家指垫峰值 1.46 N、左腕静载 10.7 N、
+   `--position-noise 0.003` 的 xy 位移 p95 4.1–5.2 mm（已超过 2.5 mm 排缝），
+   所以扰动要从 `0.001` 起加。这些数字要在 pod 的仿真版本上复核一次再用。
+6. r26 那条老线索（第二批释放后没被计入目标盘）留着，但优先级在这五步之后 —— 它回答的
+   是"包装器怎么改"，而 2×2 回答的是"还该不该把包装器当主线"。
+
+---
+
+## 10. GitHub 发布建议
 
 - 仓库已建：https://github.com/wsadwsad6779/fasterwam-a3-cookie ，分支 `a3-cookie-r27`（默认分支）。
 - **只上传原创内容**：`bridge/`、`finetune/`、`tools/`、`docs/`、`results/` 里的文本摘要；不要上传 `outputs/`、`.venv/`、`__pycache__/`、大模型和大数据。

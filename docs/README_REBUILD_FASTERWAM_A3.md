@@ -1210,7 +1210,7 @@ cd /workspace/fasterwam_a3_bridge && python3 -m py_compile run_oracle.py && DIFF
 | 资源 | 来源 | 放置位置（云端） | 备注 |
 |---|---|---|---|
 | FasterWAM 源码 | github.com/hustvl/FasterWAM，commit **`83667817df0d4f823f39d90700e61ea2f432ac45`** | `/workspace/FasterWAM` | 云端 GitHub 被墙 → 本地 zip 上传（§3–4） |
-| a3_dual_arm_sim 源码 | github.com/Eter0109/a3_dual_arm_sim（相机默认值与数据集对齐的 commit `ff552c4fe54fe344aeaff4c65270ee0fd2af4153`） | `/workspace/a3_dual_arm_sim` | 同上，zip 上传 |
+| a3_dual_arm_sim 源码 | github.com/Eter0109/a3_dual_arm_sim，commit **`08ebe8cb370856051d0b32b07e691cc9b056716b`**（2026-10-21，在 `origin/main` 上） | `/workspace/a3_dual_arm_sim` | 同上，zip 上传。**原先这里记的是 `ff552c4`（2026-09-28 14:47），那是重构前的扁平布局**（`src/a3_dual_arm_sim/cookie_transfer.py`、`batch_expert.py`），而 `bridge/` import 的是 `a3_dual_arm_sim.tasks.cookie_transfer` / `.controllers.same_column_batch_expert`，这两个包从 `8088b31`（2026-09-28 21:44，`refactor: drop legacy shims…`）起才存在，按 `ff552c4` 克隆会 `ModuleNotFoundError`。`08ebe8c` 是本地跑过 `bridge/_next/selftest.py` 与 `calibrate.py` 的那一版；详见 `bridge/_next/README.md` §2 |
 | LIBERO / robosuite | pip：`libero==0.1.1 --no-deps`、`robosuite==1.4.0`、`bddl`、`robomimic --no-deps`（§5） | Python 3.12.3 环境 | 只有零样本 LIBERO 评测需要；A3 微调路径不碰 LIBERO 场景 |
 | 官方 checkpoint | HF `hustvl/FasterWAM` → `libero/step_021700.pt`（11,117,679,929 B，sha256 `01be4efc…`）+ `libero/dataset_stats.json`（40,952 B，sha256 `c06dc67f…`） | `/workspace/FasterWAM/checkpoints/fasterwam_release/libero/` | 下载命令 §6；**微调训练用 `resume=` 从此 ckpt 起跑** |
 | Wan2.2 VAE/T5 | HF `Wan-AI/Wan2.2-TI2V-5B`（`Wan2.2_VAE.pth` 2.82 GB、`models_t5_umt5-xxl-enc-bf16.pth` 11.4 GB） | `checkpoints/Wan-AI/Wan2.2-TI2V-5B/` | 预下载绕 429：§6.1 |

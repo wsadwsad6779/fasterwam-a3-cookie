@@ -68,7 +68,12 @@ pip3 install -i https://mirrors.aliyun.com/pypi/simple/ easydict av thop wandb j
 ### 4.2 代码就位
 - 上游代码（不进本仓库）：
   - `https://github.com/hustvl/FasterWAM` @ `83667817df0d4f823f39d90700e61ea2f432ac45` → `/workspace/FasterWAM`
-  - `https://github.com/Eter0109/a3_dual_arm_sim` @ `ff552c4fe54fe344aeaff4c65270ee0fd2af4153` → `/workspace/a3_dual_arm_sim`
+  - `https://github.com/Eter0109/a3_dual_arm_sim` @ `08ebe8cb370856051d0b32b07e691cc9b056716b` → `/workspace/a3_dual_arm_sim`
+    > 更正（2026-10-29）：此处原来记的是 `ff552c4`（2026-09-28 14:47）。那一版是重构前的扁平布局
+    > （`src/a3_dual_arm_sim/cookie_transfer.py`），而 `bridge/` import 的是
+    > `a3_dual_arm_sim.tasks.cookie_transfer` / `.controllers.same_column_batch_expert`，
+    > 这两个包从 `8088b31`（2026-09-28 21:44）起才存在。按 `ff552c4` 重建会 `ModuleNotFoundError`。
+    > 当前推荐的 pin 是 `08ebe8c`（在 `origin/main` 上），理由见 `bridge/_next/README.md` §2。
 - 本项目原创代码：把本包的 `bridge/`、`finetune/` 放回 `/workspace/fasterwam_a3_bridge/`、`/workspace/FasterWAM/`（finetune 里的文件按包内相对路径覆盖/新增）。
 - 容器内 GitHub 被墙，代码只能用本地上传（JupyterLab 拖拽即可）。
 
@@ -216,7 +221,7 @@ a3_handoff_20261027/
 | 资源 | 地址 / 版本 |
 |---|---|
 | FasterWAM 源码 | https://github.com/hustvl/FasterWAM @ `83667817df0d4f823f39d90700e61ea2f432ac45` |
-| A3 仿真源码 | https://github.com/Eter0109/a3_dual_arm_sim @ `ff552c4fe54fe344aeaff4c65270ee0fd2af4153` |
+| A3 仿真源码 | https://github.com/Eter0109/a3_dual_arm_sim @ `08ebe8c`（**不是 `ff552c4`**，原因见 §4.2 的更正） |
 | 官方基座权重 | HF `hustvl/FasterWAM` → `libero/step_021700.pt` + `libero/dataset_stats.json` |
 | **本工作合并权重**（推理用） | HF **model** `wsadwsad6779/fasterwam-a3-cookie-lora` → `step_002000_merged.pt`（11,117,977,659 B，r26/r27 实际使用） |
 | **本工作训练侧权重**（可重合并） | 同仓库 → `trainer/step_002000.pt`（11,179,613,340 B，基座 + 未折叠 LoRA） |
