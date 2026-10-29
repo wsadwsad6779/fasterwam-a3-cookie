@@ -7,14 +7,20 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 
 import numpy as np
 
-BRIDGE_DIR = Path("/workspace/fasterwam_a3_bridge/bridge")
-A3_SRC = Path("/workspace/a3_dual_arm_sim/src")
-FASTERWAM_ROOT = Path("/workspace/FasterWAM")
+# Defaults match the 2026-10-27 cloud layout; the env vars exist so
+# `deploy/bootstrap_pod.sh` can honour a non-default WORKSPACE.
+BRIDGE_DIR = Path(os.environ.get(
+    "FASTERWAM_A3_BRIDGE", "/workspace/fasterwam_a3_bridge/bridge"))
+A3_SRC = Path(os.environ.get("FASTERWAM_A3_SRC", "/workspace/a3_dual_arm_sim/src"))
+FASTERWAM_ROOT = Path(os.environ.get("FASTERWAM_ROOT", "/workspace/FasterWAM"))
+A3_RUNS = Path(os.environ.get("FASTERWAM_A3_RUNS", "/workspace/a3_train_runs"))
+A3_DATA = Path(os.environ.get("FASTERWAM_A3_DATA", "/workspace/a3_data"))
 
 # Both checkpoints keep the normalizer they were trained with. The merged LoRA
 # was trained against A3 stats (`pretrained_norm_stats` in a3_2cam.yaml); the
@@ -34,8 +40,8 @@ MODELS = {
         "gripper_mode": "libero01",
     },
     "lora": {
-        "ckpt": Path("/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt"),
-        "stats": Path("/workspace/a3_data/a3_fw/dataset_stats.json"),
+        "ckpt": A3_RUNS / "a3_lora_r1/step_002000_merged.pt",
+        "stats": A3_DATA / "a3_fw/dataset_stats.json",
         "gripper_mode": "pm1",
     },
 }

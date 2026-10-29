@@ -55,6 +55,18 @@ max steps         = 600
 
 ## 4. 从零复现到 r27
 
+### 4.0 一键恢复（推荐；4.1–4.3 是它展开后的手工版本）
+
+新实例上只跑一个脚本，代码从 GitHub 的固定 commit 取、权重从 Hugging Face 取：
+
+```bash
+HF_TOKEN=... bash deploy/bootstrap_pod.sh --smoke
+source /workspace/activate_fasterwam_a3.sh
+```
+
+`deploy/README.md` 里列了全部环境变量（镜像、代理、`BRIDGE_SRC` 离线兜底）、磁盘占用和
+两个已知的坑。脚本不写任何密钥，也不改 `~/.bashrc`。
+
 ### 4.1 实例与依赖
 - 新建 Radeon Cloud「Blank Notebook」实例（Python 3.12.3）；`/workspace` 对应 JupyterLab 文件浏览器根目录。
 - 安装依赖（Aliyun 镜像）：
@@ -250,9 +262,10 @@ a3_handoff_20261027/
 | `selftest.py` | 本地自检，不需要权重 |
 | `run_teacher_forcing.py` | 专家驱动、模型只被查询；含不需要权重的动作链自检（`--check-only`） |
 | `run_matrix.py` | 2×2 闭环 + 每步力/腕力记录 |
-| `analyze_runs.py` | 汇总可控率、改写幅度、成功率、Oracle 读取 |
+| `analyze_runs.py` | 汇总可控率、改写幅度、成功率、Oracle 读取；按 xyz / 旋转 / 夹爪分通道给放权比例 |
 | `calibrate.py` | 验证噪声真的生效、核对力布局、量出专家自身峰值力 |
-| `safety_wrap.py` / `oracle_probe.py` / `common.py` / `env_factory.py` | 安全层、真值读取计数、权重与 stats 注册、建环境 |
+| `scene_audit.py` | 诊断扰动后的饼干重叠 / 倾斜 / 出盘；同时说明"逐块噪声会破坏场景"的证据 |
+| `safety_wrap.py` / `oracle_probe.py` / `common.py` / `env_factory.py` | 安全层、真值读取计数、权重与 stats 注册、建环境、`batch_offset_m` 整批平移、`scene_sanity()` 有效性门 |
 | `gripper_label_audit.py` | 用 `joint_cmd` 校验训练数据里的夹爪标签 |
 
 放到 pod 上的最短路径（从 GitHub 直接取，不需要本地上传）：
@@ -266,9 +279,16 @@ export PYTHONPATH=/workspace/fasterwam_a3_bridge/bridge/_next:$PYTHONPATH
 python3 -m py_compile _next/*.py && python3 _next/selftest.py
 ```
 
-完整执行顺序（A 自检 → B0 stats 配对 → B1 teacher forcing → B2 2×2 → C0 标定 → C1 扰动）
-和每一步该看哪个字段，都在 `bridge/_next/README.md`。里面 §6 记了本地已验证 / 未验证的
-分界，§5 记了训练数据里 27.2% 的夹爪标签与 `joint_cmd` 矛盾这件事。
+**2026-10-29 定下的路线**（写在 `bridge/_next/README.md` §3）：A 自检 → B0 stats / 夹爪
+配对 → **E0 无扰动低干预基线** → 按 `full → guard → force → safety` 逐级删规则放权 →
+`--batch-offset` 整批平移。**跳过**完整 B1 teacher forcing 扫描、B2 的 2×2、B3，以及扰动
+场景下的专家成功率。某级放权失败时回到数据 / 模型（必要时 LoRA 微调），不再用任务级
+wrapper 规则替代模型。
+
+每步都记录模型原始动作、实际执行动作、是否被改动、包装器阶段（npz 的 `pre_14d` /
+`post_14d` / `changed` / `phase`），`analyze_runs.py` 再按 xyz / 旋转 / 夹爪分通道给出
+放权比例。`bridge/_next/README.md` §6 记了本地已验证 / 未验证的分界，§5 记了训练数据里
+27.2% 的夹爪标签与 `joint_cmd` 矛盾这件事。
 
 ---
 

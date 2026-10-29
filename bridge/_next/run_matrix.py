@@ -1,7 +1,13 @@
-"""Stage B2: the 2x2 (model x control) closed-loop matrix.
+"""Stage B2: the (model x control) closed-loop matrix.
 
-    model   in {raw, lora}        -- released Faster-WAM vs merged A3 LoRA
-    control in {safety, full}     -- interface+safety only vs the task wrapper
+    model   in {raw, lora}                   -- released Faster-WAM vs merged A3 LoRA
+    control in {safety, force, guard, full}  -- interface+safety only, then the
+        cumulative wrapper profiles. Authority is released downward
+        (full -> guard -> force -> safety), never by adding task rules.
+
+Position perturbations use `--batch-offset`, a rigid translation of the whole
+batch; per-cookie `--position-noise` destroys the 2.5 mm/0.4 mm clearances (see
+`scene_audit.py`) and is stopped by the scene sanity gate.
 
 Every cell uses the same seeds and the same reset, so the four cells are paired.
 One model per process: two 5.56B checkpoints do not belong in one 48 GB card.
@@ -31,14 +37,23 @@ from oracle_probe import OracleProbe
 def parse_args():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True, choices=["raw", "lora"])
-    ap.add_argument("--controls", default="safety,full")
+    ap.add_argument("--controls", default="safety,full",
+                    help="safety = interface + safety only; full/guard/force = "
+                         "cumulative wrapper profiles, most authority first. "
+                         "Releasing authority means walking full -> guard -> "
+                         "force -> safety, keeping the previous cell as control.")
     ap.add_argument("--seeds", type=int, nargs="+", default=[11, 21, 22, 23, 24])
     ap.add_argument("--max-steps", type=int, default=600)
     ap.add_argument("--replan", type=int, default=10)
     ap.add_argument("--position-noise", type=float, default=0.0,
                     help="cookie xy noise in metres; 0 keeps the stage-B fixed scene")
     ap.add_argument("--yaw-noise", type=float, default=0.0)
+    ap.add_argument("--batch-offset", type=float, default=0.0,
+                    help="rigid xy offset of the whole cookie batch; keeps the "
+                         "2.5 mm/0.4 mm clearances intact, unlike per-cookie noise")
     ap.add_argument("--randomize-boxes", action="store_true")
+    ap.add_argument("--allow-invalid-scene", action="store_true",
+                    help="run even if the reset scene has overlapping or escaped cookies")
     ap.add_argument("--ckpt", default=None)
     ap.add_argument("--stats", default=None)
     ap.add_argument("--instruction", default=None)
@@ -72,13 +87,27 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
     probe = OracleProbe(env)
     W.set_global_seed(int(seed), get_worker_init_fn=False)
     obs, info = env_factory.reset(env, seed, randomize_cookies=True,
-                                  randomize_boxes=args.randomize_boxes)
+                                  randomize_boxes=args.randomize_boxes,
+                                  batch_offset_m=args.batch_offset)
+    # A scene with overlapping or escaped cookies cannot be scored, so it stops
+    # here instead of producing a number that looks like a policy failure.
+    sanity = env_factory.scene_sanity(env)
+    if not sanity["ok"]:
+        msg = (f"scene invalid at noise={args.position_noise} "
+               f"offset={args.batch_offset} seed={seed}: {sanity}")
+        if not args.allow_invalid_scene:
+            env.close()
+            raise SystemExit(msg)
+        print(f"[scene] WARNING {msg}", flush=True)
+    # `info` is rebound by every step; keep the reset-time offset for the record.
+    applied_offset = [float(v) for v in info.get("batch_offset_xy_m", (0.0, 0.0))]
     # The policy object is reused across cells, so its call counter has to be
     # reset per episode or `replans` and `chunk_idx` inherit the previous cell.
     policy.calls = 0
 
-    ctl_state = a3_wrap.new_state() if control == "full" else safety_wrap.new_state()
-    profile = a3_wrap.PROFILES["full"]
+    wrapped = control != "safety"
+    ctl_state = a3_wrap.new_state() if wrapped else safety_wrap.new_state()
+    profile = a3_wrap.PROFILES[control] if wrapped else a3_wrap.PROFILES["full"]
 
     pending, chunk_idx, pre_log, post_log, phase_log = [], [], [], [], []
     opening, applied, force_in, force_out, dist, eef = [], [], [], [], [], []
@@ -95,7 +124,7 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
             chunk_idx.extend([policy.calls - 1] * len(pending))
 
         pre = np.asarray(pending.pop(0), dtype=np.float64)
-        if control == "full":
+        if wrapped:
             post = a3_wrap.apply(pre.copy(), obs, probe, ctl_state, profile)
             phase_log.append(a3_wrap.PHASES.index(ctl_state["phase"]))
         else:
@@ -165,7 +194,7 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
         "replans": policy.calls,
         "success": bool(info.get("success", False)),
         "cookies_in_target": int(info.get("cookies_in_target", -1)),
-        "final_phase": ctl_state.get("phase", "n/a") if control == "full" else "n/a",
+        "final_phase": ctl_state.get("phase", "n/a") if wrapped else "n/a",
         "max_pad_force": round(float(max(max(force_in), max(force_out))), 3),
         "max_wrist_force": round(float(max(np.linalg.norm(np.asarray(wrist), axis=1))), 2),
         "verbatim_pct": round(float(100.0 * (~changed).mean()), 2),
@@ -177,7 +206,12 @@ def run_one(policy, args, control, seed, lim, out_dir, src_pts):
         "duration_s": round(duration, 1),
         "position_noise_m": args.position_noise,
         "yaw_noise_rad": args.yaw_noise,
+        "batch_offset_m": args.batch_offset,
+        "batch_offset_xy_m": applied_offset,
         "randomize_boxes": bool(args.randomize_boxes),
+        "scene_ok": bool(sanity["ok"]),
+        "scene_max_penetration_mm": sanity["max_penetration_mm"],
+        "scene_cookies_outside_bin": sanity["cookies_outside_bin"],
         "gripper_mode": policy.gripper_mode,
     }
     env.close()
@@ -210,7 +244,7 @@ def main():
 
     records = []
     for control in [c.strip() for c in args.controls.split(",") if c.strip()]:
-        if control not in ("safety", "full"):
+        if control not in ("safety", "full", "guard", "force"):
             raise SystemExit(f"unknown control {control}")
         for seed in args.seeds:
             rec = run_one(policy, args, control, seed, lim, out_dir, src_pts)

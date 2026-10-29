@@ -41,6 +41,13 @@ def per_run(path):
         "oracle_data_reads": int(d["oracle_data"][-1]),
         "sensor_reads": int(d["oracle_sensor"][-1]),
     }
+    # Per-channel authority. A staged hand-off releases one skill at a time, so
+    # "verbatim 40%" is not actionable on its own: the wrapper may be rewriting
+    # only the gripper, which means the model already owns the arm motion.
+    delta = post - pre
+    for name, sl in (("xyz", slice(0, 3)), ("rot", slice(3, 6)), ("grip", slice(6, 7))):
+        touched = np.any(np.abs(delta[:, sl]) > 1e-9, axis=1)
+        out[f"verbatim_{name}_pct"] = round(100.0 * float((~touched).mean()), 2)
     if "wrist_force" in d:
         out["max_wrist_force"] = round(float(np.linalg.norm(d["wrist_force"], axis=1).max()), 2)
     phase = d["phase"]
@@ -122,6 +129,15 @@ def main():
 
     # Validity: with only the safety layer, the executed action must equal the
     # model action except where a hard/soft force or bin-floor rule fired.
+    print("\n== authority by channel (percent of steps passed through untouched) ==")
+    print("| cell | xyz | rot | grip |")
+    print("|---|---|---|---|")
+    for cell, recs in sorted(cells.items()):
+        print(f"| {cell[0]}/{cell[1]} | "
+              f"{np.mean([r['verbatim_xyz_pct'] for r in recs]):.1f} | "
+              f"{np.mean([r['verbatim_rot_pct'] for r in recs]):.1f} | "
+              f"{np.mean([r['verbatim_grip_pct'] for r in recs]):.1f} |")
+
     print("\n== self-check: safety control is low-intervention ==")
     for (model, control), recs in sorted(cells.items()):
         if control != "safety":
@@ -161,6 +177,7 @@ def main():
     csv = base / "analysis.csv"
     with csv.open("w") as f:
         cols = ["model", "control", "seed", "success", "cookies", "steps", "verbatim_pct",
+                "verbatim_xyz_pct", "verbatim_rot_pct", "verbatim_grip_pct",
                 "rewrite_mm_mean", "rewrite_mm_p95", "rewrite_mrad_mean", "model_motion_mm_mean",
                 "grip_changed_pct", "max_pad_force", "oracle_cookie_reads", "oracle_data_reads"]
         f.write(",".join(cols) + "\n")

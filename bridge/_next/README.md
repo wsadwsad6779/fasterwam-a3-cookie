@@ -31,17 +31,27 @@
 | 文件 | 作用 | 需要 mujoco/torch |
 |---|---|---|
 | `common.py` | 权重/stats 注册、manifest 指纹、`Policy.chunk()` | 是 |
-| `env_factory.py` | 建环境；把 `position_noise_m` 真正接进 `task_config`；`reset()` 显式给 `randomize_cookies` | 是 |
+| `env_factory.py` | 建环境；`position_noise_m` 真正接进 `task_config`；`batch_offset_m` 整批刚性平移；`scene_sanity()` 最低有效性门 | 是 |
 | `safety_wrap.py` | 只做接口 + 安全，不读 `env`，力从 `obs["observation.force"][12:14]` 取 | 否 |
 | `oracle_probe.py` | 统计控制层读了多久仿真真值（`cookie_positions` / `data`） | 否 |
-| `run_matrix.py` | 阶段 B2 的 2×2 闭环 | 是 |
+| `run_matrix.py` | 闭环矩阵；`--controls safety,force,guard,full`，`force/guard/full` 是累积 profile，放权顺序是反过来走 |
 | `run_teacher_forcing.py` | 阶段 B1：专家驱动，模型只在专家轨迹上被查询；含不需要权重的动作链自检 | 否（`--check-only`）/ 是 |
-| `analyze_runs.py` | 汇总 2×2：可控率、改写幅度、成功率、Oracle 读取 | 否（只要 numpy） |
+| `analyze_runs.py` | 汇总 2×2：可控率、改写幅度、成功率、Oracle 读取；按 xyz / 旋转 / 夹爪分通道给放权比例 | 否（只要 numpy） |
 | `calibrate.py` | 阶段 C0：验证噪声真的生效、核对力布局、量出专家自身峰值力 | 是 |
+| `scene_audit.py` | 阶段 C0b：加噪后饼干有没有重叠 / 倾斜 / 离开源盘；可选多种子重放专家 | 是 |
 | `gripper_label_audit.py` | 用 `joint_cmd` 校验训练数据里的夹爪标签 | 否（只要 numpy） |
 | `selftest.py` | 本地自检（安全层 no-op、计数器、分析通道） | 否 |
 
 ## 2. 放到 pod 上（直接从 GitHub 取）
+
+**一条命令**（推荐，代码 + 依赖 + 权重一起恢复；细节见仓库 `deploy/README.md`）：
+
+```bash
+HF_TOKEN=... bash deploy/bootstrap_pod.sh --smoke
+source /workspace/activate_fasterwam_a3.sh
+```
+
+下面是同一件事的手工版本，用来核对脚本做了什么：
 
 ```bash
 # 1) 本仓库（只跑阶段 B/C 的话，只需要 bridge/_next/）
@@ -51,7 +61,7 @@ cp -r /workspace/fasterwam-a3-cookie/bridge /workspace/fasterwam_a3_bridge/bridg
 
 # 2) 仿真代码 —— 版本必须对，见下面的警告
 git clone https://github.com/Eter0109/a3_dual_arm_sim /workspace/a3_dual_arm_sim
-git -C /workspace/a3_dual_arm_sim checkout 08ebe8c   # 本地验证过的那一版
+git -C /workspace/a3_dual_arm_sim checkout 08ebe8cb370856051d0b32b07e691cc9b056716b
 
 # 3) 自检
 cd /workspace/fasterwam_a3_bridge/bridge && source /opt/venv/bin/activate
@@ -98,6 +108,19 @@ git -C /workspace/a3_dual_arm_sim rev-parse --short HEAD
 不是 `08ebe8c` 就在 pod 上把 §6 的本地数字当成"待复验"，不要直接引用。
 
 ## 3. 执行顺序
+
+**2026-10-29 定的路线（以此为准）**：目标是"模型逐步完全接管"，所以不追求脚本专家或
+wrapper 的成功率。
+
+1. **B0** 权重 manifest：确认每个 checkpoint 配的是自己的 stats 和夹爪模式（各 2 分钟）；
+2. **E0 基线**：无扰动固定场景，`--controls safety`，看 LoRA 自己能完成到哪一步，并按
+   xyz / 旋转 / 夹爪分通道看放权比例（`analyze_runs.py`）；
+3. **逐步放权**：`full → guard → force → safety` 逐级删掉包装器规则，每一级都保留上一级
+   作为对照；哪一级掉下来就回到数据 / 模型，而不是加新规则；
+4. **整批平移**（`--batch-offset`）作为唯一的位置扰动，测"模型能不能用视觉找到饼干"。
+
+**不做**：完整 B1 teacher forcing 扫描、B2 的 2×2、B3，以及扰动场景下的专家成功率复测
+（已有的一次性诊断数据留在下面 C0b/C1）。
 
 ### A. 自检（1 分钟）
 
@@ -256,46 +279,65 @@ python3 _next/run_matrix.py --model lora --controls safety --seeds 11 21 \
     --soft-force <X> --hard-force <Y> --out outputs/stageB_calib
 ```
 
-### C1. 扰动场景（**先量专家，再决定要不要跑**）
+### C0b. 场景有效性（一次性诊断，已完成，不再扫）
 
-本地已经把脚本专家自己放进加噪场景重放过（`run_teacher_forcing.py --check-only`，
-seed 7001，`08ebe8c`）：
+`scene_audit.py` 读的是 reset 之后、50 步落位之后**真实**的饼干位置（`env.cookie_positions`），
+不是采样值。5 个种子 × 5 档噪声：
 
-| `position_noise_m` | 步数 | `cookies_in_target` | 专家自己的失败点 |
+| `position_noise_m` | 最小 AABB 间隙 | 穿透对数 | 最大穿透 | 最大倾角 | 倾斜 >5° | z 最大偏离 | 最大位移 | 有效性门 |
+|---|---|---|---|---|---|---|---|---|
+| 0 | 0.40 mm | 0 | 0.00 mm | 0.00° | 0 | 0.00 mm | 0.00 mm | 5/5 通过 |
+| 0.0005 | -0.00 mm | 0 | 0.00 mm | 0.02° | 0 | 0.01 mm | 0.68 mm | 5/5 通过 |
+| 0.001 | -0.89 mm | 1–5 | 0.89 mm | 1.40° | 0 | 0.60 mm | 1.36 mm | **5/5 不通过** |
+| 0.002 | -2.78 mm | 6–13 | 2.78 mm | 7.63° | 2 | 6.07 mm | 5.04 mm | **5/5 不通过** |
+| 0.003 | -4.33 mm | 19–24 | 4.33 mm | 12.52° | 15 | 15.35 mm | 9.34 mm | **5/5 不通过** |
+
+机制是几何决定的：饼干 50 × 6.33 × 25 mm，列间距 50.4 mm、行间距 8.833 mm，所以名义
+列间隙只有 **0.4 mm**、行间隙 **2.5 mm**。逐块独立 `U(-n, n)` 采样在 1 mm 时就必然把相邻
+列推进彼此（实测残余穿透 0.9 mm），2 mm 起出现倾斜，3 mm 有一半以上饼干歪斜、z 相差 1.5 cm。
+**所以逐块噪声不是"同一个任务换个位置"，而是换了一个不可能完成的任务。**
+
+现在 `env_factory.scene_sanity()` 是唯一保留的检查（只看：穿透 > 0.5 mm、饼干离开源盘、
+位姿非有限），`run_matrix.py` 在 reset 后调用它，不通过直接中止并报出种子与穿透量，
+避免无效场景混进结果；`--allow-invalid-scene` 只用于明确想看退化场景的场合。
+
+### C1. 位置扰动：改成整批平移
+
+同一批种子上的**专家诊断记录**（一次性，不再复测；seed = 7001–7005，`max_steps=900`）：
+
+| `position_noise_m` | 10/10 的种子 | `cookies_in_target` | 失败点 |
 |---|---|---|---|
-| 0.000 | 473 | **10** | — |
-| 0.001 | 536 | 7 | `VERIFY_RELEASE`：释放后 [5,6,8] 号饼干没立稳 / 没进盒 |
-| 0.002 | **41** | 0 | `DESCEND`：`insertion blocked; pad forces=[48.27, 0.0]` |
-| 0.003 | 268 | 5 | `DESCEND`：`insertion blocked; pad forces=[36.28, 0.0]` |
+| 0 | 5/5 | 10 10 10 10 10 | — |
+| 0.0005 | 2/3 | 10, 6, 10 | `DESCEND_TO_PLACE`：搬运中饼干滑出批次 |
+| 0.001 | 2/5 | 7, 6, 10, 10, 5 | `VERIFY_RELEASE` / `DESCEND_TO_PLACE` / `LIFT` 各一次 |
+| 0.002 | 0/3 | 0, 6, 5 | 48.27 N 撞停（41 步）/ 滑出 / 滑出 |
+| 0.003 | 0/1 | 5 | 36.28 N 撞停 |
 
-**结论：这个专家在 1 mm 就已经失败了，2 mm 时第 41 步就撞进饼干里。** 所以
-"扰动下的成功率"这个指标在这里没有可达到的参照 —— 拿 lora 和 raw 在 1/2/3 mm 上比，
-比的是两种不同的失败方式，不是能力。原计划的三级 ramp 不能按成功数解读。
+两件事同时成立，而且必须分开说：
 
-改成下面两种，二选一（**不要**跑完再解释）：
+- **0.5 mm 时场景仍然有效（零穿透），专家已经 1/3 失败**——失败原因是五块一起抓的批次
+  余量本来就小，不是场景坏了；
+- 1 mm 起场景本身开始穿透，2/3 mm 明确无效。
 
-1. **降级曲线，不比成功**：每个噪声档只报 `dist_to_source` 的进入深度、`pad_force` 的
-   p95、第一次接触的 step，以及"第一批 5 块有没有进盒"。这些在专家失败时仍然有定义。
-   脚本现有的 npz 已经记了前三个，第四个要把 `cookies_in_target` 逐步记下来。
-2. **更小的噪声**：0.1 mm 量级还在专家的容差内（0 失败、1 mm 失败，阈值在这之间），
-   但 0.1 mm 对 2.5 mm 的排缝几乎没有意义 —— 它衡量的是"模型对 2.5 mm 缝的鲁棒性"吗？
-   不是。所以第 1 种更值得做。
+所以"扰动下的成功率"既不能当模型能力，也不能当任务难度：它主要测的是批次抓取的随机余量。
 
-在此之前，**2×2（Stage B）只在 `--position-noise 0` 跑**，那也是模型训练时的场景。
-
-粗跑的命令保留在这里，但结果必须和上表一起看：
+**采用的做法**：位置扰动一律用 `--batch-offset`，整批饼干**刚性平移**同一个向量
+（`env_factory.apply_batch_offset`，从 `env.np_random` 抽样，可复现）。实测 3 mm / 5 mm
+下相对排列、倾角、z 全部不变（与名义网格的偏差 0.000 mm），"饼干离开源盘"为 0；源盘在
+x 方向还有 ±12 mm、y 方向 ±8 mm 的余量，5 mm 以内是安全的。这样扰动只改变"批次在桌上
+的哪里"，才是"Faster-WAM 能否用视觉找到它"的问题。
 
 ```bash
-for n in 0.001 0.002 0.003; do
-  python3 _next/run_matrix.py --model lora --controls safety --seeds 11 21 22 \
-      --position-noise $n --out outputs/stageC_n$n
-done
+# E0 基线（无扰动）
+python3 _next/run_matrix.py --model lora --controls safety --seeds 11 21 22     --out outputs/E0_safety
+# 整批平移（先 3 mm，再 5 mm）
+python3 _next/run_matrix.py --model lora --controls safety --seeds 11 21 22     --batch-offset 0.003 --out outputs/E1_offset3
+python3 _next/analyze_runs.py outputs/E1_offset3
 ```
 
-顺带一个和阈值有关的数字：专家自己在 `DESCEND` 撞上时读到 **36–48 N** 的指垫力。
-也就是说 `hard_force_n=40` 会在"专家式失败"时就触发，`soft=3–6 N` 会在它之前很久触发。
-标称抓取只有 1.46 N，所以这个软阈值不会碰到合法抓取 —— 但它确实会在任何一次对缝失败
-时开火，这是设计意图，不是误报。
+`run_matrix.py` 的 npz 每步都存了模型原始动作（`pre_14d`）、实际执行动作（`post_14d`）、
+是否被改动（`changed`）和包装器阶段（`phase`），`analyze_runs.py` 额外给出 xyz / 旋转 /
+夹爪三个通道各自的放权比例——这三个数就是"模型真正自己做了多少"。
 
 ## 4. 判读规则（先写下来，避免事后解释）
 
@@ -375,10 +417,12 @@ PYTHONPATH="E:/Innovative_practice/WAM/a3_dual_arm_sim/src;fasterwam_next" \
 | 专家指垫力 | p95 1.45 N，max 1.46 N | 远低于自身判定卡死的 8 N |
 | 左腕 \|f\| | p50 10.7 N，max 14.3 N | 主要是自重，做触地判据必须先减基线 |
 | 噪声 3 mm | xy p95 4.1–5.2 mm，z 受落位影响可达 16 mm | 旋钮真的生效 |
-| 专家 + 1 mm 噪声 | 536 步，7/10，`VERIFY_RELEASE` 失败 | 专家容差 < 1 mm |
-| 专家 + 2 mm 噪声 | 41 步，0/10，`DESCEND` 撞上 48.3 N | 对缝失败是"撞进去"，不是"慢慢偏" |
-| 专家 + 3 mm 噪声 | 268 步，5/10，`DESCEND` 撞上 36.3 N | 同上 |
+| 专家 + 1 mm 噪声 | 5 种子：2 个 10/10；7 / 6 / 5，失败在三个不同阶段 | 1 mm 是"余量"，不是硬阈值；且与 seed 7001 单跑完全复现（536 步） |
+| 专家 + 2 mm 噪声 | 3 种子：0 个 10/10（0 / 6 / 5），一个 41 步撞停 48.3 N | 场景本身已穿透 2.8 mm，不能当评测条件 |
+| 整批平移 3/5 mm | 相对排列偏差 0.000 mm，倾角 0°，z 不变，出盘 0 | `apply_batch_offset` 是刚性平移，机制可用 |
+| 有效性门 | E0 0/5 不通过；1 mm 5/5 不通过；2 mm 5/5 不通过；平移 3/5 mm 0/5 不通过 | `scene_sanity()` 恰好拦住被破坏的场景，不误伤 E0 与平移 |
 | 力布局（接触中） | 223 个接触步，`obs[12:14]` 与 `_sensor` 最大差 0.00 N | 安全层读 obs 与读传感器等价 |
+| 分通道放权 | stub 冒烟：`safety` 三通道 100%，`full` xyz/rot 0%、grip 60% | `analyze_runs.py` 能分开报告三个通道 |
 
 「框架自检 + 源码核对」：
 
