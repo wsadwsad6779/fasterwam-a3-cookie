@@ -94,6 +94,13 @@ pip3 install -i https://mirrors.aliyun.com/pypi/simple/ easydict av thop wandb j
     > `ModuleNotFoundError`。`08ebe8c`（2026-10-21）在 `origin/main` 上，是本地跑过
     > `bridge/_next/selftest.py` 和 `calibrate.py` 的那一版。详见 `bridge/_next/README.md` §2。
 - 本项目原创代码：把本包的 `bridge/`、`finetune/` 放回 `/workspace/fasterwam_a3_bridge/`、`/workspace/FasterWAM/`（finetune 里的文件按包内相对路径覆盖/新增）。
+- **`bridge/infer_a3_worker.py` 用 `Path(__file__).parent.parent / "FasterWAM"` 定位上游代码**，
+  不读 `FASTERWAM_ROOT`。上游按上表放在 `/workspace/FasterWAM` 时，必须补一个链接，
+  否则 hydra 会去 `/workspace/fasterwam_a3_bridge/FasterWAM/configs` 找配置并报
+  `Primary config directory not found`：
+  ```bash
+  ln -sfn /workspace/FasterWAM /workspace/fasterwam_a3_bridge/FasterWAM
+  ```
 - 容器内 GitHub 被墙，代码只能用本地上传（JupyterLab 拖拽即可）。
 
 ### 4.3 模型 / 数据下载
