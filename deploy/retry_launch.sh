@@ -25,8 +25,28 @@ REPO_URL="${REPO_URL:-https://github.com/wsadwsad6779/fasterwam-a3-cookie.git}"
 BRANCH="${BRANCH:-a3-cookie-r27}"
 LOG="${LOG:-outputs/launch_retry.log}"
 
+# The endpoint lives in deploy/pod.env (gitignored) and is re-read before every
+# attempt, so the loop can run before the instance exists and picks up a new
+# port without a restart.
+POD_ENV="${POD_ENV:-deploy/pod.env}"
+POD_SSH_ENV="${POD_SSH:-}"
+
+load_endpoint() {
+    if [ -n "$POD_SSH_ENV" ]; then
+        POD_SSH="$POD_SSH_ENV"
+    elif [ -f "$POD_ENV" ]; then
+        set -a
+        # shellcheck disable=SC1090
+        . "$POD_ENV"
+        set +a
+        POD_SSH="${POD_SSH%$'\r'}"
+    fi
+}
+load_endpoint
+
 if [ -z "$POD_SSH" ]; then
     echo "POD_SSH is required, e.g. POD_SSH='ssh -p 45339 root@1.2.3.4' $0" >&2
+    echo "or copy deploy/pod.env.example to deploy/pod.env and fill it in" >&2
     exit 2
 fi
 
@@ -34,6 +54,7 @@ mkdir -p "$(dirname "$LOG")"
 
 attempt=0
 while :; do
+    load_endpoint
     attempt=$((attempt + 1))
     echo "[$(date -Is)] attempt $attempt" | tee -a "$LOG"
 

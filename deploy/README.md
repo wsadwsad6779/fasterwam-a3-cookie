@@ -21,11 +21,19 @@ HF_TOKEN=... bash deploy/bootstrap_pod.sh --with-training
 
 ## 实例开起来之后：每 60 秒重试直到启动成功
 
-实例由操作者手动开启；`retry_launch.sh` 只负责"等它起来，然后按顺序把该做的做完"，
-每次失败睡 60 秒再试，成功即退出：
+**实例本身必须由操作者在控制台点启动**：Agent 侧策略明确禁止自动开启付费实例（浏览器点击、
+截图、页面读取都被拒绝），旧端点 `195.26.233.93:45339` 也已销毁。不需要盯着——先启动看护
+循环，之后任何时候点启动都会被接住：
+
+```bat
+copy deploy\pod.env.example deploy\pod.env   :: 填一次 SSH 命令（每次开机可能不同）
+deploy\watch_pod.bat                          :: 双击，循环在自己的窗口里跑
+```
 
 ```bash
+# 等价的手动方式
 POD_SSH="ssh -p 45339 root@1.2.3.4" bash deploy/retry_launch.sh
+# 或把 POD_SSH 写进 deploy/pod.env（已 gitignore），直接 bash deploy/retry_launch.sh
 # 可选：INTERVAL=60 MAX_ATTEMPTS=0（0 = 一直重试）REMOTE_DIR=/workspace/...
 ```
 
@@ -37,7 +45,9 @@ POD_SSH="ssh -p 45339 root@1.2.3.4" bash deploy/retry_launch.sh
 `$WORKSPACE/a3_results/E0_C0/run.log`；已在跑时不会重复启动。`E0=0` 只做就绪检查，
 `E0_STEPS=...` 改长度。任何一步失败都只记日志并重试；重试日志在 `outputs/launch_retry.log`。
 它不会创建、停止或扩缩容任何实例，也不会把 `HF_TOKEN` 写进任何文件；**只有有人持续运行它时
-它才工作**，不会自己后台常驻。
+它才工作**，不会自己后台常驻。看护循环可以整夜挂着，不需要人盯：实例起来后它会自己完成
+bootstrap、B0 和 E0。若每次开机 SSH 端口会变，改动 `deploy/pod.env` 后循环下一轮就会用新值
+（不用重启脚本）。
 
 ```bash
 source /workspace/activate_fasterwam_a3.sh

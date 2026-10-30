@@ -7,3 +7,6 @@ outputs/
 *.npz
 *.pt
 *.zip
+
+# per-machine pod endpoint, never commit
+deploy/pod.env
