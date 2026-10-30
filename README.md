@@ -97,26 +97,97 @@ pip3 install -i https://mirrors.aliyun.com/pypi/simple/ easydict av thop wandb j
 - 容器内 GitHub 被墙，代码只能用本地上传（JupyterLab 拖拽即可）。
 
 ### 4.3 模型 / 数据下载
-```bash
-export HF_ENDPOINT=https://hf-mirror.com
-huggingface-cli download hustvl/FasterWAM --include "libero/step_021700.pt" "libero/dataset_stats.json" \
-  --local-dir /workspace/FasterWAM/checkpoints/fasterwam_release
-huggingface-cli download Eter0109/a3-front-close-left-100 --repo-type dataset \
-  --revision 8fdd8a7caf8275eba8be8a83b53a99176a084062 \
-  --local-dir /workspace/a3_data/a3-front-close-left-100
-```
-另外需要 Wan2.2 VAE/T5 与 Wan2.1 tokenizer（约 14 GB），**必须预先按文件名放好**，否则运行时 `fasterwam/runtime.py` 会走 snapshot resolver 触发 HF 429：
+
+要拿的是约 36 GB 的大文件。**不要用 `hf download` 单连接硬等**：2026-10-30 在 Radeon Cloud 实例上实测，
+同一批文件用 `hf download`（hf-mirror 单流）只有 **2 MB/s**，全部下完要 4 小时以上。
+
+同一时间、同一台机器、同一个 egress 代理，四种取法实测：
+
+| 取法 | 实测速率 | 适用 |
+| --- | --- | --- |
+| ModelScope 直链（单流） | **36 MB/s** | 公开权重（基座 ckpt、Wan VAE/T5、tokenizer） |
+| hf-mirror 6 路 Range 分段 | **26 MB/s** | 私有仓库（ModelScope 上没有） |
+| hf-mirror 单流 `curl` | 5.6 MB/s | 兜底 |
+| `huggingface.co` 直连 | 1.7 MB/s | 不用 |
+| `hf download`（hf-mirror 单流） | 2 MB/s | 慢，只用来续传 |
+
+四个源都返回 `206`，所以分段和续传都成立。换成上面前两行之后，36 GB 从 4 小时降到 **15 分钟**。
+
+**(a) 公开权重：走 ModelScope**（`hustvl/FasterWAM` 与 `Wan-AI/*` 在 ModelScope 上都有，字节数与 HF 一致）
 
 ```bash
+P=${https_proxy:-}   # 需要出网代理时带上 -x "$P"
 B=/workspace/FasterWAM/checkpoints
 VAE=$B/Wan-AI/Wan2.2-TI2V-5B
 TOK=$B/Wan-AI/Wan2.1-T2V-1.3B/google/umt5-xxl
-mkdir -p "$VAE" "$TOK"
-curl -L -C - -o "$VAE/Wan2.2_VAE.pth" "https://hf-mirror.com/Wan-AI/Wan2.2-TI2V-5B/resolve/main/Wan2.2_VAE.pth"
-curl -L -C - -o "$VAE/models_t5_umt5-xxl-enc-bf16.pth" "https://hf-mirror.com/Wan-AI/Wan2.2-TI2V-5B/resolve/main/models_t5_umt5-xxl-enc-bf16.pth"
-for f in special_tokens_map.json tokenizer_config.json spiece.model tokenizer.json; do
-  curl -L -o "$TOK/$f" "https://hf-mirror.com/Wan-AI/Wan2.1-T2V-1.3B/resolve/main/google/umt5-xxl/$f"
+mkdir -p "$B/fasterwam_release/libero" "$VAE" "$TOK"
+
+ms() {  # ms <owner/repo> <输出路径> <仓库内路径>
+  curl -sL -x "$P" --retry 8 --retry-all-errors -C - -o "$2" \
+    "https://modelscope.cn/api/v1/models/$1/repo?Revision=master&FilePath=$3"
+  echo "MS_RC_$? $3 $(stat -c %s "$2" 2>/dev/null)"
+}
+
+ms hustvl/FasterWAM "$B/fasterwam_release/libero/step_021700.pt" libero/step_021700.pt
+ms hustvl/FasterWAM "$B/fasterwam_release/libero/dataset_stats.json" libero/dataset_stats.json
+ms Wan-AI/Wan2.2-TI2V-5B "$VAE/Wan2.2_VAE.pth" Wan2.2_VAE.pth
+ms Wan-AI/Wan2.2-TI2V-5B "$VAE/models_t5_umt5-xxl-enc-bf16.pth" models_t5_umt5-xxl-enc-bf16.pth
+for f in spiece.model tokenizer.json tokenizer_config.json special_tokens_map.json; do
+  ms Wan-AI/Wan2.2-TI2V-5B "$TOK/$f" "google/umt5-xxl/$f"
 done
+```
+
+**(b) 私有 LoRA（11.1 GB）：hf-mirror 6 路分段再拼接**
+
+```bash
+P=${https_proxy:-}
+U=https://hf-mirror.com/wsadwsad6779/fasterwam-a3-cookie-lora/resolve/main/step_002000_merged.pt
+D=/workspace/a3_train_runs/a3_lora_r1
+SZ=11117977659; N=6; CH=$(( (SZ + N - 1) / N ))
+cd "$D"
+for i in $(seq 0 $((N-1))); do
+  s=$((i*CH)); e=$((s+CH-1)); [ $e -ge $SZ ] && e=$((SZ-1))
+  curl -sL -x "$P" --retry 10 --retry-all-errors -r $s-$e -o part$i "$U" &
+done
+wait
+# 逐段核对字节数，全部对上才拼接；任何一段短了就是 LORA_PARTS_BAD，重下该段即可
+ok=1
+for i in $(seq 0 $((N-1))); do
+  s=$((i*CH)); e=$((s+CH-1)); [ $e -ge $SZ ] && e=$((SZ-1))
+  want=$((e-s+1)); got=$(stat -c %s part$i)
+  echo "part$i want=$want got=$got"; [ "$want" != "$got" ] && ok=0
+done
+[ $ok = 1 ] && cat part0 part1 part2 part3 part4 part5 > step_002000_merged.pt && rm -f part?
+```
+
+> 分段并发别开太大：8 路以上会被 hf-mirror 限速到每路几百 KB/s，6 路是实测的拐点。
+> 同一个文件名在 HF 和 ModelScope 上是同一份字节，所以从 `.incomplete` 续传、换源续传都安全 —— 但要按下面的
+> sha256 核对。
+
+**(c) 下载完成后核对**（HF 的 LFS oid 就是 sha256）
+
+```bash
+sha256sum /workspace/FasterWAM/checkpoints/fasterwam_release/libero/step_021700.pt \
+          /workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt
+```
+
+| 文件 | 字节数 | sha256 |
+| --- | --- | --- |
+| `libero/step_021700.pt` | 11,117,679,929 | `01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d` |
+| `a3_lora_r1/step_002000_merged.pt` | 11,117,977,659 | `4091b02a23b3e35fb63b8bac38ea8e9c6d44439c052ed5aa5db151435a175601` |
+| `Wan2.2-TI2V-5B/Wan2.2_VAE.pth` | 2,818,839,170 | 见 `Wan-AI/Wan2.2-TI2V-5B` 的 LFS oid |
+| `Wan2.2-TI2V-5B/models_t5_umt5-xxl-enc-bf16.pth` | 11,361,920,418 | 见 `Wan-AI/Wan2.2-TI2V-5B` 的 LFS oid |
+
+Wan2.2 VAE/T5 与 Wan2.1 tokenizer **必须预先按上面的文件名放好**，否则运行时 `fasterwam/runtime.py`
+会走 snapshot resolver 触发 HF 429。
+
+数据集（A3 相机数据，只有几百 MB，单流即可）：
+
+```bash
+export HF_ENDPOINT=https://hf-mirror.com
+huggingface-cli download Eter0109/a3-front-close-left-100 --repo-type dataset \
+  --revision 8fdd8a7caf8275eba8be8a83b53a99176a084062 \
+  --local-dir /workspace/a3_data/a3-front-close-left-100
 ```
 
 完整历史复现记录（含每一步的验收输出、hash）见仓库 `docs/README_REBUILD_FASTERWAM_A3.md`（https://github.com/wsadwsad6779/fasterwam-a3-cookie/blob/a3-cookie-r27/docs/README_REBUILD_FASTERWAM_A3.md）；本机同目录另有一份，不进交接压缩包。
@@ -161,6 +232,9 @@ python3 scripts/export_lora_merged.py data=a3_2cam task=a3_fasterwam \
 >
 > 直链前缀：`https://huggingface.co/wsadwsad6779/fasterwam-a3-cookie-lora/resolve/main/`
 > （`step_002000_merged.pt`、`trainer/step_002000.pt`、`trainer/state/step_002000/*`、`data/frames.dat`）
+>
+> `hf download` 在这个网络环境下只有 2 MB/s，11 GB 要一个多小时；用 §4.3(b) 的 6 路 Range
+> 分段（hf-mirror，实测 26 MB/s）十几分钟就能拉完。
 
 ### 4.7 裸模型评测（0/10，用于对照）
 ```bash

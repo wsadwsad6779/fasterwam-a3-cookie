@@ -16,6 +16,12 @@ hf download wsadwsad6779/fasterwam-a3-cookie-lora trainer/step_002000.pt --local
 hf download wsadwsad6779/fasterwam-a3-cookie-lora trainer/state/step_002000 --local-dir state_from_hf
 ```
 
+> `hf download` 在本环境只有约 2 MB/s，48 GB 要四小时以上。改法见仓库 `README.md` §4.3：
+> hf-mirror 6 路 Range 分段实测 26 MB/s，公开权重（`hustvl/FasterWAM`、`Wan-AI/*`）走
+> ModelScope 直链实测 36 MB/s，两者都是 `curl -r` + 校验字节数，两种源的文件字节一致，
+> `step_002000_merged.pt` 的 sha256 是
+> `4091b02a23b3e35fb63b8bac38ea8e9c6d44439c052ed5aa5db151435a175601`。
+
 以下两个不属于本工作，按外部地址重新下载即可：
 
 | 云端路径 | 大小 | 来源 |
