@@ -355,8 +355,10 @@ HF token 只存在于旧 pod 的 `/root/.cache/huggingface/token`（0600），�
 脚本照常启动、照常往下跑，只是 532 个分片一个都没装配，`--verify` 还把 532 个不存在的路径算成
 `giants_missing`、最后仍然 `rc=0`——只看代码和本地 `bash -n` 完全发现不了。是空目录演练把它逼出来的。
 所以：改完恢复脚本，先在新目录里跑一遍 `--parts` + `--verify`，确认末行是
-`verify rows=715 ok=715 missing=0 sha_bad=0 giants_missing=0 giants_bad=0`、退出码为 0，再谈恢复成功。
-（这次的实测过程与两轮数字见 `PRE_SHUTDOWN_FINAL_REPORT.md` 第 10 节。）
+`verify rows=715 ok=715 missing=0 sha_bad=0 giants_missing=0 giants_bad=0 named_missing=0`、退出码为 0，
+再谈恢复成功。只跑正例还不够——反例（空目录全量 `--verify`、点名一个不存在的文件、`--weights` 给一个台账里没有的路径）
+必须各自返回非零；这一轮正是靠「缺文件仍然 rc=0」才发现判定漏洞的。
+（三轮回演练的过程与数字见 `PRE_SHUTDOWN_FINAL_REPORT.md` 第 10 节。）
 
 ## 12. 新实例恢复与重启步骤
 
@@ -396,7 +398,7 @@ ln -sfn /workspace/FasterWAM /workspace/fasterwam_a3_bridge/FasterWAM
 11.1 GB 级别的权重用六路分段脚本，脚本在 `scripts/restore_new_instance.sh` 里（`fetch_range6`）。取完必须比对 sha256，本 README 里出现的每个字节数与 sha256 都以 `archive/2026-11-01/p0p1_manifest.tsv` 为准。
 
 `--verify` 先逐行核对 `p0p1_manifest.tsv` 的 715 个文件，再对由 532 个分片重装配出的 3 个整文件核对整文件 sha256
-（预期输出 `verify rows=715 ok=715 missing=0 sha_bad=0 giants_missing=0 giants_bad=0`）。全量恢复后才允许 `missing=0`；
+（预期输出 `verify rows=715 ok=715 missing=0 sha_bad=0 giants_missing=0 giants_bad=0 named_missing=0`）。全量恢复后才允许 `missing=0`；
 如果只试取了几个文件，`--verify` 要把这些路径一起带上（如 `--verify weights/r4/light/step_004000/adapter.pt`），
 否则缺文件会被算成失败。任何下载或装配失败都会以非零退出码结束，并在最后打印 `RESTORE FAILED: N file(s) ...`。
 

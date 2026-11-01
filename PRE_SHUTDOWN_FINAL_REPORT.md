@@ -43,7 +43,7 @@ archive/2026-11-01/parts60gz_manifest.tsv 532 个分片：分片 path_in_repo、
 - 三个钉死文件的 sha256 在 clone 里逐一核对通过：
   - `archive/2026-11-01/p0p1_manifest.tsv` = `54f4e3669a46b3af58331abee2b55c350c1292516b692c19cb4bb0520d596b08`
   - `archive/2026-11-01/parts60gz_manifest.tsv` = `307172a4f82d98f58391068c2ac4078ac4f8ff64efafa50470361456db6d0f04`
-  - `scripts/restore_new_instance.sh` = `98510b0774ef9023e72cd9e1c51c0033e5c59b9e9187b48ae0cab6cd485492c7`
+  - `scripts/restore_new_instance.sh` = `745e20e736c68770d10782c0dea2c48ef307abd6b09964bbc322bcbd2a8138c9`
 - README 含任务书要求的 13 项：研究目标、A3 任务、专家策略、r1→r5 训练史、B0/C0 评估表、两套入盒口径、
   接触力量级、`proprio_encoder` 漏存、73 条新增示范、V1 方案、归档位置与校验、恢复步骤、未完成工作。
   另加第 11.3 节上传手册与第 11.4 节 GitHub 上传经验（6 条，含「台账列错位只有真跑演练才能发现」）。
@@ -196,9 +196,9 @@ huggingface-cli download Eter0109/a3-front-close-left-100 --repo-type dataset \
 2. **`do_verify` 只报 `missing` 不计入失败**：3 个整文件缺失、532 个「装配路径」不存在，脚本仍然 `rc=0`。
 
 修复：新增 `whole_paths()` 取第 2 列、剥掉 `parts60gz/<tier>/` 前缀和 `/part_NNN.gz` 后缀得到整文件路径
-（`do_parts` 与 `do_verify` 共用）；`do_verify` 在 `missing>0` 或 `sha_bad>0` 时返回非零；
+（`do_parts` 与 `do_verify` 共用）；`do_verify` 在缺文件或 sha 不符时返回非零；
 任何下载/装配失败都累加 `fails`，退出时打印 `RESTORE FAILED: N file(s)` 并以非零码结束。
-修好的脚本 sha256 `98510b0774ef9023e72cd9e1c51c0033e5c59b9e9187b48ae0cab6cd485492c7`（13,359 B）。
+这一版 sha256 `98510b0774ef9023e72cd9e1c51c0033e5c59b9e9187b48ae0cab6cd485492c7`（13,359 B），第二轮演练用的就是它。
 
 第二轮在**新目录** `/root/drill_stage2` 上复跑修复版，工作区继续用 `/root/drill`（`weights`/`rest`/`data` 的文件已就位，
 正好检验「已存在且 sha 相同就跳过、缺失就补齐」）：
@@ -210,6 +210,27 @@ huggingface-cli download Eter0109/a3-front-close-left-100 --repo-type dataset \
 
 三个整文件装配后的 sha256 与台账一致（`verify` 里逐条打印 `OK (assembled)`）：
 `weights/r2/step_003000_merged.pt`、`weights/r3/full_state/step_003000.pt`、`weights/r3/step_003000_merged.pt`。
+
+第二轮通过后复查 `do_verify` 的判定，又找到两个「会静默放过」的口子，都是这一轮不跑就发现不了的：
+
+3. **全量 `--verify` 不把缺整文件当失败**：三个分片装配的大文件全缺时只打印 `giants_missing=3`，退出码仍是 0。
+4. **`--verify <某个文件>` 不检查那个文件在不在**：名字点了的文件缺失，也只算进 `missing`，照样通过。
+
+再加一层修复（最终版 sha256 `745e20e736c68770d10782c0dea2c48ef307abd6b09964bbc322bcbd2a8138c9`，13,973 B）：
+新增 `wanted()` 判断某个路径是否在命令行里被点名；点名的文件缺失计入 `named_missing` 并失败；
+全量 `--verify` 要求 `missing=0` 且 `giants_missing=0`；只有带了具体路径的部分校验才容忍其余文件不存在。
+输出行末多一个 `named_missing` 字段：命令行点名但没找到的文件数，正常必须是 0。
+
+第三轮 `/root/drill3_stage`（正例用 `/root/drill`，反例用新的空目录）把六个场景都跑了一遍：
+
+| 场景 | 命令 | rc | 输出 |
+|---|---|---|---|
+| 完整工作区全量校验 | `--verify` | 0 | `rows=715 ok=715 missing=0 sha_bad=0 giants_missing=0 giants_bad=0 named_missing=0` |
+| 点名一个存在的文件 | `--verify weights/r4/light/step_004000/trainer_state.json` | 0 | 同上 |
+| 点名一个不存在的文件 | 同上，换到空目录 | **1** | `missing=715 … named_missing=1` |
+| 空目录全量校验 | `--verify` | **1** | `rows=715 ok=0 missing=715 … giants_missing=3` |
+| 台账里没有的路径 | `--weights no/such/file.bin` | **1** | `not in manifest` + `RESTORE FAILED: 1 file(s)` |
+| `--weights A B` 不重复执行 | `--weights <A> <B>` | 0 | 每个文件 `get` 恰好 1 次、`already` 0 次 |
 
 **演练的边界（不能夸大）**：这是同一台旧 pod 上新建目录的演练，「远端」确实是 hf-mirror 而非本地拷贝，
 但 `--code` / `--deps` 两个阶段没有跑（本次没有第二台 GPU 实例），代码侧的等价验证是「推送后另开目录全新

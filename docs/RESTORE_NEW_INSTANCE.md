@@ -154,14 +154,14 @@ bash scripts/restore_new_instance.sh --verify
 期望输出：
 
 ```
-verify rows=715 ok=715 missing=0 sha_bad=0 giants_missing=0 giants_bad=0
+verify rows=715 ok=715 missing=0 sha_bad=0 giants_missing=0 giants_bad=0 named_missing=0
 ```
 
 这份期望值不是算出来的：2026-11-01 在旧 pod 的 `/root/drill` 空目录上真跑了一遍
 `--weights --rest --data --parts --verify`，第一轮就是靠这里的差异抓出「分片台账列错位」的 bug，
-修复后复跑得到上面这一行、退出码 0（过程见 `PRE_SHUTDOWN_FINAL_REPORT.md` 第 10 节）。
+第二轮又抓出「缺文件仍然 rc=0」，最终版脚本三轮回演练全部通过（过程见 `PRE_SHUTDOWN_FINAL_REPORT.md` 第 10 节）。
 
-只要 `sha_bad` 或 `giants_bad` 不为 0，就先别启动任何训练。
+只要 `sha_bad`、`giants_bad` 或 `named_missing` 不为 0，或者 `missing` 不为 0（全量恢复时），就先别启动任何训练。
 
 单文件抽查（从远端真实回读一段字节，绕过本地缓存）：
 

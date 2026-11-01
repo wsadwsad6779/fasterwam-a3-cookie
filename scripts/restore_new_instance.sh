@@ -94,6 +94,12 @@ whole_paths() {
   awk -F'\t' '{p=$2; sub("^parts60(gz)?/[^/]+/", "", p);
                sub("/part_[0-9]+([.]gz)?$", "", p); if (p != "") print p}' "$PARTS" | sort -u
 }
+# True when $1 was named on the command line (manifest column 2 spelling).
+wanted() {
+  local p
+  for p in "${only_paths[@]}"; do [ "$p" = "$1" ] && return 0; done
+  return 1
+}
 
 # Parallel byte-range fetch. Measured against the mirror: one stream ~5.6 MB/s,
 # six ranges ~26 MB/s; a straight huggingface.co stream is ~1.7 MB/s.
@@ -269,11 +275,17 @@ do_parts() {
 
 do_verify() {
   [ -f "$MANIFEST" ] || { echo "manifest missing: $MANIFEST" >&2; return 1; }
-  local rows=0 ok=0 missing=0 bad=0 dest in_repo rel s
+  local rows=0 ok=0 missing=0 bad=0 nm=0 dest in_repo rel s
   while IFS=$'\t' read -r _b in_repo rel _n s; do
     rows=$((rows + 1))
     dest="$WS/$rel"
-    if [ ! -f "$dest" ]; then missing=$((missing + 1)); continue; fi
+    if [ ! -f "$dest" ]; then
+      missing=$((missing + 1))
+      # A path you named on the command line must be there; the rest may be
+      # absent without failing, otherwise `--verify <one file>` is useless.
+      if wanted "$in_repo"; then nm=$((nm + 1)); echo "MISSING $in_repo"; fi
+      continue
+    fi
     if [ "$(sha_of "$dest")" = "$s" ]; then ok=$((ok + 1)); else bad=$((bad + 1)); echo "BAD $in_repo"; fi
   done < "$MANIFEST"
   local pw=0 pbad=0 whole wsha pdest
@@ -282,13 +294,18 @@ do_verify() {
       [ -n "$whole" ] || continue
       wsha=$(awk -F'\t' -v p="$whole" '$2==p {print $5; exit}' "$MANIFEST")
       pdest="$WS/$(rel_for "$whole")"
-      if [ ! -f "$pdest" ]; then pw=$((pw + 1)); log "missing (assembled) $whole"; continue; fi
+      if [ ! -f "$pdest" ]; then
+        pw=$((pw + 1)); log "missing (assembled) $whole"
+        if wanted "$whole"; then nm=$((nm + 1)); echo "MISSING (assembled) $whole"; fi
+        continue
+      fi
       if [ "$(sha_of "$pdest")" = "$wsha" ]; then log "OK (assembled) $whole"; else pbad=$((pbad + 1)); echo "BAD $whole"; fi
     done < <(whole_paths)
   fi
-  log "verify rows=$rows ok=$ok missing=$missing sha_bad=$bad giants_missing=$pw giants_bad=$pbad"
-  # A partial restore is allowed to be missing files; a full one is not.
-  [ "$bad" = 0 ] && [ "$pbad" = 0 ] && { [ ${#only_paths[@]} -gt 0 ] || [ "$missing" = 0 ]; }
+  log "verify rows=$rows ok=$ok missing=$missing sha_bad=$bad giants_missing=$pw giants_bad=$pbad${nm:+ named_missing=$nm}"
+  [ "$bad" = 0 ] && [ "$pbad" = 0 ] && [ "$nm" = 0 ] || return 1
+  # A partial restore is allowed to leave everything else absent; a full one is not.
+  [ ${#only_paths[@]} -gt 0 ] || { [ "$missing" = 0 ] && [ "$pw" = 0 ]; }
 }
 
 for act in "${actions[@]}"; do
