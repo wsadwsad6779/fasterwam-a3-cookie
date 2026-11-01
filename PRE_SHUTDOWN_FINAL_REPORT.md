@@ -14,7 +14,8 @@
 
 **满足退租条件。** 3,888 个文件中没有任何科研数据落在 F 档；F 档只剩 394 个 `fasterwam-a3-cookie/.git`
 内部对象与元数据（972,633 B）；这个仓库的工作区文件已由 A/B/C 三档覆盖，丢的只是本地 reflog / index 这类元数据。
-另有 3 项**你侧**待办（吊销 token、确认再分发许可、决定默认分支 README 与 HF 仓库可见性），都不是数据恢复阻断项。
+另有 2 项**你侧**待办（吊销 token、确认再分发许可与 HF 仓库可见性）；默认分支 README 已在第四项里单独更新。
+73 条原始示范的逐条回读见第 7 节，旧 pod 独有 Git 历史的保全见第 8 节。
 
 | 档 | 含义 | 文件数 | 字节 | GiB |
 |---|---|---|---|---|
@@ -39,7 +40,7 @@
 | r4 light `step_004000` | 5（r4 全部 40 个 ckpt 文件均 A） | A | HF `weights/r4/light/step_004000/**` |
 | r5 light `step_008000` | 5（r5 全部 40 个 ckpt 文件均 A） | A | HF `weights/r5/light/step_008000/**` |
 | 原始 100 条示范 | 60 / 4.011 GiB | D | `Eter0109/a3-front-close-left-100` @ `8fdd8a7caf8275eba8be8a83b53a99176a084062`（第三方，只引用不重传） |
-| 73 条新增示范 | 14 / 13.436 GiB | A | HF `data/a3_fw*`（`frames.dat`、`arrays.npz`、统计、`corpus_manifest_v1.json`） |
+| 73 条新增示范 | 派生数组 14 / 13.436 GiB；原始轨迹 73 个 / 7,657,304 B | A | HF `data/a3_fw*`（派生数组与统计）；HF `eval/a3_eval/demos_*/**.npz`（73 条原始轨迹，逐条回读见第 7 节） |
 | 原始 dagger take | 118 / 4.717 GiB | A | HF `eval/bridge/dagger*`（`frames.dat` 与 npz） |
 | 评估 NPZ / manifest / 视频 | 375 | A 374 + E 1（空文件） | HF `eval/a3_eval/**`、`eval/bridge/**`、`videos/**`；41 个 mp4 全部 A |
 | dataset_stats / force_stats | 6 | A 5 + D 1 | HF `data/**/dataset_stats.json`、`data/a3_fw_force/force_stats.json`；FasterWAM libero 那份属上游 |
@@ -49,9 +50,17 @@
 F 档逐条（394 个）：`fasterwam-a3-cookie/.git/objects/**` 384 个（loose object）+ `index` / `HEAD` / `config` /
 `COMMIT_EDITMSG` / `FETCH_HEAD` / `refs/remotes/origin/a3-cookie-r27` 6 个 + `logs/**` 4 个。不含任何工作区文件。
 说明：该仓库的 HEAD `8c2ef40d…`（分支 `a3-cookie-r27`，2026-10-31 03:50:10Z，"bridge: near-failure DAgger
-takeovers and resume-held expert"）**没有推送到 GitHub**（远端同名分支是 `66f841cc…`）；它的工作区内容已被
-A/B/C 完整覆盖，未提交的工作区改动另存为 `archive/2026-11-01/fasterwam-a3-cookie_worktree.diff`（468,310 B 文本）。
-丢掉的是本地 reflog / index / dangling object 这类元数据，不是科研结果。
+takeovers and resume-held expert"）不在 GitHub 上：它的父提交 `771eff1…` 是 GitHub tip `66f841c` 的祖先，
+`8c2ef40d` 是从 `771eff1` 分叉出来的兄弟提交，远端从未收到过它。
+它的工作区内容已被 A/B/C 完整覆盖，未提交的工作区改动另存为
+`archive/2026-11-01/fasterwam-a3-cookie_worktree.diff`（468,310 B 文本）。
+
+**本轮补上了历史对象**：这 11 个提交、4 个引用与 pack 里的 4 个不可达对象已打成
+`archive/2026-11-01/fasterwam-a3-cookie_history_2026-11-01.bundle`（524,674 B，sha256 `c7946637…`），
+并用 OID 集合对拍——pod 上 384 个 loose object 的 OID 与 bundle 内 384 个对象**逐一相同，缺 0 个、多 0 个**。
+所以 F 档现在剩下的只是 `index` / `HEAD` / `config` / `COMMIT_EDITMSG` / `FETCH_HEAD` / `logs/**` 这 9 个
+本地指针与日志文件（记录「上次检出到哪」，不含独立内容），以及那 6 个指针里 `refs/remotes/origin/a3-cookie-r27`
+一项（它指向的 `771eff1…` 已在 bundle 的 refs 里）。详见第 8 节。
 
 E 档构成（397 个 / 1.392 GiB）：`chk3_*` / `chk4_*` 自测检查点 32 个（1.379 GiB，light_state v3 自测产物，
 不是训练结果）、上传探针切片与 scratch 日志 321 个（KB 级）、空文件 26 个、打包中间件 13 个、
@@ -67,9 +76,9 @@ E 档构成（397 个 / 1.392 GiB）：`chk3_*` / `chk4_*` 自测检查点 32 �
 | 检查 | 结果 |
 |---|---|
 | `archive-2026-11-01` 远端 tip | `f40ab89cd5347750c5a1809a859d95d509d463fc`（`git ls-remote` 读回）——把 9 个文件转成 B 的那次提交，父提交是要求核对的 `b82854f`；本报告的修订提交在其之上 |
-| 分支列表 | `a3-cookie-r27` `66f841cc…`（默认分支，未动）、`archive-2026-11-01` `f40ab89…`、`backup-2026-11-01-r6-audit` `1fb28037…` |
+| 分支列表 | `a3-cookie-r27` `39f47015…`（默认分支，只加了 README 提交）、`archive-2026-11-01` `f40ab89…`、`backup-2026-11-01-r6-audit` `1fb28037…` |
 | 远端 README 是否最新 | 是。推送后在全新 clone `_clone_verify6` 里读到第 11.3 节（上传手册）与第 11.4 节（GitHub 上传经验）都在；本次又修正了三处失真见下 |
-| **默认分支 README** | **未更新**。GitHub 默认分支是 `a3-cookie-r27`（`git ls-remote --symref` → `ref: refs/heads/a3-cookie-r27`），其 README 26,051 B、最后改动 `66f841c`（2026-10-30），**没有第 11 节**。按你的要求没有改写默认分支历史，是否合并由你决定 |
+| **默认分支 README** | **已更新，且只改了 README**。默认分支是 `a3-cookie-r27`（`git ls-remote --symref` → `ref: refs/heads/a3-cookie-r27`）。原 README 26,051 B、最后改动 `66f841c`（2026-10-30）、没有第 11 节；本次以普通快进推送 `66f841c..39f4701` 替换为最新版（blob `ec4a689f…`，+390/−358 行），该分支其余 238 个文件一个字节没动 |
 | 恢复脚本可执行且正确 | `scripts/restore_new_instance.sh` 远端 blob 13,973 B / `745e20e7…`（与 README 第 11 节钉的值一致） |
 | HF Model Card | 已提交且可远端读取：`resolve/main/README.md` 200，5,228 B，含 YAML front matter 与「已知缺口 / 数据与许可 / 校验口径」 |
 | HF Dataset Card | **不存在独立 dataset 仓库**（`/api/datasets/...` 401）。数据以 `data/**` 放在模型仓库内，并在 Model Card 的「数据与许可」里说明 |
@@ -77,9 +86,26 @@ E 档构成（397 个 / 1.392 GiB）：`chk3_*` / `chk4_*` 自测检查点 32 �
 | README 链接真实性 | 逐目录实测：`weights/r4`、`weights/r5`、`parts60gz`、`data`、`eval/a3_eval`、`eval/bridge`、`videos/*`、`runs`、`replay/bridge`、`tests`、`research`、`MANIFEST` 全部 200；**`weights/r2`、`weights/r3` 是 404**——台账里这两行是目标路径，远端只存了分片。README 本次已改 |
 | 台账逐行对远端 | 715 行台账，0 行缺失：712 行按 path 命中，3 行由 532 个分片装配（178 + 177 + 177，索引连续 0..N） |
 
-提交 sha 无法写进提交自身：上表 `f40ab89` 是推送后立即读回的 tip；本报告的修订提交是它的子提交，
-分支最终 tip 以 `git ls-remote origin refs/heads/archive-2026-11-01` 或 `git log -1` 为准
-（本次终审推送后读回的是 `f40ab89` 的子提交，见对话里报出的最终 commit）。
+提交 sha 无法写进提交自身：上表 `f40ab89`、`39f4701` 都是推送后立即读回的；承载本报告这一版内容的归档提交是
+`f40ab89` 的子提交，其后还有一次只把最终 sha 写进本段的提交。两分支的最终 tip 以
+`git ls-remote origin` 或 `git log -1` 为准，本轮最终提交的完整 sha 在对话里报出。
+
+### 2.1 默认分支的改动范围与提交
+
+- 归档分支相对默认分支 `66f841c` 的差异：**984 个文件 = 982 个新增 + 2 个修改**（`.gitignore`、`README.md`），
+  +132,473 / −370 行（`git diff --name-status 66f841c <archive tip>`）。新增的全部落在 `scripts/`、`pod_snapshot/`、
+  `archive/2026-11-01/`、`docs/`、`research/`、`tests/` 这些归档目录。
+- 默认分支上没有任何运行代码的改动。唯一的改动是一次只替换 `README.md` 的提交：
+  `66f841cccf5d01204a5aba36a6e44b170aa02a21` → `39f47015b82f564a2f6eb70bd386e588c01110eb`
+  （2026-11-01 19:13:44 +0800，"docs: bring the README up to the 2026-11-01 research state"），
+  父提交就是 `66f841c`，**普通快进、没有 force、没有改写历史**，`git show --stat` 只有 README（+390 / −358）。
+  其后又补一次同样只碰 README 的一行交叉引用修正（把「报告第 6 节」改成「报告开头的 A–F 表」）。
+- 远端回读：重新 clone 到 `_clone_default_verify`，`git ls-tree HEAD README.md` = blob
+  `ec4a689f15cb8248dae13f261b66559ab7e2865d`（与本地相同）；该分支共 239 个跟踪文件，
+  `git diff --stat 66f841c HEAD` 只有 README，父链完整。
+- 默认分支 README 与归档分支 README 有三处**刻意**不同：开头的说明段（默认分支写明归档材料在
+  `archive-2026-11-01` 分支）、第 11 节恢复第 1 步的 `git clone -b archive-2026-11-01 …` 命令、
+  以及交叉引用措辞。其余正文（含第 11.3、11.4 节与第 13 节未完成清单）逐字相同。
 
 README 本次修正的三处失真（都是这次对着远端查出来的）：
 
@@ -122,7 +148,7 @@ README 本次修正的三处失真（都是这次对着远端查出来的）：
 | `robosuite` 模型资产 | 同上，LICENSE 在同目录 | 同上 |
 | `Eter0109/a3-front-close-left-100`（原始 100 条） | **许可未声明 → 不复制、不上传 HF，只记录 revision** | README 第 11 节、THIRD_PARTY_NOTICES |
 | Wan-AI 2.2 权重、`fasterwam_release` 权重 | **未重传**，只记录上游来源，按 D 档重下 | README 第 11.2 节 |
-| 密钥与敏感信息 | GitHub 22 个提交全历史 `git grep` 扫描：HF token / GitHub PAT / AWS AK / 私钥 / `sk-` 均 **0 命中**；HF 1,264 个文件名扫描 token/secret/.env/credential/id_rsa/api_key/.pem **0 命中**；本次新增 9 个文件同样 0 命中 | 见本报告附录命令 |
+| 密钥与敏感信息 | GitHub 22 个提交全历史 `git grep` 扫描：HF token / GitHub PAT / AWS AK / 私钥 / `sk-` 均 **0 命中**；HF 1,264 个文件名扫描 token/secret/.env/credential/id_rsa/api_key/.pem **0 命中**；本次新增 11 个文件 0 命中（bundle 另按其 11 个提交全历史扫描，同样 0 命中） | 见本报告附录命令 |
 
 HF 仓库目前是**公开**状态（`private: false`），第三方数据集与权重都没有放进去，因此公开不构成再分发；
 是否保持公开由你决定。旧 pod 上的 HF token 仍建议由你本人在 HF 后台吊销（它未写入脚本、日志、commit 或聊天，
@@ -150,11 +176,83 @@ sha256 复核，10 个文件（含 `PRE_SHUTDOWN_FINAL_REPORT_v1.md`）与本地
 补充：pod 上还有一份 `_r6_stage/out/repro/cookie_diff.patch`，与上面最后一行那个 diff 逐字节相同
 （4e9a680f…），所以它在提交后也从 C 变成 B——这就是 B 增加 9 个而不是 8 个的原因。
 
-## 6. 仍需你做的三件事（都不是数据阻断项）
+### 5.1 第四项新增的归档文件
+
+| 路径 | 字节 | sha256 |
+|---|---|---|
+| `archive/2026-11-01/fasterwam-a3-cookie_history_2026-11-01.bundle` | 524,674 | `c7946637a91f0059fe5b8ba43fa16c65abdf0c4b7ce0451e6799e34cf5d919a3` |
+| `archive/2026-11-01/corpus73_audit.tsv` | 29,382 | `5e010119e1828bc27dbf7d227a46fb10fd2000234c0827e0ba5149bf90b31519` |
+
+bundle 是第 2 项要保存的旧 pod Git 历史（第 8 节）；TSV 是第 1 项 73 条示范的逐条核对结果（第 7 节）。
+两个文件原样从本地证据目录复制后提交，推送后在全新 clone 里复核 sha256，并重新跑一次 `git bundle verify`。
+
+## 6. 仍需你做的两件事（都不是数据阻断项）
 
 1. 到 HF 后台吊销本会话用过的 token。
 2. 确认 `Eter0109/a3-front-close-left-100` 与 FasterWAM / Wan-AI 权重的再分发许可；确认 HF 仓库保持公开还是转私有。
-3. 决定默认分支 `a3-cookie-r27` 的 README 是否也要更新（我未改动默认分支）；然后由你本人执行实例终止。
 
-pod 上的上传缓存 `/root/hfstage`（约 88 GB）、`/root/drill*` 演练目录、`_r6_stage` 临时脚本都还在，
-清理清单一事一列等你批准，不自动删。
+实例终止与工作盘清理由你本人执行。pod 上的上传缓存 `/root/hfstage`（约 88 GB）、`/root/drill*` 演练目录、
+`_r6_stage` 临时脚本，以及本地 `_clone_verify*`、`_clone_default*`、`verify_clone.git` 等验证用副本都还在；
+清理清单一事一列等你批准，本轮没有删除任何东西。
+
+## 7. 73 条原始示范的逐条核实
+
+先把三样东西分开，它们不能互相顶替：
+
+| 对象 | 数量 | 字节 | 位置 | 本轮结论 |
+|---|---|---|---|---|
+| **原始轨迹 NPZ**（`corpus_manifest_v1.json` 的 `entries` 逐条列出的 73 条） | 73 | 7,657,304 | HF `eval/a3_eval/demos_*/**.npz` | 逐条真实下载回读，**73/73 逐字节相同** |
+| 派生训练数组（`data/a3_fw*`） | 14 | 13.436 GiB | HF `data/a3_fw_*` | 早前已按 sha256 归档（A 档）；它们是**从原始轨迹派生**的训练语料，不能当作原始轨迹的备份 |
+| manifest 本身 | 1 | 41,118 | HF `eval/a3_eval/corpus_manifest_v1.json` | sha256 `b679fa6bd07e12c3be25e02f1d5aa3d14e3d785fe726e04f98b1f3a391dd0e00`，与本地逐字节相同 |
+| 16 个裁定来源 JSON（`sources`） | 16 | 每个 2–80 KB | 同目录 `sources/`（C1..C7 各有 c3/correct_v2 两份，wrongclosure v8/v9 各一份） | 16/16 与本地逐字节相同 |
+
+- 方法：按 manifest 的 `hf_path` 走
+  `https://hf-mirror.com/wsadwsad6779/fasterwam-a3-cookie-lora/resolve/main/<path>` 下载每个 NPZ，
+  本地算 sha256 与 manifest 的 `npz_sha256` 比对——不是查上传记录，也不是只比大小。
+- 结果：**73 条全部逐字节一致，没有一条需要补传**；逐条明细（路径 / 字节 / sha256 / HF 路径 / 回读 sha256 / 判定）
+  在 `archive/2026-11-01/corpus73_audit.tsv`（73 行 + 表头，29,382 B）。
+- GitHub：这 73 个 NPZ 从未进过 git（`.gitignore` 排除 `*.npz`），远端 clone 里 0 命中——不是缺口，HF 上已有逐字节副本。
+- Windows：本机原先没有这些原始轨迹（对 5,753 个本地文件做路径 + sha 扫描，0 命中）；现在本机唯一的副本是
+  本次审计下载的 `_r6_stage/audit73/npz/`，它是证据副本，不是备份来源。
+- 家族分布（manifest `tally`，按录制驱动写进 `retry_log[0]` 的异常类型划分，互不重叠）：
+  C1 压得太深 17、C3 闭合但空 18、C2 错误闭合 8、S1 单块低力 30。
+
+按目录（每条明细见上面的 TSV）：
+
+| 目录 | 条数 | 字节 |
+|---|---|---|
+| demos_correct_c1 | 2 | 219,874 |
+| demos_correct_c2 | 6 | 1,073,822 |
+| demos_correct_c3 | 6 | 1,034,478 |
+| demos_correct_c4 | 5 | 904,056 |
+| demos_correct_c5 | 6 | 964,184 |
+| demos_correct_c6 | 4 | 719,637 |
+| demos_correct_c7 | 6 | 1,345,531 |
+| demos_single_v30b | 30 | 901,554 |
+| demos_wrongclosure_v8 | 2 | 119,249 |
+| demos_wrongclosure_v9 | 6 | 374,919 |
+| 合计 | 73 | 7,657,304 |
+
+## 8. 旧 pod 独有 Git 历史（8c2ef40d）的保全
+
+- 现状：归档分支**不含** `8c2ef40d`。GitHub 默认分支 tip 是 `66f841c`，它的祖先链包含 `771eff1`；
+  pod HEAD `8c2ef40d` 的父提交正是 `771eff1`，两者是**兄弟**关系——所以这个提交及其树、文件内容从来没进过 GitHub。
+- 已做：在 pod 仓库里 `git bundle create … --all <未达对象 sha…>`，把
+  `refs/heads/a3-cookie-r27 8c2ef40d…`、`refs/remotes/origin/HEAD 771eff1…`、
+  `refs/remotes/origin/a3-cookie-r27 771eff1…`、`HEAD 8c2ef40d…` 四个引用、全部 11 个提交与 384 个对象一起打包。
+- 不可达对象也收了：pack 里除 380 个可达对象外还有 4 个不可达对象（3 棵树 + 1 个 blob）——是 `bridge/` 下一次
+  `git add` 留下的暂存树与索引快照（其中 `_next/README.md` 有 40,452 B）。它们与已归档的
+  `fasterwam-a3-cookie_worktree.diff` 内容重叠，但既然能收就一并收进 bundle。
+- 校验：
+  - `git bundle verify` → `is okay`、`records a complete history`；
+  - 从 bundle 全新 clone：11 个提交、384 个对象，tip `8c2ef40d`（2026-10-31 03:50:10Z），父提交 `771eff1`，
+    `8c2ef40d` 的树是 `b9d5e7ed7b435cb564f4e71fba5a39cdce7df4a9`；
+  - **与 pod 逐对象对拍**：pod `.git/objects` 下 384 个 loose object 的 OID 与 bundle 内 384 个对象的 OID 集合
+    完全相同（缺 0、多 0）——这是第 1 节 F 档里那 384 个对象已获外部副本的直接证据。
+- 落盘与外部副本：bundle 524,674 B、sha256
+  `c7946637a91f0059fe5b8ba43fa16c65abdf0c4b7ce0451e6799e34cf5d919a3`，提交进私有仓库 `archive-2026-11-01`
+  分支的 `archive/2026-11-01/` 下；推送后在全新 clone 里复核 sha256 并重跑 `git bundle verify`。
+- 没有上传的：`.git/config`（含远端 URL 与本地配置）、`index`、`HEAD`、`FETCH_HEAD`、`COMMIT_EDITMSG`、`logs/**`。
+  bundle 格式本身只装对象与引用，不装 config / reflog / hooks。
+- 敏感信息：对 bundle 的全部历史跑 `git grep`（`hf_`、`ghp_`、`github_pat_`、`AKIA`、`PRIVATE KEY`、`sk-`、`glpat-`）
+  全部 0 命中；唯一相关的文本是文档里的 `HF_TOKEN=...` 占位符。
