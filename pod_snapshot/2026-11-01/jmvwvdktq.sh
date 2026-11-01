@@ -1,0 +1,1 @@
+cat /workspace/_r5_stage/r5_eval.sh; echo ===LOG; head -c 700 /workspace/a3_eval/r5_b0_c0_paired.log

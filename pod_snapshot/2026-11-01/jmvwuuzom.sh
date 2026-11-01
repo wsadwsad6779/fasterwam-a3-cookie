@@ -1,0 +1,1 @@
+grep -rln cookies_in_target /workspace/a3_eval --include=*.py /workspace/a3_dual_arm_sim/src --include=*.py 2>/dev/null | head -20; echo ===; grep -rn cookies_in_target /workspace/a3_eval/*.py 2>/dev/null | head -20

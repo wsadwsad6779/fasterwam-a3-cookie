@@ -1,0 +1,32 @@
+== geometry from config (no simulator read) ==
+  target_center: (0.095, 0.1, 0.753)
+  inner_half: (0.057, 0.029000000000000005)
+  wall_height: 0.026
+  rim_z: 0.779
+  source_columns_x: [0.0994, 0.1498, 0.2002, 0.2506]
+  source_y_range: (0.23108333, 0.39891667)
+
+== force layout ==
+  obs['observation.force'].shape = (18,)
+  obs[12]=0.0000 vs _sensor inner=0.0000
+  obs[13]=0.0000 vs _sensor outer=0.0000
+  layout matches: True
+
+== noise sweep (position_noise_m=0.003) ==
+  seed=11: xy p95=3.535 mm max=6.290 mm (bound 6.0 mm) | z max=4.450 mm from settling
+  seed=21: xy p95=3.602 mm max=6.390 mm (bound 6.0 mm) | z max=9.890 mm from settling
+  seed=22: xy p95=4.800 mm max=7.340 mm (bound 6.0 mm) | z max=2.630 mm from settling
+  seed-to-seed: xy max=7.510 mm | z max=9.040 mm
+
+== expert force profile (sets the safety tiers) ==
+  steps=473 cookies_in_target=10 failed=False
+  obs[12:14] vs _sensor under load: max |diff|=0.00e+00 N over 229 contact steps
+  pad force p50=0.04 p95=1.42 max=1.44 N
+  p99=1.43 N
+  p99.5=1.43 N
+  p99.9=1.44 N
+  left wrist |f| p50=10.71 p99=12.23 max=14.28 N
+  expert peak pad force 1.44 N vs its own jam threshold 8.0 N
+  => soft_force_n can sit in [3, 6] N without touching a real grasp; keep hard_force_n at the actuator limit (~40 N)
+  => the wrist channel reads 10.7 N while just carrying the arm; any press-on-table rule must subtract that baseline
+CALIB_RC_0

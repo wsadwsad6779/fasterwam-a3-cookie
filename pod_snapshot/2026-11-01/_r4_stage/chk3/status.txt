@@ -1,0 +1,8 @@
+== A: 10 continuous steps ==
+A_exit=0
+== B: same schedule, save at 5, hard kill after the step-5 state ==
+B_killed_after_step5_save waited=74s last_b1_step=7
+== B2: resume from the step-5 light state to step 10 ==
+B2_exit=0
+CMP_exit=0 report=/workspace/_r4_stage/chk3/report.txt
+ALL_DONE

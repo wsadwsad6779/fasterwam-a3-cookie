@@ -1,0 +1,805 @@
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[aiter] WARNING: NUMA balancing is enabled, which may cause errors. It is recommended to disable NUMA balancing by running "sudo sh -c 'echo 0 > /proc/sys/kernel/numa_balancing'" for more details: https://rocm.docs.amd.com/en/latest/how-to/system-optimization/mi300x.html#disable-numa-auto-balancing
+[aiter] import [module_aiter_enum] under /opt/venv/lib/python3.12/site-packages/aiter/jit/module_aiter_enum.so
+/opt/venv/lib/python3.12/site-packages/apex/transformer/functional/fused_rope.py:49: UserWarning: Aiter backend is selected for fused RoPE. This has lower precision. To disable aiter, export USE_ROCM_AITER_ROPE_BACKEND=0
+  warnings.warn("Aiter backend is selected for fused RoPE. This has lower precision. To disable aiter, export USE_ROCM_AITER_ROPE_BACKEND=0", UserWarning)
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+10/30 [17:18:59] INFO     | >> Loading Wan2.2-TI2V-5B              loader.py:152
+                          components...                                         
+                 INFO     | >> Skipping pretrained video DiT load  loader.py:171
+                          (`skip_dit_load_from_pretrain=True`);                 
+                          initializing video expert randomly and                
+                          expecting checkpoint override.                        
+10/30 [17:19:27] INFO     | >> Skipping pretrained text            loader.py:206
+                          encoder/tokenizer load                                
+                          (`load_text_encoder=False`); training                 
+                          must provide cached                                   
+                          `context/context_mask`.                               
+10/30 [17:19:35] INFO     | >> Finished loading Wan2.2-TI2V-5B     loader.py:211
+                          components in 35.54 seconds.                          
+                 INFO     | >> Skipping SparseActionDiT sparse_action_dit.py:217
+                          pretrained load                                       
+                          (`skip_dit_load_from_pretrain                         
+                          =True`); initializing action                          
+                          expert randomly and expecting                         
+                          checkpoint override.                                  
+10/30 [17:19:37] INFO     | >> Initialized SparseMoT with      sparse_mot.py:106
+                          layers=30, condition_layers=[0, 4,                    
+                          8, 12, 16, 20, 24, 28],                               
+                          condition_heads=24,                                   
+                          noncondition_heads=8,                                 
+                          video_kv_fusion=interval_weighted_su                  
+                          m                                                     
+                 INFO     | >>   Expert 'video':               sparse_mot.py:117
+                          num_params=5.00 B                                     
+                 INFO     | >>   Expert 'action':              sparse_mot.py:117
+                          num_params=0.56 B                                     
+                 INFO     | >> MoT Action->Video attention enabled fastwam.py:61
+                          at layers [0, 4, 8, 12, 16, 20, 24, 28]               
+                          (disabled elsewhere).                                 
+10/30 [17:19:38] INFO     | >> Applied LoRA to 392 layers         runtime.py:385
+                          (trainable params = 30670848)                         
+                 INFO     | >> Accelerate training:                trainer.py:65
+                          distributed_type=DistributedType.NO                   
+                          zero_stage=none world_size=1                          
+                          process_index=0 cfg_mixed_precision=bf16              
+                          accelerator_mixed_precision=bf16                      
+                          grad_accum=1 grad_clip=1.0000                         
+                 INFO     | >> using accelerator.device=cuda       trainer.py:76
+                 INFO     | >> LoRA mode: only lora_ params       trainer.py:295
+                          trainable.                                            
+                 INFO     | >> Loading weight checkpoint only:    trainer.py:276
+                          /workspace/a3_train_runs/a3_lora_r2/ste               
+                          p_003000_merged.pt                                    
+10/30 [17:19:44] WARNING  | >> Loaded .pt weights only;           trainer.py:278
+                          optimizer/scheduler/step were not                     
+                          restored under ZeRO2.                                 
+                 INFO     | >> Train/val dataset size:            trainer.py:129
+                          39481/39481                                           
+                 INFO     | >> Setting DiT to train mode and      trainer.py:282
+                          freezing other model components.                      
+                 INFO     | >> LoRA mode: only lora_ params       trainer.py:295
+                          trainable.                                            
+                 INFO     | >> Starting training with             trainer.py:660
+                          max_steps=3000.                                       
+/workspace/FasterWAM/src/fasterwam/models/wan22/wan_video_dit.py:19: UserWarning: Using AOTriton backend for Efficient Attention forward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention.hip:1452.)
+  x = F.scaled_dot_product_attention(q, k, v, attn_mask=ctx_mask)
+/opt/venv/lib/python3.12/site-packages/torch/autograd/graph.py:841: UserWarning: Using AOTriton backend for Efficient Attention backward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention_backward.hip:551.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+/workspace/FasterWAM/src/fasterwam/trainer.py:699: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  grad_norm_tensor = torch.tensor(grad_norm, device=loss.device, dtype=torch.float32)
+10/30 [17:20:38] INFO     | >>  epoch=0 step=20/3000 loss=0.1503  trainer.py:721
+                          loss_action=0.0048 loss_video=0.1455                  
+                          lr=1.39e-05 speed=0.37 step/s, 2.24                   
+                          samples/s eta=02:13:15                                
+10/30 [17:21:24] INFO     | >>  epoch=0 step=40/3000 loss=0.1495  trainer.py:721
+                          loss_action=0.0169 loss_video=0.1326                  
+                          lr=2.72e-05 speed=0.40 step/s, 2.41                   
+                          samples/s eta=02:02:46                                
+10/30 [17:22:10] INFO     | >>  epoch=0 step=60/3000 loss=0.1270  trainer.py:721
+                          loss_action=0.0123 loss_video=0.1146                  
+                          lr=4.04e-05 speed=0.41 step/s, 2.48                   
+                          samples/s eta=01:58:25                                
+10/30 [17:22:55] INFO     | >>  epoch=0 step=80/3000 loss=0.1058  trainer.py:721
+                          loss_action=0.0073 loss_video=0.0985                  
+                          lr=5.36e-05 speed=0.42 step/s, 2.52                   
+                          samples/s eta=01:55:53                                
+10/30 [17:23:40] INFO     | >>  epoch=0 step=100/3000 loss=0.0761 trainer.py:721
+                          loss_action=0.0026 loss_video=0.0735                  
+                          lr=6.69e-05 speed=0.42 step/s, 2.54                   
+                          samples/s eta=01:54:02                                
+10/30 [17:24:27] INFO     | >>  epoch=0 step=120/3000 loss=0.1459 trainer.py:721
+                          loss_action=0.0137 loss_video=0.1322                  
+                          lr=8.01e-05 speed=0.43 step/s, 2.55                   
+                          samples/s eta=01:52:56                                
+10/30 [17:25:14] INFO     | >>  epoch=0 step=140/3000 loss=0.2495 trainer.py:721
+                          loss_action=0.0127 loss_video=0.2369                  
+                          lr=9.34e-05 speed=0.42 step/s, 2.55                   
+                          samples/s eta=01:52:12                                
+10/30 [17:26:01] INFO     | >>  epoch=0 step=160/3000 loss=0.1414 trainer.py:721
+                          loss_action=0.0185 loss_video=0.1229                  
+                          lr=1.00e-04 speed=0.43 step/s, 2.55                   
+                          samples/s eta=01:51:20                                
+10/30 [17:26:47] INFO     | >>  epoch=0 step=180/3000 loss=0.1763 trainer.py:721
+                          loss_action=0.0233 loss_video=0.1530                  
+                          lr=1.00e-04 speed=0.43 step/s, 2.56                   
+                          samples/s eta=01:50:15                                
+10/30 [17:27:32] INFO     | >>  epoch=0 step=200/3000 loss=0.0663 trainer.py:721
+                          loss_action=0.0293 loss_video=0.0370                  
+                          lr=9.99e-05 speed=0.43 step/s, 2.57                   
+                          samples/s eta=01:49:08                                
+10/30 [17:28:18] INFO     | >>  epoch=0 step=220/3000 loss=0.0937 trainer.py:721
+                          loss_action=0.0124 loss_video=0.0813                  
+                          lr=9.99e-05 speed=0.43 step/s, 2.57                   
+                          samples/s eta=01:48:05                                
+10/30 [17:29:03] INFO     | >>  epoch=0 step=240/3000 loss=0.2270 trainer.py:721
+                          loss_action=0.0401 loss_video=0.1869                  
+                          lr=9.98e-05 speed=0.43 step/s, 2.58                   
+                          samples/s eta=01:47:05                                
+10/30 [17:29:50] INFO     | >>  epoch=0 step=260/3000 loss=0.1578 trainer.py:721
+                          loss_action=0.0136 loss_video=0.1442                  
+                          lr=9.96e-05 speed=0.43 step/s, 2.58                   
+                          samples/s eta=01:46:21                                
+10/30 [17:30:37] INFO     | >>  epoch=0 step=280/3000 loss=0.1218 trainer.py:721
+                          loss_action=0.0177 loss_video=0.1041                  
+                          lr=9.95e-05 speed=0.43 step/s, 2.57                   
+                          samples/s eta=01:45:41                                
+10/30 [17:31:24] INFO     | >>  epoch=0 step=300/3000 loss=0.2468 trainer.py:721
+                          loss_action=0.0136 loss_video=0.2333                  
+                          lr=9.93e-05 speed=0.43 step/s, 2.57                   
+                          samples/s eta=01:44:54                                
+10/30 [17:32:09] INFO     | >>  epoch=0 step=320/3000 loss=0.1877 trainer.py:721
+                          loss_action=0.0135 loss_video=0.1741                  
+                          lr=9.91e-05 speed=0.43 step/s, 2.58                   
+                          samples/s eta=01:43:57                                
+10/30 [17:32:55] INFO     | >>  epoch=0 step=340/3000 loss=0.1672 trainer.py:721
+                          loss_action=0.0529 loss_video=0.1143                  
+                          lr=9.89e-05 speed=0.43 step/s, 2.58                   
+                          samples/s eta=01:43:04                                
+10/30 [17:33:42] INFO     | >>  epoch=0 step=360/3000 loss=0.0925 trainer.py:721
+                          loss_action=0.0185 loss_video=0.0740                  
+                          lr=9.87e-05 speed=0.43 step/s, 2.58                   
+                          samples/s eta=01:42:18                                
+10/30 [17:34:28] INFO     | >>  epoch=0 step=380/3000 loss=0.1045 trainer.py:721
+                          loss_action=0.0299 loss_video=0.0746                  
+                          lr=9.84e-05 speed=0.43 step/s, 2.58                   
+                          samples/s eta=01:41:30                                
+10/30 [17:35:13] INFO     | >>  epoch=0 step=400/3000 loss=0.0812 trainer.py:721
+                          loss_action=0.0183 loss_video=0.0628                  
+                          lr=9.81e-05 speed=0.43 step/s, 2.58                   
+                          samples/s eta=01:40:37                                
+10/30 [17:35:59] INFO     | >>  epoch=0 step=420/3000 loss=0.0969 trainer.py:721
+                          loss_action=0.0425 loss_video=0.0544                  
+                          lr=9.78e-05 speed=0.43 step/s, 2.59                   
+                          samples/s eta=01:39:44                                
+10/30 [17:36:44] INFO     | >>  epoch=0 step=440/3000 loss=0.0794 trainer.py:721
+                          loss_action=0.0063 loss_video=0.0731                  
+                          lr=9.75e-05 speed=0.43 step/s, 2.59                   
+                          samples/s eta=01:38:52                                
+10/30 [17:37:30] INFO     | >>  epoch=0 step=460/3000 loss=0.1633 trainer.py:721
+                          loss_action=0.0134 loss_video=0.1500                  
+                          lr=9.71e-05 speed=0.43 step/s, 2.59                   
+                          samples/s eta=01:38:01                                
+10/30 [17:38:15] INFO     | >>  epoch=0 step=480/3000 loss=0.2469 trainer.py:721
+                          loss_action=0.0658 loss_video=0.1811                  
+                          lr=9.68e-05 speed=0.43 step/s, 2.59                   
+                          samples/s eta=01:37:10                                
+10/30 [17:39:01] INFO     | >>  epoch=0 step=500/3000 loss=0.1773 trainer.py:721
+                          loss_action=0.0130 loss_video=0.1643                  
+                          lr=9.64e-05 speed=0.43 step/s, 2.59                   
+                          samples/s eta=01:36:20                                
+10/30 [17:39:46] INFO     | >>  epoch=0 step=520/3000 loss=0.1606 trainer.py:721
+                          loss_action=0.0048 loss_video=0.1558                  
+                          lr=9.59e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:35:30                                
+10/30 [17:40:32] INFO     | >>  epoch=0 step=540/3000 loss=0.2136 trainer.py:721
+                          loss_action=0.0230 loss_video=0.1906                  
+                          lr=9.55e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:34:43                                
+10/30 [17:41:18] INFO     | >>  epoch=0 step=560/3000 loss=0.1881 trainer.py:721
+                          loss_action=0.0165 loss_video=0.1716                  
+                          lr=9.50e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:33:57                                
+10/30 [17:42:05] INFO     | >>  epoch=0 step=580/3000 loss=0.0962 trainer.py:721
+                          loss_action=0.0073 loss_video=0.0889                  
+                          lr=9.45e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:33:11                                
+10/30 [17:42:50] INFO     | >>  epoch=0 step=600/3000 loss=0.1543 trainer.py:721
+                          loss_action=0.0088 loss_video=0.1455                  
+                          lr=9.40e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:32:22                                
+10/30 [17:43:36] INFO     | >>  epoch=0 step=620/3000 loss=0.1756 trainer.py:721
+                          loss_action=0.0029 loss_video=0.1728                  
+                          lr=9.35e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:31:36                                
+10/30 [17:44:23] INFO     | >>  epoch=0 step=640/3000 loss=0.1888 trainer.py:721
+                          loss_action=0.0153 loss_video=0.1735                  
+                          lr=9.30e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:30:53                                
+10/30 [17:45:09] INFO     | >>  epoch=0 step=660/3000 loss=0.1545 trainer.py:721
+                          loss_action=0.0290 loss_video=0.1255                  
+                          lr=9.24e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:30:04                                
+10/30 [17:45:55] INFO     | >>  epoch=0 step=680/3000 loss=0.0852 trainer.py:721
+                          loss_action=0.0093 loss_video=0.0758                  
+                          lr=9.18e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:29:19                                
+10/30 [17:46:41] INFO     | >>  epoch=0 step=700/3000 loss=0.1136 trainer.py:721
+                          loss_action=0.0295 loss_video=0.0841                  
+                          lr=9.12e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:28:31                                
+10/30 [17:47:26] INFO     | >>  epoch=0 step=720/3000 loss=0.1239 trainer.py:721
+                          loss_action=0.0102 loss_video=0.1138                  
+                          lr=9.05e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:27:42                                
+10/30 [17:48:13] INFO     | >>  epoch=0 step=740/3000 loss=0.2132 trainer.py:721
+                          loss_action=0.0194 loss_video=0.1937                  
+                          lr=8.99e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:26:56                                
+10/30 [17:48:59] INFO     | >>  epoch=0 step=760/3000 loss=0.1429 trainer.py:721
+                          loss_action=0.0110 loss_video=0.1319                  
+                          lr=8.92e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:26:10                                
+10/30 [17:49:45] INFO     | >>  epoch=0 step=780/3000 loss=0.0828 trainer.py:721
+                          loss_action=0.0072 loss_video=0.0755                  
+                          lr=8.85e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:25:25                                
+10/30 [17:50:33] INFO     | >>  epoch=0 step=800/3000 loss=0.0871 trainer.py:721
+                          loss_action=0.0183 loss_video=0.0688                  
+                          lr=8.78e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:24:42                                
+10/30 [17:51:18] INFO     | >>  epoch=0 step=820/3000 loss=0.1406 trainer.py:721
+                          loss_action=0.0142 loss_video=0.1264                  
+                          lr=8.71e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:23:55                                
+10/30 [17:52:05] INFO     | >>  epoch=0 step=840/3000 loss=0.1484 trainer.py:721
+                          loss_action=0.0045 loss_video=0.1439                  
+                          lr=8.64e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:23:09                                
+10/30 [17:52:51] INFO     | >>  epoch=0 step=860/3000 loss=0.2462 trainer.py:721
+                          loss_action=0.0889 loss_video=0.1573                  
+                          lr=8.56e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:22:23                                
+10/30 [17:53:38] INFO     | >>  epoch=0 step=880/3000 loss=0.1823 trainer.py:721
+                          loss_action=0.0200 loss_video=0.1623                  
+                          lr=8.48e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:21:37                                
+10/30 [17:54:24] INFO     | >>  epoch=0 step=900/3000 loss=0.0746 trainer.py:721
+                          loss_action=0.0149 loss_video=0.0598                  
+                          lr=8.40e-05 speed=0.43 step/s, 2.60                   
+                          samples/s eta=01:20:52                                
+10/30 [17:55:12] INFO     | >>  epoch=0 step=920/3000 loss=0.1199 trainer.py:721
+                          loss_action=0.0186 loss_video=0.1013                  
+                          lr=8.32e-05 speed=0.43 step/s, 2.59                   
+                          samples/s eta=01:20:10                                
+10/30 [17:55:59] INFO     | >>  epoch=0 step=940/3000 loss=0.1218 trainer.py:721
+                          loss_action=0.0119 loss_video=0.1099                  
+                          lr=8.24e-05 speed=0.43 step/s, 2.59                   
+                          samples/s eta=01:19:25                                
+10/30 [17:56:45] INFO     | >>  epoch=0 step=960/3000 loss=0.2203 trainer.py:721
+                          loss_action=0.0218 loss_video=0.1985                  
+                          lr=8.15e-05 speed=0.43 step/s, 2.59                   
+                          samples/s eta=01:18:39                                
+10/30 [17:57:39] INFO     | >>  epoch=0 step=980/3000 loss=0.1023 trainer.py:721
+                          loss_action=0.0293 loss_video=0.0730                  
+                          lr=8.07e-05 speed=0.43 step/s, 2.59                   
+                          samples/s eta=01:18:07                                
+10/30 [17:58:28] INFO     | >>  epoch=0 step=1000/3000            trainer.py:721
+                          loss=0.1888 loss_action=0.0074                        
+                          loss_video=0.1814 lr=7.98e-05                         
+                          speed=0.43 step/s, 2.58 samples/s                     
+                          eta=01:17:26                                          
+10/30 [17:59:16] INFO     | >>  epoch=0 step=1020/3000            trainer.py:721
+                          loss=0.1268 loss_action=0.0067                        
+                          loss_video=0.1201 lr=7.89e-05                         
+                          speed=0.43 step/s, 2.58 samples/s                     
+                          eta=01:16:44                                          
+10/30 [18:00:04] INFO     | >>  epoch=0 step=1040/3000            trainer.py:721
+                          loss=0.1050 loss_action=0.0271                        
+                          loss_video=0.0779 lr=7.80e-05                         
+                          speed=0.43 step/s, 2.58 samples/s                     
+                          eta=01:15:59                                          
+10/30 [18:00:51] INFO     | >>  epoch=0 step=1060/3000            trainer.py:721
+                          loss=0.1128 loss_action=0.0524                        
+                          loss_video=0.0604 lr=7.71e-05                         
+                          speed=0.43 step/s, 2.58 samples/s                     
+                          eta=01:15:14                                          
+10/30 [18:01:41] INFO     | >>  epoch=0 step=1080/3000            trainer.py:721
+                          loss=0.0374 loss_action=0.0034                        
+                          loss_video=0.0340 lr=7.62e-05                         
+                          speed=0.43 step/s, 2.58 samples/s                     
+                          eta=01:14:33                                          
+10/30 [18:02:29] INFO     | >>  epoch=0 step=1100/3000            trainer.py:721
+                          loss=0.0849 loss_action=0.0054                        
+                          loss_video=0.0795 lr=7.52e-05                         
+                          speed=0.43 step/s, 2.57 samples/s                     
+                          eta=01:13:50                                          
+10/30 [18:03:21] INFO     | >>  epoch=0 step=1120/3000            trainer.py:721
+                          loss=0.1644 loss_action=0.0750                        
+                          loss_video=0.0894 lr=7.43e-05                         
+                          speed=0.43 step/s, 2.57 samples/s                     
+                          eta=01:13:11                                          
+10/30 [18:04:09] INFO     | >>  epoch=0 step=1140/3000            trainer.py:721
+                          loss=0.1771 loss_action=0.0448                        
+                          loss_video=0.1323 lr=7.33e-05                         
+                          speed=0.43 step/s, 2.57 samples/s                     
+                          eta=01:12:26                                          
+10/30 [18:04:54] INFO     | >>  epoch=0 step=1160/3000            trainer.py:721
+                          loss=0.1020 loss_action=0.0107                        
+                          loss_video=0.0913 lr=7.24e-05                         
+                          speed=0.43 step/s, 2.57 samples/s                     
+                          eta=01:11:38                                          
+10/30 [18:05:44] INFO     | >>  epoch=0 step=1180/3000            trainer.py:721
+                          loss=0.0915 loss_action=0.0193                        
+                          loss_video=0.0722 lr=7.14e-05                         
+                          speed=0.43 step/s, 2.57 samples/s                     
+                          eta=01:10:56                                          
+10/30 [18:06:31] INFO     | >>  epoch=0 step=1200/3000            trainer.py:721
+                          loss=0.2413 loss_action=0.0901                        
+                          loss_video=0.1512 lr=7.04e-05                         
+                          speed=0.43 step/s, 2.57 samples/s                     
+                          eta=01:10:09                                          
+10/30 [18:07:17] INFO     | >>  epoch=0 step=1220/3000            trainer.py:721
+                          loss=0.2595 loss_action=0.0035                        
+                          loss_video=0.2560 lr=6.94e-05                         
+                          speed=0.43 step/s, 2.57 samples/s                     
+                          eta=01:09:22                                          
+10/30 [18:08:05] INFO     | >>  epoch=0 step=1240/3000            trainer.py:721
+                          loss=0.1466 loss_action=0.0548                        
+                          loss_video=0.0919 lr=6.84e-05                         
+                          speed=0.43 step/s, 2.57 samples/s                     
+                          eta=01:08:36                                          
+10/30 [18:08:50] INFO     | >>  epoch=0 step=1260/3000            trainer.py:721
+                          loss=0.1805 loss_action=0.0063                        
+                          loss_video=0.1742 lr=6.73e-05                         
+                          speed=0.43 step/s, 2.57 samples/s                     
+                          eta=01:07:48                                          
+10/30 [18:09:45] INFO     | >>  epoch=0 step=1280/3000            trainer.py:721
+                          loss=0.1172 loss_action=0.0204                        
+                          loss_video=0.0968 lr=6.63e-05                         
+                          speed=0.43 step/s, 2.56 samples/s                     
+                          eta=01:07:11                                          
+10/30 [18:10:47] INFO     | >>  epoch=0 step=1300/3000            trainer.py:721
+                          loss=0.1524 loss_action=0.0168                        
+                          loss_video=0.1356 lr=6.53e-05                         
+                          speed=0.42 step/s, 2.55 samples/s                     
+                          eta=01:06:45                                          
+10/30 [18:11:39] INFO     | >>  epoch=0 step=1320/3000            trainer.py:721
+                          loss=0.1628 loss_action=0.0052                        
+                          loss_video=0.1577 lr=6.42e-05                         
+                          speed=0.42 step/s, 2.54 samples/s                     
+                          eta=01:06:03                                          
+10/30 [18:12:28] INFO     | >>  epoch=0 step=1340/3000            trainer.py:721
+                          loss=0.2330 loss_action=0.0054                        
+                          loss_video=0.2276 lr=6.32e-05                         
+                          speed=0.42 step/s, 2.54 samples/s                     
+                          eta=01:05:19                                          
+10/30 [18:13:17] INFO     | >>  epoch=0 step=1360/3000            trainer.py:721
+                          loss=0.1511 loss_action=0.0097                        
+                          loss_video=0.1414 lr=6.21e-05                         
+                          speed=0.42 step/s, 2.54 samples/s                     
+                          eta=01:04:34                                          
+10/30 [18:14:08] INFO     | >>  epoch=0 step=1380/3000            trainer.py:721
+                          loss=0.1178 loss_action=0.0102                        
+                          loss_video=0.1076 lr=6.11e-05                         
+                          speed=0.42 step/s, 2.54 samples/s                     
+                          eta=01:03:50                                          
+10/30 [18:14:56] INFO     | >>  epoch=0 step=1400/3000            trainer.py:721
+                          loss=0.0504 loss_action=0.0221                        
+                          loss_video=0.0283 lr=6.00e-05                         
+                          speed=0.42 step/s, 2.54 samples/s                     
+                          eta=01:03:04                                          
+10/30 [18:15:52] INFO     | >>  epoch=0 step=1420/3000            trainer.py:721
+                          loss=0.2288 loss_action=0.0096                        
+                          loss_video=0.2192 lr=5.89e-05                         
+                          speed=0.42 step/s, 2.53 samples/s                     
+                          eta=01:02:26                                          
+10/30 [18:16:44] INFO     | >>  epoch=0 step=1440/3000            trainer.py:721
+                          loss=0.1508 loss_action=0.0175                        
+                          loss_video=0.1333 lr=5.78e-05                         
+                          speed=0.42 step/s, 2.53 samples/s                     
+                          eta=01:01:44                                          
+10/30 [18:17:35] INFO     | >>  epoch=0 step=1460/3000            trainer.py:721
+                          loss=0.1560 loss_action=0.0024                        
+                          loss_video=0.1536 lr=5.68e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=01:01:01                                          
+10/30 [18:18:28] INFO     | >>  epoch=0 step=1480/3000            trainer.py:721
+                          loss=0.2553 loss_action=0.0054                        
+                          loss_video=0.2498 lr=5.57e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=01:00:18                                          
+10/30 [18:19:19] INFO     | >>  epoch=0 step=1500/3000            trainer.py:721
+                          loss=0.0700 loss_action=0.0023                        
+                          loss_video=0.0677 lr=5.46e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:59:34                                          
+10/30 [18:20:08] INFO     | >>  epoch=0 step=1520/3000            trainer.py:721
+                          loss=0.0901 loss_action=0.0091                        
+                          loss_video=0.0809 lr=5.35e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:58:47                                          
+10/30 [18:20:55] INFO     | >>  epoch=0 step=1540/3000            trainer.py:721
+                          loss=0.1758 loss_action=0.0899                        
+                          loss_video=0.0859 lr=5.24e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:57:59                                          
+10/30 [18:21:43] INFO     | >>  epoch=0 step=1560/3000            trainer.py:721
+                          loss=0.1744 loss_action=0.0523                        
+                          loss_video=0.1221 lr=5.13e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:57:12                                          
+10/30 [18:22:31] INFO     | >>  epoch=0 step=1580/3000            trainer.py:721
+                          loss=0.0953 loss_action=0.0063                        
+                          loss_video=0.0890 lr=5.02e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:56:24                                          
+10/30 [18:23:19] INFO     | >>  epoch=0 step=1600/3000            trainer.py:721
+                          loss=0.1722 loss_action=0.0431                        
+                          loss_video=0.1290 lr=4.91e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:55:37                                          
+10/30 [18:24:06] INFO     | >>  epoch=0 step=1620/3000            trainer.py:721
+                          loss=0.0971 loss_action=0.0221                        
+                          loss_video=0.0749 lr=4.80e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:54:49                                          
+10/30 [18:24:55] INFO     | >>  epoch=0 step=1640/3000            trainer.py:721
+                          loss=0.0497 loss_action=0.0056                        
+                          loss_video=0.0441 lr=4.70e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:54:02                                          
+10/30 [18:25:59] INFO     | >>  epoch=0 step=1660/3000            trainer.py:721
+                          loss=0.0995 loss_action=0.0106                        
+                          loss_video=0.0889 lr=4.59e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:53:28                                          
+10/30 [18:26:46] INFO     | >>  epoch=0 step=1680/3000            trainer.py:721
+                          loss=0.1958 loss_action=0.0106                        
+                          loss_video=0.1852 lr=4.48e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:52:40                                          
+10/30 [18:27:33] INFO     | >>  epoch=0 step=1700/3000            trainer.py:721
+                          loss=0.1688 loss_action=0.0200                        
+                          loss_video=0.1488 lr=4.37e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:51:51                                          
+10/30 [18:28:20] INFO     | >>  epoch=0 step=1720/3000            trainer.py:721
+                          loss=0.1226 loss_action=0.0056                        
+                          loss_video=0.1170 lr=4.26e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:51:02                                          
+10/30 [18:29:06] INFO     | >>  epoch=0 step=1740/3000            trainer.py:721
+                          loss=0.1650 loss_action=0.0329                        
+                          loss_video=0.1321 lr=4.15e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:50:13                                          
+10/30 [18:29:52] INFO     | >>  epoch=0 step=1760/3000            trainer.py:721
+                          loss=0.1817 loss_action=0.0543                        
+                          loss_video=0.1274 lr=4.05e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:49:24                                          
+10/30 [18:30:38] INFO     | >>  epoch=0 step=1780/3000            trainer.py:721
+                          loss=0.1266 loss_action=0.0306                        
+                          loss_video=0.0959 lr=3.94e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:48:35                                          
+10/30 [18:31:23] INFO     | >>  epoch=0 step=1800/3000            trainer.py:721
+                          loss=0.0437 loss_action=0.0092                        
+                          loss_video=0.0345 lr=3.83e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:47:45                                          
+10/30 [18:32:09] INFO     | >>  epoch=0 step=1820/3000            trainer.py:721
+                          loss=0.0952 loss_action=0.0069                        
+                          loss_video=0.0882 lr=3.73e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:46:56                                          
+10/30 [18:32:56] INFO     | >>  epoch=0 step=1840/3000            trainer.py:721
+                          loss=0.1009 loss_action=0.0045                        
+                          loss_video=0.0964 lr=3.62e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:46:08                                          
+10/30 [18:33:42] INFO     | >>  epoch=0 step=1860/3000            trainer.py:721
+                          loss=0.0526 loss_action=0.0035                        
+                          loss_video=0.0491 lr=3.52e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:45:19                                          
+10/30 [18:34:28] INFO     | >>  epoch=0 step=1880/3000            trainer.py:721
+                          loss=0.0880 loss_action=0.0054                        
+                          loss_video=0.0827 lr=3.42e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:44:30                                          
+10/30 [18:35:15] INFO     | >>  epoch=0 step=1900/3000            trainer.py:721
+                          loss=0.1966 loss_action=0.0460                        
+                          loss_video=0.1507 lr=3.31e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:43:42                                          
+10/30 [18:36:01] INFO     | >>  epoch=0 step=1920/3000            trainer.py:721
+                          loss=0.2343 loss_action=0.0566                        
+                          loss_video=0.1777 lr=3.21e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:42:54                                          
+10/30 [18:36:47] INFO     | >>  epoch=0 step=1940/3000            trainer.py:721
+                          loss=0.0785 loss_action=0.0299                        
+                          loss_video=0.0486 lr=3.11e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:42:05                                          
+10/30 [18:37:36] INFO     | >>  epoch=0 step=1960/3000            trainer.py:721
+                          loss=0.1295 loss_action=0.0077                        
+                          loss_video=0.1219 lr=3.01e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:41:18                                          
+10/30 [18:38:24] INFO     | >>  epoch=0 step=1980/3000            trainer.py:721
+                          loss=0.0376 loss_action=0.0010                        
+                          loss_video=0.0366 lr=2.91e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:40:31                                          
+10/30 [18:39:13] INFO     | >>  epoch=0 step=2000/3000            trainer.py:721
+                          loss=0.1160 loss_action=0.0287                        
+                          loss_video=0.0872 lr=2.81e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:39:44                                          
+10/30 [18:40:00] INFO     | >>  epoch=0 step=2020/3000            trainer.py:721
+                          loss=0.1245 loss_action=0.0240                        
+                          loss_video=0.1006 lr=2.72e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:38:56                                          
+10/30 [18:40:48] INFO     | >>  epoch=0 step=2040/3000            trainer.py:721
+                          loss=0.1988 loss_action=0.0840                        
+                          loss_video=0.1148 lr=2.62e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:38:08                                          
+10/30 [18:41:37] INFO     | >>  epoch=0 step=2060/3000            trainer.py:721
+                          loss=0.1978 loss_action=0.0110                        
+                          loss_video=0.1869 lr=2.53e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:37:21                                          
+10/30 [18:42:23] INFO     | >>  epoch=0 step=2080/3000            trainer.py:721
+                          loss=0.1026 loss_action=0.0034                        
+                          loss_video=0.0992 lr=2.43e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:36:33                                          
+10/30 [18:43:09] INFO     | >>  epoch=0 step=2100/3000            trainer.py:721
+                          loss=0.1652 loss_action=0.0069                        
+                          loss_video=0.1583 lr=2.34e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:35:44                                          
+10/30 [18:43:55] INFO     | >>  epoch=0 step=2120/3000            trainer.py:721
+                          loss=0.1718 loss_action=0.0259                        
+                          loss_video=0.1459 lr=2.25e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:34:56                                          
+10/30 [18:44:42] INFO     | >>  epoch=0 step=2140/3000            trainer.py:721
+                          loss=0.0656 loss_action=0.0302                        
+                          loss_video=0.0354 lr=2.16e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:34:08                                          
+10/30 [18:45:28] INFO     | >>  epoch=0 step=2160/3000            trainer.py:721
+                          loss=0.1842 loss_action=0.0851                        
+                          loss_video=0.0992 lr=2.07e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:33:20                                          
+10/30 [18:46:18] INFO     | >>  epoch=0 step=2180/3000            trainer.py:721
+                          loss=0.0896 loss_action=0.0040                        
+                          loss_video=0.0856 lr=1.99e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:32:33                                          
+10/30 [18:47:06] INFO     | >>  epoch=0 step=2200/3000            trainer.py:721
+                          loss=0.1457 loss_action=0.0114                        
+                          loss_video=0.1343 lr=1.90e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:31:45                                          
+10/30 [18:47:54] INFO     | >>  epoch=0 step=2220/3000            trainer.py:721
+                          loss=0.0646 loss_action=0.0101                        
+                          loss_video=0.0545 lr=1.82e-05                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:30:58                                          
+10/30 [18:48:49] INFO     | >>  epoch=0 step=2240/3000            trainer.py:721
+                          loss=0.0825 loss_action=0.0296                        
+                          loss_video=0.0528 lr=1.74e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:30:13                                          
+10/30 [18:49:41] INFO     | >>  epoch=0 step=2260/3000            trainer.py:721
+                          loss=0.2686 loss_action=0.0199                        
+                          loss_video=0.2487 lr=1.66e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:29:27                                          
+10/30 [18:50:28] INFO     | >>  epoch=0 step=2280/3000            trainer.py:721
+                          loss=0.1650 loss_action=0.0495                        
+                          loss_video=0.1155 lr=1.58e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:28:39                                          
+10/30 [18:51:15] INFO     | >>  epoch=0 step=2300/3000            trainer.py:721
+                          loss=0.0644 loss_action=0.0154                        
+                          loss_video=0.0490 lr=1.50e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:27:50                                          
+10/30 [18:52:09] INFO     | >>  epoch=0 step=2320/3000            trainer.py:721
+                          loss=0.1582 loss_action=0.0268                        
+                          loss_video=0.1314 lr=1.43e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:27:05                                          
+10/30 [18:53:03] INFO     | >>  epoch=0 step=2340/3000            trainer.py:721
+                          loss=0.1592 loss_action=0.0236                        
+                          loss_video=0.1355 lr=1.35e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:26:18                                          
+10/30 [18:53:49] INFO     | >>  epoch=0 step=2360/3000            trainer.py:721
+                          loss=0.1374 loss_action=0.0150                        
+                          loss_video=0.1224 lr=1.28e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:25:30                                          
+10/30 [18:54:36] INFO     | >>  epoch=0 step=2380/3000            trainer.py:721
+                          loss=0.1089 loss_action=0.0339                        
+                          loss_video=0.0750 lr=1.21e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:24:42                                          
+10/30 [18:55:24] INFO     | >>  epoch=0 step=2400/3000            trainer.py:721
+                          loss=0.1725 loss_action=0.0339                        
+                          loss_video=0.1386 lr=1.14e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:23:54                                          
+10/30 [18:56:16] INFO     | >>  epoch=0 step=2420/3000            trainer.py:721
+                          loss=0.1387 loss_action=0.0055                        
+                          loss_video=0.1333 lr=1.08e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:23:07                                          
+10/30 [18:57:06] INFO     | >>  epoch=0 step=2440/3000            trainer.py:721
+                          loss=0.1926 loss_action=0.0162                        
+                          loss_video=0.1764 lr=1.01e-05                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:22:20                                          
+10/30 [18:57:58] INFO     | >>  epoch=0 step=2460/3000            trainer.py:721
+                          loss=0.0810 loss_action=0.0208                        
+                          loss_video=0.0602 lr=9.51e-06                         
+                          speed=0.42 step/s, 2.50 samples/s                     
+                          eta=00:21:33                                          
+10/30 [18:58:45] INFO     | >>  epoch=0 step=2480/3000            trainer.py:721
+                          loss=0.0441 loss_action=0.0190                        
+                          loss_video=0.0250 lr=8.91e-06                         
+                          speed=0.42 step/s, 2.50 samples/s                     
+                          eta=00:20:45                                          
+10/30 [18:59:31] INFO     | >>  epoch=0 step=2500/3000            trainer.py:721
+                          loss=0.0812 loss_action=0.0125                        
+                          loss_video=0.0687 lr=8.33e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:19:57                                          
+10/30 [19:00:18] INFO     | >>  epoch=0 step=2520/3000            trainer.py:721
+                          loss=0.0851 loss_action=0.0087                        
+                          loss_video=0.0763 lr=7.77e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:19:09                                          
+10/30 [19:01:05] INFO     | >>  epoch=0 step=2540/3000            trainer.py:721
+                          loss=0.0918 loss_action=0.0051                        
+                          loss_video=0.0867 lr=7.23e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:18:21                                          
+10/30 [19:01:53] INFO     | >>  epoch=0 step=2560/3000            trainer.py:721
+                          loss=0.1736 loss_action=0.0154                        
+                          loss_video=0.1582 lr=6.71e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:17:33                                          
+10/30 [19:02:40] INFO     | >>  epoch=0 step=2580/3000            trainer.py:721
+                          loss=0.0909 loss_action=0.0070                        
+                          loss_video=0.0839 lr=6.21e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:16:45                                          
+10/30 [19:03:25] INFO     | >>  epoch=0 step=2600/3000            trainer.py:721
+                          loss=0.1048 loss_action=0.0037                        
+                          loss_video=0.1011 lr=5.73e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:15:57                                          
+10/30 [19:04:13] INFO     | >>  epoch=0 step=2620/3000            trainer.py:721
+                          loss=0.2418 loss_action=0.0725                        
+                          loss_video=0.1692 lr=5.28e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:15:09                                          
+10/30 [19:04:59] INFO     | >>  epoch=0 step=2640/3000            trainer.py:721
+                          loss=0.2120 loss_action=0.0248                        
+                          loss_video=0.1872 lr=4.85e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:14:21                                          
+10/30 [19:05:45] INFO     | >>  epoch=0 step=2660/3000            trainer.py:721
+                          loss=0.1480 loss_action=0.0068                        
+                          loss_video=0.1413 lr=4.44e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:13:32                                          
+10/30 [19:06:31] INFO     | >>  epoch=0 step=2680/3000            trainer.py:721
+                          loss=0.1472 loss_action=0.0169                        
+                          loss_video=0.1303 lr=4.05e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:12:44                                          
+10/30 [19:07:17] INFO     | >>  epoch=0 step=2700/3000            trainer.py:721
+                          loss=0.2240 loss_action=0.0644                        
+                          loss_video=0.1596 lr=3.68e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:11:56                                          
+10/30 [19:08:03] INFO     | >>  epoch=0 step=2720/3000            trainer.py:721
+                          loss=0.0347 loss_action=0.0150                        
+                          loss_video=0.0197 lr=3.34e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:11:08                                          
+10/30 [19:08:48] INFO     | >>  epoch=0 step=2740/3000            trainer.py:721
+                          loss=0.0703 loss_action=0.0093                        
+                          loss_video=0.0610 lr=3.02e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:10:20                                          
+10/30 [19:09:34] INFO     | >>  epoch=0 step=2760/3000            trainer.py:721
+                          loss=0.1098 loss_action=0.0622                        
+                          loss_video=0.0476 lr=2.72e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:09:33                                          
+10/30 [19:10:20] INFO     | >>  epoch=0 step=2780/3000            trainer.py:721
+                          loss=0.1473 loss_action=0.0155                        
+                          loss_video=0.1318 lr=2.45e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:08:45                                          
+10/30 [19:11:05] INFO     | >>  epoch=0 step=2800/3000            trainer.py:721
+                          loss=0.0721 loss_action=0.0258                        
+                          loss_video=0.0463 lr=2.20e-06                         
+                          speed=0.42 step/s, 2.51 samples/s                     
+                          eta=00:07:57                                          
+10/30 [19:11:51] INFO     | >>  epoch=0 step=2820/3000            trainer.py:721
+                          loss=0.1179 loss_action=0.0118                        
+                          loss_video=0.1062 lr=1.97e-06                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:07:09                                          
+10/30 [19:12:36] INFO     | >>  epoch=0 step=2840/3000            trainer.py:721
+                          loss=0.1435 loss_action=0.0057                        
+                          loss_video=0.1378 lr=1.77e-06                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:06:21                                          
+10/30 [19:13:22] INFO     | >>  epoch=0 step=2860/3000            trainer.py:721
+                          loss=0.1215 loss_action=0.0085                        
+                          loss_video=0.1130 lr=1.59e-06                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:05:33                                          
+10/30 [19:14:07] INFO     | >>  epoch=0 step=2880/3000            trainer.py:721
+                          loss=0.2042 loss_action=0.0410                        
+                          loss_video=0.1633 lr=1.43e-06                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:04:45                                          
+10/30 [19:14:53] INFO     | >>  epoch=0 step=2900/3000            trainer.py:721
+                          loss=0.1415 loss_action=0.0068                        
+                          loss_video=0.1346 lr=1.30e-06                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:03:58                                          
+10/30 [19:15:38] INFO     | >>  epoch=0 step=2920/3000            trainer.py:721
+                          loss=0.1614 loss_action=0.0292                        
+                          loss_video=0.1322 lr=1.19e-06                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:03:10                                          
+10/30 [19:16:24] INFO     | >>  epoch=0 step=2940/3000            trainer.py:721
+                          loss=0.2073 loss_action=0.0488                        
+                          loss_video=0.1585 lr=1.11e-06                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:02:22                                          
+10/30 [19:17:09] INFO     | >>  epoch=0 step=2960/3000            trainer.py:721
+                          loss=0.1724 loss_action=0.0008                        
+                          loss_video=0.1715 lr=1.05e-06                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:01:35                                          
+10/30 [19:17:55] INFO     | >>  epoch=0 step=2980/3000            trainer.py:721
+                          loss=0.0481 loss_action=0.0077                        
+                          loss_video=0.0404 lr=1.01e-06                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:00:47                                          
+10/30 [19:18:42] INFO     | >>  epoch=0 step=3000/3000            trainer.py:721
+                          loss=0.0933 loss_action=0.0088                        
+                          loss_video=0.0845 lr=1.00e-06                         
+                          speed=0.42 step/s, 2.52 samples/s                     
+                          eta=00:00:00                                          
+10/30 [19:18:55] INFO     | >>  step=3000                         trainer.py:771
+                          weights=/workspace/a3_train_runs/a3_lor               
+                          a_r3/checkpoints/weights/step_003000.pt               
+                           state=None                                           
+10/30 [19:19:14] INFO     | >>  max_steps reached step=3000       trainer.py:781
+                          weights=/workspace/a3_train_runs/a3_lor               
+                          a_r3/checkpoints/weights/step_003000.pt               
+                           state=None                                           
+TRAIN_EXIT 19:19:35
+TRAIN_CKPT size=11179613340
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[2026-10-30 19:19:40,129][fasterwam.models.wan22.helpers.loader][INFO] - Loading Wan2.2-TI2V-5B components...
+[2026-10-30 19:19:40,129][fasterwam.models.wan22.helpers.loader][INFO] - Skipping pretrained video DiT load (`skip_dit_load_from_pretrain=True`); initializing video expert randomly and expecting checkpoint override.
+[2026-10-30 19:20:09,730][fasterwam.models.wan22.helpers.loader][INFO] - Skipping pretrained text encoder/tokenizer load (`load_text_encoder=False`); training must provide cached `context/context_mask`.
+[2026-10-30 19:20:18,208][fasterwam.models.wan22.helpers.loader][INFO] - Finished loading Wan2.2-TI2V-5B components in 38.08 seconds.
+[2026-10-30 19:20:18,209][fasterwam.models.wan22.sparse_action_dit][INFO] - Skipping SparseActionDiT pretrained load (`skip_dit_load_from_pretrain=True`); initializing action expert randomly and expecting checkpoint override.
+[2026-10-30 19:20:21,436][fasterwam.models.wan22.sparse_mot][INFO] - Initialized SparseMoT with layers=30, condition_layers=[0, 4, 8, 12, 16, 20, 24, 28], condition_heads=24, noncondition_heads=8, video_kv_fusion=interval_weighted_sum
+[2026-10-30 19:20:21,495][fasterwam.models.wan22.sparse_mot][INFO] -   Expert 'video': num_params=5.00 B
+[2026-10-30 19:20:21,496][fasterwam.models.wan22.sparse_mot][INFO] -   Expert 'action': num_params=0.56 B
+[2026-10-30 19:20:21,496][fasterwam.models.wan22.fastwam][INFO] - MoT Action->Video attention enabled at layers [0, 4, 8, 12, 16, 20, 24, 28] (disabled elsewhere).
+applied lora to 392 layers (30670848 params)
+loaded mot: missing=0 unexpected=0
+merged 392 lora layers -> /workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt
+MERGE_OK size=11117977659
+/dev/loop3       98G   82G   12G  88% /workspace
+R3_DONE

@@ -1,0 +1,1 @@
+date; ls -1 /workspace/a3_eval/r5_b0_c0_paired/*.npz | wc -l; echo ===CC3; grep -cE 'seed' /workspace/cc3.out; echo ===WC4; grep -cE 'seed' /workspace/wc4.out; tail -n 3 /workspace/wc4.out | cut -c1-300

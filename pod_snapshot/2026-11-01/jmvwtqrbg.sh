@@ -1,0 +1,1 @@
+date; tail -c 700 /workspace/cc1.out; echo; ls /workspace/a3_eval/demos_correct_c1 | wc -l

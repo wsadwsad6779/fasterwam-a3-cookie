@@ -1,0 +1,1 @@
+grep -E 'TALLY|strict|seed' /workspace/cc2.out | tail -12

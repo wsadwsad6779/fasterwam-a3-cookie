@@ -1,0 +1,9 @@
+par6 2121
+par2 1650
+par7 1077
+par3 698
+par4 435
+par0 410
+par1 357
+par5 273
+direct 0

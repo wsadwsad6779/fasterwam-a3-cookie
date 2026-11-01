@@ -1,0 +1,1 @@
+grep -m1 -oE 'run_matrix.py --model.*' /workspace/a3_eval/r4_b0_c0_paired.log; grep -m1 'sha256sum|run_matrix.py$|  run_matrix.py' /workspace/a3_eval/r4_b0_c0_paired.log; grep -m2 'adapter|ckpt' /workspace/a3_eval/r4_b0_c0_paired.log | cut -c1-200

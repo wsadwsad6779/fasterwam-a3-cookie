@@ -1,0 +1,1 @@
+cd /workspace/_r5_stage && sha256sum replay_wrongclosure.py && python3 -c "import ast;ast.parse(open('/workspace/_r5_stage/replay_wrongclosure.py').read());print('COMPILE_OK')"; echo '--- cc1 ---'; date; grep -c seed /workspace/cc1.out; pgrep -f replay_correct > /dev/null && echo CC1_RUNNING || echo CC1_DONE; echo '--- adj1 ---'; tail -c 400 /workspace/adj1.out 2>/dev/null

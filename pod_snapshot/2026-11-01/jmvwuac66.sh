@@ -1,0 +1,1 @@
+cat /workspace/_r5_stage/r5_watch.sh; echo '--- log ---'; ls -la /workspace/_r5_stage/r5_watch.log /workspace/a3_train_runs/a3_lora_r5/r5_watch.log 2>/dev/null; tail -5 /workspace/_r5_stage/r5_watch.log 2>/dev/null

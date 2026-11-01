@@ -1,0 +1,1 @@
+grep -rnE safety_terminated /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim --include=*.py | head ; echo === ; grep -rnE "safety_terminated|_safety_abort|penetrat|nan|isnan|instab" /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/*.py | head -40

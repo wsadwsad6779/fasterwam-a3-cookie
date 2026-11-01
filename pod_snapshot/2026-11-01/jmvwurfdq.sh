@@ -1,0 +1,1 @@
+grep -E 'seed|pre |clamp |retry ' /workspace/wc3.out | tail -n 40

@@ -1,0 +1,1 @@
+cd /workspace/_r5_stage; python3 probe_keys.py /workspace/a3_eval/r4_b0_c0_paired/lora_C0_22.npz

@@ -1,0 +1,463 @@
+"""Per-step safety wrapper for the A3 cookie-transfer rollout.
+
+The policy only emits the LIBERO gripper sign (+1 close / -1 open) while the
+A3 env treats that channel as an *absolute* opening target, so the raw rollout
+alternates between fully open and fully shut: an empty air close, then a hard
+clamp that wedges into the cookie rows (4+ N on the pads) and is pushed back
+open. Commanding "measured - 0.02" does not fix it either: the left jaw is a
+kp=400 position servo, so a 1.7 mm error cannot beat the wedge.
+
+The checkpoint cannot be trusted with the approach. A controlled probe that
+forced only the gripper opening (1.0/0.8/0.6/0.45, policy owning xyz) climbed
+from z=0.92 to 1.4-1.6 and drifted 0.7-0.9 m off the pile in every case, so
+the r5 "fly up and away" was the policy's own plan, not the wrapper's pin.
+What the policy *is* good at is the part that starts with a closed gripper:
+carrying an already-grasped batch to the bin (r4). So the wrapper owns the
+whole reach-and-grasp and hands back only after the grip is latched:
+
+  1. drive to a staging point APPROACH_ZPAD above the cookie-row centre with
+     the gripper wide open (1.0), ignoring the policy's xyz,
+  2. pre-close in place to PREOPEN=0.45 (inside the demos' 0.28-1.0 range),
+     then steer onto the row centre and descend at <=2 mm/step so the pads
+     enter the boundary gaps,
+  3. ramp the absolute target down at 3-6 mm/step until the jaws stall with
+     real pad force, never below MIN_TARGET (0.24) so nothing is crushed,
+  4. hold that target through lift and transport,
+  5. open only where the profile allows, slowly (2 mm of jaw per step),
+  6. re-arm over the source so the next batch gets a gripper again.
+
+Independent of the phase, an empty gripper is never allowed into the target
+bin (z floor at the rim) and any pad force above CRUSH_FORCE while not
+holding lifts the tool.
+
+Profiles:
+  baseline  untouched policy
+  force     wrapper-owned grasp; release when the policy asks to open
+  guard     force + soft z floor at the source cookies + release only while
+            the batch is over the target bin
+  full      guard + guided placement: steer to the bin, descend inside the
+            footprint, release only below the rim
+
+The profiles bundle several guards, so stepping between them cannot say which
+guard mattered. `RELEASE_STAGES` walks the other way: start from `full` and hand
+back one capability at a time (`C1` transport xyz ... `C5` everything). Each
+stage keeps the safety layer and every capability it has not released yet.
+"""
+import os
+
+import numpy as np
+from scipy.spatial.transform import Rotation as ROT_SERVE
+
+LEFT_GRIP = 6
+
+PREOPEN = float(os.environ.get("A3_PREOPEN", "0.45"))
+APPROACH_ZPAD = float(os.environ.get("A3_APPROACH_ZPAD", "0.10"))
+APPROACH_MAX = int(os.environ.get("A3_APPROACH_MAX", "90"))
+PRECLOSE_RATE = float(os.environ.get("A3_PRECLOSE_RATE", "0.05"))
+# Used only when the jaw is already the policy's (C4+): the wrapper still needs
+# a clock to leave preclose, but must not pretend the jaw reached PREOPEN.
+PRECLOSE_STEPS = int(os.environ.get("A3_PRECLOSE_STEPS", "20"))
+CLOSE_RATE = float(os.environ.get("A3_CLOSE_RATE", "0.0025"))
+XY_TOL = float(os.environ.get("A3_XY_TOL", "0.012"))
+OPEN_INCR = float(os.environ.get("A3_OPEN_INCR", "0.02"))
+CONTACT_RATE = float(os.environ.get("A3_CONTACT_RATE", "0.002"))
+MIN_TARGET = float(os.environ.get("A3_MIN_TARGET", "0.30"))
+CONTACT_FORCE = float(os.environ.get("A3_CONTACT_FORCE", "0.30"))
+HOLD_FORCE = float(os.environ.get("A3_HOLD_FORCE", "0.80"))
+CRUSH_FORCE = float(os.environ.get("A3_CRUSH_FORCE", "12.0"))
+STALL_TOL = float(os.environ.get("A3_STALL_TOL", "0.012"))
+Z_PAD = float(os.environ.get("A3_Z_PAD", "0.010"))
+BIN_ZPAD = float(os.environ.get("A3_BIN_ZPAD", "0.010"))
+CENTER_GAIN = float(os.environ.get("A3_CENTER_GAIN", "0.8"))
+ROT_GAIN = float(os.environ.get("A3_ROT_GAIN", "0.5"))
+ROT_CLIP = float(os.environ.get("A3_ROT_CLIP", "1.0"))
+ROT_TARGET_Q = ROT_SERVE.from_quat([-0.5, 0.5, -0.5, 0.5])
+BATCH_DY = float(os.environ.get("A3_BATCH_DY", "0.00525"))
+GRASP_GAIN = float(os.environ.get("A3_GRASP_GAIN", "0.6"))
+SRC_RADIUS = float(os.environ.get("A3_SRC_RADIUS", "0.14"))
+BIN_NEAR = float(os.environ.get("A3_BIN_NEAR", "0.20"))
+HOLD_MIN = int(os.environ.get("A3_HOLD_MIN", "10"))
+HOLD_TIMEOUT = int(os.environ.get("A3_HOLD_TIMEOUT", "260"))
+RELEASE_TIMEOUT = int(os.environ.get("A3_RELEASE_TIMEOUT", "160"))
+STEER_AFTER = int(os.environ.get("A3_STEER_AFTER", "60"))
+DONE_DWELL = int(os.environ.get("A3_DONE_DWELL", "12"))
+MAX_CYCLES = int(os.environ.get("A3_MAX_CYCLES", "8"))
+RELEASE_OPEN = 0.49
+CARRY_Z = 0.035
+RELEASE_DEPTH = float(os.environ.get("A3_RELEASE_DEPTH", "0.008"))
+
+PROFILES = {
+    "baseline": dict(force=False, z_floor=False, gate=False, place=False),
+    "force": dict(force=True, z_floor=False, gate=False, place=False),
+    "guard": dict(force=True, z_floor=True, gate=True, place=False),
+    "full": dict(force=True, z_floor=True, gate=True, place=True),
+}
+
+# Capability release, used instead of walking the four profiles. Each stage
+# hands one wrapper-owned skill back to the policy and keeps everything else,
+# so a failure can be attributed to that skill instead of to a removed guard.
+# They are cumulative, and C5 releases everything, which makes C5 reproduce
+# C0 (interface + safety only) -- a self-check, not a new condition.
+CAPABILITIES = (
+    "transport_xyz",     # xyz while the batch is held (place assist)
+    "approach_xyz",      # xyz while flying to the pile / pre-closing
+    "grasp_target",      # which cookie column to aim at
+    "descend_close",     # descent, pre-close and jaw closure
+    "release_recovery",  # when to let go, lift away, re-arm for the next batch
+    "orientation",       # attitude hold (ROT_TARGET_Q)
+)
+
+RELEASE_STAGES = {
+    "C1": frozenset({"transport_xyz"}),
+    "C2": frozenset({"transport_xyz", "approach_xyz"}),
+    "C3": frozenset({"transport_xyz", "approach_xyz", "grasp_target"}),
+    "C4": frozenset({"transport_xyz", "approach_xyz", "grasp_target", "descend_close"}),
+    "C5": frozenset(CAPABILITIES),
+}
+
+PHASES = ("open", "preclose", "descend", "close", "hold", "release", "done", "raw")
+
+
+def new_state():
+    return {
+        "phase": "open",
+        "steps": 0,
+        "tgt": 1.0,
+        "contact": 0,
+        "close_steps": 0,
+        "preclose_steps": 0,
+        "descend_steps": 0,
+        "hover": 0,
+        "hold_steps": 0,
+        "zfloor": 0,
+        "binfloor": 0,
+        "crush": 0,
+        "steer": 0,
+        "suppress": 0,
+        "inner": 0.0,
+        "outer": 0.0,
+        "bin_dist": 0.0,
+        "released": False,
+        "dropped": False,
+        "dwell": 0,
+        "cycles": 0,
+        "placed": 0,
+        "boff": 0.0,
+        "bmin": 0.0,
+        "bmax": 0.0,
+        "gx": 0.0,
+        "gcyc": -1,
+    }
+
+
+def nearest_cookie(env, tcp):
+    cps = env.cookie_positions
+    _b = np.asarray(env.data.xpos[env._target_bin_body]); _h = np.asarray(env.TARGET_INNER_HALF_SIZE); _keep = (np.abs(cps[:, 0] - _b[0]) > _h[0] + 0.008) | (np.abs(cps[:, 1] - _b[1]) > _h[1] + 0.008); cps = cps[_keep] if np.any(_keep) else cps
+    d = np.linalg.norm(cps - np.asarray(tcp)[None, :], axis=1)
+    idx = int(np.argmin(d))
+    return float(d[idx]), cps[idx], idx
+
+
+def batch_center(env, cpos):
+    cps = env.cookie_positions
+    b = np.asarray(env.data.xpos[env._target_bin_body])
+    h = np.asarray(env.TARGET_INNER_HALF_SIZE)
+    # Only drop cookies that are actually in the bin volume: a wide xy
+    # margin also hides the whole source column that sits above it.
+    keep = (np.abs(cps[:, 0] - b[0]) > h[0] + 0.008) | (np.abs(cps[:, 1] - b[1]) > h[1] + 0.008)
+    cps = cps[keep] if np.any(keep) else cps
+    col = cps[np.abs(cps[:, 0] - cpos[0]) < 0.012]
+    if len(col) < 5:
+        col = cps
+    order = col[np.argsort(col[:, 1])]
+    w = order[:5]
+    return float(w[:, 0].mean()) + 0.0067, float(w[:, 1].mean()) + BATCH_DY
+
+
+def batch_offsets(env, tcp, cpos):
+    """Held batch x offsets relative to the tool (mean, min, max)."""
+    cps = env.cookie_positions
+    d = np.linalg.norm(cps[:, :2] - np.asarray(tcp)[:2], axis=1)
+    xs = cps[np.argsort(d)[:5], 0]
+    return float(xs.mean() - tcp[0]), float(xs.min() - tcp[0]), float(xs.max() - tcp[0])
+
+
+def goal_tcp_x(env, tcp, bin_pos, half, st):
+    """Freeze a tool-x goal that centres the held batch in the free gap.
+
+    The batch is not centred on the tool, so aim its measured extremes instead
+    of a fixed offset from the bin centre.
+    """
+    boff, bmin, bmax = st["boff"], st["bmin"], st["bmax"]
+    cps = env.cookie_positions
+    dxy = np.linalg.norm(cps[:, :2] - np.asarray(tcp)[:2], axis=1)
+    inb = ((np.abs(cps[:, 0] - bin_pos[0]) < half[0] - 0.004)
+           & (np.abs(cps[:, 1] - bin_pos[1]) < half[1] - 0.004)
+           & (cps[:, 2] < bin_pos[2] + 0.030)
+           & (dxy > 0.06))
+    gap_l = float(bin_pos[0] - half[0]) + 0.0015
+    if np.any(inb):
+        gap_r = float(cps[inb, 0].min()) - 0.0265
+        lo = gap_l - bmin + 0.025
+        hi = gap_r - bmax - 0.025
+        return float(0.5 * (lo + hi))
+    return float(bin_pos[0] + 0.028 - boff)
+
+
+def apply(a3, obs, env, st, prof, released=frozenset()):
+    tcp = np.asarray(obs["observation.eef_pose"][:3], dtype=np.float64)
+    opening = float(obs["observation.state"][7])
+    st["steps"] += 1
+
+    if not prof["force"]:
+        st["phase"] = "raw"
+        return a3
+
+    # C5 releases every capability, so it must not touch the action or read the
+    # simulator at all; if it did, C5 would silently differ from C0.
+    if released >= frozenset(CAPABILITIES):
+        st["phase"] = "raw"
+        return a3
+
+    inner = float(env._sensor("L_finger_inner_touch_sensor")[0])
+    outer = float(env._sensor("L_finger_outer_touch_sensor")[0])
+    st["inner"], st["outer"] = inner, outer
+    near, cpos, _ = nearest_cookie(env, tcp)
+    near_xy = float(np.linalg.norm(tcp[:2] - cpos[:2]))
+    wants_open = a3[LEFT_GRIP] >= 0.0
+
+    bin_pos = np.asarray(env.data.xpos[env._target_bin_body], dtype=np.float64)
+    half = np.asarray(env.TARGET_INNER_HALF_SIZE, dtype=np.float64)
+    rim_z = float(bin_pos[2]) + float(env.TARGET_WALL_HEIGHT)
+    bin_dist = float(np.linalg.norm(tcp[:2] - bin_pos[:2]))
+    st["bin_dist"] = bin_dist
+    inside = bool(
+        abs(tcp[0] - bin_pos[0]) < 0.045
+        and abs(tcp[1] - bin_pos[1]) < 0.006
+    )
+    low = bool(tcp[2] <= rim_z + RELEASE_DEPTH)
+    phase = st["phase"]
+    holding = phase in ("hold", "release", "done")
+
+    def cmd(target):
+        a3[LEFT_GRIP] = 2.0 * float(target) - 1.0
+
+    def let_go():
+        st["dropped"] = not (inside and low)
+        if inside and low:
+            st["placed"] += 1
+        st["phase"] = "release"
+        st["released"] = True
+        st["dwell"] = 0
+
+    def steer_to(tx, ty, tz, clip_xy, clip_z):
+        a3[0] = float(np.clip(CENTER_GAIN * (tx - tcp[0]) / 0.025, -clip_xy, clip_xy))
+        a3[1] = float(np.clip(CENTER_GAIN * (ty - tcp[1]) / 0.025, -clip_xy, clip_xy))
+        a3[2] = float(np.clip(GRASP_GAIN * (tz - tcp[2]) / 0.025, -clip_z, clip_z))
+
+    def target_xy():
+        # Wrapper-owned target selection is the batch centre; once C3 releases
+        # it, the cookie nearest to the tool is whichever one the policy chose.
+        if "grasp_target" in released:
+            return float(cpos[0]), float(cpos[1])
+        return batch_center(env, cpos)
+
+    # An empty gripper must never be driven into the bin or into a cookie
+    # pile: r4 hammered the bin walls with 60-74 N doing exactly that.
+    if not holding:
+        if inside and tcp[2] < rim_z + BIN_ZPAD:
+            st["binfloor"] += 1
+            a3[2] = max(float(a3[2]), 0.06 if tcp[2] < rim_z - 0.004 else 0.02)
+        if max(inner, outer) > CRUSH_FORCE:
+            st["crush"] += 1
+            a3[2] = max(float(a3[2]), 0.06)
+
+    # z_floor only while approaching a source cookie: once something is held,
+    # the nearest cookie rises with the tool and the floor would chase it.
+    if prof["z_floor"] and phase in ("open", "preclose", "descend", "close"):
+        src = np.asarray(env.SOURCE_CENTER, dtype=np.float64)[:2]
+        if abs(cpos[0] - src[0]) < SRC_RADIUS and abs(cpos[1] - src[1]) < SRC_RADIUS:
+            floor_z = float(cpos[2]) + Z_PAD
+            if near_xy < 0.05 and tcp[2] < floor_z:
+                st["zfloor"] += 1
+                a3[2] = max(float(a3[2]), 0.45 if tcp[2] < floor_z - 0.004 else 0.12)
+
+    if phase == "open":
+        # The policy climbs away from the pile from every opening value we
+        # probed, so the wrapper flies the approach itself, wide open.
+        tx, ty = target_xy()
+        tz = float(cpos[2]) + APPROACH_ZPAD
+        if "descend_close" not in released:
+            # Gripper assistance is kept until C4; only xyz moves at C2/C3.
+            cmd(1.0)
+        if "approach_xyz" not in released:
+            steer_to(tx, ty, tz, 0.50, 0.12)
+        st["hover"] += 1
+        ex = abs(tx - tcp[0])
+        ey = abs(ty - tcp[1])
+        arrived = ex < XY_TOL and ey < XY_TOL and abs(tz - tcp[2]) < 0.015
+        # Timeout only lets us pre-close once the tool is actually overhead;
+        # otherwise keep flying, an abort mid-flight is worse than a long leg.
+        stalled_overhead = (st["hover"] > APPROACH_MAX
+                            and ex < 0.05 and ey < 0.05)
+        if arrived or stalled_overhead:
+            st["phase"] = "preclose"
+            st["tgt"] = 1.0
+            st["preclose_steps"] = 0
+
+    elif phase == "preclose":
+        st["preclose_steps"] += 1
+        tx, ty = target_xy()
+        if "descend_close" not in released:
+            st["tgt"] = max(PREOPEN, st["tgt"] - PRECLOSE_RATE)
+            cmd(st["tgt"])
+        if "approach_xyz" not in released:
+            steer_to(tx, ty, float(cpos[2]) + APPROACH_ZPAD, 0.40, 0.40)
+        if "descend_close" in released:
+            # The jaw is the policy's now; the wrapper only keeps the clock so
+            # the phase machine still reaches descend/close for logging.
+            if st["preclose_steps"] > PRECLOSE_STEPS:
+                st["phase"] = "descend"
+                st["descend_steps"] = 0
+        elif st["tgt"] <= PREOPEN + 1e-9 and opening <= PREOPEN + 0.04:
+            st["phase"] = "descend"
+            st["descend_steps"] = 0
+
+    elif phase == "descend":
+        st["descend_steps"] += 1
+        tx, ty = target_xy()
+        if "descend_close" not in released:
+            cmd(PREOPEN)
+        gz = float(cpos[2]) + Z_PAD
+        if "descend_close" not in released:
+            cz = 0.40 if tcp[2] > gz + 0.03 else 0.03
+            steer_to(tx, ty, gz, 0.40, cz)
+        elif "grasp_target" not in released:
+            a3[0] = float(np.clip(CENTER_GAIN * (tx - tcp[0]) / 0.025, -0.40, 0.40))
+            a3[1] = float(np.clip(CENTER_GAIN * (ty - tcp[1]) / 0.025, -0.40, 0.40))
+        if "descend_close" not in released and max(inner, outer) > 2.5:
+            a3[2] = min(float(a3[2]), 0.015)
+        if (tcp[2] <= gz + 0.004 and abs(tx - tcp[0]) < 0.006 and abs(ty - tcp[1]) < 0.006) or st["descend_steps"] > 90:
+            st["phase"] = "close"
+            st["tgt"] = PREOPEN
+            st["close_steps"] = 0
+            st["contact"] = 0
+
+    elif phase == "close":
+        st["close_steps"] += 1
+        tx, ty = target_xy()
+        if "grasp_target" not in released:
+            steer_to(tx, ty, float(tcp[2]), 0.10, 0.0)
+        if "descend_close" not in released:
+            a3[2] = 0.0
+            a3[2] = max(float(a3[2]), 0.0)
+            if max(inner, outer) > CRUSH_FORCE:
+                st["crush"] += 1
+                st["tgt"] = min(PREOPEN, st["tgt"] + CONTACT_RATE)
+                cmd(st["tgt"])
+                st["phase"] = "hold"
+                st["hold_steps"] = 0
+            else:
+                stalled = opening > st["tgt"] + STALL_TOL and min(inner, outer) > CONTACT_FORCE
+                st["contact"] = st["contact"] + 1 if stalled else 0
+                rate = CONTACT_RATE if st["contact"] > 0 else CLOSE_RATE
+                st["tgt"] = max(MIN_TARGET, st["tgt"] - rate)
+                cmd(st["tgt"])
+                if (st["contact"] >= 2 or st["tgt"] <= MIN_TARGET + 1e-9
+                        or st["close_steps"] > 90):
+                    st["phase"] = "hold"
+                    st["hold_steps"] = 0
+        elif st["close_steps"] > 90:
+            st["phase"] = "hold"
+            st["hold_steps"] = 0
+
+    elif phase == "hold":
+        if "descend_close" not in released:
+            if max(inner, outer) > CRUSH_FORCE:
+                st["crush"] += 1
+                st["tgt"] = min(PREOPEN, st["tgt"] + CONTACT_RATE)
+            elif min(inner, outer) < HOLD_FORCE and st["tgt"] > MIN_TARGET:
+                st["tgt"] = max(MIN_TARGET, st["tgt"] - CONTACT_RATE)
+            cmd(st["tgt"])
+        st["hold_steps"] += 1
+        if prof["place"]:
+            if inside and low and st["hold_steps"] >= HOLD_MIN:
+                let_go()
+            elif (
+                st["hold_steps"] >= HOLD_MIN
+                and (bin_dist < BIN_NEAR or st["hold_steps"] >= STEER_AFTER)
+            ):
+                # Place assist: keep the batch shut, clear the walls, aim at
+                # the bin, then descend; release happens from geometry above.
+                if st["gcyc"] != st["cycles"]:
+                    st["boff"], st["bmin"], st["bmax"] = batch_offsets(env, tcp, cpos)
+                    st["gx"] = goal_tcp_x(env, tcp, bin_pos, half, st)
+                    st["gcyc"] = st["cycles"]
+                st["steer"] += 1
+                if "transport_xyz" not in released:
+                    ex = float(st["gx"] - tcp[0])
+                    ey = float(bin_pos[1] - tcp[1])
+                    a3[0] = float(np.clip(0.5 * ex / 0.025, -0.18, 0.18))
+                    a3[1] = float(np.clip(0.5 * ey / 0.025, -0.18, 0.18))
+                    # Inside the footprint: descend until the release depth is
+                    # reached. Outside it: never go below the walls, lift if the
+                    # policy already did.
+                    if inside:
+                        a3[2] = min(float(a3[2]), -0.10) if tcp[2] > rim_z + RELEASE_DEPTH else max(float(a3[2]), 0.0)
+                    elif tcp[2] < rim_z + CARRY_Z:
+                        a3[2] = max(float(a3[2]), 0.25)
+            if st["phase"] == "hold" and st["hold_steps"] >= HOLD_TIMEOUT:
+                let_go()
+        else:
+            if prof["gate"]:
+                # Guard: the policy owns transport, the wrapper only refuses
+                # to let go until the batch is over the bin and low enough.
+                fire = (
+                    st["hold_steps"] >= HOLD_MIN and inside and low
+                ) or st["hold_steps"] >= HOLD_TIMEOUT
+            else:
+                fire = (wants_open and st["hold_steps"] >= HOLD_MIN) or \
+                    st["hold_steps"] >= RELEASE_TIMEOUT
+            if fire:
+                let_go()
+
+    elif phase == "release":
+        st["tgt"] = min(RELEASE_OPEN, st["tgt"] + OPEN_INCR)
+        cmd(st["tgt"])
+        if inside:
+            a3[2] = max(float(a3[2]), 0.0)
+        if st["tgt"] >= RELEASE_OPEN - 1e-9:
+            st["phase"] = "done"
+
+    elif phase == "done":
+        cmd(RELEASE_OPEN)
+        st["dwell"] += 1
+        a3[2] = max(float(a3[2]), 0.20) if (st["dwell"] > 12) else a3[2]
+        # Second and later batches: the policy expects a usable gripper when
+        # it comes back over the source, not a permanently open one.
+        near_src_high = near_xy < 0.13 and tcp[2] > float(cpos[2]) + 0.06
+        if (
+            st["dwell"] >= DONE_DWELL
+            and st["cycles"] < MAX_CYCLES
+            and not inside
+            and near_src_high
+        ):
+            st["cycles"] += 1
+            st["phase"] = "open"
+            st["tgt"] = 1.0
+            st["contact"] = 0
+            st["close_steps"] = 0
+            st["preclose_steps"] = 0
+            st["descend_steps"] = 0
+            st["hover"] = 0
+            st["hold_steps"] = 0
+            st["released"] = False
+            st["dropped"] = False
+            st["dwell"] = 0
+
+    if ROT_GAIN > 0 and "orientation" not in released:
+        q = np.asarray(obs["observation.eef_pose"][3:7], dtype=np.float64)
+        rc = ROT_SERVE.from_quat([q[1], q[2], q[3], q[0]])
+        w = (ROT_TARGET_Q * rc.inv()).as_rotvec()
+        a3[3:6] = np.clip(ROT_GAIN * (rc.inv().apply(w)) / 0.1, -ROT_CLIP, ROT_CLIP)
+    return a3

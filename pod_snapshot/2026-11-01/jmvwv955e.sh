@@ -1,0 +1,1 @@
+date; ls -1 /workspace/a3_eval/r5_b0_c0_paired | head; echo ===WC4; python3 /workspace/_r5_stage/adjudicate_wc.py /workspace/a3_eval/demos_wrongclosure_v6b 2>/dev/null | tail -3; grep -c 'seed' /workspace/wc4.out; echo ===CC3; grep -c 'seed' /workspace/cc3.out 2>/dev/null

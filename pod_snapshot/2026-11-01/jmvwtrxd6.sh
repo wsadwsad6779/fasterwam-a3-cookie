@@ -1,0 +1,1 @@
+cd /workspace/_r5_stage && grep -n 'class |^def |--mode|mode ==|batch_size|cookies_per|def _select_batch|def _candidate_batches|max_cookies|attached' replay_forces.py | head -50

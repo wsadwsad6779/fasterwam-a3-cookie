@@ -1,0 +1,232 @@
+"""Adapter-only checkpoint + light-state round-trip test (GPU, no training data).
+
+Three things are checked without touching the training run:
+
+1. adapter round trip: a perturbed LoRA adapter saved from model A and loaded
+   into an independently built model B reproduces A's predicted chunk bit for
+   bit, and differs from B's zero-adapter output (so the test can fail);
+2. light state: optimizer moments, scheduler epoch, sampler position and all
+   RNG streams survive save/load exactly, and restoring the state after the
+   adapter has been deliberately halved reproduces the post-optimizer-step
+   chunk bit for bit (comparing against a pre-step chunk would not: the
+   optimizer step itself moves the LoRA weights);
+3. sampler offset: `sample_offset=18000` yields the same permutation as r2/r3
+   but starting at window 18,000.
+
+Run on the A3 pod:
+    /opt/venv/bin/python3 test_light_state.py --out /workspace/a3_eval/light_state_test
+"""
+import argparse
+import json
+import os
+import sys
+from pathlib import Path
+
+import numpy as np
+import torch
+
+BRIDGE = Path(__file__).resolve().parent
+for p in (str(BRIDGE), "/workspace/FasterWAM/src", "/workspace/a3_dual_arm_sim/src",
+          "/workspace/FasterWAM"):
+    if p not in sys.path:
+        sys.path.insert(0, p)
+
+os.environ.setdefault("MUJOCO_GL", "egl")
+os.environ.setdefault("PYOPENGL_PLATFORM", "egl")
+os.environ["FASTERWAM_A3_GRIPPER_MODE"] = "pm1"
+
+from hydra import compose, initialize_config_dir  # noqa: E402
+from hydra.utils import instantiate  # noqa: E402
+
+import env_factory  # noqa: E402
+import infer_a3_worker as W  # noqa: E402
+import fasterwam.r4_patch as r4_patch  # noqa: E402
+from fasterwam import light_state  # noqa: E402
+from fasterwam.lora import apply_lora  # noqa: E402
+from fasterwam.utils.samplers import ResumableEpochSampler  # noqa: E402
+
+r4_patch.install()
+
+CKPT = "/workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt"
+STATS = "/workspace/a3_data/a3_fw/dataset_stats.json"
+INSTRUCTION = "transfer 10 cookies into target box"
+
+# The denoise path draws from the ambient torch RNG as well as from the seeded
+# generator, so restoring RNG (which load_light_state deliberately does) changes
+# the predicted chunk. Reseed before every call: this test is about the weights.
+_inf_predict = W.predict_action_chunk
+
+
+def _predict_reseeded(*a, **k):
+    torch.manual_seed(1234567)
+    return _inf_predict(*a, **k)
+
+
+W.predict_action_chunk = _predict_reseeded
+
+
+def parse_args():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", default="/workspace/a3_eval/light_state_test")
+    ap.add_argument("--seed", type=int, default=11)
+    return ap.parse_args()
+
+
+def train_cfg():
+    with initialize_config_dir(version_base="1.3", config_dir="/workspace/FasterWAM/configs"):
+        return compose(config_name="train",
+                       overrides=["data=a3_2cam", "task=a3_fasterwam",
+                                  "output_dir=/tmp/light_state_test"])
+
+
+def build_model(inf_cfg, lora_cfg, device):
+    model = instantiate(inf_cfg.model, model_dtype=torch.bfloat16, device=device)
+    n_layers, n_trainable = apply_lora(model, lora_cfg)
+    print(f"[test] lora layers={n_layers} trainable={n_trainable}", flush=True)
+    model.load_checkpoint(CKPT, optimizer=None)
+    return model.to(device).eval()
+
+
+def build_obs(seed):
+    env = env_factory.make_env(render_cameras=True)
+    obs, _ = env_factory.reset(env, seed, randomize_cookies=True, randomize_boxes=False)
+    return env, obs
+
+
+def main():
+    args = parse_args()
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    W.INSTRUCTION = INSTRUCTION
+    inf_cfg = W.load_cfg()
+    lut_cfg = train_cfg()
+    processor = instantiate(inf_cfg.data.train.processor).eval()
+    processor.set_normalizer_from_stats(W.load_dataset_stats_from_json(STATS))
+
+    env, obs = build_obs(args.seed)
+    try:
+        model_a = build_model(inf_cfg, lut_cfg.lora, device)
+        torch.manual_seed(1234)
+        with torch.no_grad():
+            for name, param in model_a.named_parameters():
+                if "lora_B" in name:
+                    param.normal_(0.0, 1e-3)
+        chunk_a = W.predict_action_chunk(obs, model_a, processor, inf_cfg, args.seed, device)[1]
+        adapter_file = light_state.save_adapter(
+            model_a, out / "adapter.pt", meta={"test": "roundtrip", "seed": args.seed})
+        print(f"[test] adapter saved: {adapter_file.stat().st_size} bytes", flush=True)
+
+        model_b = build_model(inf_cfg, lut_cfg.lora, device)
+        chunk_b0 = W.predict_action_chunk(obs, model_b, processor, inf_cfg, args.seed, device)[1]
+        light_state.load_adapter(model_b, adapter_file)
+        chunk_b1 = W.predict_action_chunk(obs, model_b, processor, inf_cfg, args.seed, device)[1]
+
+        adapter_equal = bool(np.array_equal(chunk_a, chunk_b1))
+        adapter_live = float(np.max(np.abs(chunk_b1 - chunk_b0)))
+        print(f"[test] adapter roundtrip equal={adapter_equal} "
+              f"effect_on_output={adapter_live:.6f}", flush=True)
+
+        # ---- light state mechanics on model_b's adapter parameters
+        lora_params = [p for n, p in model_b.named_parameters() if "lora_" in n]
+        optimizer = torch.optim.AdamW(lora_params, lr=1e-4, weight_decay=0.01,
+                                      betas=(0.9, 0.95))
+        scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lambda step: 1.0)
+        loss = sum(p.float().pow(2).sum() for p in lora_params)
+        loss.backward()
+        optimizer.step()
+        scheduler.step()
+        optimizer.zero_grad(set_to_none=True)
+        # the step has now changed model_b's LoRA weights; this is the policy the
+        # light state must bring back after the adapter is destroyed.
+        chunk_stepped = W.predict_action_chunk(obs, model_b, processor, inf_cfg,
+                                               args.seed, device)[1]
+        torch.manual_seed(7)
+        np.random.seed(7)
+
+        class _Ds:
+            def __len__(self):
+                return 39481
+
+        sampler = ResumableEpochSampler(_Ds(), seed=42, batch_size=6, num_processes=1)
+        sampler.set_sample_offset(18000)
+        state_dir = out / "light"
+        state = light_state.save_light_state(
+            state_dir, model=model_b, optimizer=optimizer, scheduler=scheduler,
+            sampler=sampler, global_step=2, epoch=0, batch_in_epoch=2,
+            extra={"test": True}, adapter_meta={"base": CKPT})
+        expected_torch = torch.rand(3)
+        expected_np = np.random.rand(3)
+
+        optimizer2 = torch.optim.AdamW(lora_params, lr=1e-4, weight_decay=0.01,
+                                       betas=(0.9, 0.95))
+        scheduler2 = torch.optim.lr_scheduler.LambdaLR(optimizer2, lambda step: 1.0)
+        sampler2 = ResumableEpochSampler(_Ds(), seed=42, batch_size=6, num_processes=1)
+        with torch.no_grad():
+            for param in lora_params:
+                param.mul_(0.5)
+        chunk_broken = W.predict_action_chunk(obs, model_b, processor, inf_cfg,
+                                              args.seed, device)[1]
+        loaded = light_state.load_light_state(
+            state_dir, model=model_b, optimizer=optimizer2, scheduler=scheduler2,
+            sampler=sampler2)
+
+        opt_ok = True
+        for (k1, s1), (k2, s2) in zip(optimizer.state.items(), optimizer2.state.items()):
+            for key in s1:
+                if torch.is_tensor(s1[key]):
+                    if not torch.equal(s1[key].cpu(), s2[key].cpu()):
+                        opt_ok = False
+        rng_ok = bool(torch.equal(expected_torch, torch.rand(3))
+                      and np.array_equal(expected_np, np.random.rand(3)))
+        sampler_ok = (sampler2.seed, sampler2.sample_offset, sampler2.resume_batch_offset,
+                      sampler2.epoch) == (42, 18000, 0, 0)
+
+        g = torch.Generator(device="cpu")
+        g.manual_seed(42)
+        full = torch.randperm(39481, generator=g).tolist()
+        first = list(iter(sampler2))[:3]
+        offset_ok = first == full[18000:18003]
+        head = list(iter(ResumableEpochSampler(_Ds(), seed=42, batch_size=6,
+                                               num_processes=1)))[:3]
+        offset_moves = head != first
+
+        chunk_restored = W.predict_action_chunk(obs, model_b, processor, inf_cfg,
+                                                args.seed, device)[1]
+        reload_stable = bool(np.array_equal(chunk_stepped, chunk_restored))
+        destroy_live = bool(not np.array_equal(chunk_broken, chunk_stepped))
+        restore_effect = float(np.max(np.abs(chunk_restored.astype(np.float64)
+                                             - chunk_broken.astype(np.float64))))
+
+        report = {
+            "adapter_roundtrip_equal": adapter_equal,
+            "adapter_effect_max_abs": adapter_live,
+            "optimizer_state_equal": opt_ok,
+            "scheduler_last_epoch": scheduler2.last_epoch,
+            "rng_streams_equal": rng_ok,
+            "sampler_state_equal": sampler_ok,
+            "sample_offset_indices_equal": offset_ok,
+            "sample_offset_moves_start": offset_moves,
+            "optimizer_step_changes_adapter": destroy_live,
+            "light_state_restores_policy": reload_stable,
+            "restore_effect_max_abs": restore_effect,
+            "adapter_bytes": (state_dir / "adapter.pt").stat().st_size,
+            "optimizer_bytes": (state_dir / "optimizer.pt").stat().st_size,
+            "state": state,
+            "loaded_global_step": loaded["global_step"],
+        }
+        passed = all([adapter_equal, opt_ok, rng_ok, sampler_ok, offset_ok,
+                      offset_moves, destroy_live, reload_stable,
+                      loaded["global_step"] == 2])
+        report["passed"] = bool(passed)
+        (out / "report.json").write_text(json.dumps(report, indent=2, default=str))
+        print("[test] " + json.dumps(report, default=str), flush=True)
+        if not passed:
+            raise SystemExit("light-state test FAILED")
+    finally:
+        env.close()
+
+
+if __name__ == "__main__":
+    main()

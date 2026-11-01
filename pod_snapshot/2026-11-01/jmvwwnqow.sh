@@ -1,0 +1,1 @@
+ls /workspace; echo ---; ls /workspace/a3_dual_arm_sim 2>/dev/null | head -40

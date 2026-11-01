@@ -1,0 +1,7 @@
+Sat Oct 31 05:46:15 UTC 2026
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/loop3       98G   85G  8.0G  92% /workspace
+bash: nvidia-smi: command not found
+a3_train_runs/a3_lora_r1
+a3_train_runs/a3_lora_r2
+a3_train_runs/a3_lora_r3

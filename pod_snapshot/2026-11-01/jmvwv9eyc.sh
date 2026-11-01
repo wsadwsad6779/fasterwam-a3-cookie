@@ -1,0 +1,1 @@
+tail -c 500 /workspace/wc4.out; echo =====CC3; tail -c 500 /workspace/cc3.out; echo =====PS; pgrep -af replay_ | cut -c1-120

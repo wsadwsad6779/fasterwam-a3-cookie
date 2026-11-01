@@ -1,0 +1,17 @@
+### light state: /workspace/a3_train_runs/chk3_B2/checkpoints/light/step_000010  vs  /workspace/a3_train_runs/chk3_B3/checkpoints/light/step_000010
+  adapter.pt     bitwise_equal
+  optimizer.pt   bitwise_equal
+  scheduler.pt   bitwise_equal
+  rng.pt         differs (1 shown)
+      rng.pt.python[1][624]: 148 vs 155
+  trainer_state bitwise_equal
+      global_step: a=10 b=10
+      epoch: a=0 b=0
+      batch_in_epoch: a=10 b=10
+      sampler: a={'seed': 42, 'epoch': 0, 'epoch_offset': 0, 'resume_batch_offset': 10, 'sample_offset': 0, 'batch_size': 6, 'num_processes': 1} b={'seed': 42, 'epoch': 0, 'epoch_offset': 0, 'resume_batch_offset': 10, 'sample_offset': 0, 'batch_size': 6, 'num_processes': 1}
+      extra:   a={'base_checkpoint': '/workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt', 'instruction': 'transfer 10 cookies into target box', 'lr': 5.000000000000001e-07, 'lora_init_seed': 42}
+### per-step logged metrics
+  step   A.loss       B.loss       d(loss)     A.lr         B.lr
+  max_abs_loss_diff=0.000000 (loss is logged at 4 decimals)
+  max_abs_lr_diff=0.000e+00
+  steps_present_in_only_one_run=[]

@@ -1,0 +1,9 @@
+{
+ "rows": 2003,
+ "ok": 2003,
+ "missing": 0,
+ "sha_bad": 0,
+ "bytes": 39077618,
+ "tar_gz_on_pod": "git_snapshot_20261101.tar.gz",
+ "tar_gz_sha256": "53fc19b33396ee96e3448e556beffd2a4fa799131d5404c7b213aafb80cb8b4c"
+}

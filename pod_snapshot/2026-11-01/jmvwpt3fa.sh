@@ -1,0 +1,1 @@
+grep -nE "terminate|def step|abort|instab|nan|fail|upright|return " /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/tasks/cookie_transfer.py | sed -n 1,60p

@@ -1,0 +1,1 @@
+tail -c 900 /workspace/a3_train_runs/a3_lora_r5/train.log; echo; echo '--- ckpt ---'; ls /workspace/a3_train_runs/a3_lora_r5/checkpoints/light/ 2>/dev/null

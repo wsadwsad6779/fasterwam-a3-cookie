@@ -1,0 +1,2 @@
+cd /workspace/_r5_stage
+PYTHONPATH=/workspace/a3_dual_arm_sim/src python3 adjudicate_correct.py --dirs /workspace/a3_eval/demos_correct_c1 /workspace/a3_eval/demos_correct_c2 --write 2>&1 | grep -E "tally|^\{|WROTE|REFUSE|MISSING|no summary" | tail -22

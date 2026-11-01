@@ -1,0 +1,64 @@
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/opt/venv/lib/python3.12/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 129, in _call_target
+    result = _target_(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/fasterwam_a3_bridge/FasterWAM/src/fasterwam/runtime.py", line 314, in create_fasterwam
+    return FasterWAM.from_wan22_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/fasterwam_a3_bridge/FasterWAM/src/fasterwam/models/wan22/fasterwam.py", line 72, in from_wan22_pretrained
+    components = load_wan22_ti2v_5b_components(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/fasterwam_a3_bridge/FasterWAM/src/fasterwam/models/wan22/helpers/loader.py", line 192, in load_wan22_ti2v_5b_components
+    text_encoder = _load_registered_model(
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/fasterwam_a3_bridge/FasterWAM/src/fasterwam/models/wan22/helpers/loader.py", line 96, in _load_registered_model
+    model_hash = hash_model_file(path)
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/fasterwam_a3_bridge/FasterWAM/src/fasterwam/models/wan22/helpers/io.py", line 205, in hash_model_file
+    keys_dict = _load_keys_dict(path)
+                ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/fasterwam_a3_bridge/FasterWAM/src/fasterwam/models/wan22/helpers/io.py", line 186, in _load_keys_dict
+    return _load_keys_dict_from_bin(file_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/fasterwam_a3_bridge/FasterWAM/src/fasterwam/models/wan22/helpers/io.py", line 174, in _load_keys_dict_from_bin
+    state_dict = load_state_dict_from_bin(file_path)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/fasterwam_a3_bridge/FasterWAM/src/fasterwam/models/wan22/helpers/io.py", line 140, in load_state_dict_from_bin
+    state_dict = torch.load(file_path, map_location=device, weights_only=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/serialization.py", line 1491, in load
+    with _open_zipfile_reader(opened_file) as opened_zipfile:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/serialization.py", line 771, in __init__
+    super().__init__(torch._C.PyTorchFileReader(name_or_buffer))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: PytorchStreamReader failed reading zip archive: failed finding central directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/fasterwam_a3_bridge/bridge/_next/run_matrix.py", line 299, in <module>
+    main()
+  File "/workspace/fasterwam_a3_bridge/bridge/_next/run_matrix.py", line 268, in main
+    policy = load_policy(args.model, args.ckpt, args.stats, args.instruction,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/fasterwam_a3_bridge/bridge/_next/common.py", line 134, in load_policy
+    model = instantiate(cfg.model, model_dtype=torch.bfloat16, device=device)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 251, in instantiate
+    return _instantiate_impl(config, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 299, in _instantiate_impl
+    return instantiate_node(
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 420, in instantiate_node
+    return _call_target(_target_, partial, args, kwargs, full_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 138, in _call_target
+    raise InstantiationException(_with_full_key(msg, full_key)) from e
+hydra.errors.InstantiationException: Error in call to target 'fasterwam.runtime.create_fasterwam':
+RuntimeError('PytorchStreamReader failed reading zip archive: failed finding central directory')
+full_key: model
+RAW_SMOKE_RC_1

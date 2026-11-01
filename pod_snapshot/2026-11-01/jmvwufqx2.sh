@@ -1,0 +1,1 @@
+date; tail -c 1500 /workspace/wc2.out; ls -la /workspace/a3_eval/demos_wrongclosure_smoke2/ 2>/dev/null | tail -2; grep -o 'step=[0-9]*/8000' /workspace/a3_train_runs/a3_lora_r5/train.log | tail -1

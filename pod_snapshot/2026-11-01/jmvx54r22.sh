@@ -1,0 +1,1 @@
+sed -n "1,96p" /workspace/FasterWAM/src/fasterwam/light_state.py

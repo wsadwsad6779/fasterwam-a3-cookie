@@ -1,0 +1,2 @@
+cd /workspace/_r5_stage
+for f in /workspace/a3_eval/demos_wrongclosure_v7/expert_wrongclosure_704[34].npz; do echo FILE $f; PYTHONPATH=/workspace/a3_dual_arm_sim/src python3 inspect_wc.py $f | tail -22; done

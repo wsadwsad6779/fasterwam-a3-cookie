@@ -1,0 +1,83 @@
+=== disk ===
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/loop3       98G   89G  4.6G  96% /workspace
+tmpfs           4.0G   44K  4.0G   1% /tmp
+=== frozen dir ===
+total 1084
+drwxr-xr-x 3 root root   4096 Oct 31 14:55 .
+drwxr-xr-x 9 root root   4096 Oct 31 14:34 ..
+drwxr-xr-x 2 root root   4096 Oct 31 14:55 cmp
+-rw-r--r-- 1 root root 370730 Oct 31 14:43 lora_C0_11.npz
+-rw-r--r-- 1 root root 275803 Oct 31 14:47 lora_C0_21.npz
+-rw-r--r-- 1 root root 437106 Oct 31 14:53 lora_C0_22.npz
+-rw-r--r-- 1 root root   1819 Oct 31 14:36 manifest_lora.json
+-rw-r--r-- 1 root root   2327 Oct 31 14:53 summary_lora.json
+20K	/workspace/a3_eval/r4_c0_frozen/cmp
+364K	/workspace/a3_eval/r4_c0_frozen/lora_C0_11.npz
+272K	/workspace/a3_eval/r4_c0_frozen/lora_C0_21.npz
+428K	/workspace/a3_eval/r4_c0_frozen/lora_C0_22.npz
+4.0K	/workspace/a3_eval/r4_c0_frozen/manifest_lora.json
+4.0K	/workspace/a3_eval/r4_c0_frozen/summary_lora.json
+=== npz keys ===
+pre_14d (600, 14) float64
+post_14d (600, 14) float64
+changed (600,) bool
+post_wrap_14d (600, 14) float64
+cookie_xyz (600, 80, 3) float64
+cookie_step (600,) int64
+cookie_xyz0 (80, 3) float64
+chunk_idx (600,) int64
+phase (600,) int8
+opening (600,) float64
+applied_opening (600,) float64
+applied_canonical (600, 16) float64
+pad_force_inner (600,) float64
+pad_force_outer (600,) float64
+dist_to_source (600,) float64
+eef_xyz (600, 3) float64
+wrist_force (600, 3) float64
+oracle_cookie (600,) int64
+oracle_data (600,) int64
+oracle_sensor (600,) int64
+=== video deps ===
+NO_FFMPEG_BIN
+=== sim pkg ===
+__init__.py
+__pycache__
+cli.py
+config.py
+contracts.py
+controllers
+data
+examples
+learning
+paths.py
+policies
+sim
+tasks
+workflows
+=== r4_eval.sh ===
+#!/usr/bin/env bash
+set -u
+source /workspace/activate_fasterwam_a3.sh
+export FASTERWAM_A3_INSTRUCTION='transfer 10 cookies into target box'
+cd /workspace/fasterwam_a3_bridge/bridge/_next || exit 1
+{
+  date -u +%FT%TZ
+  echo '== r4 C0 eval start (seeds 11 21 22, C0, 600 steps, replan 10)'
+  python3 run_matrix.py \
+    --model lora \
+    --ckpt /workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt \
+    --adapter /workspace/a3_train_runs/a3_lora_r4/checkpoints/light/step_004000/adapter.pt \
+    --stats /workspace/a3_data/a3_fw/dataset_stats.json \
+    --gripper-mode pm1 \
+    --controls C0 \
+    --seeds 11 21 22 \
+    --replan 10 --max-steps 600 \
+    --position-noise 0 --yaw-noise 0 --batch-offset 0 \
+    --out /workspace/a3_eval/r4_c0_frozen
+  echo "eval_exit=$?"
+  date -u +%FT%TZ
+} > /workspace/a3_eval/r4_c0_frozen.log 2>&1
+echo __R4EVAL_DONE__ >> /workspace/a3_eval/r4_c0_frozen.log
+__PFDONE__

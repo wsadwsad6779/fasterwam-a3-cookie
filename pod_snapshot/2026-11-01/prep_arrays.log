@@ -1,0 +1,62 @@
+[load] parquet files: 50
+[load] 13/50 rows=11141
+[load] 26/50 rows=22198
+[load] 39/50 rows=33322
+[load] total frames: 42681
+[img] 1/50
+[img] 2/50
+[img] 3/50
+[img] 4/50
+[img] 5/50
+[img] 6/50
+[img] 7/50
+[img] 8/50
+[img] 9/50
+[img] 10/50
+[img] 11/50
+[img] 12/50
+[img] 13/50
+[img] 14/50
+[img] 15/50
+[img] 16/50
+[img] 17/50
+[img] 18/50
+[img] 19/50
+[img] 20/50
+[img] 21/50
+[img] 22/50
+[img] 23/50
+[img] 24/50
+[img] 25/50
+[img] 26/50
+[img] 27/50
+[img] 28/50
+[img] 29/50
+[img] 30/50
+[img] 31/50
+[img] 32/50
+[img] 33/50
+[img] 34/50
+[img] 35/50
+[img] 36/50
+[img] 37/50
+[img] 38/50
+[img] 39/50
+[img] 40/50
+[img] 41/50
+[img] 42/50
+[img] 43/50
+[img] 44/50
+[img] 45/50
+[img] 46/50
+[img] 47/50
+[img] 48/50
+[img] 49/50
+[img] 50/50
+[ep] count: 100 len min/mean/max: 417 426.81 448
+[act] mean|a|: [0.005100000184029341, 0.02539999969303608, 0.030700000002980232, 0.0003000000142492354, 0.00039999998989515007, 0.00039999998989515007, 1.0]
+[act] sat_fraction(before clip): 0.0
+[act] gripper +1 frac: 0.662 segments per ep: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 5, 15, 3, 28, 3, 25, 1, 8]
+[raw] opening range: 0.3063 1.0059 | stored action[7] range: 0.28 1.0
+[raw] per-frame |dp| m: mean 0.0003 p99 0.0116
+[done] /workspace/a3_data/a3_fw frames: (42681, 224, 448, 3) bytes: 77 GB

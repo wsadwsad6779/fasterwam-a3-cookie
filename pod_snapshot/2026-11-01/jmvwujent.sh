@@ -1,0 +1,1 @@
+date; grep -o 'step=[0-9]*/8000' /workspace/a3_train_runs/a3_lora_r5/train.log | tail -1; grep -c '"seed"' /workspace/cc2.out

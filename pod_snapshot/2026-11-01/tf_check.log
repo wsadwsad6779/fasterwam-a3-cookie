@@ -1,0 +1,2 @@
+[chain] seed=7001 steps=473 pos_p50=0.1mm p95=1.2mm rot_p50=0.3mrad grip_dir=100.0% (22) cookies=10 failed=
+[tf] done -> outputs/_tf_check

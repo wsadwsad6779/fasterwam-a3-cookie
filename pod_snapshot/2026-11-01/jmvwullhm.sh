@@ -1,0 +1,1 @@
+date; tail -c 1100 /workspace/wc2.out; ls /workspace/a3_eval/demos_wrongclosure_smoke2/

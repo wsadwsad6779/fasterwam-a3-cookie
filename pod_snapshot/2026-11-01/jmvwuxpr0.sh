@@ -1,0 +1,1 @@
+grep -rnE 'TARGET_INNER_HALF_SIZE|TARGET_WALL_HEIGHT|COOKIE_HALF_SIZE|CONTACT_CONTAINMENT_TOLERANCE_M|require_released' /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/tasks/*.py | grep -E '=|:.*[0-9]' | head -22

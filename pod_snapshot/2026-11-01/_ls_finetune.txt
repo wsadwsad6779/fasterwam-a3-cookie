@@ -1,0 +1,18 @@
+a3_lora_r1
+a3_video_dataset.py
+configs
+export_lora_merged.py
+logs
+lora.py
+make_stats.py
+prepare_a3_arrays.py
+upstream_backups
+verify_a3_replay.py
+FasterWAM/src/fasterwam/lora.py:49:def apply_lora(model, cfg) -> tuple[int, int]:
+FasterWAM/src/fasterwam/runtime.py:383:        from fasterwam.lora import apply_lora
+FasterWAM/src/fasterwam/runtime.py:384:        n_layers, n_trainable = apply_lora(model, cfg.lora)
+FasterWAM/scripts/export_lora_merged.py:12:from fasterwam.lora import apply_lora, merge_lora
+FasterWAM/scripts/export_lora_merged.py:25:    n_layers, n_trainable = apply_lora(model, cfg.lora)
+fasterwam-a3-cookie/finetune/export_lora_merged.py:12:from fasterwam.lora import apply_lora, merge_lora
+fasterwam-a3-cookie/finetune/export_lora_merged.py:25:    n_layers, n_trainable = apply_lora(model, cfg.lora)
+fasterwam-a3-cookie/finetune/lora.py:49:def apply_lora(model, cfg) -> tuple[int, int]:

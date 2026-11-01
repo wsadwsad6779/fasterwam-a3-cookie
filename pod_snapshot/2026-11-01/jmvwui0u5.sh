@@ -1,0 +1,1 @@
+date; tail -c 1500 /workspace/wc2.out

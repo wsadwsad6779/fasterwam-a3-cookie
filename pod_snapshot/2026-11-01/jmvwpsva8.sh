@@ -1,0 +1,1 @@
+ls /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/ ; echo === ; grep -rnE max_tilt /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim --include=*.py | head -15 ; echo === ; grep -rnE terminated=true /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim --include=*.py | head -15

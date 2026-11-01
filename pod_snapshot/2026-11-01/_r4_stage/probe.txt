@@ -1,0 +1,14 @@
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+INFOKEYS ['action_mode', 'cookies_in_source', 'cookies_in_source_mask', 'cookies_in_target', 'cookies_in_target_mask', 'policy_camera_rendering', 'required_cookies', 'scene', 'seed', 'source_initially_filled', 'success', 'target_slot_occupancy']
+cookies_in_target 0
+IMG observation.images.front (256, 256, 3) uint8
+IMG observation.images.left_wrist (256, 256, 3) uint8
+IMG observation.images.right_wrist (256, 256, 3) uint8
+NCOOKIE (80, 3)
+Z0 [0.7685]
+XY_SRC_MIN [0.0994, 0.23108333] XY_SRC_MAX [0.2506, 0.39891667]
+STATE (16,)
+CFG /workspace/a3_dual_arm_sim/configs/cookie_batch.yaml
+egl
+__PROBEDONE__

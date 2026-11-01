@@ -1,0 +1,6 @@
+nohup: ignoring input
+https://api.github.com/repos/wsadwsad6779/fasterwam-a3-cookie -> 404 132
+https://github.com/hustvl/FasterWAM -> 200 319961
+https://codeload.github.com/hustvl/FasterWAM/tar.gz/83667817df0d4f823f39d90700e61ea2f432ac45 -> 200 715463
+https://api.github.com/repos/Eter0109/a3_dual_arm_sim -> 200 5887
+lsremote -> 83667817df0d4f823f39d90700e61ea2f432ac45	HEAD

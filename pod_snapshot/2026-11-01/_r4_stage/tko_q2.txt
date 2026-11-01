@@ -1,0 +1,6 @@
+233dc273f29ece3f36eed2d101a12f1b16d1bfdf969435103216bea1fd99b6f3  /workspace/_r4_stage/tko_mask_seed22.npz
+sha256sum: /workspace/_r4_stage/tko_mask_seed21.npz: No such file or directory
+DejaVuSansMono-Oblique.ttf
+== replay mask seed21
+GEOM {"target_bin_xpos": [0.095, 0.1, 0.74898], "TARGET_INNER_HALF_SIZE": [0.057, 0.029], "TARGET_WALL_HEIGHT": 0.026, "TARGET_FLOOR_TOP_Z": 0.775, "COOKIE_HALF_SIZE": [0.025, 0.00317, 0.0125], "cookie_z0": [0.7685], "required_cookies": 10, "require_released": false, "max_linear_speed": 0.06, "max_tilt_rad": 0.2617993877991494}
+Q2DONE

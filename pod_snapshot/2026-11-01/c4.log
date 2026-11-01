@@ -1,0 +1,81 @@
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[policy] lora ckpt=/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt stats=/workspace/a3_data/a3_fw/dataset_stats.json device=cuda gripper_mode=pm1
+[policy] instruction='transfer 10 cookies into target box'
+[matrix] manifest={"num_episodes": 100, "num_transition": 42681, "action": {"min": [-0.0642, -0.1149, -0.295, -0.0413, -0.0121, -0.0247, -1.0], "max": [0.0872, 0.2987, 0.1003, 0.0152, 0.0336, 0.0297, 1.0]}, "state": {"min": [0.0546, 0.0903, 0.7638, -1.2248, -2.4338, -1.2333, 0.0123, -0.0402], "max": [0.1335, 0.3029, 0.92, 2.4801, 1.2336, 2.4433, 0.0402, -0.0123]}}
+[matrix] limits soft=25.0 hard=40.0
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+/workspace/fasterwam_a3_bridge/FasterWAM/src/fasterwam/models/wan22/wan_video_dit.py:19: UserWarning: Using AOTriton backend for Efficient Attention forward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention.hip:1452.)
+  x = F.scaled_dot_product_attention(q, k, v, attn_mask=ctx_mask)
+[lora/C4/11] step=50 in=0 xyz=[0.102, 0.258, 0.832] dist=0.003 f=(0.00,0.00) oracle=(50,100)
+[lora/C4/11] step=100 in=0 xyz=[0.106, 0.245, 0.777] dist=0.008 f=(0.00,0.00) oracle=(100,200)
+[lora/C4/11] step=150 in=0 xyz=[0.107, 0.236, 0.778] dist=0.008 f=(11.78,0.00) oracle=(150,300)
+[lora/C4/11] step=200 in=0 xyz=[0.113, 0.239, 0.775] dist=0.014 f=(28.53,0.00) oracle=(202,400)
+[lora/C4/11] step=250 in=0 xyz=[0.116, 0.233, 0.771] dist=0.017 f=(23.70,0.00) oracle=(252,500)
+[lora/C4/11] step=300 in=0 xyz=[0.122, 0.231, 0.769] dist=0.022 f=(25.65,5.97) oracle=(302,600)
+[lora/C4/11] step=350 in=0 xyz=[0.122, 0.231, 0.767] dist=0.022 f=(32.46,6.91) oracle=(352,700)
+[lora/C4/11] step=400 in=0 xyz=[0.12, 0.228, 0.767] dist=0.021 f=(25.73,1.14) oracle=(402,800)
+[lora/C4/11] step=450 in=0 xyz=[0.119, 0.186, 0.843] dist=0.049 f=(0.00,0.00) oracle=(452,900)
+[lora/C4/11] step=500 in=0 xyz=[0.129, 0.231, 0.789] dist=0.020 f=(0.00,0.00) oracle=(502,1000)
+[lora/C4/11] step=550 in=0 xyz=[0.131, 0.227, 0.843] dist=0.020 f=(0.00,0.00) oracle=(552,1100)
+[lora/C4/11] step=600 in=0 xyz=[0.143, 0.233, 0.842] dist=0.007 f=(0.00,0.00) oracle=(602,1200)
+[matrix] {"model": "lora", "control": "C4", "released": ["approach_xyz", "descend_close", "grasp_target", "transport_xyz"], "safety_layer": true, "seed": 11, "steps": 600, "replans": 60, "success": false, "cookies_in_target": 0, "final_phase": "descend", "max_pad_force": 56.575, "max_wrist_force": 48.08, "verbatim_pct": 0.0, "oracle_cookie_reads": 602, "oracle_data_reads": 1200, "sensor_reads": 1200, "estop_steps": 0, "binfloor_steps": 0, "duration_s": 226.4, "position_noise_m": 0.0, "yaw_noise_rad": 0.0, "batch_offset_m": 0.0, "batch_offset_xy_m": [0.0, 0.0], "randomize_boxes": false, "scene_ok": true, "scene_max_penetration_mm": 0.0, "scene_cookies_outside_bin": 0, "gripper_mode": "pm1"}
+[lora/C4/21] step=50 in=0 xyz=[0.101, 0.249, 0.831] dist=0.002 f=(0.00,0.00) oracle=(50,100)
+[lora/C4/21] step=100 in=0 xyz=[0.104, 0.231, 0.781] dist=0.005 f=(0.00,0.00) oracle=(100,200)
+[lora/C4/21] step=150 in=0 xyz=[0.112, 0.222, 0.78] dist=0.016 f=(0.00,0.00) oracle=(150,300)
+[lora/C4/21] step=200 in=0 xyz=[0.118, 0.218, 0.772] dist=0.023 f=(16.44,0.00) oracle=(202,400)
+[lora/C4/21] step=250 in=0 xyz=[0.12, 0.212, 0.771] dist=0.028 f=(4.77,0.00) oracle=(252,500)
+[lora/C4/21] step=300 in=0 xyz=[0.126, 0.21, 0.786] dist=0.031 f=(0.00,0.00) oracle=(302,600)
+[lora/C4/21] step=350 in=0 xyz=[0.131, 0.207, 0.787] dist=0.030 f=(0.00,0.00) oracle=(352,700)
+[lora/C4/21] step=400 in=0 xyz=[0.139, 0.21, 0.795] dist=0.023 f=(0.00,0.00) oracle=(402,800)
+[lora/C4/21] step=450 in=0 xyz=[0.143, 0.202, 0.81] dist=0.030 f=(0.00,0.00) oracle=(452,900)
+[lora/C4/21] step=500 in=0 xyz=[0.152, 0.208, 0.817] dist=0.023 f=(0.00,0.00) oracle=(502,1000)
+[lora/C4/21] step=550 in=0 xyz=[0.152, 0.206, 0.788] dist=0.025 f=(0.00,0.00) oracle=(552,1100)
+[lora/C4/21] step=600 in=0 xyz=[0.154, 0.209, 0.801] dist=0.022 f=(0.00,0.00) oracle=(602,1200)
+[matrix] {"model": "lora", "control": "C4", "released": ["approach_xyz", "descend_close", "grasp_target", "transport_xyz"], "safety_layer": true, "seed": 21, "steps": 600, "replans": 60, "success": false, "cookies_in_target": 0, "final_phase": "descend", "max_pad_force": 33.518, "max_wrist_force": 30.49, "verbatim_pct": 0.0, "oracle_cookie_reads": 602, "oracle_data_reads": 1200, "sensor_reads": 1200, "estop_steps": 0, "binfloor_steps": 0, "duration_s": 209.3, "position_noise_m": 0.0, "yaw_noise_rad": 0.0, "batch_offset_m": 0.0, "batch_offset_xy_m": [0.0, 0.0], "randomize_boxes": false, "scene_ok": true, "scene_max_penetration_mm": 0.0, "scene_cookies_outside_bin": 0, "gripper_mode": "pm1"}
+[lora/C4/22] step=50 in=0 xyz=[0.095, 0.131, 0.85] dist=0.100 f=(0.00,0.00) oracle=(50,100)
+[lora/C4/22] step=100 in=0 xyz=[0.084, 0.081, 0.797] dist=0.151 f=(0.00,0.00) oracle=(100,200)
+[lora/C4/22] step=150 in=0 xyz=[0.097, 0.11, 0.84] dist=0.121 f=(0.00,0.00) oracle=(150,300)
+[lora/C4/22] step=200 in=0 xyz=[0.124, 0.221, 0.781] dist=0.026 f=(0.00,0.00) oracle=(200,400)
+[lora/C4/22] step=250 in=0 xyz=[0.123, 0.222, 0.851] dist=0.025 f=(0.00,0.00) oracle=(252,500)
+[lora/C4/22] step=300 in=0 xyz=[0.115, 0.094, 0.826] dist=0.138 f=(0.00,0.00) oracle=(302,600)
+[lora/C4/22] step=350 in=0 xyz=[0.114, 0.091, 0.793] dist=0.140 f=(0.00,0.00) oracle=(352,700)
+[lora/C4/22] step=400 in=0 xyz=[0.116, 0.089, 0.796] dist=0.143 f=(0.00,0.00) oracle=(402,800)
+[lora/C4/22] step=450 in=0 xyz=[0.119, 0.084, 0.804] dist=0.149 f=(0.00,0.00) oracle=(452,900)
+[lora/C4/22] step=500 in=0 xyz=[0.13, 0.09, 0.889] dist=0.143 f=(0.00,0.00) oracle=(502,1000)
+[lora/C4/22] step=550 in=0 xyz=[0.148, 0.156, 0.882] dist=0.075 f=(0.00,0.00) oracle=(552,1100)
+[lora/C4/22] step=600 in=0 xyz=[0.153, 0.185, 0.861] dist=0.046 f=(0.00,0.00) oracle=(602,1200)
+[matrix] {"model": "lora", "control": "C4", "released": ["approach_xyz", "descend_close", "grasp_target", "transport_xyz"], "safety_layer": true, "seed": 22, "steps": 600, "replans": 60, "success": false, "cookies_in_target": 0, "final_phase": "open", "max_pad_force": 7.86, "max_wrist_force": 12.9, "verbatim_pct": 0.0, "oracle_cookie_reads": 602, "oracle_data_reads": 1200, "sensor_reads": 1200, "estop_steps": 0, "binfloor_steps": 0, "duration_s": 88.5, "position_noise_m": 0.0, "yaw_noise_rad": 0.0, "batch_offset_m": 0.0, "batch_offset_xy_m": [0.0, 0.0], "randomize_boxes": false, "scene_ok": true, "scene_max_penetration_mm": 0.0, "scene_cookies_outside_bin": 0, "gripper_mode": "pm1"}
+[matrix] done 3 runs -> outputs/C4
+
+== cells ==
+| cell | n | success | cookies_mean | verbatim_% | rewrite_mm | model_mm | max_force_N | oracle_reads |
+|---|---|---|---|---|---|---|---|---|
+| lora/C4 | 3 | 0/3 | 0.0 | 0.0 | 0.48 | 1.68 | 56.6 | 1802 |
+
+== authority by channel (percent of steps passed through untouched) ==
+| cell | xyz | rot | grip |
+|---|---|---|---|
+| lora/C4 | 86.8 | 0.0 | 91.4 |
+
+== self-check: safety control is low-intervention ==
+
+== paired raw -> lora (same seeds) ==
+
+== authority per phase x channel ==
+| cell | phase | steps | verbatim | xyz | rot | grip | rewrite_mm |
+|---|---|---|---|---|---|---|---|
+| lora/C4 | open | 95 | 0.0 | 95.1 | 0.0 | 99.0 | 0.25 |
+| lora/C4 | preclose | 35 | 0.0 | 100.0 | 0.0 | 100.0 | 0.00 |
+| lora/C4 | descend | 87 | 0.0 | 99.6 | 0.0 | 100.0 | 0.01 |
+| lora/C4 | close | 91 | 0.0 | 76.6 | 0.0 | 100.0 | 1.14 |
+| lora/C4 | hold | 260 | 0.0 | 87.3 | 0.0 | 92.2 | 0.26 |
+| lora/C4 | release | 2 | 0.0 | 100.0 | 0.0 | 50.0 | 0.00 |
+| lora/C4 | done | 29 | 0.0 | 33.6 | 0.0 | 0.0 | 3.15 |
+
+== C5 vs C0 (same model, same seeds) ==
+criterion: C5 must clearly beat C0; a near-zero delta means the weights were not updated, not that the model improved
+
+[csv] outputs/C4/analysis.csv
+C4_DONE

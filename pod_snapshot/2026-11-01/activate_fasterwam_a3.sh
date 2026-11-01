@@ -1,0 +1,16 @@
+export WORKSPACE=/workspace
+export A3_CONFIG_PATH=/workspace/a3_dual_arm_sim/configs/cookie_batch.yaml
+export FASTERWAM_ROOT=/workspace/FasterWAM
+export FASTERWAM_A3_CKPT=/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt
+export FASTERWAM_A3_INSTRUCTION='transfer 10 cookies into target box'
+export DIFFSYNTH_MODEL_BASE_PATH=/workspace/FasterWAM/checkpoints
+export DIFFSYNTH_SKIP_DOWNLOAD=true
+export FASTERWAM_A3_BRIDGE=/workspace/fasterwam_a3_bridge/bridge
+export FASTERWAM_A3_SRC=/workspace/a3_dual_arm_sim/src
+export FASTERWAM_A3_RUNS=/workspace/a3_train_runs
+export FASTERWAM_A3_DATA=/workspace/a3_data
+export HF_HOME=/workspace/hf_cache
+export HF_ENDPOINT=https://hf-mirror.com
+export MUJOCO_GL=egl
+export PYOPENGL_PLATFORM=egl
+export PYTHONPATH=/workspace/fasterwam_a3_bridge/bridge/_next:/workspace/a3_dual_arm_sim/src:/workspace/FasterWAM/src:/workspace/FasterWAM:/workspace/fasterwam_a3_bridge/bridge

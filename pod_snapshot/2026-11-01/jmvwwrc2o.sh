@@ -1,0 +1,1 @@
+cat -n /workspace/FasterWAM/configs/data/a3_2cam.yaml | head -70

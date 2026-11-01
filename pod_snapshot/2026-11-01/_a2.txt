@@ -1,0 +1,65 @@
+=== RUN DIRS ===
+a3_train_runs/a3_lora_r1:
+total 10857416
+drwxr-xr-x 2 root root        4096 Oct 30 14:11 .
+drwxr-xr-x 6 root root        4096 Oct 30 17:23 ..
+-rw-r--r-- 1 root root 11117977659 Oct 30 13:00 step_002000_merged.pt
+
+a3_train_runs/a3_lora_r2:
+total 10857432
+drwxr-xr-x 4 root root        4096 Oct 30 16:44 .
+drwxr-xr-x 6 root root        4096 Oct 30 17:23 ..
+drwxr-xr-x 4 root root        4096 Oct 30 14:38 checkpoints
+-rw-r--r-- 1 root root        4904 Oct 30 14:37 config.yaml
+drwxr-xr-x 2 root root        4096 Oct 30 14:38 eval
+-rw-r--r-- 1 root root 11117977659 Oct 30 16:44 step_003000_merged.pt
+
+a3_train_runs/a3_lora_r3:
+total 10857432
+drwxr-xr-x 4 root root        4096 Oct 30 19:20 .
+drwxr-xr-x 6 root root        4096 Oct 30 17:23 ..
+drwxr-xr-x 4 root root        4096 Oct 30 17:19 checkpoints
+-rw-r--r-- 1 root root        4904 Oct 30 17:18 config.yaml
+drwxr-xr-x 2 root root        4096 Oct 30 17:19 eval
+-rw-r--r-- 1 root root 11117977659 Oct 30 19:20 step_003000_merged.pt
+=== R2 markers ===
+1
+9401:10/30 [16:36:48] INFO     | >>  epoch=0 step=3000/3000            trainer.py:719
+1
+=== R2 first/last step lines ===
+10/30 [14:39:18] INFO     | >>  epoch=0 step=20/3000 loss=0.1731  trainer.py:719
+10/30 [14:40:06] INFO     | >>  epoch=0 step=40/3000 loss=0.1661  trainer.py:719
+10/30 [14:40:53] INFO     | >>  epoch=0 step=60/3000 loss=0.1428  trainer.py:719
+10/30 [16:35:15] INFO     | >>  epoch=0 step=2960/3000            trainer.py:719
+10/30 [16:36:01] INFO     | >>  epoch=0 step=2980/3000            trainer.py:719
+10/30 [16:36:48] INFO     | >>  epoch=0 step=3000/3000            trainer.py:719
+=== R2 lr trace every 400 ===
+step=20
+step=420
+step=820
+step=1220
+step=1620
+step=2020
+step=2420
+step=2820
+=== R1 log path ===
+total 1584
+drwxr-xr-x 2 197609 197121   4096 Oct 26 18:33 .
+drwxr-xr-x 6 197609 197121   4096 Oct 26 18:33 ..
+-rw-r--r-- 1 197609 197121 793696 Oct 26 18:33 a3_lora_r1.log
+-rw-r--r-- 1 197609 197121     49 Oct 26 18:33 disk.log
+-rw-r--r-- 1 197609 197121     49 Oct 26 18:33 disk2.log
+-rw-r--r-- 1 197609 197121    338 Oct 26 18:33 env.log
+-rw-r--r-- 1 197609 197121   1870 Oct 26 18:33 eval_lora_r1.log
+-rw-r--r-- 1 197609 197121    862 Oct 26 18:33 hdr.log
+-rw-r--r-- 1 197609 197121   1894 Oct 26 18:33 merge1.log
+-rw-r--r-- 1 197609 197121      6 Oct 26 18:33 ping.txt
+-rw-r--r-- 1 197609 197121    126 Oct 26 18:33 rollout1.log
+-rw-r--r-- 1 197609 197121   9032 Oct 26 18:33 smoke1.log
+-rw-r--r-- 1 197609 197121  10290 Oct 26 18:33 smoke2.log
+-rw-r--r-- 1 197609 197121 742996 Oct 26 18:33 smoke3.log
+-rw-r--r-- 1 197609 197121   1360 Oct 26 18:33 vram.log
+-rw-r--r-- 1 197609 197121   2248 Oct 26 18:33 vram2.log
+-rw-r--r-- 1 197609 197121   3484 Oct 26 18:33 vram3.log
+-rw-r--r-- 1 197609 197121   1760 Oct 26 18:33 vram_r1.log
+CMDDONE

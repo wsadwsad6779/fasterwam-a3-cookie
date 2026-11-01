@@ -1,0 +1,7 @@
+2026-10-31T15:16:41Z
+== writer smoke
+writer_ok 976145 0.21 2.37.3
+== r4 C0 seed22 video run start
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+__ST__

@@ -1,0 +1,1 @@
+export PYTHONPATH=/workspace/a3_dual_arm_sim/src; cd /workspace/fasterwam_a3_bridge/bridge/_next; python3 /workspace/_r5_stage/inspect_wc.py /workspace/a3_eval/demos_wrongclosure_v6/expert_wrongclosure_7032.npz

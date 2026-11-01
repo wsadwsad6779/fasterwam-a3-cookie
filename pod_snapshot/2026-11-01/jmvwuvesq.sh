@@ -1,0 +1,1 @@
+ls /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim; echo ===; grep -rn cookies_in_target /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim --include=*.py | grep -v /workflows/ | head -20

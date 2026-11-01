@@ -1,0 +1,1 @@
+cd /workspace/_r5_stage; python3 reconcile_target.py /workspace/a3_eval/r4_b0_c0_paired/lora_C0_22.npz /workspace/a3_eval/r4_b0_c0_paired/lora_B0_22.npz

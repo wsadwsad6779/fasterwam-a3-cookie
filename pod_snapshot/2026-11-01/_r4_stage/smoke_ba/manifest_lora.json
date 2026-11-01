@@ -1,0 +1,93 @@
+{
+  "model": "lora",
+  "checkpoint": {
+    "path": "/workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt",
+    "size": 11117977659,
+    "sha256_head": "1835f884d430f3f7"
+  },
+  "stats": {
+    "path": "/workspace/a3_data/a3_fw/dataset_stats.json",
+    "size": 3071,
+    "sha256_head": "ed833168725b0b63"
+  },
+  "normalizer": {
+    "num_episodes": 100,
+    "num_transition": 42681,
+    "action": {
+      "min": [
+        -0.0642,
+        -0.1149,
+        -0.295,
+        -0.0413,
+        -0.0121,
+        -0.0247,
+        -1.0
+      ],
+      "max": [
+        0.0872,
+        0.2987,
+        0.1003,
+        0.0152,
+        0.0336,
+        0.0297,
+        1.0
+      ]
+    },
+    "state": {
+      "min": [
+        0.0546,
+        0.0903,
+        0.7638,
+        -1.2248,
+        -2.4338,
+        -1.2333,
+        0.0123,
+        -0.0402
+      ],
+      "max": [
+        0.1335,
+        0.3029,
+        0.92,
+        2.4801,
+        1.2336,
+        2.4433,
+        0.0402,
+        -0.0123
+      ]
+    }
+  },
+  "adapter": {
+    "path": "/workspace/a3_train_runs/chk3_A2/checkpoints/light/step_000010/adapter.pt",
+    "size": 61595489,
+    "sha256_head": "51cb7e081352ab2e"
+  },
+  "adapter_is_the_trainable_part": true,
+  "merged_checkpoint_written": false,
+  "replan": 10,
+  "max_steps": 20,
+  "controls": "C0",
+  "seeds": [
+    11
+  ],
+  "gripper_mode": "pm1",
+  "adapter_path": "/workspace/a3_train_runs/chk3_A2/checkpoints/light/step_000010/adapter.pt",
+  "adapter_meta": {
+    "global_step": 10,
+    "base_checkpoint": "/workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt"
+  },
+  "lora": {
+    "experts": [
+      "video_expert",
+      "action_expert"
+    ],
+    "target_modules": [
+      "q",
+      "k",
+      "v",
+      "o"
+    ],
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.0
+  }
+}

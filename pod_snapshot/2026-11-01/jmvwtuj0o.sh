@@ -1,0 +1,1 @@
+sed -n '1,60p' /workspace/_r5_stage/replay_forces.py; echo '--- consts ---'; grep -n 'HOLD_XY_M|LIFT_Z_M|CONTACT_N|CARRY_PHASES|CLOSE_PHASES|APPROACH_PHASES|CONFIG|BIN_XY' /workspace/_r5_stage/replay_forces.py | head -20

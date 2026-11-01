@@ -1,0 +1,14 @@
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[policy] lora ckpt=/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt stats=/workspace/a3_data/a3_fw/dataset_stats.json device=cuda gripper_mode=pm1
+[policy] instruction='transfer 10 cookies into target box'
+[tf] binarize_gripper=True replan_steps=10 num_frames=33
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+[chain] seed=11 steps=473 pos_p50=0.1mm p95=1.2mm rot_p50=0.3mrad grip_dir=100.0% (22) cookies=10 failed=
+/workspace/fasterwam_a3_bridge/FasterWAM/src/fasterwam/models/wan22/wan_video_dit.py:19: UserWarning: Using AOTriton backend for Efficient Attention forward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention.hip:1452.)
+  x = F.scaled_dot_product_attention(q, k, v, attn_mask=ctx_mask)
+[tf] lora/pm1 seed=11 steps=473 cookies=10 failed=False h0={"n": 24, "pos_mae_mm": 0.448, "rot_mae_mrad": 0.42, "grip_sign_agree": 0.917, "expert_pos_scale_mm": 0.901, "expert_rot_scale_mrad": 0.18}
+[tf] lora/pm1 seed=11 grip={"n": 748, "sign_agree_all": 0.952, "sign_agree_moving": 0.835, "expert_moving_pct": 26.74, "model_pos_rate": 0.626, "model_pos_rate_while_expert_closing": 0.872, "model_pos_rate_while_expert_opening": 0.217, "measured_opening_mean": 0.404, "hold_bands": {"open_gt_.85": {"n": 32, "model_pos_rate": 0.281, "label_open_rate": 0.594}, "mid_.45_.85": {"n": 109, "model_pos_rate": 0.009, "label_open_rate": 0.954}, "closed_lt_.45": {"n": 459, "model_pos_rate": 0.771, "label_open_rate": 0.233}}, "label_vs_command": {"frames": 748, "cmd_moving_pct": 19.79, "sign_agree_moving": 0.959, "static_holding_frames": 568, "static_holding_label_open_pct": 0.371, "static_open_frames": 32, "static_open_label_close_pct": 0.406}, "first_disagree_mean_h": 24.29}
+[tf] done -> outputs/tf_lora
+TF_LORA_DONE

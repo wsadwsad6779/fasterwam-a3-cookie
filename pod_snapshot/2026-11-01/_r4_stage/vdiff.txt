@@ -1,0 +1,34 @@
+5a6,8
+> O=/workspace/a3_eval/r4_c0_seed22_video
+> L=/workspace/a3_eval/r4_c0_seed22_video.log
+> mkdir -p $O
+8c11,13
+<   echo '== r4 C0 eval start (seeds 11 21 22, C0, 600 steps, replan 10)'
+---
+>   echo == writer smoke
+>   python3 /workspace/_r4_stage/writer_smoke.py
+>   echo == r4 C0 seed22 video run start
+16c21
+<     --seeds 11 21 22 \
+---
+>     --seeds 22 \
+19,20c24,28
+<     --out /workspace/a3_eval/r4_c0_frozen
+<   echo "eval_exit=$?"
+---
+>     --video \
+>     --out $O
+>   echo eval_exit=$?
+>   ls -la $O
+>   df -h /workspace
+22,23c30,31
+< } > /workspace/a3_eval/r4_c0_frozen.log 2>&1
+< echo __R4EVAL_DONE__ >> /workspace/a3_eval/r4_c0_frozen.log
+---
+> } > $L 2>&1
+> echo __R4VID_DONE__ >> $L
+\ No newline at end of file
+rc=1
+01ef77cb70588cd119637fc96436072314ea1e0db5392cbf8808c412a4992250  /workspace/fasterwam_a3_bridge/bridge/_next/run_matrix.py
+7d1d8f2d93ca985df5e37fa61715ec3b  /workspace/_r4_stage/r4_video.sh
+__DONE__

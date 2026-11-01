@@ -1,0 +1,1 @@
+grep -c 'strict_accept.: true' /workspace/cc2.out; grep -c 'strict_accept.: false' /workspace/cc2.out; grep -E 'dir.:' /workspace/cc2.out | tail -2

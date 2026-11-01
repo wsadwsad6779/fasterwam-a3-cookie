@@ -1,0 +1,1 @@
+sed -n '555,612p' /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/tasks/cookie_transfer.py

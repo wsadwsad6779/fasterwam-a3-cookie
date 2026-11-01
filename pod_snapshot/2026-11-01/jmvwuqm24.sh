@@ -1,0 +1,1 @@
+pgrep -af wrongclosure; echo ---; wc -c /workspace/wc3.out; echo ---; cat /workspace/wc3.sh; echo ---; ls -1 /workspace/a3_eval/demos_wrongclosure_v6

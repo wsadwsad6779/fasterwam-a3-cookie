@@ -1,0 +1,1 @@
+cd /workspace/fasterwam_a3_bridge/bridge/_next && export PYTHONPATH=/workspace/a3_dual_arm_sim/src && python3 -c "import sys;sys.path.insert(0,'/workspace/_r5_stage');import replay_forces as R;print('HOLD',R.HOLD_XY_M,'LIFT',R.LIFT_Z_M,'CARRY',R.CARRY_PHASES)" && python3 -u /workspace/_r5_stage/check_trigger.py

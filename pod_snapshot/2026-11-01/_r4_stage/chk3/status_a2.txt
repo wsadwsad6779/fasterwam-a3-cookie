@@ -1,0 +1,5 @@
+== A2: 10 continuous steps, shipped r4_patch ==
+A2_exit=0
+CMP_exit=0 report=/workspace/_r4_stage/chk3/report_A_vs_A2.txt
+window_log_lines=missing
+ALL_DONE

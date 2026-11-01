@@ -1,0 +1,41 @@
+=== shuffle ===
+src/fasterwam/trainer.py:177:            shuffle=False,
+=== batch/accum ===
+src/fasterwam/trainer.py:37:        self.batch_size = int(cfg.batch_size)
+src/fasterwam/trainer.py:46:        self.gradient_accumulation_steps = int(cfg.gradient_accumulation_steps)
+src/fasterwam/trainer.py:60:            gradient_accumulation_steps=self.gradient_accumulation_steps,
+src/fasterwam/trainer.py:66:            "Accelerate training: distributed_type=%s zero_stage=%s world_size=%d process_index=%d cfg_mixed_precision=%s accelerator_mixed_precision=%s grad_accum=%d grad_clip=%.4f",
+src/fasterwam/trainer.py:73:            self.gradient_accumulation_steps,
+src/fasterwam/trainer.py:171:            batch_size=self.batch_size,
+src/fasterwam/trainer.py:176:            batch_size=self.batch_size,
+src/fasterwam/trainer.py:212:        global_batch_size = max(self.batch_size * num_processes, 1)
+src/fasterwam/trainer.py:213:        micro_steps_per_epoch = max(ceil(len(self.train_dataset) / global_batch_size), 1)
+src/fasterwam/trainer.py:215:            ceil(micro_steps_per_epoch / self.gradient_accumulation_steps),
+src/fasterwam/trainer.py:624:                    self.batch_in_epoch * self.batch_size * self.accelerator.num_processes,
+src/fasterwam/trainer.py:676:            with self.accelerator.accumulate(self.model):
+src/fasterwam/trainer.py:718:                            steps_per_sec * self.batch_size * self.accelerator.num_processes,
+src/fasterwam/trainer.py:728:                            "performance/samples_per_sec": steps_per_sec * self.batch_size * self.accelerator.num_processes,
+=== r1 log resume msg ===
+                 INFO     | >> Loading weight     trainer.py:278
+                          checkpoint only:                      
+                          /workspace/FasterWAM/ch               
+                          eckpoints/fasterwam_rel               
+                          ease/libero/step_021700               
+                          .pt                                   
+10/26 [06:33:40] WARNING  | >> Loaded .pt weights trainer.py:280
+                          only;                                 
+                          optimizer/scheduler/ste               
+                          p were not restored                   
+                          under ZeRO2.                          
+                 INFO     | >> Train/val dataset  trainer.py:131
+                          size: 39481/39481                     
+                 INFO     | >> Setting DiT to     trainer.py:284
+                          train mode and freezing               
+=== run_r3.sh ===
+#!/usr/bin/env bash
+set -e
+source /workspace/activate_fasterwam_a3.sh
+export FW_SKIP_STATE=1
+cd /workspace/FasterWAM
+accelerate launch --num_processes 1 scripts/train.py data=a3_2cam task=a3_fasterwam batch_size=6 max_steps=3000 learning_rate=1e-4 log_every=20 save_every=3000 eval_every=0 output_dir=/workspace/a3_train_runs/a3_lora_r3 resume=/workspace/a3_train_runs/a3_lora_r2/step_003000_merged.pt
+DONE

@@ -1,0 +1,1 @@
+date; echo ===WC4ROWS; grep -E 'seed' /workspace/wc4.out | head -6 | cut -c1-200; echo ===CC3ROWS; grep -E 'seed' /workspace/cc3.out | head -6 | cut -c1-200; echo ===EVAL; ls -1 /workspace/a3_eval/r5_b0_c0_paired | grep -c npz

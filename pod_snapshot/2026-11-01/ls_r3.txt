@@ -1,0 +1,13 @@
+total 10857432
+drwxr-xr-x 4 root root        4096 Oct 30 19:20 .
+drwxr-xr-x 6 root root        4096 Oct 30 17:23 ..
+drwxr-xr-x 4 root root        4096 Oct 30 17:19 checkpoints
+-rw-r--r-- 1 root root        4904 Oct 30 17:18 config.yaml
+drwxr-xr-x 2 root root        4096 Oct 30 17:19 eval
+-rw-r--r-- 1 root root 11117977659 Oct 30 19:20 step_003000_merged.pt
+total 10857416
+drwxr-xr-x 2 root root        4096 Oct 30 14:11 .
+drwxr-xr-x 6 root root        4096 Oct 30 17:23 ..
+-rw-r--r-- 1 root root 11117977659 Oct 30 13:00 step_002000_merged.pt
+/workspace/r3.log 66658 2026-10-30 19:20:37.145447490 +0000
+805

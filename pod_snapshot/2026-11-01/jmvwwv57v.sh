@@ -1,0 +1,1 @@
+grep -rn "observation.force" /workspace/a3_dual_arm_sim/src --include=*.py | head -10

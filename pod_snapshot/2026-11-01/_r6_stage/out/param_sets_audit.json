@@ -1,0 +1,381 @@
+{
+  "written_by": "param_sets_audit.py",
+  "runs": {
+    "a3_lora_r4": {
+      "steps": [
+        "step_000500",
+        "step_001000",
+        "step_001500",
+        "step_002000",
+        "step_002500",
+        "step_003000",
+        "step_003500",
+        "step_004000"
+      ],
+      "audited_step": "step_004000",
+      "weights_dir_files": [],
+      "trainer_state": {
+        "format": "fasterwam-lora-light-state-v1",
+        "global_step": 4000,
+        "epoch": 1,
+        "batch_in_epoch": 419,
+        "sampler": {
+          "seed": 42,
+          "epoch": 1,
+          "epoch_offset": 0,
+          "resume_batch_offset": 419,
+          "sample_offset": 18000,
+          "batch_size": 6,
+          "num_processes": 1
+        },
+        "extra": {
+          "base_checkpoint": "/workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt",
+          "instruction": "transfer 10 cookies into target box",
+          "lr": 5.000000000000001e-07,
+          "lora_init_seed": 42
+        },
+        "files": {
+          "adapter": "adapter.pt",
+          "optimizer": "optimizer.pt",
+          "scheduler": "scheduler.pt",
+          "rng": "rng.pt"
+        }
+      },
+      "adapter": {
+        "format": "fasterwam-lora-adapter-v1",
+        "keys_total": 784,
+        "extra_trainable_present": false,
+        "groups": {
+          "lora": {
+            "tensors": 784,
+            "elements": 30670848,
+            "dtypes": {
+              "torch.bfloat16": {
+                "tensors": 784,
+                "elements": 30670848
+              }
+            },
+            "bytes_if_stored": 61341696
+          }
+        },
+        "non_lora_keys": [],
+        "all_elements": 30670848
+      },
+      "optimizer": {
+        "param_groups": 1,
+        "optimizer_members": 786,
+        "members_per_group": [
+          786
+        ],
+        "lr_per_group": [
+          5.000000000000001e-07
+        ],
+        "indices_with_state": 786,
+        "state_fields": {
+          "step": {
+            "tensors": 786,
+            "elements": 786,
+            "dtypes": {
+              "torch.float32": {
+                "tensors": 786,
+                "elements": 786
+              }
+            },
+            "bytes_if_stored": 3144,
+            "elements_total_check": 786
+          },
+          "exp_avg": {
+            "tensors": 786,
+            "elements": 30707712,
+            "dtypes": {
+              "torch.bfloat16": {
+                "tensors": 786,
+                "elements": 30707712
+              }
+            },
+            "bytes_if_stored": 61415424,
+            "elements_total_check": 30707712
+          },
+          "exp_avg_sq": {
+            "tensors": 786,
+            "elements": 30707712,
+            "dtypes": {
+              "torch.bfloat16": {
+                "tensors": 786,
+                "elements": 30707712
+              }
+            },
+            "bytes_if_stored": 61415424,
+            "elements_total_check": 30707712
+          }
+        },
+        "nonsaved_state": []
+      },
+      "gap_optimizer_state_minus_adapter_elements": 36864,
+      "gap_as_fraction": 0.00120048
+    },
+    "a3_lora_r5": {
+      "steps": [
+        "step_004500",
+        "step_005000",
+        "step_005500",
+        "step_006000",
+        "step_006500",
+        "step_007000",
+        "step_007500",
+        "step_008000"
+      ],
+      "audited_step": "step_008000",
+      "weights_dir_files": [],
+      "trainer_state": {
+        "format": "fasterwam-lora-light-state-v1",
+        "global_step": 8000,
+        "epoch": 1,
+        "batch_in_epoch": 4419,
+        "sampler": {
+          "seed": 42,
+          "epoch": 0,
+          "epoch_offset": 0,
+          "resume_batch_offset": 4419,
+          "sample_offset": 18000,
+          "batch_size": 6,
+          "num_processes": 1
+        },
+        "extra": {
+          "base_checkpoint": "/workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt",
+          "instruction": "transfer 10 cookies into target box",
+          "lr": 5.000000000000001e-07,
+          "lora_init_seed": 42
+        },
+        "files": {
+          "adapter": "adapter.pt",
+          "optimizer": "optimizer.pt",
+          "scheduler": "scheduler.pt",
+          "rng": "rng.pt"
+        }
+      },
+      "adapter": {
+        "format": "fasterwam-lora-adapter-v1",
+        "keys_total": 784,
+        "extra_trainable_present": false,
+        "groups": {
+          "lora": {
+            "tensors": 784,
+            "elements": 30670848,
+            "dtypes": {
+              "torch.bfloat16": {
+                "tensors": 784,
+                "elements": 30670848
+              }
+            },
+            "bytes_if_stored": 61341696
+          }
+        },
+        "non_lora_keys": [],
+        "all_elements": 30670848
+      },
+      "optimizer": {
+        "param_groups": 1,
+        "optimizer_members": 786,
+        "members_per_group": [
+          786
+        ],
+        "lr_per_group": [
+          5.000000000000001e-07
+        ],
+        "indices_with_state": 786,
+        "state_fields": {
+          "step": {
+            "tensors": 786,
+            "elements": 786,
+            "dtypes": {
+              "torch.float32": {
+                "tensors": 786,
+                "elements": 786
+              }
+            },
+            "bytes_if_stored": 3144,
+            "elements_total_check": 786
+          },
+          "exp_avg": {
+            "tensors": 786,
+            "elements": 30707712,
+            "dtypes": {
+              "torch.bfloat16": {
+                "tensors": 786,
+                "elements": 30707712
+              }
+            },
+            "bytes_if_stored": 61415424,
+            "elements_total_check": 30707712
+          },
+          "exp_avg_sq": {
+            "tensors": 786,
+            "elements": 30707712,
+            "dtypes": {
+              "torch.bfloat16": {
+                "tensors": 786,
+                "elements": 30707712
+              }
+            },
+            "bytes_if_stored": 61415424,
+            "elements_total_check": 30707712
+          }
+        },
+        "nonsaved_state": []
+      },
+      "gap_optimizer_state_minus_adapter_elements": 36864,
+      "gap_as_fraction": 0.00120048
+    },
+    "a3_lora_r4_crashed_step500": {
+      "steps": [
+        "step_000500"
+      ],
+      "audited_step": "step_000500",
+      "weights_dir_files": [],
+      "trainer_state": {
+        "format": "fasterwam-lora-light-state-v1",
+        "global_step": 500,
+        "epoch": 0,
+        "batch_in_epoch": 500,
+        "sampler": {
+          "seed": 42,
+          "epoch": 0,
+          "epoch_offset": 0,
+          "resume_batch_offset": 500,
+          "sample_offset": 18000,
+          "batch_size": 6,
+          "num_processes": 1
+        },
+        "extra": {
+          "base_checkpoint": "/workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt",
+          "instruction": "transfer 10 cookies into target box",
+          "lr": 4.924265658199842e-05,
+          "lora_init_seed": 42
+        },
+        "files": {
+          "adapter": "adapter.pt",
+          "optimizer": "optimizer.pt",
+          "scheduler": "scheduler.pt",
+          "rng": "rng.pt"
+        }
+      },
+      "adapter": {
+        "format": "fasterwam-lora-adapter-v1",
+        "keys_total": 784,
+        "extra_trainable_present": false,
+        "groups": {
+          "lora": {
+            "tensors": 784,
+            "elements": 30670848,
+            "dtypes": {
+              "torch.bfloat16": {
+                "tensors": 784,
+                "elements": 30670848
+              }
+            },
+            "bytes_if_stored": 61341696
+          }
+        },
+        "non_lora_keys": [],
+        "all_elements": 30670848
+      },
+      "optimizer": {
+        "param_groups": 1,
+        "optimizer_members": 786,
+        "members_per_group": [
+          786
+        ],
+        "lr_per_group": [
+          4.924265658199842e-05
+        ],
+        "indices_with_state": 786,
+        "state_fields": {
+          "step": {
+            "tensors": 786,
+            "elements": 786,
+            "dtypes": {
+              "torch.float32": {
+                "tensors": 786,
+                "elements": 786
+              }
+            },
+            "bytes_if_stored": 3144,
+            "elements_total_check": 786
+          },
+          "exp_avg": {
+            "tensors": 786,
+            "elements": 30707712,
+            "dtypes": {
+              "torch.bfloat16": {
+                "tensors": 786,
+                "elements": 30707712
+              }
+            },
+            "bytes_if_stored": 61415424,
+            "elements_total_check": 30707712
+          },
+          "exp_avg_sq": {
+            "tensors": 786,
+            "elements": 30707712,
+            "dtypes": {
+              "torch.bfloat16": {
+                "tensors": 786,
+                "elements": 30707712
+              }
+            },
+            "bytes_if_stored": 61415424,
+            "elements_total_check": 30707712
+          }
+        },
+        "nonsaved_state": []
+      },
+      "gap_optimizer_state_minus_adapter_elements": 36864,
+      "gap_as_fraction": 0.00120048
+    }
+  },
+  "log_lines": {
+    "a3_lora_r4": [
+      "INFO     | >> Applied LoRA to 392 layers         runtime.py:385",
+      "(trainable params = 30670848)",
+      "INFO     | >> LoRA mode: only lora_ params       trainer.py:295",
+      "trainable.",
+      "/workspace/a3_train_runs/a3_lora_r3/ste",
+      "INFO     | >> Setting DiT to train mode and      trainer.py:282",
+      "INFO     | >> LoRA mode: only lora_ params       trainer.py:295",
+      "trainable.",
+      "a3_lora_r4/checkpoints/light/step_0005",
+      "state=/workspace/a3_train_runs/a3_lora_",
+      "a3_lora_r4/checkpoints/light/step_0010",
+      "state=/workspace/a3_train_runs/a3_lora_"
+    ],
+    "a3_lora_r5": [
+      "INFO     | >> Applied LoRA to 392 layers (trainable params = 30670848)                                                                                                                       runtime.py:385",
+      "INFO     | >> LoRA mode: only lora_ params trainable.                                                                                                                                        trainer.py:295",
+      "INFO     | >> Loading frozen base first: /workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt                                                                                          r4_patch.py:284",
+      "10/31 [17:48:00] INFO     | >> Resumed light state /workspace/a3_train_runs/a3_lora_r4/checkpoints/light/step_004000 at step=4000 epoch=1 batch_in_epoch=419                                                 r4_patch.py:292",
+      "/workspace/a3_train_runs/a3_lora_r5/lr_restart.json",
+      "INFO     | >> Setting DiT to train mode and freezing other model components.                                                                                                                 trainer.py:282",
+      "INFO     | >> LoRA mode: only lora_ params trainable.                                                                                                                                        trainer.py:295",
+      "10/31 [18:09:32] INFO     | >>  step=4500 adapter=/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_004500/adapter.pt                                                                               r4_patch.py:262",
+      "rng/counters=/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_004500/trainer_state.json",
+      "INFO     | >>  step=4500 weights=/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_004500/adapter.pt state=/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_004500        trainer.py:771",
+      "INFO     | >>  step=5000 adapter=/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_005000/adapter.pt                                                                               r4_patch.py:262",
+      "rng/counters=/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_005000/trainer_state.json"
+    ],
+    "a3_lora_r4_crashed_step500": [
+      "INFO     | >> Applied LoRA to 392 layers         runtime.py:385",
+      "(trainable params = 30670848)",
+      "INFO     | >> LoRA mode: only lora_ params       trainer.py:295",
+      "trainable.",
+      "/workspace/a3_train_runs/a3_lora_r3/ste",
+      "INFO     | >> Setting DiT to train mode and      trainer.py:282",
+      "INFO     | >> LoRA mode: only lora_ params       trainer.py:295",
+      "trainable.",
+      "a3_lora_r4/checkpoints/light/step_0005",
+      "state=/workspace/a3_train_runs/a3_lora_",
+      "Error executing job with overrides: ['data=a3_2cam', 'task=a3_fasterwam', 'batch_size=6', 'max_steps=4000', 'learning_rate=5e-5', 'log_every=20', 'save_every=500', 'eval_every=0', 'output_dir=/workspace/a3_train_runs/a3_lora_r4', 'resume=/workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt']",
+      "subprocess.CalledProcessError: Command '['/opt/venv/bin/python3', 'scripts/train_light.py', 'data=a3_2cam', 'task=a3_fasterwam', 'batch_size=6', 'max_steps=4000', 'learning_rate=5e-5', 'log_every=20', 'save_every=500', 'eval_every=0', 'output_dir=/workspace/a3_train_runs/a3_lora_r4', 'resume=/workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt']' returned non-zero exit status 1."
+    ]
+  }
+}

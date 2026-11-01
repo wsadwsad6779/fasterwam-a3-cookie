@@ -1,0 +1,14 @@
+nohup: ignoring input
++ export HF_HOME=/workspace/hf_cache
++ HF_HOME=/workspace/hf_cache
++ export HF_ENDPOINT=https://hf-mirror.com
++ HF_ENDPOINT=https://hf-mirror.com
++ B=/workspace/FasterWAM/checkpoints
++ VAE=/workspace/FasterWAM/checkpoints/Wan-AI/Wan2.2-TI2V-5B
++ TOK=/workspace/FasterWAM/checkpoints/Wan-AI/Wan2.1-T2V-1.3B/google/umt5-xxl
++ mkdir -p /workspace/FasterWAM/checkpoints/fasterwam_release /workspace/FasterWAM/checkpoints/Wan-AI/Wan2.2-TI2V-5B /workspace/FasterWAM/checkpoints/Wan-AI/Wan2.1-T2V-1.3B/google/umt5-xxl /workspace/a3_train_runs/a3_lora_r1
++ hf download hustvl/FasterWAM --include libero/step_021700.pt libero/dataset_stats.json --local-dir /workspace/FasterWAM/checkpoints/fasterwam_release
+Fetching 2 files:   0%|                                  | 0/2 [00:00<?, ?it/s]Downloading 'libero/step_021700.pt' to '/workspace/FasterWAM/checkpoints/fasterwam_release/.cache/huggingface/download/libero/fC799nRN7_SLkh6QQ6_llHY7jIc=.01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d.incomplete'
+Downloading 'libero/dataset_stats.json' to '/workspace/FasterWAM/checkpoints/fasterwam_release/.cache/huggingface/download/libero/r5X_0yfvQJG8_RT1vr58y0oXPeU=.57bad922b743fa927a5d2a509763932350341de0.incomplete'
+Download complete. Moving file to /workspace/FasterWAM/checkpoints/fasterwam_release/libero/dataset_stats.json
+Fetching 2 files:  50%|█████████████             | 1/2 [00:01<00:01,  1.26s/it]

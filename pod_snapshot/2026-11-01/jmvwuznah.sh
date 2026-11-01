@@ -1,0 +1,1 @@
+date; tail -n 1 /workspace/a3_train_runs/a3_lora_r5/train.log | cut -c1-150; ls -1 /workspace/a3_train_runs/a3_lora_r5/checkpoints/light | tail -3; echo ===WC3; grep -c seed /workspace/wc3.out; echo ===CC2; grep -c seed /workspace/cc2.out; echo ===DU; du -sh /workspace/a3_train_runs/* 2>/dev/null | sort -h | tail -8; df -B1 /workspace | tail -1

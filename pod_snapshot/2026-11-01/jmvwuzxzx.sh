@@ -1,0 +1,1 @@
+date; pgrep -af r5_eval; pgrep -af r5metrics; ls -1 /workspace/a3_eval | tail -6; echo ===; du -sh /workspace/a3_eval/r4_b0_c0_paired; echo ===REPORT; export PYTHONPATH=/workspace/a3_dual_arm_sim/src; cd /workspace/fasterwam_a3_bridge/bridge/_next; python3 -u /workspace/_r5_stage/r5_report.py 2>&1 | tail -40

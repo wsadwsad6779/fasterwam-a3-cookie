@@ -1,0 +1,1 @@
+date; ls -1 /workspace/a3_eval/r5_b0_c0_paired/*.npz | wc -l; grep -cE 'seed' /workspace/cc3.out; grep -cE 'seed' /workspace/wc4.out; grep -E 'METRICS_CHAIN_DONE' /workspace/r5metrics.out

@@ -1,0 +1,7 @@
+nohup: ignoring input
+https://api.github.com/repos/hustvl/FasterWAM -> 200 6832
+https://raw.githubusercontent.com/wsadwsad6779/fasterwam-a3-cookie/a3-cookie-r27/README.md -> 000 0
+https://cdn.jsdelivr.net/gh/wsadwsad6779/fasterwam-a3-cookie@a3-cookie-r27/README.md -> 000 0
+https://ghproxy.net/https://github.com/hustvl/FasterWAM/info/refs?service=git-upload-pack -> 000 0
+https://gh-proxy.com/https://github.com/hustvl/FasterWAM/info/refs?service=git-upload-pack -> 000 0
+https://gitee.com -> 200 640169

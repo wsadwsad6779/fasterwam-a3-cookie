@@ -1,0 +1,14 @@
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[2026-10-30 16:43:31,689][fasterwam.models.wan22.helpers.loader][INFO] - Loading Wan2.2-TI2V-5B components...
+[2026-10-30 16:43:31,690][fasterwam.models.wan22.helpers.loader][INFO] - Skipping pretrained video DiT load (`skip_dit_load_from_pretrain=True`); initializing video expert randomly and expecting checkpoint override.
+[2026-10-30 16:44:01,920][fasterwam.models.wan22.helpers.loader][INFO] - Skipping pretrained text encoder/tokenizer load (`load_text_encoder=False`); training must provide cached `context/context_mask`.
+[2026-10-30 16:44:09,899][fasterwam.models.wan22.helpers.loader][INFO] - Finished loading Wan2.2-TI2V-5B components in 38.21 seconds.
+[2026-10-30 16:44:09,900][fasterwam.models.wan22.sparse_action_dit][INFO] - Skipping SparseActionDiT pretrained load (`skip_dit_load_from_pretrain=True`); initializing action expert randomly and expecting checkpoint override.
+[2026-10-30 16:44:12,921][fasterwam.models.wan22.sparse_mot][INFO] - Initialized SparseMoT with layers=30, condition_layers=[0, 4, 8, 12, 16, 20, 24, 28], condition_heads=24, noncondition_heads=8, video_kv_fusion=interval_weighted_sum
+[2026-10-30 16:44:12,924][fasterwam.models.wan22.sparse_mot][INFO] -   Expert 'video': num_params=5.00 B
+[2026-10-30 16:44:12,925][fasterwam.models.wan22.sparse_mot][INFO] -   Expert 'action': num_params=0.56 B
+[2026-10-30 16:44:12,925][fasterwam.models.wan22.fastwam][INFO] - MoT Action->Video attention enabled at layers [0, 4, 8, 12, 16, 20, 24, 28] (disabled elsewhere).
+applied lora to 392 layers (30670848 params)
+loaded mot: missing=0 unexpected=0
+merged 392 lora layers -> /workspace/a3_train_runs/a3_lora_r2/step_003000_merged.pt

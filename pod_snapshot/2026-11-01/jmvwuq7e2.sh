@@ -1,0 +1,1 @@
+ps -eo pid,etime,args | grep -E 'r5_watch|replay_wrong|replay_correct|train_light_r5' | grep -v grep

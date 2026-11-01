@@ -1,0 +1,131 @@
+{
+  "a3_lora_r1": {
+    "top": [
+      "mot",
+      "proprio_encoder",
+      "step",
+      "torch_dtype"
+    ],
+    "step": 2000,
+    "torch_dtype": "torch.bfloat16",
+    "dicts": [
+      [
+        ".mot",
+        1393
+      ],
+      [
+        ".proprio_encoder",
+        2
+      ]
+    ],
+    "n_tensors": 1395,
+    "n_lora_in_mot": 0,
+    "proprio": {
+      ".proprio_encoder.weight": {
+        "shape": [
+          4096,
+          8
+        ],
+        "elements": 32768,
+        "absmax": 0.375,
+        "rms": 0.19984370470046997,
+        "ck": "0x5203332c0a"
+      },
+      ".proprio_encoder.bias": {
+        "shape": [
+          4096
+        ],
+        "elements": 4096,
+        "absmax": 0.365234375,
+        "rms": 0.1985791027545929,
+        "ck": "0x3832967388"
+      }
+    }
+  },
+  "a3_lora_r2": {
+    "top": [
+      "mot",
+      "proprio_encoder",
+      "step",
+      "torch_dtype"
+    ],
+    "step": 3000,
+    "torch_dtype": "torch.bfloat16",
+    "dicts": [
+      [
+        ".mot",
+        1393
+      ],
+      [
+        ".proprio_encoder",
+        2
+      ]
+    ],
+    "n_tensors": 1395,
+    "n_lora_in_mot": 0,
+    "proprio": {
+      ".proprio_encoder.weight": {
+        "shape": [
+          4096,
+          8
+        ],
+        "elements": 32768,
+        "absmax": 0.375,
+        "rms": 0.19984453916549683,
+        "ck": "0x2c9b855c0f"
+      },
+      ".proprio_encoder.bias": {
+        "shape": [
+          4096
+        ],
+        "elements": 4096,
+        "absmax": 0.365234375,
+        "rms": 0.19858014583587646,
+        "ck": "0x2632273f25"
+      }
+    }
+  },
+  "a3_lora_r3": {
+    "top": [
+      "mot",
+      "proprio_encoder",
+      "step",
+      "torch_dtype"
+    ],
+    "step": 3000,
+    "torch_dtype": "torch.bfloat16",
+    "dicts": [
+      [
+        ".mot",
+        1393
+      ],
+      [
+        ".proprio_encoder",
+        2
+      ]
+    ],
+    "n_tensors": 1395,
+    "n_lora_in_mot": 0,
+    "proprio": {
+      ".proprio_encoder.weight": {
+        "shape": [
+          4096,
+          8
+        ],
+        "elements": 32768,
+        "absmax": 0.375,
+        "rms": 0.1998458206653595,
+        "ck": "0x450e49019f"
+      },
+      ".proprio_encoder.bias": {
+        "shape": [
+          4096
+        ],
+        "elements": 4096,
+        "absmax": 0.365234375,
+        "rms": 0.198581725358963,
+        "ck": "0x3b24f8f687"
+      }
+    }
+  }
+}

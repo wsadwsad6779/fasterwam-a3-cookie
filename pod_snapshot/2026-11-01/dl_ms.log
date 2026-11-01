@@ -1,0 +1,10 @@
+RESUMED_FROM=8157921280
+MS_RC_0 libero/step_021700.pt 11117679929
+MS_RC_0 libero/dataset_stats.json 40952
+MS_RC_0 Wan2.2_VAE.pth 2818839170
+MS_RC_0 models_t5_umt5-xxl-enc-bf16.pth 11361920418
+MS_RC_0 google/umt5-xxl/spiece.model 4548313
+MS_RC_0 google/umt5-xxl/tokenizer.json 16837417
+MS_RC_0 google/umt5-xxl/tokenizer_config.json 61728
+MS_RC_0 google/umt5-xxl/special_tokens_map.json 6623
+MS_DONE

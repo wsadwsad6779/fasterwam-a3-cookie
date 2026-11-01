@@ -1,0 +1,5 @@
+== outputs/r2/C0
+  seed 11 {"prog": 63.1, "offpath": 25.9, "tail_span_mm": 24.0, "pad_max": 32.6, "pad_gt10_pct": 82.0, "contact_step": 85, "lift_mm": 20.1, "rewrite_pct": 2.5, "rewrite_mm": 52.92, "cookies": 0, "verbatim": 97.5}
+  seed 21 {"prog": 77.9, "offpath": 30.9, "tail_span_mm": 109.5, "pad_max": 31.0, "pad_gt10_pct": 46.8, "contact_step": 113, "lift_mm": 73.9, "rewrite_pct": 2.5, "rewrite_mm": 58.84, "cookies": 0, "verbatim": 97.5}
+  seed 22 {"prog": 77.0, "offpath": 13.4, "tail_span_mm": 133.0, "pad_max": 33.1, "pad_gt10_pct": 56.5, "contact_step": 73, "lift_mm": 106.4, "rewrite_pct": 7.8, "rewrite_mm": 60.9, "cookies": 0, "verbatim": 92.17}
+ALL_DONE

@@ -1,0 +1,29 @@
+=== dims ===
+=== mjcf ===
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data:
+__init__.py
+audit.py
+audit_smolvla_data_cli.py
+collect_cookie_2x10_cli.py
+collect_cookie_benchmark_cli.py
+collect_second_round_cli.py
+collect_smolvla_dagger_cli.py
+collect_smolvla_recovery_cli.py
+collection.py
+merge_cookie_datasets_cli.py
+prepare_left_arm_dataset_cli.py
+recording.py
+
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/sim:
+__init__.py
+__pycache__
+actions.py
+env.py
+model.py
+model_types.py
+object_builder.py
+randomization.py
+robot_builder.py
+urdf.py
+=== env obs space ===
+__PFDONE__

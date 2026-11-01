@@ -1,0 +1,16 @@
+{
+  "model": "lora",
+  "checkpoint": {
+    "path": "/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt",
+    "size": 1,
+    "sha256_head": "stub"
+  },
+  "normalizer": {},
+  "replan": 10,
+  "max_steps": 20,
+  "controls": "C0,C5",
+  "seeds": [
+    11
+  ],
+  "gripper_mode": "pm1"
+}

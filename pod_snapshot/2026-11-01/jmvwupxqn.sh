@@ -1,0 +1,1 @@
+date; nvidia-smi --query-gpu=memory.used --format=csv,noheader 2>/dev/null; ls -1 /workspace/a3_train_runs/a3_lora_r5/checkpoints/light 2>/dev/null; tail -c 300 /workspace/a3_train_runs/a3_lora_r5/train.log | tail -n 2; ls -1 /workspace/a3_eval/demos_wrongclosure_v6 | wc -l; ls -1 /workspace/a3_eval/demos_correct_c2 | wc -l; df -B1 /workspace | tail -1

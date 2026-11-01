@@ -1,0 +1,35 @@
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+10/30 [14:06:17] INFO     | >> Discovered dataset  precompute_text_embeds.py:100
+                          node `data.train` with 1                              
+                          dataset_dirs.                                         
+                 INFO     | >> Using               precompute_text_embeds.py:198
+                          override_instruction;                                 
+                          skipping dataset scan                                 
+                          and encoding exactly 1                                
+                          prompt.                                               
+                 INFO     | >> Preparing text      precompute_text_embeds.py:217
+                          encoder with                                          
+                          model_id=Wan-AI/Wan2.2-T                              
+                          I2V-5B                                                
+                          tokenizer_model_id=Wan-A                              
+                          I/Wan2.1-T2V-1.3B                                     
+                          device=cpu                                            
+                          dtype=torch.bfloat16                                  
+                          context_len=128                                       
+                          overwrite=True                                        
+10/30 [14:07:06] INFO     | >> Writing caches to 1 precompute_text_embeds.py:291
+                          directories.                                          
+Encoding prompts:   0%|                              | 0/1 [00:00<?, ?prompt/s]Encoding prompts: 100%|██████████████████████| 1/1 [00:01<00:00,  1.70s/prompt]Encoding prompts: 100%|██████████████████████| 1/1 [00:01<00:00,  1.70s/prompt]
+10/30 [14:07:08] INFO     | >> Finished            precompute_text_embeds.py:366
+                          precomputing text                                     
+                          embeddings.                                           
+                 INFO     | >> Over-length prompts precompute_text_embeds.py:367
+                          (mask all True, i.e. no                               
+                          padding after                                         
+                          truncation/max_length=12                              
+                          8): 0/1                                               
+                 INFO     | >> Cache dir:          precompute_text_embeds.py:375
+                          /workspace/a3_data/text_                              
+                          embeds_cache | new=1                                  
+                          overwrite=0 skip=0                                    

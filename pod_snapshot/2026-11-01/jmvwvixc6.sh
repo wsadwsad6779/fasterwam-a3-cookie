@@ -1,0 +1,1 @@
+date; ls -1 /workspace/a3_eval/r5_b0_c0_paired/*.npz | wc -l; tail -c 200 /workspace/r5metrics.out; echo ===CC3; grep -cE 'seed' /workspace/cc3.out; grep -E 'TALLY|dir.' /workspace/cc3.out | tail -1 | cut -c1-200; echo ===WC4; grep -cE 'seed' /workspace/wc4.out

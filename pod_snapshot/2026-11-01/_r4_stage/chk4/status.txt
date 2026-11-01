@@ -1,0 +1,7 @@
+== S: 6 steps, save_every=3 (save then continue) ==
+S_exit=0  (1 before the light_state fix: RuntimeError in optimizer.step)
+== N: 6 steps, save_every=6 (no mid-run save) ==
+N_exit=0
+CMP_exit=0 report=/workspace/_r4_stage/chk4/report_S_vs_N.txt
+window_log_lines=181
+ALL_DONE

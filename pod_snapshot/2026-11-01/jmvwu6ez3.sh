@@ -1,0 +1,1 @@
+wc -l /workspace/a3_train_runs/a3_lora_r5/windows.log /workspace/a3_train_runs/a3_lora_r5/train.log; echo '--- win head ---'; head -c 700 /workspace/a3_train_runs/a3_lora_r5/windows.log; echo; echo '--- win tail ---'; tail -c 300 /workspace/a3_train_runs/a3_lora_r5/windows.log; echo '--- r4 win ---'; ls /workspace/a3_train_runs/a3_lora_r4/ | head

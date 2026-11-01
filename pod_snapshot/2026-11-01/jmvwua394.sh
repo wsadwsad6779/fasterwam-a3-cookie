@@ -1,0 +1,1 @@
+ps -eo pid,etime,cmd | grep -E 'r5_watch|r5_eval|watch' | grep -v grep; echo '--- files ---'; ls -la /workspace/r5_watch.out /workspace/r5watch.out /workspace/*atch*.out 2>/dev/null; ls /workspace/*.sh 2>/dev/null | head -20

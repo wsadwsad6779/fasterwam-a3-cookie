@@ -1,0 +1,1 @@
+grep -rn 'cookies_in_target =' /workspace/a3_dual_arm_sim/src | head -20; echo ===; grep -rn 'def _in_bin' -A 22 /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/envs/*.py 2>/dev/null | head -60

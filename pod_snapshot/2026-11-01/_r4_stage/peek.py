@@ -1,0 +1,16 @@
+import json,glob
+B='/workspace/a3_eval/r4_c0_frozen/cmp/'
+f=json.load(open(B+'r4_force.json'))
+l=json.load(open(B+'r4_lift.json'))
+print('FORCE_KEYS', sorted(f[0].keys()))
+print('LIFT_KEYS', sorted(l[0].keys()))
+g=json.load(open('/workspace/a3_eval/r3_c0_diag_600/gripper_11.json'))
+print('GRIPPER_TYPE', type(g).__name__)
+print('GRIPPER_KEYS', sorted(g.keys()) if isinstance(g,dict) else g[:2])
+s4=json.load(open('/workspace/a3_eval/r4_c0_frozen/summary_lora.json'))
+s3=json.load(open('/workspace/a3_eval/r3_c0_diag_600/summary.json'))
+print('SUM4_KEYS', sorted(s4[0].keys()) if isinstance(s4,list) else sorted(s4.keys()))
+print('SUM3_TYPE', type(s3).__name__)
+m=json.load(open('/workspace/a3_eval/r4_c0_frozen/manifest_lora.json'))
+print('MANIFEST_KEYS', sorted(m.keys()) if isinstance(m,dict) else type(m).__name__)
+print('ADAPTER_IN_MANIFEST', json.dumps({k:v for k,v in (m.items() if isinstance(m,dict) else []) if 'adapter' in k or 'instruction' in k or 'ckpt' in k})[:1200])

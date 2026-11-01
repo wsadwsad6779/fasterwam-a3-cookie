@@ -1,0 +1,1 @@
+cd /workspace/_r5_stage; sha256sum replay_wrongclosure.py; python3 -m py_compile replay_wrongclosure.py; echo COMPILE_OK; wc -c replay_wrongclosure.py

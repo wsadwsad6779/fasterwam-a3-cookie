@@ -1,0 +1,49 @@
+/workspace/a3_eval/r4_c0_seed21_video/:
+total 464
+drwxr-xr-x  2 root root   4096 Oct 31 15:44 .
+drwxr-xr-x 11 root root   4096 Oct 31 15:39 ..
+-rw-r--r--  1 root root 275803 Oct 31 15:44 lora_C0_21.npz
+-rw-r--r--  1 root root 178927 Oct 31 15:44 lora_C0_21_front.mp4
+-rw-r--r--  1 root root   1803 Oct 31 15:41 manifest_lora.json
+-rw-r--r--  1 root root    776 Oct 31 15:44 summary_lora.json
+
+/workspace/a3_eval/r4_c0_seed22_video/:
+total 640
+drwxr-xr-x  2 root root   4096 Oct 31 15:25 .
+drwxr-xr-x 11 root root   4096 Oct 31 15:39 ..
+-rw-r--r--  1 root root 437106 Oct 31 15:25 lora_C0_22.npz
+-rw-r--r--  1 root root 200234 Oct 31 15:25 lora_C0_22_front.mp4
+-rw-r--r--  1 root root   1803 Oct 31 15:18 manifest_lora.json
+-rw-r--r--  1 root root    778 Oct 31 15:25 summary_lora.json
+===SHA
+4a556a68e26b5eaa43aa79170e0312d0ec76c52c0e85efa22d20a4a9c9f17b46  /workspace/a3_eval/r4_c0_seed22_video/lora_C0_22_front.mp4
+===LOG
+a of tko_mask.py on pod
+09121cd7db5be0283bda6e16ba1e62321cfe7fc777f7fbb55dceec2394e9c25d  /workspace/_r4_stage/tko_mask.py
+6801 /workspace/_r4_stage/tko_mask.py
+== seed21 npz vs frozen
+c550d261d5d00e1802ada1f16b4828d0edb771f173e5ad92613c492fc8164e29  /workspace/a3_eval/r4_c0_frozen/lora_C0_21.npz
+c550d261d5d00e1802ada1f16b4828d0edb771f173e5ad92613c492fc8164e29  /workspace/a3_eval/r4_c0_seed21_video/lora_C0_21.npz
+== replay mask seed22
+GEOM {"target_bin_xpos": [0.095, 0.1, 0.74898], "TARGET_INNER_HALF_SIZE": [0.057, 0.029], "TARGET_WALL_HEIGHT": 0.026, "TARGET_FLOOR_TOP_Z": 0.775, "COOKIE_HALF_SIZE": [0.025, 0.00317, 0.0125], "cookie_z0": [0.7685], "required_cookies": 10, "require_released": false, "max_linear_speed": 0.06, "max_tilt_rad": 0.2617993877991494}
+REPLAY_MATCH max|d_cookie_xyz|=0.000e+00 max|d_post_14d|=0.000e+00 steps=600
+changed_stored=112 changed_replayed=112 equal=True
+safety_counters {"hard": 7, "soft": 0, "binfloor": 79, "clipped": 0}
+count_at_50s [0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3]
+in_target_cookies [{"cookie": 0, "first_in_target_step": 491, "in_target_steps": 92, "in_at_end": true, "finger_contact_steps": 344}, {"cookie": 1, "first_in_target_step": 481, "in_target_steps": 112, "in_at_end": true, "finger_contact_steps": 0}, {"cookie": 2, "first_in_target_step": 492, "in_target_steps": 70, "in_at_end": true, "finger_contact_steps": 0}]
+cookies_lifted_gt3mm [0, 1, 2, 3, 4, 5, 22, 23]
+cookie 0 first_move=73 max_step_move_mm=11.03 rigid_with_tcp_steps(drel<2mm)=592 contact_steps=344 min_dist_tcp_mm=6.4 final_xyz=[0.1108, 0.0948, 0.7894] dz_mm=20.9
+cookie 1 first_move=72 max_step_move_mm=12.37 rigid_with_tcp_steps(drel<2mm)=592 contact_steps=0 min_dist_tcp_mm=0.6 final_xyz=[0.1102, 0.1011, 0.7895] dz_mm=21.0
+cookie 2 first_move=70 max_step_move_mm=11.69 rigid_with_tcp_steps(drel<2mm)=591 contact_steps=0 min_dist_tcp_mm=1.1 final_xyz=[0.1088, 0.1069, 0.7908] dz_mm=22.3
+cookie 3 first_move=69 max_step_move_mm=11.04 rigid_with_tcp_steps(drel<2mm)=589 contact_steps=0 min_dist_tcp_mm=4.2 final_xyz=[0.1065, 0.1105, 0.8039] dz_mm=35.4
+cookie 4 first_move=69 max_step_move_mm=12.07 rigid_with_tcp_steps(drel<2mm)=587 contact_steps=0 min_dist_tcp_mm=8.4 final_xyz=[0.1068, 0.1168, 0.8042] dz_mm=35.7
+cookie 5 first_move=69 max_step_move_mm=13.02 rigid_with_tcp_steps(drel<2mm)=587 contact_steps=472 min_dist_tcp_mm=13.0 final_xyz=[0.1073, 0.1229, 0.8053] dz_mm=36.8
+WROTE /workspace/_r4_stage/tko_mask_seed22.npz
+mask_rc=0
+2026-10-31T15:53:55Z
+__MASK_DONE__
+===NPZ
+-rw-r--r-- 1 root root 331636 Oct 31 15:53 /workspace/_r4_stage/tko_mask_seed22.npz
+===DF
+/dev/loop3       98G   89G  4.6G  96% /workspace
+Q1DONE

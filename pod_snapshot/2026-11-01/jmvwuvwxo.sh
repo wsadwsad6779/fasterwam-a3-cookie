@@ -1,0 +1,1 @@
+grep -n _cookie_inside_target -A 30 /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/tasks/cookie_transfer.py | sed -n '1,60p'

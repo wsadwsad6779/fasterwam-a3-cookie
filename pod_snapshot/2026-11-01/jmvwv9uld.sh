@@ -1,0 +1,1 @@
+grep -m2 -E 'data_dir|dataset|root' /workspace/a3_train_runs/a3_lora_r5/config.yaml 2>/dev/null | head -6; echo ===; python3 -c "import yaml,sys; c=yaml.safe_load(open('/workspace/a3_train_runs/a3_lora_r5/config.yaml'));" 2>/dev/null; du -sh /workspace/a3_data/* 2>/dev/null | head -10; ls -1 /workspace | head -20

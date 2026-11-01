@@ -1,0 +1,139 @@
+{
+  "scanned": 85,
+  "files": [
+    {
+      "path": "/workspace/_r6_stage/out/v3test/v3.pt",
+      "bytes": 5449,
+      "top": [
+        "extra_trainable",
+        "format",
+        "lora",
+        "meta"
+      ],
+      "proprio": {
+        ".extra_trainable.proprio_encoder.weight": [
+          512,
+          0.35784801840782166,
+          0.19975431263446808,
+          "0x697adf16b0"
+        ],
+        ".extra_trainable.proprio_encoder.bias": [
+          64,
+          0.34788739681243896,
+          0.21686415374279022,
+          "0x50f74c9774"
+        ]
+      }
+    }
+  ],
+  "errors": [
+    [
+      "/workspace/a3_train_runs/a3_lora_r4/checkpoints/light/step_000500/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r4/checkpoints/light/step_001000/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r4/checkpoints/light/step_001500/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r4/checkpoints/light/step_002000/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r4/checkpoints/light/step_002500/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r4/checkpoints/light/step_003000/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r4/checkpoints/light/step_003500/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r4/checkpoints/light/step_004000/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r4_crashed_step500/checkpoints/light/step_000500/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_004500/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_005000/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_005500/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_006000/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_006500/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_007000/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_007500/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/a3_lora_r5/checkpoints/light/step_008000/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/chk3_A/checkpoints/light/step_000010/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/chk3_A2/checkpoints/light/step_000010/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/chk3_B/checkpoints/light/step_000005/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/chk3_B2/checkpoints/light/step_000010/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/chk3_B3/checkpoints/light/step_000010/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/chk4_N/checkpoints/light/step_000006/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/chk4_S/checkpoints/light/step_000003/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_train_runs/chk4_S/checkpoints/light/step_000006/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_eval/light_state_test/light/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ],
+    [
+      "/workspace/a3_eval/light_state_test2/light/rng.pt",
+      "UnpicklingError Weights only load failed. This file can still be loaded, to do so you have two options, \u001b["
+    ]
+  ]
+}

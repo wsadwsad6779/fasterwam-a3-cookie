@@ -1,0 +1,2 @@
+cd /workspace/a3_eval
+python3 -c "import json,collections;d=json.load(open('corpus_manifest_v1.json'));e=[x for x in d['entries'] if x['family']=='C3_closed_but_empty'];print('n',len(e));print('air',sum(1 for x in e if x.get('closed_through_air')));print('bydir',dict(collections.Counter(x['dir'].split('/')[-1] for x in e)));print('peaklist',sorted(round(float(x['abnormal_peak_n']),3) for x in e))"

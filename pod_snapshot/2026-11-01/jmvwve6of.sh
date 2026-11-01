@@ -1,0 +1,1 @@
+ls -1 /workspace/a3_eval/*.log | head -20

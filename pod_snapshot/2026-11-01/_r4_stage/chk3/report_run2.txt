@@ -1,0 +1,41 @@
+### light state: /workspace/a3_train_runs/chk3_A/checkpoints/light/step_000010  vs  /workspace/a3_train_runs/chk3_B2/checkpoints/light/step_000010
+  adapter.pt     differs (12 shown)
+      adapter.pt.lora.action_expert.blocks.0.cross_attn.k.lora_A: tensors differ, 34 elements, max|d|=3.0517578125e-05
+      adapter.pt.lora.action_expert.blocks.0.cross_attn.k.lora_B: tensors differ, 15510 elements, max|d|=3.814697265625e-06
+      adapter.pt.lora.action_expert.blocks.0.cross_attn.o.lora_A: tensors differ, 297 elements, max|d|=3.0517578125e-05
+      adapter.pt.lora.action_expert.blocks.0.cross_attn.o.lora_B: tensors differ, 4732 elements, max|d|=2.86102294921875e-06
+      adapter.pt.lora.action_expert.blocks.0.cross_attn.q.lora_A: tensors differ, 53 elements, max|d|=1.52587890625e-05
+      adapter.pt.lora.action_expert.blocks.0.cross_attn.q.lora_B: tensors differ, 18416 elements, max|d|=4.76837158203125e-06
+      adapter.pt.lora.action_expert.blocks.0.cross_attn.v.lora_A: tensors differ, 43 elements, max|d|=1.52587890625e-05
+      adapter.pt.lora.action_expert.blocks.0.cross_attn.v.lora_B: tensors differ, 16858 elements, max|d|=5.245208740234375e-06
+      adapter.pt.lora.action_expert.blocks.0.self_attn.k.lora_A: tensors differ, 80 elements, max|d|=3.0517578125e-05
+      adapter.pt.lora.action_expert.blocks.0.self_attn.k.lora_B: tensors differ, 16993 elements, max|d|=3.814697265625e-06
+      adapter.pt.lora.action_expert.blocks.0.self_attn.o.lora_A: tensors differ, 515 elements, max|d|=3.0517578125e-05
+      adapter.pt.lora.action_expert.blocks.0.self_attn.o.lora_B: tensors differ, 5772 elements, max|d|=3.814697265625e-06
+  optimizer.pt   differs (12 shown)
+      optimizer.pt.state.0.exp_avg: tensors differ, 46888 elements, max|d|=4.6566128730773926e-09
+      optimizer.pt.state.0.exp_avg_sq: tensors differ, 44793 elements, max|d|=1.2212453270876722e-15
+      optimizer.pt.state.1.exp_avg: tensors differ, 44661 elements, max|d|=1.341104507446289e-07
+      optimizer.pt.state.1.exp_avg_sq: tensors differ, 28640 elements, max|d|=1.8189894035458565e-12
+      optimizer.pt.state.10.exp_avg: tensors differ, 46481 elements, max|d|=4.423782229423523e-09
+      optimizer.pt.state.10.exp_avg_sq: tensors differ, 43864 elements, max|d|=6.661338147750939e-16
+      optimizer.pt.state.100.exp_avg: tensors differ, 44240 elements, max|d|=2.2351741790771484e-08
+      optimizer.pt.state.100.exp_avg_sq: tensors differ, 39004 elements, max|d|=5.684341886080802e-14
+      optimizer.pt.state.101.exp_avg: tensors differ, 44915 elements, max|d|=2.980232238769531e-07
+      optimizer.pt.state.101.exp_avg_sq: tensors differ, 27822 elements, max|d|=2.9103830456733704e-11
+      optimizer.pt.state.102.exp_avg: tensors differ, 43850 elements, max|d|=9.313225746154785e-09
+      optimizer.pt.state.102.exp_avg_sq: tensors differ, 38543 elements, max|d|=1.0658141036401503e-14
+  scheduler.pt   bitwise_equal
+  rng.pt         differs (1 shown)
+      rng.pt.python[1][624]: 112 vs 148
+  trainer_state bitwise_equal
+      global_step: a=10 b=10
+      epoch: a=0 b=0
+      batch_in_epoch: a=10 b=10
+      sampler: a={'seed': 42, 'epoch': 0, 'epoch_offset': 0, 'resume_batch_offset': 10, 'sample_offset': 0, 'batch_size': 6, 'num_processes': 1} b={'seed': 42, 'epoch': 0, 'epoch_offset': 0, 'resume_batch_offset': 10, 'sample_offset': 0, 'batch_size': 6, 'num_processes': 1}
+      extra:   a={'base_checkpoint': '/workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt', 'instruction': 'transfer 10 cookies into target box', 'lr': 5.000000000000001e-07, 'lora_init_seed': 42}
+### per-step logged metrics
+  step   A.loss       B.loss       d(loss)     A.lr         B.lr
+  max_abs_loss_diff=0.000000 (loss is logged at 4 decimals)
+  max_abs_lr_diff=0.000e+00
+  steps_present_in_only_one_run=[]

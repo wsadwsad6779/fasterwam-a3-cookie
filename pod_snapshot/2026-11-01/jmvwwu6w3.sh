@@ -1,0 +1,1 @@
+grep -n -E "light_state|adapter" /workspace/FasterWAM/src/fasterwam/r4_patch.py | head -25

@@ -1,0 +1,7 @@
+total 16
+drwxr-xr-x  4 root root 4096 Oct 31 00:25 .
+drwxr-xr-x 19 root root 4096 Oct 31 00:25 ..
+drwxr-xr-x  2 root root 4096 Oct 31 00:25 seed11_s570
+drwxr-xr-x  2 root root 4096 Oct 31 00:26 seed21_s214
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!

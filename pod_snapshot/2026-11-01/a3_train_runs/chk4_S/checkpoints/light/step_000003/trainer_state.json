@@ -1,0 +1,27 @@
+{
+  "format": "fasterwam-lora-light-state-v1",
+  "global_step": 3,
+  "epoch": 0,
+  "batch_in_epoch": 3,
+  "sampler": {
+    "seed": 42,
+    "epoch": 0,
+    "epoch_offset": 0,
+    "resume_batch_offset": 3,
+    "sample_offset": 0,
+    "batch_size": 6,
+    "num_processes": 1
+  },
+  "extra": {
+    "base_checkpoint": "/workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt",
+    "instruction": "transfer 10 cookies into target box",
+    "lr": 2.5249999999999997e-05,
+    "lora_init_seed": 42
+  },
+  "files": {
+    "adapter": "adapter.pt",
+    "optimizer": "optimizer.pt",
+    "scheduler": "scheduler.pt",
+    "rng": "rng.pt"
+  }
+}

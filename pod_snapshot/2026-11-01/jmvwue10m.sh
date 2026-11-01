@@ -1,0 +1,1 @@
+date; for p in $(pgrep -f 'replay_wrongclosure|replay_correct'); do echo "pid=$p $(ps -o etime=,time=,cmd= -p $p | cut -c1-140)"; done; ls -la /workspace/a3_eval/demos_wrongclosure_smoke2/; nproc

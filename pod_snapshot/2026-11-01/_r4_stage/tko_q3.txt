@@ -1,0 +1,3 @@
+6e8bbafb37c4883512c721a77f0bf1e5b0d7d75deb01a308deadcfa4d8f3d488  /workspace/_r4_stage/tko_mask_seed21.npz
+3b647cb7bee7a474968b4eacf83be251fc01147ee08b317488afdaafbd47db50  /workspace/a3_eval/r4_c0_seed21_video/lora_C0_21_front.mp4
+Q3DONE

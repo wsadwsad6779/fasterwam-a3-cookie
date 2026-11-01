@@ -1,0 +1,18 @@
+=== which python ===
+/opt/venv/bin/python3
+Python 3.12.3
+=== camera keys ===
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/diagnostics.py:34:            if not key.startswith("observation.images."):
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/smolvla_offline_error_cli.py:53:                        key = "observation.images." + camera
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/contracts.py:33:FRONT_IMAGE = "observation.images.front"
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/contracts.py:34:LEFT_WRIST_IMAGE = "observation.images.left_wrist"
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/contracts.py:35:RIGHT_WRIST_IMAGE = "observation.images.right_wrist"
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/audit_smolvla_data_cli.py:34:            image = np.asarray(frame["observation.images." + camera])
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/audit_smolvla_data_cli.py:65:        for key in (f"observation.images.{camera}" for camera in CAMERAS)
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/audit_smolvla_data_cli.py:82:                        encoded = row["observation.images." + camera]
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/audit.py:8:    "observation.images.front",
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/audit.py:9:    "observation.images.left_wrist",
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/audit.py:10:    "observation.images.right_wrist",
+=== yaml scene ===
+ls: cannot access '/workspace/fasterwam_a3_bridge/bridge/_next/*.yaml': No such file or directory
+__PFDONE__

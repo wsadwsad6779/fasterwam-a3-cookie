@@ -1,0 +1,1 @@
+date; wc -c /workspace/wc2.out; for p in $(pgrep -f replay_wrongclosure); do ps -o pid=,etime=,time= -p $p; done; ls -la /workspace/a3_eval/demos_wrongclosure_smoke2/ | tail -2; cat /proc/loadavg

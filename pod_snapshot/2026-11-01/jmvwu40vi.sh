@@ -1,0 +1,1 @@
+wc -c /workspace/adj1.out; cat /workspace/adj1.out; which pgrep; echo '--- r5 ---'; grep -o 'step=[0-9]*/8000' /workspace/a3_train_runs/a3_lora_r5/train.log | tail -1

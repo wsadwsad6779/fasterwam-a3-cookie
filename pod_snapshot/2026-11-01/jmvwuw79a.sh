@@ -1,0 +1,1 @@
+sed -n '444,472p' /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/tasks/cookie_transfer.py; echo ===; grep -n 'COOKIE_HALF_SIZE|TARGET_INNER_HALF_SIZE|TARGET_WALL_HEIGHT|CONTACT_CONTAINMENT_TOLERANCE_M' /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/tasks/cookie_transfer.py | head -12

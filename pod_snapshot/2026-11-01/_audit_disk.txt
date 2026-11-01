@@ -1,0 +1,48 @@
+=== data ===
+total 20
+drwxr-xr-x  3 root root  4096 Oct 30 13:33 .
+drwxrwxrwx 15 root root 12288 Oct 31 05:18 ..
+drwxr-xr-x  5 root root  4096 Oct 30 13:42 a3_front_close_left_100
+4.1G	data/a3_front_close_left_100
+=== FasterWAM ckpt ===
+14G	FasterWAM/checkpoints/Wan-AI
+11G	FasterWAM/checkpoints/fasterwam_release
+total 10857164
+drwxr-xr-x 2 root root        4096 Oct 30 12:44 .
+drwxr-xr-x 4 root root        4096 Oct 30 12:24 ..
+-rw-r--r-- 1 root root       40952 Oct 30 12:24 dataset_stats.json
+-rw-r--r-- 1 root root 11117679929 Oct 30 12:46 step_021700.pt
+=== a3_train_runs ===
+11G	a3_train_runs/a3_lora_r1
+11G	a3_train_runs/a3_lora_r2
+21G	a3_train_runs/a3_lora_r3
+=== bridge outputs ===
+924K	fasterwam_a3_bridge/bridge/outputs/C1
+948K	fasterwam_a3_bridge/bridge/outputs/C2
+908K	fasterwam_a3_bridge/bridge/outputs/C3
+992K	fasterwam_a3_bridge/bridge/outputs/C4
+800K	fasterwam_a3_bridge/bridge/outputs/C5
+800K	fasterwam_a3_bridge/bridge/outputs/E0_C0
+84K	fasterwam_a3_bridge/bridge/outputs/_expert11.npz
+16K	fasterwam_a3_bridge/bridge/outputs/_smoke_lora
+16K	fasterwam_a3_bridge/bridge/outputs/_smoke_raw
+8.0K	fasterwam_a3_bridge/bridge/outputs/_tf_check
+8.0K	fasterwam_a3_bridge/bridge/outputs/b0
+8.0K	fasterwam_a3_bridge/bridge/outputs/b0_lora
+8.0K	fasterwam_a3_bridge/bridge/outputs/b0_raw
+626M	fasterwam_a3_bridge/bridge/outputs/dagger
+1.5G	fasterwam_a3_bridge/bridge/outputs/dagger_near
+248M	fasterwam_a3_bridge/bridge/outputs/dagger_resume
+1.8M	fasterwam_a3_bridge/bridge/outputs/r2
+2.0M	fasterwam_a3_bridge/bridge/outputs/r3
+100K	fasterwam_a3_bridge/bridge/outputs/tf_lora
+=== source symlink ===
+total 32
+drwxr-xr-x  6 root root  4096 Oct 31 01:09 .
+drwxrwxrwx 15 root root 12288 Oct 31 05:18 ..
+lrwxrwxrwx  1 root root    39 Oct 30 13:44 a3-front-close-left-100 -> /workspace/data/a3_front_close_left_100
+drwxr-xr-x  2 root root  4096 Oct 30 13:51 a3_fw
+drwxr-xr-x  2 root root  4096 Oct 31 00:15 a3_fw_dagger
+drwxr-xr-x  2 root root  4096 Oct 31 03:11 a3_fw_dagger_near
+drwxr-xr-x  2 root root  4096 Oct 30 14:07 text_embeds_cache
+DONE

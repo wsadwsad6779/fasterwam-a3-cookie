@@ -7,6 +7,13 @@ outputs/
 *.npz
 *.pt
 *.zip
+*.dl
 
 # per-machine pod endpoint, never commit
 deploy/pod.env
+
+# upstream checkouts are re-cloned at pinned commits by
+# scripts/restore_new_instance.sh; their files are third-party and are not
+# redistributed from this repository
+pod_snapshot/2026-11-01/FasterWAM/
+pod_snapshot/2026-11-01/a3_dual_arm_sim/

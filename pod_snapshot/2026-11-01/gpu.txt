@@ -1,0 +1,8 @@
+bash: nvidia-smi: command not found
+128
+total 568
+drwxr-xr-x  2 root root   4096 Oct 31 00:22 .
+drwxr-xr-x 16 root root   4096 Oct 31 00:11 ..
+-rw-r--r--  1 root root 546780 Oct 31 00:22 recover.npz
+-rw-r--r--  1 root root   1009 Oct 31 00:22 report.json
+-rw-r--r--  1 root root  18427 Oct 31 00:13 state_takeover.npz

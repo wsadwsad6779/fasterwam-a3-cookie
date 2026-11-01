@@ -1,0 +1,1 @@
+cd /workspace/_r5_stage && sha256sum replay_wrongclosure.py && python3 -c "import ast;ast.parse(open('/workspace/_r5_stage/replay_wrongclosure.py').read());print('COMPILE_OK')"

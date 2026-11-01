@@ -1,0 +1,1 @@
+ls -1 /workspace/a3_eval/r5_b0_c0_paired/*.npz; export PYTHONPATH=/workspace/a3_dual_arm_sim/src; cd /workspace/fasterwam_a3_bridge/bridge/_next; python3 /workspace/_r4_stage/autonomy_metrics.py /workspace/a3_eval/r5_b0_c0_paired/lora_B0_11.npz 2>&1 | tail -20

@@ -1,0 +1,62 @@
+=== delta mask usage ===
+grep: src/fasterwam/datasets/lerobot/processors/__pycache__/fastwam_processor.cpython-312.pyc: binary file matches
+src/fasterwam/datasets/lerobot/processors/fastwam_processor.py:42:        delta_action_dim_mask: Optional[Dict[str, List[bool]]] = None,
+src/fasterwam/datasets/lerobot/processors/fastwam_processor.py:69:        if delta_action_dim_mask is None:
+src/fasterwam/datasets/lerobot/processors/fastwam_processor.py:70:            self.delta_action_dim_mask = None
+src/fasterwam/datasets/lerobot/processors/fastwam_processor.py:74:            provided_keys = list(delta_action_dim_mask.keys())
+src/fasterwam/datasets/lerobot/processors/fastwam_processor.py:77:                    f"`delta_action_dim_mask` keys mismatch. Expected {expected_keys}, got {provided_keys}."
+src/fasterwam/datasets/lerobot/processors/fastwam_processor.py:80:            self.delta_action_dim_mask = {}
+src/fasterwam/datasets/lerobot/processors/fastwam_processor.py:84:                mask = delta_action_dim_mask[key]
+src/fasterwam/datasets/lerobot/processors/fastwam_processor.py:87:                        f"`delta_action_dim_mask[{key}]` length must be {expected_dim}, got {len(mask)}."
+src/fasterwam/datasets/lerobot/processors/fastwam_processor.py:89:                self.delta_action_dim_mask[key] = torch.as_tensor(mask, dtype=torch.bool)
+src/fasterwam/datasets/lerobot/processors/fastwam_processor.py:251:        if "action" in data and self.delta_action_dim_mask is not None:
+src/fasterwam/datasets/lerobot/processors/fastwam_processor.py:254:                for key, dim_mask in self.delta_action_dim_mask.items():
+=== warmup ===
+src/fasterwam/trainer.py:99:        warmup_steps = int(total_train_steps * 0.05)
+src/fasterwam/trainer.py:103:            warmup_steps=warmup_steps,
+src/fasterwam/trainer.py:220:    def _build_scheduler(self, scheduler_type, total_train_steps: int, warmup_steps: int = 0):
+src/fasterwam/trainer.py:223:        warmup_steps = min(max(int(warmup_steps), 0), total_train_steps - 1)
+src/fasterwam/trainer.py:225:        remaining_steps = max(total_train_steps - warmup_steps, 1)
+src/fasterwam/trainer.py:240:        if warmup_steps <= 0:
+src/fasterwam/trainer.py:243:        warmup_scheduler = LinearLR(
+src/fasterwam/trainer.py:245:            start_factor=1.0 / warmup_steps,
+src/fasterwam/trainer.py:247:            total_iters=warmup_steps,
+src/fasterwam/trainer.py:251:            schedulers=[warmup_scheduler, main_scheduler],
+src/fasterwam/trainer.py:252:            milestones=[warmup_steps],
+=== shuffle/dataloader ===
+grep: Unmatched ( or \(
+=== a3_video_dataset norm/action ===
+3:Subclasses RobotVideoDataset so the video concat/resize/normalize pipeline,
+17:from .utils.normalizer import load_dataset_stats_from_json
+24:    """Stand-in for BaseLerobotDataset: serves preprocessed windows."""
+31:        return len(self.parent._windows)
+42:        num_frames=33,
+48:        pretrained_norm_stats=None,
+52:        action_video_freq_ratio=4,
+63:        self.num_frames = int(num_frames)
+64:        self.action_video_freq_ratio = int(action_video_freq_ratio)
+65:        assert (self.num_frames - 1) % self.action_video_freq_ratio == 0
+66:        assert ((self.num_frames - 1) // self.action_video_freq_ratio) % 4 == 0
+67:        self.video_sample_indices = list(range(0, self.num_frames, self.action_video_freq_ratio))
+84:        self.normalize_transform = Normalize(args={"mean": 0.5, "std": 0.5})
+95:        self._action = np.ascontiguousarray(arr["action"], dtype=np.float32)  # [N, 7]
+100:        n_total = int(self._action.shape[0])
+113:        self._windows = []
+115:            n = int(length) - self.num_frames + 1
+117:                raise ValueError(f"episode shorter than num_frames: {int(length)}")
+118:            self._windows.extend(range(int(start), int(start) + n))
+121:        self._action_key = shape_meta["action"][0]["key"]
+129:        if not pretrained_norm_stats:
+130:            raise ValueError("`pretrained_norm_stats` is required (empirical A3 stats)")
+131:        processor.set_normalizer_from_stats(load_dataset_stats_from_json(str(pretrained_norm_stats)))
+141:        start = self._windows[idx]
+142:        s = slice(start, start + self.num_frames)
+152:            "action": {self._action_key: torch.from_numpy(self._action[s][:-1].copy())},
+154:            "action_is_pad": torch.zeros(self.num_frames - 1, dtype=torch.bool),
+155:            "state_is_pad": torch.zeros(self.num_frames, dtype=torch.bool),
+156:            "image_is_pad": torch.zeros(self.num_frames, dtype=torch.bool),
+=== file size ===
+  163 src/fasterwam/datasets/lerobot/a3_video_dataset.py
+  304 src/fasterwam/datasets/lerobot/processors/fastwam_processor.py
+  467 total
+DONE

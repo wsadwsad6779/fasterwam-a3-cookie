@@ -1,0 +1,122 @@
+Fetching 60 files:   0%|                                | 0/60 [00:00<?, ?it/s]Downloading 'data/chunk-000/file-000.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/Rk5xtNxR079Ysk7EiCU6jR-aXfw=.6a02060737829299f3677bd9b0aba5f6835673a662a635aeb77912df2e3d7223.incomplete'
+Downloading 'data/chunk-000/file-001.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/LAs_Ycj7Iau_YOPj_QUc8fZzONE=.48fc9b2fc5a96caa8fbdc1590cb607e238311209a32632a4cac93a8f34decfd1.incomplete'
+Downloading '.gitattributes' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/wPaCkH-WbT7GsmxMKKrNZTV4nSM=.bed0738c7eeb449bca98b5d2f33c89a1ee56349a.incomplete'
+Downloading 'collection_summary.json' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/LB8gfsvZRH2c0lHqMjd4ETPa8xc=.170ece20b5eb5014baee739cd363a5881f3cf0c5.incomplete'
+Downloading 'README.md' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/Xn7B-BWUGOee2Y6hCZtEhtFu4BE=.50d3c963ebf9fda158b49e7308040f62df3226cf.incomplete'
+Downloading 'a3_episode_metadata.jsonl' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/XEwD2FjvXnqe56D8kbsgePP7wA0=.df86ca098468744f21aa1e550a5430cf5853c215.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/.gitattributes
+Fetching 60 files:   2%|▍                       | 1/60 [00:00<00:56,  1.05it/s]Download complete. Moving file to /workspace/data/a3_front_close_left_100/README.md
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/collection_summary.json
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/a3_episode_metadata.jsonl
+Downloading 'data/chunk-000/file-005.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/CmjI4mc5F6IUkK-KTNZqJJLLTIU=.b2404425710242a2d3fbc9a5d2173b8e20817893b705827bffc95cf5ec1bd09e.incomplete'
+Downloading 'data/chunk-000/file-004.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/EWlqKgCh4PHdhuP-twKPGW58408=.4c4d5a89f9f2dcac77ee2f3b32aa68f316eac3d8930573b7b5135a3aa7fdf983.incomplete'
+Downloading 'data/chunk-000/file-002.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/mKtpKcgkkx2IPVk0RIEAkJTLKT0=.a3c0fa65f068d0b4ef96e528a123a03567d0dbaf23e17370ac8e596954797dda.incomplete'
+Downloading 'data/chunk-000/file-003.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/aTgrIH-6drR1I4uoAtkNsD8thyQ=.e32d4bcd73b076d095ceaab6aafe526b9a13bf87da7996d7b4ffaffcb73e919a.incomplete'
+Downloading 'data/chunk-000/file-006.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/CXvIcKJUiKgPcmWix-jKGv2wsg4=.8716c6e55f4afd889cc80854f6556e74d2011cdaae644e69c7e38514d68164de.incomplete'
+Downloading 'attempts.jsonl' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/vWUbQAlmLM1RLzgbPWCL3tK_Sx8=.5bc10f650ea6c96116c6c26307c3bfe162c8218f.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/attempts.jsonl
+Fetching 60 files:   7%|█▌                      | 4/60 [00:02<00:35,  1.59it/s]Downloading 'data/chunk-000/file-007.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/RHBNVKwAFOpp4tPe_buhRo8yK0k=.06569a5c8f6de1fb7a36c8b9161f8cd42baef107b3869184723c756438976828.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-000.parquet
+Fetching 60 files:  10%|██▍                     | 6/60 [00:07<01:15,  1.39s/it]Downloading 'data/chunk-000/file-008.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/ue0xzVIAusYwXpANoyDd3ZRdQhE=.464fb7693334c581fc17d27568e26a83a8409a2d8c88420b7f4bb93ffe89557d.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-005.parquet
+Downloading 'data/chunk-000/file-009.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/dBBrqoo46LDb8jpilXf3LAwdc3g=.058de6726590b1ffd3e07788c6358e4e756a1525f072d892a3685ced44cedaf9.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-001.parquet
+Fetching 60 files:  12%|██▊                     | 7/60 [00:08<01:13,  1.38s/it]Downloading 'data/chunk-000/file-010.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/LccNqdf--3eHnbHOHbva1IySmXg=.4bc2451f8df2d43de80b1740ea0ae7b6b8153ce0a58c758355c423e52b4989f1.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-003.parquet
+Downloading 'data/chunk-000/file-011.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/8RCuZDx3OGXmXEBk52KzlVc4gT4=.b76b51fbf4b0e8e6d2ce8a7c7ae4c83a42fc44be4d2034d5115ae4dae381987c.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-008.parquet
+Downloading 'data/chunk-000/file-012.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/wVVSbQehxPxvCY43KVgoefJec00=.47b7a8759aec92071fde79f3823345809eedd3dec04ca78827d3f3adcaa1797b.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-009.parquet
+Downloading 'data/chunk-000/file-013.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/T1-BYipczLzJLA68RM4WmBcGGvU=.405c38257224cbaaa32eb1e67b5ba136946540ac468ff1d548437b99302cdae8.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-004.parquet
+Downloading 'data/chunk-000/file-014.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/1oYd7nd-OWIY55r38SgzxUvdb8U=.32eb8dad91378011bcfc86d74f14d9b830a5963eee36bce4d5ac10305fe7f0a0.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-010.parquet
+Downloading 'data/chunk-000/file-015.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/Iq2RXsO4OwoC3kq3azV2hU4BXLo=.bd6ba3386884a5b993774cdc6138262dce65b83b0f64d8502f4abc150c8a76de.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-002.parquet
+Fetching 60 files:  13%|███▏                    | 8/60 [00:34<06:31,  7.52s/it]Downloading 'data/chunk-000/file-016.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/CSpYaEJjxu95LZ77cexE6WBeqQ8=.f5ba25cdcbde8c17cbb3c93651cac8dc8a1fced1389c8f0a5396072fa1829f49.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-012.parquet
+Downloading 'data/chunk-000/file-017.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/pP1xiatGMB0T86KrOq36YS4CgEE=.0f85bb44ab3119a7c8c2f49152c6583e253664eceb86f098600bca7a05c5ecbd.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-011.parquet
+Downloading 'data/chunk-000/file-018.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/7KYOXgYFCdQdgoTm-WVBt5Jb1TQ=.f56595bea6baa6a9de63d462ddf4531ec2b5d5ac0ad1a83e4ebda1f78c7eebe0.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-015.parquet
+Downloading 'data/chunk-000/file-019.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/CvWivfe6k1GOb3VIQqw_xUZi9_w=.665c006e256b4b2ea0154f549833bd4c107412e237376f28ec50e0bdad8a3349.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-014.parquet
+Downloading 'data/chunk-000/file-020.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/NbWL0ZPvKUJ-ExbfFJoUfEcoQhY=.de0fd0f2c313d49c60d2906a720b4bc7b7252c45f7423b31770320649adcf183.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-013.parquet
+Downloading 'data/chunk-000/file-021.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/qzTmmTCwHEMNY5hLHRVwy09KEvg=.66cd2062b4e12cd1f5eead04898399b05a2eeba4f0bc0c99e41c275528718e15.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-006.parquet
+Fetching 60 files:  20%|████▌                  | 12/60 [01:23<08:17, 10.37s/it]Downloading 'data/chunk-000/file-022.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/iTyBsymnFv_JrRqYDRo2fRQe9_0=.18674269c8cf20e564b7e617a714c9026f3dca4e1b04a691f2a294ed3d8b66c0.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-016.parquet
+Downloading 'data/chunk-000/file-023.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/iEEddTaFNYIyq0ZYl6lXn4_8C_g=.eaf40389dbd50ab489c376f39c4915b9c6ca27bddcda60b747d39e9a8ed90f68.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-017.parquet
+Downloading 'data/chunk-000/file-024.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/ifLFy_9JpU1m2KGgj3f6wdXs8nY=.e6b3e2aee90bf9e3db01cc6a0a038ef1a42436b20511c7cbf32cb30fcec0a7b0.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-007.parquet
+Fetching 60 files:  22%|████▉                  | 13/60 [02:00<11:39, 14.89s/it]Downloading 'data/chunk-000/file-025.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/zMCP-zmJE3a0sh6QhLqI1c7jde8=.c811bbe7d1e4f21b518f287040749b0e73f7766b95381ed214cac03ba638d818.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-020.parquet
+Downloading 'data/chunk-000/file-026.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/qmdh3wX273D0-dNnaSm_7QOAEEI=.51a2651af9d4e14e31ff411570db0ab0859a101a0cfdf89686975cd88dcafd64.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-019.parquet
+Downloading 'data/chunk-000/file-027.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/wA1pytZpHcwhvXb_TVnNDIveODc=.313eb69e62bf9bb41ed1d06d19abf7dd48a1745eae3875c792918411d71986c9.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-018.parquet
+Fetching 60 files:  40%|█████████▏             | 24/60 [03:54<06:57, 11.60s/it]Downloading 'data/chunk-000/file-028.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/sXNtj3onv69uxBiHw7UMgMeLynI=.04ccc74fc6b1a4c5689a0b5dbb7e1fced66a65761a8bd62158c9912ad471b7c0.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-024.parquet
+Downloading 'data/chunk-000/file-029.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/el70DiZQtnobUhvjSv_sLLI6FLU=.4be501f7d0f416871d9c360d082a18bd1c6416f4757b821c092a18322cef37e9.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-023.parquet
+Downloading 'data/chunk-000/file-030.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/AvJe5dFltmSnqUJvYBH6mrRi-Tg=.50fbf3afbae01894331206d244e1cc1810aad23d6293b2d09638ff16abcab9f5.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-026.parquet
+Downloading 'data/chunk-000/file-031.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/Lp1oKuwKV017KMX3isT-m1QUke4=.d761c75d45bb0d9f2b230e0dc9e55fb34ec4df75423986b62c998c653ffa046f.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-021.parquet
+Fetching 60 files:  45%|██████████▎            | 27/60 [04:57<07:32, 13.71s/it]Downloading 'data/chunk-000/file-032.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/sAA-gT9r3CWo4ri5BTgnH03wEtQ=.bff45cc1a037f0063d148723d7cd61ed4f31cdfbd72945858009614bf077c1dc.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-025.parquet
+Downloading 'data/chunk-000/file-033.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/VgR6l7t954s6a-BkX1h80s3mYBg=.3bb73d9c2c0d109c81b703a7f0494ec3c9171c071f74cc7d9dd6f88d81b38553.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-030.parquet
+Downloading 'data/chunk-000/file-034.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/ufU5zK6Md_9Zj6gi0Cz-_5EN6ws=.464ebe7252aa60c5b204d9aee2d2007a01e1f4f7d021587e931a6fb64cbf0e9f.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-027.parquet
+Downloading 'data/chunk-000/file-035.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/ni1BcarWAQI9kRg95fLRXTxlM0k=.d8863be09a1380ff152ca7b25d6e49fcde8d1e2489b82434c2085915d9cfa355.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-022.parquet
+Fetching 60 files:  47%|██████████▋            | 28/60 [06:01<09:50, 18.46s/it]Downloading 'data/chunk-000/file-036.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/jnxssD1MqJvRe_AmRjxCijI46sE=.6537c40772ea2fe3f32006c6a68ed9529828c7ec330fdf95ff32bfb40a8dba92.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-029.parquet
+Downloading 'data/chunk-000/file-037.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/aEaj-CWqFIuarzDPoNt5GtcK958=.dafcb741cf1da48c8d9592a20f863c619a446616f66720a5e0ac3bc483374e99.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-031.parquet
+Downloading 'data/chunk-000/file-038.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/MHOcA1_cEZezXLD7WKpKGNBW9ug=.e0e9f915f9ca4b3f8eb572021b6fe48901837265a28f12015743944d6c4972e9.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-034.parquet
+Downloading 'data/chunk-000/file-039.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/Wlbe9r6PYOX-6OKEz-I9stoZbrY=.62d8f474a5491e985a0d4717441f7e3337fe6e5166c798284f406e1f593eb920.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-028.parquet
+Fetching 60 files:  57%|█████████████          | 34/60 [07:06<06:32, 15.09s/it]Downloading 'data/chunk-000/file-040.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/L-RZJmHgzt3-_98c6NwxVuwGcXE=.ef6e050e0950eee6311d3636b5e4c96639c256713f56105d015e430868d55db9.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-035.parquet
+Downloading 'data/chunk-000/file-041.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/ejXSAl2qDCFvqiRsdF4vyZsFvDw=.916a0f1c818ed00d0a1712e59d091ea7c2951af9ff8dbed38d41841f0f4c256d.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-036.parquet
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-039.parquet
+Downloading 'data/chunk-000/file-043.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/F5ipJz18w8dbTxoyw8ncvH-cvIs=.8c3827c338518a68a6a2e470727f54804e1293a393bf5322bc644123809cdc27.incomplete'
+Downloading 'data/chunk-000/file-042.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/k1GxUHDUhc4YdYGXt5UhUqSINN4=.becfcc13f908624ff5ee4aef5b1549e509788c160c0524c978be85eb94dbabf3.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-033.parquet
+Downloading 'data/chunk-000/file-044.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/urVKpTX9CqHZ6A_0jl4DvZRpi_I=.253520ed4c1a1d67bef5ac6628b992cd68d9de818303c74d1f01508b877686bf.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-037.parquet
+Downloading 'data/chunk-000/file-045.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/f9aYYASJ69XRTEb1meq11I9FQsU=.fbe7473a27206ba0b370a85868088c89786e4b7f5cacabddfbe3f14843fc0f3e.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-041.parquet
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-038.parquet
+Downloading 'data/chunk-000/file-046.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/WQcH11kUGXva66_sSJBVleXpy70=.d64602049a0394b14c9c7970f844ba7ecbfc8f2ee2b9228676c418feb96b1230.incomplete'
+Downloading 'data/chunk-000/file-047.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/KMamG63yhaDbh4JoY8sk7XyxVm0=.f812b3c112f9dcba544f2ad6cbcc37194107c7a2f20ce8050d46e7c24924552a.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-032.parquet
+Fetching 60 files:  63%|██████████████▌        | 38/60 [08:50<06:43, 18.36s/it]Downloading 'data/chunk-000/file-048.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/dbT5Qjuckce6V2sygaQwL2jzcYU=.64c24728d8041c8a2620285577545a229c4b5f58f2f9c5c9f2108904cd54b771.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-040.parquet
+Fetching 60 files:  77%|█████████████████▋     | 46/60 [09:10<02:34, 11.01s/it]Downloading 'data/chunk-000/file-049.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/data/chunk-000/8xSIQudm9nJJ54zARvLHKFHqO0w=.15ddd0da98132d32a908f0cb04cc0c7a00ed5de9961e937940cb1c67fe38771e.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-043.parquet
+Downloading 'meta/episodes/chunk-000/file-000.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/meta/episodes/chunk-000/Rk5xtNxR079Ysk7EiCU6jR-aXfw=.68908e3948b2d1521f1ea4cf492374ce845681d05f4449794ffd3946a4c615c0.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/meta/episodes/chunk-000/file-000.parquet
+Downloading 'meta/episodes/chunk-000/file-001.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/meta/episodes/chunk-000/LAs_Ycj7Iau_YOPj_QUc8fZzONE=.6ff583f60da252dbc2ac1bd1f39d083c760f6a582f7eadf153ed1fc7f7d71f32.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/meta/episodes/chunk-000/file-001.parquet
+Downloading 'meta/info.json' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/meta/c-Q9HGFI0JpMTOZ5pylhXwaYu2U=.192520571ff10a1ae0e965945bc559cb98620a93.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/meta/info.json
+Downloading 'meta/stats.json' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/meta/b96sC8rCl6ISzlk4iRUGFDDYzCg=.f774ed86f7d1865837c628adb7dc592299fafa31.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/meta/stats.json
+Downloading 'meta/tasks.parquet' to '/workspace/data/a3_front_close_left_100/.cache/huggingface/download/meta/zpI_TpC7Vh3pdKT0qDPhIBYhxfs=.82fd48e3722f575b42c453344d595c55b722472614d6fe2f7fa8d344e048e726.incomplete'
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/meta/tasks.parquet
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-046.parquet
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-047.parquet
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-042.parquet
+Fetching 60 files:  80%|██████████████████▍    | 48/60 [10:11<02:45, 13.80s/it]Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-045.parquet
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-048.parquet
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-049.parquet
+Download complete. Moving file to /workspace/data/a3_front_close_left_100/data/chunk-000/file-044.parquet
+Fetching 60 files:  83%|███████████████████▏   | 50/60 [12:00<03:26, 20.61s/it]Fetching 60 files: 100%|███████████████████████| 60/60 [12:00<00:00, 12.01s/it]
+/workspace/data/a3_front_close_left_100

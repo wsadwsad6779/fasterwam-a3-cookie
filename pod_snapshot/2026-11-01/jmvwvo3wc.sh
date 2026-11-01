@@ -1,0 +1,1 @@
+date; grep -E 'dir.' /workspace/cc3.out | tail -1; grep -E 'seed' /workspace/cc3.out | tail -2 | cut -c1-190

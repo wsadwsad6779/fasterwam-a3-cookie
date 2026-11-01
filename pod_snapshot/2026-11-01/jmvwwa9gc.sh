@@ -1,0 +1,1 @@
+head -c 950 /workspace/a3_eval/r5_b0_c0_paired/summary_lora.json

@@ -1,0 +1,19 @@
+      1       0  1-03:40:50  0.1 Ssl  /opt/venv/bin/python3.12 /opt/venv/bin/jupyter-lab --config=/etc/jupyter/jupyter_server_config.py
+   4289       1  1-03:11:09  0.0 Zs   [python3] <defunct>
+   4811       1  1-03:07:55  0.0 Zs   [python3] <defunct>
+  14288       1  1-02:23:08  0.0 Z    [python3] <defunct>
+  15057       1  1-02:18:56  0.0 Zs   [python3] <defunct>
+  18390       1  1-02:09:21  0.0 Zs   [python3] <defunct>
+  18510       1  1-02:05:43  0.0 Zs   [python3] <defunct>
+ 132627       1    16:09:59  0.0 Z    [python3] <defunct>
+ 135229       1    16:09:26  0.0 Z    [python3] <defunct>
+ 135670       1    16:02:17  0.0 Z    [python3] <defunct>
+ 135866       1    16:00:45  0.4 Z    [python3] <defunct>
+ 136217       1    15:59:11  0.4 Z    [python3] <defunct>
+ 136386       1    15:58:35  2.9 Z    [python3] <defunct>
+ 139586       1    15:54:16  1.6 Z    [python3] <defunct>
+ 139587       1    15:54:16  0.2 Z    [python3] <defunct>
+ 144249       1    15:37:33  0.0 Z    [python3] <defunct>
+ 362391  361184       05:29  0.0 S    bash /workspace/_r4_stage/tko_maskrun.sh
+ 362396  362391       05:29  101 Rl   python3 -u /workspace/_r4_stage/tko_mask.py --npz /workspace/a3_eval/r4_c0_seed22_video/lora_C0_22.npz --seed 22 --out /wo
+PS_DONE_0

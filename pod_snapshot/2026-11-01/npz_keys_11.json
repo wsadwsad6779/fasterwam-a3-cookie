@@ -1,0 +1,131 @@
+{
+ "pre_14d": [
+  [
+   600,
+   14
+  ],
+  "float64"
+ ],
+ "post_14d": [
+  [
+   600,
+   14
+  ],
+  "float64"
+ ],
+ "changed": [
+  [
+   600
+  ],
+  "bool"
+ ],
+ "post_wrap_14d": [
+  [
+   600,
+   14
+  ],
+  "float64"
+ ],
+ "cookie_xyz": [
+  [
+   600,
+   80,
+   3
+  ],
+  "float64"
+ ],
+ "cookie_step": [
+  [
+   600
+  ],
+  "int64"
+ ],
+ "cookie_xyz0": [
+  [
+   80,
+   3
+  ],
+  "float64"
+ ],
+ "chunk_idx": [
+  [
+   600
+  ],
+  "int64"
+ ],
+ "phase": [
+  [
+   600
+  ],
+  "int8"
+ ],
+ "opening": [
+  [
+   600
+  ],
+  "float64"
+ ],
+ "applied_opening": [
+  [
+   600
+  ],
+  "float64"
+ ],
+ "applied_canonical": [
+  [
+   600,
+   16
+  ],
+  "float64"
+ ],
+ "pad_force_inner": [
+  [
+   600
+  ],
+  "float64"
+ ],
+ "pad_force_outer": [
+  [
+   600
+  ],
+  "float64"
+ ],
+ "dist_to_source": [
+  [
+   600
+  ],
+  "float64"
+ ],
+ "eef_xyz": [
+  [
+   600,
+   3
+  ],
+  "float64"
+ ],
+ "wrist_force": [
+  [
+   600,
+   3
+  ],
+  "float64"
+ ],
+ "oracle_cookie": [
+  [
+   600
+  ],
+  "int64"
+ ],
+ "oracle_data": [
+  [
+   600
+  ],
+  "int64"
+ ],
+ "oracle_sensor": [
+  [
+   600
+  ],
+  "int64"
+ ]
+}

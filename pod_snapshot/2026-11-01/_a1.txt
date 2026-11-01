@@ -1,0 +1,125 @@
+=== R2 head ===
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[aiter] WARNING: NUMA balancing is enabled, which may cause errors. It is recommended to disable NUMA balancing by running "sudo sh -c 'echo 0 > /proc/sys/kernel/numa_balancing'" for more details: https://rocm.docs.amd.com/en/latest/how-to/system-optimization/mi300x.html#disable-numa-auto-balancing
+[aiter] import [module_aiter_enum] under /opt/venv/lib/python3.12/site-packages/aiter/jit/module_aiter_enum.so
+/opt/venv/lib/python3.12/site-packages/apex/transformer/functional/fused_rope.py:49: UserWarning: Aiter backend is selected for fused RoPE. This has lower precision. To disable aiter, export USE_ROCM_AITER_ROPE_BACKEND=0
+  warnings.warn("Aiter backend is selected for fused RoPE. This has lower precision. To disable aiter, export USE_ROCM_AITER_ROPE_BACKEND=0", UserWarning)
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+10/30 [14:37:37] INFO     | >> Loading Wan2.2-TI2V-5B              loader.py:152
+                          components...                                         
+                 INFO     | >> Skipping pretrained video DiT load  loader.py:171
+                          (`skip_dit_load_from_pretrain=True`);                 
+                          initializing video expert randomly and                
+                          expecting checkpoint override.                        
+10/30 [14:38:04] INFO     | >> Skipping pretrained text            loader.py:206
+                          encoder/tokenizer load                                
+                          (`load_text_encoder=False`); training                 
+                          must provide cached                                   
+                          `context/context_mask`.                               
+10/30 [14:38:11] INFO     | >> Finished loading Wan2.2-TI2V-5B     loader.py:211
+                          components in 34.30 seconds.                          
+                 INFO     | >> Skipping SparseActionDiT sparse_action_dit.py:217
+                          pretrained load                                       
+                          (`skip_dit_load_from_pretrain                         
+                          =True`); initializing action                          
+                          expert randomly and expecting                         
+                          checkpoint override.                                  
+10/30 [14:38:14] INFO     | >> Initialized SparseMoT with      sparse_mot.py:106
+                          layers=30, condition_layers=[0, 4,                    
+                          8, 12, 16, 20, 24, 28],                               
+                          condition_heads=24,                                   
+                          noncondition_heads=8,                                 
+                          video_kv_fusion=interval_weighted_su                  
+                          m                                                     
+                 INFO     | >>   Expert 'video':               sparse_mot.py:117
+=== R2 300-340 ===
+                          loss=0.0960 loss_action=0.0067                        
+                          loss_video=0.0894 lr=7.52e-05                         
+                          speed=0.43 step/s, 2.59 samples/s                     
+                          eta=01:13:28                                          
+10/30 [15:21:45] INFO     | >>  epoch=0 step=1120/3000            trainer.py:719
+                          loss=0.1770 loss_action=0.0784                        
+                          loss_video=0.0986 lr=7.43e-05                         
+                          speed=0.43 step/s, 2.58 samples/s                     
+                          eta=01:12:47                                          
+10/30 [15:22:31] INFO     | >>  epoch=0 step=1140/3000            trainer.py:719
+                          loss=0.2036 loss_action=0.0584                        
+                          loss_video=0.1452 lr=7.33e-05                         
+                          speed=0.43 step/s, 2.58 samples/s                     
+                          eta=01:11:59                                          
+10/30 [15:23:16] INFO     | >>  epoch=0 step=1160/3000            trainer.py:719
+                          loss=0.1141 loss_action=0.0139                        
+                          loss_video=0.1002 lr=7.24e-05                         
+                          speed=0.43 step/s, 2.58 samples/s                     
+                          eta=01:11:11                                          
+10/30 [15:24:05] INFO     | >>  epoch=0 step=1180/3000            trainer.py:719
+                          loss=0.1075 loss_action=0.0255                        
+                          loss_video=0.0820 lr=7.14e-05                         
+                          speed=0.43 step/s, 2.58 samples/s                     
+                          eta=01:10:29                                          
+10/30 [15:24:56] INFO     | >>  epoch=0 step=1200/3000            trainer.py:719
+                          loss=0.2576 loss_action=0.0917                        
+                          loss_video=0.1659 lr=7.04e-05                         
+                          speed=0.43 step/s, 2.58 samples/s                     
+                          eta=01:09:49                                          
+10/30 [15:25:46] INFO     | >>  epoch=0 step=1220/3000            trainer.py:719
+                          loss=0.2810 loss_action=0.0042                        
+                          loss_video=0.2768 lr=6.94e-05                         
+                          speed=0.43 step/s, 2.58 samples/s                     
+                          eta=01:09:07                                          
+10/30 [15:26:35] INFO     | >>  epoch=0 step=1240/3000            trainer.py:719
+                          loss=0.1553 loss_action=0.0555                        
+                          loss_video=0.0998 lr=6.84e-05                         
+                          speed=0.43 step/s, 2.57 samples/s                     
+                          eta=01:08:24                                          
+10/30 [15:27:28] INFO     | >>  epoch=0 step=1260/3000            trainer.py:719
+                          loss=0.1994 loss_action=0.0083                        
+=== R2 tail ===
+                          'mot.mixtures.action.blocks.12.self_attn.             
+                          v.bias',                                              
+                          'mot.mixtures.action.blocks.2.self_attn.q             
+                          .lora_B'} while saving. This should be                
+                          OK, but check by verifying that you don't             
+                          receive any warning while reloading                   
+Error executing job with overrides: ['data=a3_2cam', 'task=a3_fasterwam', 'batch_size=6', 'max_steps=3000', 'learning_rate=1e-4', 'log_every=20', 'save_every=1500', 'eval_every=0', 'output_dir=/workspace/a3_train_runs/a3_lora_r2', 'resume=/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt']
+Traceback (most recent call last):
+  File "/workspace/FasterWAM/scripts/train.py", line 12, in main
+    run_training(cfg)
+  File "/workspace/FasterWAM/src/fasterwam/runtime.py", line 394, in run_training
+    trainer.train()
+  File "/workspace/FasterWAM/src/fasterwam/trainer.py", line 777, in train
+    ckpt_info = self.save_checkpoint()
+                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/FasterWAM/src/fasterwam/trainer.py", line 598, in save_checkpoint
+    self.accelerator.save_state(output_dir=state_path)
+  File "/opt/venv/lib/python3.12/site-packages/accelerate/accelerator.py", line 3685, in save_state
+    save_location = save_accelerator_state(
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/accelerate/checkpointing.py", line 114, in save_accelerator_state
+    save(state, output_model_file, save_on_each_node=save_on_each_node, safe_serialization=safe_serialization)
+  File "/opt/venv/lib/python3.12/site-packages/accelerate/utils/other.py", line 387, in save
+    save_func(obj, f)
+  File "/opt/venv/lib/python3.12/site-packages/safetensors/torch.py", line 323, in save_file
+    serialize_file(
+safetensors._safetensors_rust.SafetensorError: Error while serializing: I/O error: No space left on device (os error 28)
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Traceback (most recent call last):
+  File "/opt/venv/bin/accelerate", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/accelerate/commands/accelerate_cli.py", line 50, in main
+    args.func(args)
+  File "/opt/venv/lib/python3.12/site-packages/accelerate/commands/launch.py", line 1405, in launch_command
+    simple_launcher(args)
+  File "/opt/venv/lib/python3.12/site-packages/accelerate/commands/launch.py", line 993, in simple_launcher
+    raise subprocess.CalledProcessError(returncode=process.returncode, cmd=cmd)
+subprocess.CalledProcessError: Command '['/opt/venv/bin/python3', 'scripts/train.py', 'data=a3_2cam', 'task=a3_fasterwam', 'batch_size=6', 'max_steps=3000', 'learning_rate=1e-4', 'log_every=20', 'save_every=1500', 'eval_every=0', 'output_dir=/workspace/a3_train_runs/a3_lora_r2', 'resume=/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt']' returned non-zero exit status 1.
+CMDDONE

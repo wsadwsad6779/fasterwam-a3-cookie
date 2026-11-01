@@ -1,0 +1,1 @@
+cd /workspace/_r5_stage && sha256sum r5_report.py && python3 -c "import ast;ast.parse(open('/workspace/_r5_stage/r5_report.py').read());print('COMPILE_OK')"; echo '--- wc2 ---'; date; tail -c 1200 /workspace/wc2.out; echo '--- cc1 running? ---'; pgrep -f replay_correct >/dev/null && echo YES || echo NO

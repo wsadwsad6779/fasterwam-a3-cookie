@@ -1,0 +1,1 @@
+grep -E 'TALLY' /workspace/cc2.out

@@ -1,0 +1,7 @@
+4.0K	/workspace/a3_train_runs/a3_lora_r3/checkpoints/state
+11G	/workspace/a3_train_runs/a3_lora_r3/checkpoints/weights
+11G	/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt
+12K	/workspace/a3_train_runs/a3_lora_r2/checkpoints
+8.0K	/workspace/a3_train_runs/a3_lora_r2/config.yaml
+4.0K	/workspace/a3_train_runs/a3_lora_r2/eval
+11G	/workspace/a3_train_runs/a3_lora_r2/step_003000_merged.pt

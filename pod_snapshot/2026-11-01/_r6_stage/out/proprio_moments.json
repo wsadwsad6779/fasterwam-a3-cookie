@@ -1,0 +1,212 @@
+{
+  "r4_crashed_500": {
+    "optimizer_members": 786,
+    "last_slots": {
+      "784": {
+        "step": 500.0,
+        "exp_avg": {
+          "shape": [
+            4096,
+            8
+          ],
+          "dtype": "torch.bfloat16",
+          "numel": 32768,
+          "all_zero": false,
+          "absmax": 6.818771362304688e-05,
+          "absmean": 1.06529587355908e-05
+        },
+        "exp_avg_sq": {
+          "shape": [
+            4096,
+            8
+          ],
+          "dtype": "torch.bfloat16",
+          "numel": 32768,
+          "all_zero": false,
+          "absmax": 1.0058283805847168e-07,
+          "absmean": 6.140691510836405e-09
+        }
+      },
+      "785": {
+        "step": 500.0,
+        "exp_avg": {
+          "shape": [
+            4096
+          ],
+          "dtype": "torch.bfloat16",
+          "numel": 4096,
+          "all_zero": false,
+          "absmax": 7.82012939453125e-05,
+          "absmean": 1.2620595953194425e-05
+        },
+        "exp_avg_sq": {
+          "shape": [
+            4096
+          ],
+          "dtype": "torch.bfloat16",
+          "numel": 4096,
+          "all_zero": false,
+          "absmax": 1.2479722499847412e-07,
+          "absmean": 8.91434126515378e-09
+        }
+      }
+    },
+    "slot0_control": {
+      "exp_avg": {
+        "shape": [
+          16,
+          3072
+        ],
+        "dtype": "torch.bfloat16",
+        "numel": 49152,
+        "all_zero": false,
+        "absmax": 3.874301910400391e-06,
+        "absmean": 1.2383392800074944e-07
+      }
+    },
+    "zero_grad_slots": 0
+  },
+  "r4_4000": {
+    "optimizer_members": 786,
+    "last_slots": {
+      "784": {
+        "step": 4000.0,
+        "exp_avg": {
+          "shape": [
+            4096,
+            8
+          ],
+          "dtype": "torch.bfloat16",
+          "numel": 32768,
+          "all_zero": false,
+          "absmax": 4.482269287109375e-05,
+          "absmean": 7.5860630204260815e-06
+        },
+        "exp_avg_sq": {
+          "shape": [
+            4096,
+            8
+          ],
+          "dtype": "torch.bfloat16",
+          "numel": 32768,
+          "all_zero": false,
+          "absmax": 2.828892320394516e-08,
+          "absmean": 2.457502645825116e-09
+        }
+      },
+      "785": {
+        "step": 4000.0,
+        "exp_avg": {
+          "shape": [
+            4096
+          ],
+          "dtype": "torch.bfloat16",
+          "numel": 4096,
+          "all_zero": false,
+          "absmax": 4.649162292480469e-05,
+          "absmean": 1.0851560546143446e-05
+        },
+        "exp_avg_sq": {
+          "shape": [
+            4096
+          ],
+          "dtype": "torch.bfloat16",
+          "numel": 4096,
+          "all_zero": false,
+          "absmax": 2.828892320394516e-08,
+          "absmean": 3.3513694042142106e-09
+        }
+      }
+    },
+    "slot0_control": {
+      "exp_avg": {
+        "shape": [
+          16,
+          3072
+        ],
+        "dtype": "torch.bfloat16",
+        "numel": 49152,
+        "all_zero": false,
+        "absmax": 3.516674041748047e-06,
+        "absmean": 1.356143570774293e-07
+      }
+    },
+    "zero_grad_slots": 0
+  },
+  "r5_8000": {
+    "optimizer_members": 786,
+    "last_slots": {
+      "784": {
+        "step": 8000.0,
+        "exp_avg": {
+          "shape": [
+            4096,
+            8
+          ],
+          "dtype": "torch.bfloat16",
+          "numel": 32768,
+          "all_zero": false,
+          "absmax": 7.2479248046875e-05,
+          "absmean": 9.016060175781604e-06
+        },
+        "exp_avg_sq": {
+          "shape": [
+            4096,
+            8
+          ],
+          "dtype": "torch.bfloat16",
+          "numel": 32768,
+          "all_zero": false,
+          "absmax": 4.842877388000488e-08,
+          "absmean": 2.8296698317831215e-09
+        }
+      },
+      "785": {
+        "step": 8000.0,
+        "exp_avg": {
+          "shape": [
+            4096
+          ],
+          "dtype": "torch.bfloat16",
+          "numel": 4096,
+          "all_zero": false,
+          "absmax": 4.792213439941406e-05,
+          "absmean": 9.894652066577692e-06
+        },
+        "exp_avg_sq": {
+          "shape": [
+            4096
+          ],
+          "dtype": "torch.bfloat16",
+          "numel": 4096,
+          "all_zero": false,
+          "absmax": 4.936009645462036e-08,
+          "absmean": 3.9272176621807375e-09
+        }
+      }
+    },
+    "slot0_control": {
+      "exp_avg": {
+        "shape": [
+          16,
+          3072
+        ],
+        "dtype": "torch.bfloat16",
+        "numel": 49152,
+        "all_zero": false,
+        "absmax": 6.616115570068359e-06,
+        "absmean": 3.008027249506995e-07
+      }
+    },
+    "zero_grad_slots": 0
+  },
+  "r3_3000": {
+    "missing": "/workspace/a3_train_runs/a3_lora_r3/checkpoints/light/step_003000/optimizer.pt"
+  },
+  "r2_3000": {
+    "missing": "/workspace/a3_train_runs/a3_lora_r2/checkpoints/light/step_003000/optimizer.pt"
+  },
+  "r1_2000": {
+    "missing": "/workspace/a3_train_runs/a3_lora_r1/checkpoints/light/step_002000/optimizer.pt"
+  }
+}

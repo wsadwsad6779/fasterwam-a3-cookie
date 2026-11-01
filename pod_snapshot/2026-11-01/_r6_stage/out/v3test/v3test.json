@@ -1,0 +1,104 @@
+{
+  "coverage": {
+    "named_tensors": 8,
+    "named_elements": 4872,
+    "requires_grad_tensors": 6,
+    "requires_grad_elements": 4800,
+    "optimizer_members": 4,
+    "saved_tensors": 4,
+    "saved_elements": 640,
+    "saved_lora_tensors": 2,
+    "saved_nonlora_names": [
+      "proprio_encoder.bias",
+      "proprio_encoder.weight"
+    ],
+    "requires_grad_but_not_optimised": 2,
+    "requires_grad_but_not_optimised_elements": 4160,
+    "kept_by_v1": 2,
+    "kept_by_v1_elements": 64,
+    "dropped_by_v1": [
+      "proprio_encoder.bias",
+      "proprio_encoder.weight"
+    ],
+    "dropped_by_v1_elements": 576,
+    "selection_method": "identity",
+    "projected_adapter_bytes": 2560
+  },
+  "check_decoy_requires_grad_but_not_optimised": true,
+  "check_saved_excludes_decoy": true,
+  "check_proprio_selected": true,
+  "check_proprio_actually_moved": true,
+  "check_frozen_base_untouched": true,
+  "v1_keys": 2,
+  "v1_drops": [
+    "dit.video_expert.bias",
+    "dit.video_expert.weight",
+    "proprio_encoder.bias",
+    "proprio_encoder.weight"
+  ],
+  "check_v1_drops_proprio": true,
+  "save": {
+    "bytes": 5449,
+    "projected": 2560,
+    "file_on_disk": 5449
+  },
+  "check_projected_matches_actual": true,
+  "load_v3": {
+    "format": "fasterwam-lora-adapter-v3",
+    "restored_tensors": 4,
+    "restored_elements": 640,
+    "meta": {
+      "global_step": 5,
+      "coverage": {
+        "named_tensors": 8,
+        "named_elements": 4872,
+        "requires_grad_tensors": 6,
+        "requires_grad_elements": 4800,
+        "optimizer_members": 4,
+        "saved_tensors": 4,
+        "saved_elements": 640,
+        "saved_lora_tensors": 2,
+        "saved_nonlora_names": [
+          "proprio_encoder.bias",
+          "proprio_encoder.weight"
+        ],
+        "requires_grad_but_not_optimised": 2,
+        "requires_grad_but_not_optimised_elements": 4160,
+        "kept_by_v1": 2,
+        "kept_by_v1_elements": 64,
+        "dropped_by_v1": [
+          "proprio_encoder.bias",
+          "proprio_encoder.weight"
+        ],
+        "dropped_by_v1_elements": 576,
+        "selection_method": "identity",
+        "projected_adapter_bytes": 2560
+      },
+      "projected_bytes": 2560
+    }
+  },
+  "check_v3_bit_exact": [
+    true,
+    [
+      "dit.q_lora.lora_A",
+      "dit.q_lora.lora_B",
+      "proprio_encoder.weight",
+      "proprio_encoder.bias"
+    ]
+  ],
+  "check_v3_kept_decoy_fresh": true,
+  "v1_refused": "/workspace/_r6_stage/out/v3test/v1.pt: v1 adapter holds only lora_ keys (2 tensors). Any non-LoRA parameter the optimiser stepped is absent, so this file cannot",
+  "legacy_restore": {
+    "report": {
+      "format": "fasterwam-lora-adapter-v1",
+      "restored_tensors": 2,
+      "restored_elements": 64,
+      "meta": {}
+    },
+    "proprio_still_random": true,
+    "lora_restored_exact": true
+  },
+  "budget_guard": "/workspace/_r6_stage/out/v3test/never.pt: v3 adapter would write 2560 B but the budget is 10 B; nothing was written.",
+  "check_budget_left_no_file": true,
+  "unresolvable_optimizer": "optimizer membership unresolved: identity matched 0 of 4 and the trainer-order fallback does not reproduce it (shapes [((4, 8), 'torch.float32'), ((8, 4), 'torc"
+}

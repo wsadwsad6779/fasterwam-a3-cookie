@@ -1,0 +1,8 @@
+nohup: ignoring input
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+robomimic 0.3.0 requires egl_probe>=1.0.1, which is not installed.
+robomimic 0.3.0 requires tensorboardX, which is not installed.
+libero 0.1.1 requires hf-egl-probe>=1.0.1, which is not installed.
+libero 0.1.1 requires bddl==1.0.1, but you have bddl 3.6.0 which is incompatible.
+libero 0.1.1 requires robomimic==0.2.0, but you have robomimic 0.3.0 which is incompatible.
+PIP_RC_0

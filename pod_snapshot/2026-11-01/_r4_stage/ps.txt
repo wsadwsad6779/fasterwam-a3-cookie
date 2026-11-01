@@ -1,0 +1,26 @@
+      1  1-03:08:40  0.1 111392 /opt/venv/bin/python3.12 /opt/venv/bin/jupyter-l
+   4289  1-02:38:59  0.0     0 [python3] <defunct>
+   4811  1-02:35:45  0.0     0 [python3] <defunct>
+  14288  1-01:50:58  0.0     0 [python3] <defunct>
+  15057  1-01:46:46  0.0     0 [python3] <defunct>
+  18390  1-01:37:11  0.0     0 [python3] <defunct>
+  18510  1-01:33:33  0.0     0 [python3] <defunct>
+ 132627    15:37:49  0.0     0 [python3] <defunct>
+ 135229    15:37:16  0.0     0 [python3] <defunct>
+ 135670    15:30:07  0.0     0 [python3] <defunct>
+ 135866    15:28:35  0.4     0 [python3] <defunct>
+ 136217    15:27:01  0.4     0 [python3] <defunct>
+ 136386    15:26:25  3.0     0 [python3] <defunct>
+ 139586    15:22:06  1.7     0 [python3] <defunct>
+ 139587    15:22:06  0.3     0 [python3] <defunct>
+ 144249    15:05:23  0.0     0 [python3] <defunct>
+ 353778       04:44  210 7548556 python3 run_matrix.py --model lora --ckpt /work
+---
+
+
+============================ ROCm System Management Interface ============================
+=================================== % time GPU is busy ===================================
+GPU[0]		: GPU use (%): 1
+==========================================================================================
+================================== End of ROCm SMI Log ===================================
+__PS__

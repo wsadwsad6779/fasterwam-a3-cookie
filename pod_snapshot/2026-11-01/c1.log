@@ -1,0 +1,81 @@
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[policy] lora ckpt=/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt stats=/workspace/a3_data/a3_fw/dataset_stats.json device=cuda gripper_mode=pm1
+[policy] instruction='transfer 10 cookies into target box'
+[matrix] manifest={"num_episodes": 100, "num_transition": 42681, "action": {"min": [-0.0642, -0.1149, -0.295, -0.0413, -0.0121, -0.0247, -1.0], "max": [0.0872, 0.2987, 0.1003, 0.0152, 0.0336, 0.0297, 1.0]}, "state": {"min": [0.0546, 0.0903, 0.7638, -1.2248, -2.4338, -1.2333, 0.0123, -0.0402], "max": [0.1335, 0.3029, 0.92, 2.4801, 1.2336, 2.4433, 0.0402, -0.0123]}}
+[matrix] limits soft=25.0 hard=40.0
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+/workspace/fasterwam_a3_bridge/FasterWAM/src/fasterwam/models/wan22/wan_video_dit.py:19: UserWarning: Using AOTriton backend for Efficient Attention forward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention.hip:1452.)
+  x = F.scaled_dot_product_attention(q, k, v, attn_mask=ctx_mask)
+[lora/C1/11] step=50 in=0 xyz=[0.106, 0.254, 0.787] dist=0.008 f=(0.00,0.00) oracle=(100,150)
+[lora/C1/11] step=100 in=0 xyz=[0.106, 0.249, 0.764] dist=0.007 f=(0.00,0.19) oracle=(192,292)
+[lora/C1/11] step=150 in=0 xyz=[0.109, 0.257, 0.801] dist=0.010 f=(0.72,0.69) oracle=(244,392)
+[lora/C1/11] step=200 in=0 xyz=[0.108, 0.129, 0.837] dist=0.103 f=(0.69,0.68) oracle=(294,492)
+[lora/C1/11] step=250 in=5 xyz=[0.108, 0.095, 0.789] dist=0.136 f=(0.67,0.65) oracle=(344,592)
+[lora/C1/11] step=300 in=5 xyz=[0.107, 0.102, 0.788] dist=0.130 f=(0.67,0.64) oracle=(394,692)
+[lora/C1/11] step=350 in=5 xyz=[0.108, 0.105, 0.789] dist=0.127 f=(0.65,0.63) oracle=(444,792)
+[lora/C1/11] step=400 in=3 xyz=[0.105, 0.289, 0.868] dist=0.007 f=(0.00,0.00) oracle=(510,908)
+[lora/C1/11] step=450 in=3 xyz=[0.107, 0.288, 0.783] dist=0.008 f=(18.39,0.00) oracle=(610,1058)
+[lora/C1/11] step=500 in=3 xyz=[0.106, 0.288, 0.774] dist=0.008 f=(0.00,0.00) oracle=(710,1208)
+[lora/C1/11] step=550 in=3 xyz=[0.107, 0.285, 0.846] dist=0.007 f=(0.00,0.00) oracle=(775,1321)
+[lora/C1/11] step=600 in=3 xyz=[0.115, 0.112, 0.823] dist=0.121 f=(0.00,0.00) oracle=(825,1421)
+[matrix] {"model": "lora", "control": "C1", "released": ["transport_xyz"], "safety_layer": true, "seed": 11, "steps": 600, "replans": 60, "success": false, "cookies_in_target": 3, "final_phase": "hold", "max_pad_force": 21.495, "max_wrist_force": 13.21, "verbatim_pct": 0.0, "oracle_cookie_reads": 825, "oracle_data_reads": 1421, "sensor_reads": 1200, "estop_steps": 0, "binfloor_steps": 0, "duration_s": 89.1, "position_noise_m": 0.0, "yaw_noise_rad": 0.0, "batch_offset_m": 0.0, "batch_offset_xy_m": [0.0, 0.0], "randomize_boxes": false, "scene_ok": true, "scene_max_penetration_mm": 0.0, "scene_cookies_outside_bin": 0, "gripper_mode": "pm1"}
+[lora/C1/21] step=50 in=0 xyz=[0.106, 0.254, 0.787] dist=0.008 f=(0.00,0.00) oracle=(100,150)
+[lora/C1/21] step=100 in=0 xyz=[0.106, 0.248, 0.763] dist=0.007 f=(0.00,0.11) oracle=(192,292)
+[lora/C1/21] step=150 in=0 xyz=[0.109, 0.247, 0.816] dist=0.010 f=(0.00,0.00) oracle=(244,392)
+[lora/C1/21] step=200 in=0 xyz=[0.1, 0.112, 0.834] dist=0.119 f=(0.00,0.00) oracle=(294,492)
+[lora/C1/21] step=250 in=0 xyz=[0.095, 0.076, 0.797] dist=0.155 f=(0.00,0.00) oracle=(344,592)
+[lora/C1/21] step=300 in=0 xyz=[0.091, 0.054, 0.802] dist=0.177 f=(0.00,0.00) oracle=(394,692)
+[lora/C1/21] step=350 in=0 xyz=[0.094, 0.026, 0.825] dist=0.205 f=(0.00,0.00) oracle=(444,792)
+[lora/C1/21] step=400 in=0 xyz=[0.103, 0.13, 0.973] dist=0.101 f=(0.00,0.00) oracle=(495,893)
+[lora/C1/21] step=450 in=0 xyz=[0.105, 0.246, 0.818] dist=0.007 f=(0.00,0.00) oracle=(595,1043)
+[lora/C1/21] step=500 in=0 xyz=[0.107, 0.246, 0.769] dist=0.008 f=(0.00,3.10) oracle=(695,1193)
+[lora/C1/21] step=550 in=0 xyz=[0.106, 0.242, 0.771] dist=0.006 f=(1.55,4.33) oracle=(795,1343)
+[lora/C1/21] step=600 in=0 xyz=[0.103, 0.144, 0.835] dist=0.088 f=(1.21,1.33) oracle=(849,1445)
+[matrix] {"model": "lora", "control": "C1", "released": ["transport_xyz"], "safety_layer": true, "seed": 21, "steps": 600, "replans": 60, "success": false, "cookies_in_target": 0, "final_phase": "hold", "max_pad_force": 29.294, "max_wrist_force": 18.6, "verbatim_pct": 0.0, "oracle_cookie_reads": 849, "oracle_data_reads": 1445, "sensor_reads": 1200, "estop_steps": 0, "binfloor_steps": 0, "duration_s": 85.2, "position_noise_m": 0.0, "yaw_noise_rad": 0.0, "batch_offset_m": 0.0, "batch_offset_xy_m": [0.0, 0.0], "randomize_boxes": false, "scene_ok": true, "scene_max_penetration_mm": 0.0, "scene_cookies_outside_bin": 0, "gripper_mode": "pm1"}
+[lora/C1/22] step=50 in=0 xyz=[0.106, 0.254, 0.787] dist=0.008 f=(0.00,0.00) oracle=(100,150)
+[lora/C1/22] step=100 in=0 xyz=[0.106, 0.249, 0.766] dist=0.007 f=(0.00,0.00) oracle=(192,292)
+[lora/C1/22] step=150 in=0 xyz=[0.107, 0.253, 0.82] dist=0.009 f=(0.00,0.00) oracle=(244,392)
+[lora/C1/22] step=200 in=0 xyz=[0.102, 0.114, 0.837] dist=0.117 f=(0.00,0.00) oracle=(294,492)
+[lora/C1/22] step=250 in=0 xyz=[0.096, 0.093, 0.789] dist=0.139 f=(0.00,0.00) oracle=(344,592)
+[lora/C1/22] step=300 in=0 xyz=[0.096, 0.096, 0.789] dist=0.136 f=(0.00,0.00) oracle=(394,692)
+[lora/C1/22] step=350 in=0 xyz=[0.096, 0.096, 0.789] dist=0.135 f=(0.00,0.00) oracle=(444,792)
+[lora/C1/22] step=400 in=0 xyz=[0.105, 0.201, 0.886] dist=0.030 f=(0.00,0.00) oracle=(502,900)
+[lora/C1/22] step=450 in=0 xyz=[0.106, 0.249, 0.781] dist=0.006 f=(0.00,0.00) oracle=(602,1050)
+[lora/C1/22] step=500 in=0 xyz=[0.106, 0.246, 0.78] dist=0.007 f=(0.00,0.00) oracle=(702,1200)
+[lora/C1/22] step=550 in=0 xyz=[0.104, 0.173, 0.84] dist=0.059 f=(0.00,0.00) oracle=(762,1308)
+[lora/C1/22] step=600 in=0 xyz=[0.09, 0.097, 0.79] dist=0.135 f=(0.00,0.00) oracle=(812,1408)
+[matrix] {"model": "lora", "control": "C1", "released": ["transport_xyz"], "safety_layer": true, "seed": 22, "steps": 600, "replans": 60, "success": false, "cookies_in_target": 0, "final_phase": "hold", "max_pad_force": 21.495, "max_wrist_force": 13.19, "verbatim_pct": 0.0, "oracle_cookie_reads": 812, "oracle_data_reads": 1408, "sensor_reads": 1200, "estop_steps": 0, "binfloor_steps": 0, "duration_s": 109.3, "position_noise_m": 0.0, "yaw_noise_rad": 0.0, "batch_offset_m": 0.0, "batch_offset_xy_m": [0.0, 0.0], "randomize_boxes": false, "scene_ok": true, "scene_max_penetration_mm": 0.0, "scene_cookies_outside_bin": 0, "gripper_mode": "pm1"}
+[matrix] done 3 runs -> outputs/C1
+
+== cells ==
+| cell | n | success | cookies_mean | verbatim_% | rewrite_mm | model_mm | max_force_N | oracle_reads |
+|---|---|---|---|---|---|---|---|---|
+| lora/C1 | 3 | 0/3 | 1.0 | 0.0 | 1.15 | 2.17 | 29.3 | 2253 |
+
+== authority by channel (percent of steps passed through untouched) ==
+| cell | xyz | rot | grip |
+|---|---|---|---|
+| lora/C1 | 49.3 | 0.0 | 3.9 |
+
+== self-check: safety control is low-intervention ==
+
+== paired raw -> lora (same seeds) ==
+
+== authority per phase x channel ==
+| cell | phase | steps | verbatim | xyz | rot | grip | rewrite_mm |
+|---|---|---|---|---|---|---|---|
+| lora/C1 | open | 34 | 0.0 | 0.0 | 0.0 | 64.5 | 4.94 |
+| lora/C1 | preclose | 24 | 0.0 | 0.0 | 0.0 | 5.6 | 2.15 |
+| lora/C1 | descend | 82 | 0.0 | 0.0 | 0.0 | 0.0 | 2.51 |
+| lora/C1 | close | 83 | 0.0 | 0.0 | 0.0 | 0.0 | 1.08 |
+| lora/C1 | hold | 337 | 0.0 | 84.2 | 0.0 | 0.0 | 0.28 |
+| lora/C1 | release | 10 | 0.0 | 40.0 | 0.0 | 0.0 | 0.62 |
+| lora/C1 | done | 30 | 0.0 | 33.7 | 0.0 | 0.0 | 2.53 |
+
+== C5 vs C0 (same model, same seeds) ==
+criterion: C5 must clearly beat C0; a near-zero delta means the weights were not updated, not that the model improved
+
+[csv] outputs/C1/analysis.csv
+C1_DONE

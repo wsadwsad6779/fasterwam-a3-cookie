@@ -1,0 +1,1 @@
+sed -n "70,130p" /workspace/fasterwam_a3_bridge/bridge/_next/test_light_state.py

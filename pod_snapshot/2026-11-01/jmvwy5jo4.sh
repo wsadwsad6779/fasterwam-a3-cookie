@@ -1,0 +1,2 @@
+cd /workspace/a3_eval
+python3 /workspace/_r5_stage/c3_summary.py demos_correct_c1 demos_correct_c2 demos_correct_c3 demos_correct_c4 demos_correct_c5 demos_correct_c6

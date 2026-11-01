@@ -1,0 +1,38 @@
+{
+  "files": [
+    {
+      "path": "/workspace/a3_train_runs/a3_lora_r1/step_002000_merged.pt",
+      "bytes": 11117977659,
+      "load": "mmap",
+      "top_keys": [
+        "mot",
+        "proprio_encoder",
+        "step",
+        "torch_dtype"
+      ]
+    },
+    {
+      "path": "/workspace/a3_train_runs/a3_lora_r2/step_003000_merged.pt",
+      "bytes": 11117977659,
+      "load": "mmap",
+      "top_keys": [
+        "mot",
+        "proprio_encoder",
+        "step",
+        "torch_dtype"
+      ]
+    },
+    {
+      "path": "/workspace/a3_train_runs/a3_lora_r3/step_003000_merged.pt",
+      "bytes": 11117977659,
+      "load": "mmap",
+      "top_keys": [
+        "mot",
+        "proprio_encoder",
+        "step",
+        "torch_dtype"
+      ]
+    }
+  ],
+  "by_run": {}
+}

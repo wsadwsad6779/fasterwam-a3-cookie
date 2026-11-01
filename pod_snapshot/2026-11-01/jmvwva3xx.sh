@@ -1,0 +1,1 @@
+ls -1 /workspace/a3_data/a3_fw | head; echo ===; du -sh /workspace/a3_data/a3_fw/* 2>/dev/null | head -8; echo ===; find /workspace/a3_data/a3_fw -maxdepth 3 -name '*.mp4' | head -3; find /workspace/a3_data/a3_fw -maxdepth 3 -name '*.parquet' | head -3

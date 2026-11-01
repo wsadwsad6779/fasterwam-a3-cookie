@@ -1,0 +1,1 @@
+cd /workspace/_r5_stage && wc -l replay_forces.py && grep -n class replay_forces.py && grep -n mode replay_forces.py | head -20

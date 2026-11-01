@@ -1,0 +1,1 @@
+cd /workspace/_r5_stage; python3 -m py_compile adjudicate_wc.py; echo COMPILE_OK; sha256sum adjudicate_wc.py; export PYTHONPATH=/workspace/a3_dual_arm_sim/src; cd /workspace/fasterwam_a3_bridge/bridge/_next; python3 /workspace/_r5_stage/adjudicate_wc.py /workspace/a3_eval/demos_wrongclosure_v6 --write

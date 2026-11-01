@@ -1,0 +1,1 @@
+date; ls -1 /workspace/a3_eval/r5_b0_c0_paired 2>/dev/null | head -12; echo ===EVALTAIL; tail -c 400 /workspace/r5_eval.out 2>/dev/null; echo ===CC2; grep -c '"seed"' /workspace/cc2.out; echo ===WC4; grep -c '"seed"' /workspace/wc4.out 2>/dev/null; tail -c 260 /workspace/wc4.out 2>/dev/null

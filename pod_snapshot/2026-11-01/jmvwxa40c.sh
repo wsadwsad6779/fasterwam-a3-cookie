@@ -1,0 +1,1 @@
+head -60 /workspace/fin1.out

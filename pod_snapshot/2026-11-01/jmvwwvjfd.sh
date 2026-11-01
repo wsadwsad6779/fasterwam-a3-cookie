@@ -1,0 +1,1 @@
+sed -n "378,402p" /workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/env.py

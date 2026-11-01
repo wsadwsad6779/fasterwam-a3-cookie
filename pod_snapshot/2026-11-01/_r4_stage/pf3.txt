@@ -1,0 +1,73 @@
+=== grep in_target ===
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/diagnostics.py:58:                    "cookies_in_target",
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/diagnostics.py:60:                    "cookies_in_target_mask",
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/run_cookie_batch_cli.py:108:                    f"opening={(action[6] + 1) / 2:.4f} target={info['cookies_in_target']} "
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/run_cookie_batch_cli.py:145:            "cookies_in_target": info.get("cookies_in_target"),
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/summarize_smolvla_trace_cli.py:27:                row["after"]["cookies_in_target"],
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/summarize_smolvla_trace_cli.py:41:        target = [r["after"]["cookies_in_target"] for r in rows]
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/cli_handlers.py:266:                "cookies_in_target": int(final_info.get("cookies_in_target", 0)),
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/improve_smolvla_50_cli.py:19:        -sum(r["cookies_in_target"] for r in rows) / len(rows),
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/evaluate_smolvla_grid_cli.py:61:            counts = [row["cookies_in_target"] for row in cell]
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/evaluate_smolvla_grid_cli.py:154:        "metric": "complete task successes and final cookies_in_target (stable/released when strict mode is enabled)",
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/evaluate_smolvla_grid_cli.py:305:                    f"DONE {task} {profile} seed={seed} final={score.cookies_in_target}/{score.max_score} steps={score.steps} wall={score.wall_seconds}s",
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/episode_execution.py:170:        cookies_in_target = int(info.get("cookies_in_target", 0))
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/episode_execution.py:176:        if cookies_in_target != self.required_cookies:
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/episode_execution.py:177:            parts.append(f"{cookies_in_target}/{self.required_cookies} cookies in target box")
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/episode_execution.py:338:        cookies_in_target = int(info.get("cookies_in_target", 0))
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/episode_execution.py:346:            and cookies_in_target == self.required_cookies
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/episode_execution.py:409:            score=cookies_in_target,
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/episode_execution.py:414:            cookies_in_target=cookies_in_target,
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/optimize_smolvla_cli.py:25:            'cookies': sum(r['cookies_in_target'] for r in rows)}
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/optimize_smolvla_cli.py:108:            print('DONE',key,result.cookies_in_target,result.success,flush=True)
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/cookie_2x10_execution.py:81:            "cookies_in_target": int(info.get("cookies_in_target", 0)),
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/benchmark_cookie_batch_cli.py:35:        "required_cookies_in_target": benchmark.required_cookies,
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/smolvla_deployment_sweep_cli.py:22:        -sum(r["cookies_in_target"] for r in rows) / len(rows),
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/run_cookie_same_column_cli.py:321:                    f"opening={action[7]:.4f} target={info['cookies_in_target']} "
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/run_cookie_same_column_cli.py:413:            "cookies_in_target": info.get("cookies_in_target"),
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/run_cookie_transfer_cli.py:56:                in_target = info.get("cookies_in_target", 0)
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/run_cookie_transfer_cli.py:73:        print(f"Cookies in Target Bin: {info.get('cookies_in_target')}/10")
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/benchmark_results.py:29:    cookies_in_target: int = 0
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/diagnose_smolvla_cli.py:181:            "mean_target": sum(r["cookies_in_target"] for r in results) / len(results),
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/evaluation.py:28:    cookies_in_target: int
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/evaluation.py:98:            completed_cookies=int(info.get("cookies_in_target", 0)),
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/evaluation.py:105:            cookies_in_target=int(info.get("cookies_in_target", 0)),
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/learning/probe_smolvla_retrain_cli.py:96:                    f"target={result['cookies_in_target']}",
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/learning/probe_smolvla_retrain_cli.py:108:            "mean_target": sum(r["cookies_in_target"] for r in rows) / len(rows),
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/collect_smolvla_dagger_cli.py:134:        """Called by main() with the post-step cookies_in_target from EpisodeScore."""
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/collect_smolvla_dagger_cli.py:388:                recorder.resolve(int(result["cookies_in_target"]))
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/collect_smolvla_dagger_cli.py:395:            final_t = int(result["cookies_in_target"])
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/collect_smolvla_dagger_cli.py:450:                        "target": result["cookies_in_target"],
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/collect_second_round_cli.py:191:    assert rows[gated.start_step-1]['after']['cookies_in_target'] == 5
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/collect_second_round_cli.py:199:    assert rows[-1]['after']['cookies_in_target'] == 10
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/audit.py:37:        or metadata.get("cookies_in_target") != 20
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/tasks/cookie_transfer.py:319:            cookies_in_target=0,
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/tasks/cookie_transfer.py:322:            cookies_in_target_mask=[False] * self.task_config.cookie_count,
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/tasks/cookie_transfer.py:603:            cookies_in_target=target_count,
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/tasks/cookie_transfer.py:606:            cookies_in_target_mask=in_target,
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/tasks/cookie_2x10.py:84:        info["target_column_counts"] = self.target_column_counts(info["cookies_in_target_mask"])
+=== grep images.front ===
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/contracts.py:33:FRONT_IMAGE = "observation.images.front"
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/data/audit.py:8:    "observation.images.front",
+=== grep n_cookies ===
+=== tree ===
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/sim:
+__init__.py
+__pycache__
+actions.py
+env.py
+model.py
+model_types.py
+object_builder.py
+randomization.py
+robot_builder.py
+urdf.py
+
+/workspace/a3_dual_arm_sim/src/a3_dual_arm_sim/tasks:
+__init__.py
+__pycache__
+cookie_2x10.py
+cookie_2x10_plan.py
+cookie_2x10_settings.py
+cookie_transfer.py
+grasp.py
+__PFDONE__

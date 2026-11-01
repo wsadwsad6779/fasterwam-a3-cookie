@@ -1,0 +1,14 @@
+11G	/workspace/a3_train_runs/a3_lora_r1
+11G	/workspace/a3_train_runs/a3_lora_r2
+21G	/workspace/a3_train_runs/a3_lora_r3
+0	/workspace/a3_data/a3-front-close-left-100
+12G	/workspace/a3_data/a3_fw
+623M	/workspace/a3_data/a3_fw_dagger
+1.1M	/workspace/a3_data/text_embeds_cache
+/dev/loop3       98G   83G   11G  89% /workspace
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[aiter] WARNING: NUMA balancing is enabled, which may cause errors. It is recommended to disable NUMA balancing by running "sudo sh -c 'echo 0 > /proc/sys/kernel/numa_balancing'" for more details: https://rocm.docs.amd.com/en/latest/how-to/system-optimization/mi300x.html#disable-numa-auto-balancing
+MERGE_OK size=11117977659
+/dev/loop3       98G   82G   12G  88% /workspace
+R3_DONE

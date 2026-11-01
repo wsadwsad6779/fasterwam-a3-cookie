@@ -1,0 +1,1 @@
+kill 444885 2>/dev/null; sleep 2; pgrep -f replay_wrongclosure >/dev/null && echo STILL || echo KILLED; ls /workspace/a3_eval/demos_wrongclosure_smoke2/ | wc -l

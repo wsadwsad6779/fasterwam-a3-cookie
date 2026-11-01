@@ -1,0 +1,1 @@
+cat /workspace/r5metrics.sh; echo ===OUT; tail -c 700 /workspace/r5metrics.out; echo ===PS; pgrep -af r5metrics | cut -c1-80

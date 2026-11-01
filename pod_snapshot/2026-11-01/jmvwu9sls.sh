@@ -1,0 +1,1 @@
+date; ls -la /workspace/a3_eval/demos_wrongclosure_smoke2/ 2>/dev/null | tail -3; pgrep -f replay_wrongclosure >/dev/null && echo WC_RUNNING || echo WC_GONE; wc -c /workspace/wc2.out; echo '--- cc1 ---'; pgrep -f replay_correct >/dev/null && echo CC_RUNNING || echo CC_DONE; wc -l /workspace/cc1.out

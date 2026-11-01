@@ -1,0 +1,1 @@
+ls /workspace/a3_eval/r4_b0_c0_paired | head; echo ===; python3 -c "import numpy as np,glob; p=sorted(glob.glob('/workspace/a3_eval/r4_b0_c0_paired/*22*.npz')); print(p[:6]);"

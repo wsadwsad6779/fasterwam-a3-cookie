@@ -1,0 +1,1 @@
+ls -1 /workspace/a3_eval/r4_b0_c0_paired | grep -E 'json|txt|log|md'; echo ===; grep -roE 'cookies_in_target[^,}]*' /workspace/a3_eval/r4_b0_c0_paired/*.json | head -12; echo ===R5M; grep -roE 'cookies_in_target[^,}]*' /workspace/r4metrics.txt /workspace/r5metrics.out 2>/dev/null | head -12

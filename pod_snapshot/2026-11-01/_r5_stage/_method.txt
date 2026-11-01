@@ -1,0 +1,15 @@
+
+    def _place_pose(self, clearance=0.0, column_index=None):
+        # One cookie per clamp gets its own row. The target grid puts 6.33 mm
+        # between rows and the slab is 6.34 mm thick, so releasing every cookie
+        # at the column mean row leans the last ones against a neighbour.
+        if column_index is None:
+            order = getattr(self.env, "demonstration_column_order", (0, 1))
+            column_index = order[0] if self.batch_index < 5 else order[1]
+        position, rotation = A3SameColumnBatchExpert._place_pose(self, clearance, column_index)
+        slots = np.asarray(self.env.TARGET_SLOTS_LOCAL)
+        column_x = np.unique(slots[:, 0])[column_index]
+        rows = np.sort(slots[np.isclose(slots[:, 0], column_x), 1])
+        offset = rows[self.batch_index % len(rows)] - rows.mean()
+        box_r = self.data.xmat[self._tb_id].reshape(3, 3)
+        return position + box_r @ np.array([0.0, offset, 0.0]), rotation

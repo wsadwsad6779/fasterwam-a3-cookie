@@ -1,0 +1,91 @@
+=== workspace logs ===
+-rw-r--r-- 1 root root   21509 Oct 30 12:28 a3dl.log
+-rw-r--r-- 1 root root    7343 Oct 30 13:09 b0.log
+-rw-r--r-- 1 root root    7881 Oct 30 13:32 c1.log
+-rw-r--r-- 1 root root    7943 Oct 30 13:49 c2.log
+-rw-r--r-- 1 root root    7964 Oct 30 14:01 c3.log
+-rw-r--r-- 1 root root    8044 Oct 30 14:12 c4.log
+-rw-r--r-- 1 root root    7662 Oct 30 14:28 c5.log
+-rw-r--r-- 1 root root    1396 Oct 30 12:37 calibrate.log
+-rw-r--r-- 1 root root     211 Oct 30 12:27 clone.log
+-rw-r--r-- 1 root root    4482 Oct 31 00:22 dagger_s11.log
+-rw-r--r-- 1 root root    4568 Oct 30 23:58 dagger_s21.log
+-rw-r--r-- 1 root root    2349 Oct 31 00:15 dagger_s21b.log
+-rw-r--r-- 1 root root    6212 Oct 30 23:57 dagger_s22.log
+-rw-r--r-- 1 root root     934 Oct 30 23:44 dagger_s22_t90.log
+-rw-r--r-- 1 root root    2767 Oct 31 00:02 dagger_s22b.log
+-rw-r--r-- 1 root root     441 Oct 30 23:43 dagger_smoke.log
+-rw-r--r-- 1 root root    1462 Oct 30 12:24 dl.log
+-rw-r--r-- 1 root root    3075 Oct 30 13:26 dl_ds.log
+-rw-r--r-- 1 root root      10 Oct 30 13:00 dl_lora.log
+-rw-r--r-- 1 root root     398 Oct 30 12:54 dl_ms.log
+-rw-r--r-- 1 root root   21976 Oct 30 13:45 ds.log
+-rw-r--r-- 1 root root    7359 Oct 30 13:25 e0.log
+-rw-r--r-- 1 root root      78 Oct 30 13:32 expert11.log
+-rw-r--r-- 1 root root     104 Oct 30 13:39 expert_dump.log
+-rw-r--r-- 1 root root     477 Oct 30 13:00 fill_lora.log
+-rw-r--r-- 1 root root      50 Oct 30 12:55 fix_lora.log
+-rw-r--r-- 1 root root      94 Oct 30 12:22 fwclone.log
+-rw-r--r-- 1 root root    2230 Oct 30 12:24 fwdl.log
+-rw-r--r-- 1 root root    1872 Oct 30 16:44 merge_r2.log
+-rw-r--r-- 1 root root     577 Oct 30 12:35 pip.log
+-rw-r--r-- 1 root root    3130 Oct 30 14:07 precompute_t5.log
+-rw-r--r-- 1 root root    1275 Oct 30 13:51 prep_arrays.log
+-rw-r--r-- 1 root root      96 Oct 30 13:47 prep_fw.log
+-rw-r--r-- 1 root root 2160470 Oct 30 16:37 r2.log
+-rw-r--r-- 1 root root    7979 Oct 30 17:17 r2C3.log
+-rw-r--r-- 1 root root    7359 Oct 30 17:06 r2c0.log
+-rw-r--r-- 1 root root   66658 Oct 30 19:20 r3.log
+-rw-r--r-- 1 root root    7684 Oct 30 19:54 r3c0.log
+-rw-r--r-- 1 root root    4515 Oct 30 12:49 raw_smoke.log
+-rw-r--r-- 1 root root  705608 Oct 30 14:36 smoke_r2.log
+-rw-r--r-- 1 root root      58 Oct 30 12:42 speed.log
+-rw-r--r-- 1 root root      95 Oct 30 12:43 speed2.log
+-rw-r--r-- 1 root root     139 Oct 30 12:47 tf_check.log
+-rw-r--r-- 1 root root    2065 Oct 30 13:57 tf_lora.log
+-rw-r--r-- 1 root root      84 Oct 30 16:38 watch_r2.log
+=== ckpt dirs ===
+12K	a3_train_runs/a3_lora_r2/checkpoints
+11G	a3_train_runs/a3_lora_r3/checkpoints
+-rw-r--r-- 1 root root 11179613340 Oct 30 19:19 a3_train_runs/a3_lora_r3/checkpoints/weights/step_003000.pt
+=== a3_fw ===
+total 12550260
+drwxr-xr-x 2 root root        4096 Oct 30 13:51 .
+drwxr-xr-x 6 root root        4096 Oct 31 01:09 ..
+-rw-r--r-- 1 root root     2070331 Oct 30 13:51 arrays.npz
+-rw-r--r-- 1 root root        3071 Oct 30 13:53 dataset_stats.json
+-rw-r--r-- 1 root root 12849371136 Oct 30 13:51 frames.dat
+-rw-r--r-- 1 root root         502 Oct 30 13:51 summary.json
+=== a3_data dirs ===
+0	a3_data/a3-front-close-left-100
+12G	a3_data/a3_fw
+623M	a3_data/a3_fw_dagger
+876M	a3_data/a3_fw_dagger_near
+1.1M	a3_data/text_embeds_cache
+=== run logs search ===
+total 24
+drwxr-xr-x  6 root root 4096 Oct 30 17:23 .
+drwxrwxrwx 15 root root 4096 Oct 31 04:45 ..
+drwxr-xr-x  2 root root 4096 Oct 30 17:23 .ipynb_checkpoints
+drwxr-xr-x  2 root root 4096 Oct 30 14:11 a3_lora_r1
+drwxr-xr-x  4 root root 4096 Oct 30 16:44 a3_lora_r2
+drwxr-xr-x  4 root root 4096 Oct 30 19:20 a3_lora_r3
+/workspace/after_r3_eval.out
+/workspace/watch_r3.sh
+/workspace/FasterWAM/train.log
+/workspace/r3ev_11.npy
+/workspace/inspect_r3c0.py
+/workspace/r3ev_21.npy
+/workspace/run_r3.sh
+/workspace/analyze_r3c0.py
+/workspace/r3_merged.sha256
+/workspace/r3ev_22.npy
+/workspace/r3_events.txt
+/workspace/watch_r3.out
+/workspace/a3_train_runs/a3_lora_r3
+/workspace/r3c0.log
+/workspace/ls_r3.txt
+/workspace/r3_c0_metrics.txt
+/workspace/r3.log
+/workspace/after_r3_eval.sh
+CMDDONE

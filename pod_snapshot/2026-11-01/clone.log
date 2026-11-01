@@ -1,0 +1,5 @@
+nohup: ignoring input
+FW_RC_128
+fatal: could not open '/workspace/a3_dual_arm_sim/.git/objects/pack/tmp_pack_aQlh6W' for reading: No such file or directory
+fatal: fetch-pack: invalid index-pack output
+A3_RC_128

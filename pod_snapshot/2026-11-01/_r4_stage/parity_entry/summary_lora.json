@@ -1,0 +1,36 @@
+[
+  {
+    "model": "lora",
+    "control": "C0",
+    "wrapped": false,
+    "released": [],
+    "safety_layer": true,
+    "seed": 11,
+    "steps": 2,
+    "replans": 1,
+    "success": false,
+    "cookies_in_target": 0,
+    "final_phase": "n/a",
+    "max_pad_force": 0.0,
+    "max_wrist_force": 12.92,
+    "verbatim_pct": 100.0,
+    "oracle_cookie_reads": 0,
+    "oracle_data_reads": 0,
+    "sensor_reads": 0,
+    "estop_steps": 0,
+    "binfloor_steps": 0,
+    "duration_s": 1.2,
+    "position_noise_m": 0.0,
+    "yaw_noise_rad": 0.0,
+    "batch_offset_m": 0.0,
+    "batch_offset_xy_m": [
+      0.0,
+      0.0
+    ],
+    "randomize_boxes": false,
+    "scene_ok": true,
+    "scene_max_penetration_mm": 0.0,
+    "scene_cookies_outside_bin": 0,
+    "gripper_mode": "pm1"
+  }
+]

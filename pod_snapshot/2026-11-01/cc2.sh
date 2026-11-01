@@ -1,0 +1,6 @@
+export PYTHONPATH=/workspace/a3_dual_arm_sim/src
+cd /workspace/fasterwam_a3_bridge/bridge/_next
+date
+python3 -u /workspace/_r5_stage/replay_correct.py --seeds 7241 7242 7243 7244 7245 7246 7247 --variants 3 7 11 15 19 23 27 --noise 0.0003 --retries 2 --recover-variants 0 37 5 --max-steps 2400 --out /workspace/a3_eval/demos_correct_c2
+date
+python3 -u /workspace/_r5_stage/adjudicate_correct.py --dirs /workspace/a3_eval/demos_correct_c2 | tail -12

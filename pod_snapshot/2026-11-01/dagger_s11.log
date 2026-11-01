@@ -1,0 +1,29 @@
+nohup: ignoring input
+[dagger] seed=11 s=90 step=50 phase=DESCEND cin=0
+[dagger] seed=11 s=90 step=100 phase=LIFT cin=0
+[dagger] seed=11 s=90 step=150 phase=MOVE_TO_SLOT cin=0
+[dagger] seed=11 s=90 step=200 phase=RETRACT cin=5
+[dagger] seed=11 s=90 step=250 phase=DESCEND cin=5
+[dagger] seed=11 s=90 step=300 phase=CLOSE cin=5
+[dagger] seed=11 s=90 step=350 phase=MOVE_TO_SLOT cin=5
+[dagger] seed=11 s=90 step=400 phase=DESCEND_TO_PLACE cin=5
+[dagger] {"seed": 11, "take_step": 90, "replay": {"steps": 90, "max_abs_eef_diff": 0.0, "max_abs_opening_diff": 0.0, "max_abs_applied_diff": 0.0}, "state_restore_ok": true, "state_file": "/workspace/fasterwam_a3_bridge/bridge/outputs/dagger/seed11_s90/state_takeover.npz", "start": {"cookies_in_target": 0, "cookies_in_source": 80, "step": 90, "eef_z": 0.7696, "opening": 0.9999}, "video": false, "mode": "expert", "steps": 425, "expert_finished": false, "expert_failed": false, "failure_phase": null, "failure_reason": null, "batches_attempted": 2, "batches_released": 1, "batch_reports": [{"cookies": [0, 1, 2, 3, 4], "lifted": 5, "lift_heights_m": [0.07968600723291264, 0.07968015111608018, 0.07967110676870848, 0.07967236236419717, 0.07967167012760212], "released": true}, {"cookies": [5, 6, 7, 8, 9], "lifted": 5, "lift_heights_m": [0.07967536812030362, 0.0796824464588115, 0.07968133776695696, 0.07967710322550003, 0.0796760738456398], "released": false}], "end_cookies_in_target": 10, "delivered": 10, "max_pad_force": 1.467, "phase_counts": {"APPROACH": 23, "CLOSE": 62, "DESCEND": 64, "DESCEND_TO_PLACE": 54, "LIFT": 68, "MOVE_TO_SLOT": 83, "OPEN": 22, "PRE_CLOSE": 20, "RETRACT": 22, "SELECT_COOKIE": 1, "VERIFY_RELEASE": 6}, "recovered": true, "npz": "/workspace/fasterwam_a3_bridge/bridge/outputs/dagger/seed11_s90/recover.npz"}
+[dagger] seed=11 s=300 step=50 phase=DESCEND cin=0
+[dagger] seed=11 s=300 step=100 phase=CLOSE cin=0
+[dagger] seed=11 s=300 step=150 phase=CLOSE cin=0
+[dagger] seed=11 s=300 step=200 phase=CLOSE cin=0
+[dagger] seed=11 s=300 step=250 phase=CLOSE cin=0
+[dagger] seed=11 s=300 step=300 phase=CLOSE cin=0
+[dagger] seed=11 s=300 step=350 phase=CLOSE cin=0
+[dagger] seed=11 s=300 step=400 phase=CLOSE cin=0
+[dagger] seed=11 s=300 step=450 phase=CLOSE cin=0
+[dagger] {"seed": 11, "take_step": 300, "replay": {"steps": 300, "max_abs_eef_diff": 0.0, "max_abs_opening_diff": 0.0, "max_abs_applied_diff": 0.0}, "state_restore_ok": true, "state_file": "/workspace/fasterwam_a3_bridge/bridge/outputs/dagger/seed11_s300/state_takeover.npz", "start": {"cookies_in_target": 0, "cookies_in_source": 80, "step": 300, "eef_z": 0.7716, "opening": 0.5163}, "video": false, "mode": "expert", "steps": 477, "expert_finished": true, "expert_failed": true, "failure_phase": "CLOSE", "failure_reason": "batch phase timeout; contacts=[0.012467565837762089, 0.0]", "batches_attempted": 0, "batches_released": 0, "batch_reports": [], "end_cookies_in_target": 0, "delivered": 0, "max_pad_force": 22.648, "phase_counts": {"APPROACH": 12, "CLOSE": 421, "DESCEND": 33, "FAILED": 1, "PRE_CLOSE": 10}, "recovered": false, "npz": "/workspace/fasterwam_a3_bridge/bridge/outputs/dagger/seed11_s300/recover.npz"}
+[dagger] seed=11 s=500 step=50 phase=DESCEND cin=0
+[dagger] seed=11 s=500 step=100 phase=DESCEND cin=0
+[dagger] seed=11 s=500 step=150 phase=DESCEND cin=0
+[dagger] seed=11 s=500 step=200 phase=DESCEND cin=0
+[dagger] seed=11 s=500 step=250 phase=DESCEND cin=0
+[dagger] seed=11 s=500 step=300 phase=DESCEND cin=0
+[dagger] seed=11 s=500 step=350 phase=DESCEND cin=0
+[dagger] seed=11 s=500 step=400 phase=DESCEND cin=0
+[dagger] {"seed": 11, "take_step": 500, "replay": {"steps": 500, "max_abs_eef_diff": 0.0, "max_abs_opening_diff": 0.0, "max_abs_applied_diff": 0.0}, "state_restore_ok": true, "state_file": "/workspace/fasterwam_a3_bridge/bridge/outputs/dagger/seed11_s500/state_takeover.npz", "start": {"cookies_in_target": 0, "cookies_in_source": 80, "step": 500, "eef_z": 0.7569, "opening": 0.5171}, "video": false, "mode": "expert", "steps": 447, "expert_finished": true, "expert_failed": true, "failure_phase": "DESCEND", "failure_reason": "batch phase timeout; contacts=[0.0, 3.538552643798895]", "batches_attempted": 0, "batches_released": 0, "batch_reports": [], "end_cookies_in_target": 0, "delivered": 0, "max_pad_force": 28.432, "phase_counts": {"APPROACH": 14, "DESCEND": 421, "FAILED": 1, "PRE_CLOSE": 11}, "recovered": false, "npz": "/workspace/fasterwam_a3_bridge/bridge/outputs/dagger/seed11_s500/recover.npz"}
