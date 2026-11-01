@@ -12,9 +12,10 @@
 
 ## 结论
 
-**满足退租条件。** 3,888 个文件中没有任何科研数据落在 F 档；F 档只剩 394 个 `fasterwam-a3-cookie/.git`
-内部对象与元数据（972,633 B）；这个仓库的工作区文件已由 A/B/C 三档覆盖，丢的只是本地 reflog / index 这类元数据。
-另有 2 项**你侧**待办（吊销 token、确认再分发许可与 HF 仓库可见性）；默认分支 README 已在第四项里单独更新。
+**满足退租条件。** 3,888 个文件中没有任何科研数据落在 F 档；F 档的 394 个（972,633 B）全部是
+`fasterwam-a3-cookie/.git` 的内部对象与本地指针——其中 384 个 loose object 与 1 个远端跟踪引用已由第 8 节的
+bundle 逐一覆盖（外部副本在 GitHub），剩下 9 个是 `index` / `HEAD` / `logs/**` 这类本地指针与日志，不含独立内容。
+另有 2 项**你侧**待办（吊销 token、确认再分发许可与 HF 仓库可见性）；默认分支 README 已单独更新为最新版。
 73 条原始示范的逐条回读见第 7 节，旧 pod 独有 Git 历史的保全见第 8 节。
 
 | 档 | 含义 | 文件数 | 字节 | GiB |
@@ -75,10 +76,11 @@ E 档构成（397 个 / 1.392 GiB）：`chk3_*` / `chk4_*` 自测检查点 32 �
 
 | 检查 | 结果 |
 |---|---|
-| `archive-2026-11-01` 远端 tip | `f40ab89cd5347750c5a1809a859d95d509d463fc`（`git ls-remote` 读回）——把 9 个文件转成 B 的那次提交，父提交是要求核对的 `b82854f`；本报告的修订提交在其之上 |
-| 分支列表 | `a3-cookie-r27` `39f47015…`（默认分支，只加了 README 提交）、`archive-2026-11-01` `f40ab89…`、`backup-2026-11-01-r6-audit` `1fb28037…` |
+| `archive-2026-11-01` 远端 tip | `2170c614ec71c04e615fd698adafd348ea9ea01c`（`git ls-remote` 读回）——存入 bundle 与 73 条审计表的那次提交；把最终数字写进本报告的提交在其之上（sha 见对话） |
+| 此前的文件提交 | `f40ab89cd5347750c5a1809a859d95d509d463fc`——把 9 个文件转成 B 的那次提交，父提交是要求核对的 `b82854f` |
+| 分支列表 | `a3-cookie-r27` `c678beac…`（默认分支，只加了两次 README 提交）、`archive-2026-11-01` `2170c614…`、`backup-2026-11-01-r6-audit` `1fb28037…` |
 | 远端 README 是否最新 | 是。推送后在全新 clone `_clone_verify6` 里读到第 11.3 节（上传手册）与第 11.4 节（GitHub 上传经验）都在；本次又修正了三处失真见下 |
-| **默认分支 README** | **已更新，且只改了 README**。默认分支是 `a3-cookie-r27`（`git ls-remote --symref` → `ref: refs/heads/a3-cookie-r27`）。原 README 26,051 B、最后改动 `66f841c`（2026-10-30）、没有第 11 节；本次以普通快进推送 `66f841c..39f4701` 替换为最新版（blob `ec4a689f…`，+390/−358 行），该分支其余 238 个文件一个字节没动 |
+| **默认分支 README** | **已更新，且只改了 README**。默认分支是 `a3-cookie-r27`（`git ls-remote --symref` → `ref: refs/heads/a3-cookie-r27`）。原 README 26,051 B、最后改动 `66f841c`（2026-10-30）、没有第 11 节；本次以普通快进推送 `66f841c..c678bea` 替换为最新版（+390/−358 行，另含一行交叉引用修正），最终 README blob `c641a579…`，该分支其余 238 个文件一个字节没动 |
 | 恢复脚本可执行且正确 | `scripts/restore_new_instance.sh` 远端 blob 13,973 B / `745e20e7…`（与 README 第 11 节钉的值一致） |
 | HF Model Card | 已提交且可远端读取：`resolve/main/README.md` 200，5,228 B，含 YAML front matter 与「已知缺口 / 数据与许可 / 校验口径」 |
 | HF Dataset Card | **不存在独立 dataset 仓库**（`/api/datasets/...` 401）。数据以 `data/**` 放在模型仓库内，并在 Model Card 的「数据与许可」里说明 |
@@ -86,23 +88,25 @@ E 档构成（397 个 / 1.392 GiB）：`chk3_*` / `chk4_*` 自测检查点 32 �
 | README 链接真实性 | 逐目录实测：`weights/r4`、`weights/r5`、`parts60gz`、`data`、`eval/a3_eval`、`eval/bridge`、`videos/*`、`runs`、`replay/bridge`、`tests`、`research`、`MANIFEST` 全部 200；**`weights/r2`、`weights/r3` 是 404**——台账里这两行是目标路径，远端只存了分片。README 本次已改 |
 | 台账逐行对远端 | 715 行台账，0 行缺失：712 行按 path 命中，3 行由 532 个分片装配（178 + 177 + 177，索引连续 0..N） |
 
-提交 sha 无法写进提交自身：上表 `f40ab89`、`39f4701` 都是推送后立即读回的；承载本报告这一版内容的归档提交是
-`f40ab89` 的子提交，其后还有一次只把最终 sha 写进本段的提交。两分支的最终 tip 以
-`git ls-remote origin` 或 `git log -1` 为准，本轮最终提交的完整 sha 在对话里报出。
+提交 sha 无法写进提交自身：默认分支的最终 tip `c678beacf3db47b2bb92512527a5b1cd33eff1f5` 是固定的；
+归档分支上 `2170c614ec71c04e615fd698adafd348ea9ea01c` 承载了 bundle、73 条审计表与第 7、8 节，
+带着这一版修正的提交是它的子提交（也就是本文件当前所在的提交），以 `git ls-remote origin` 或 `git log -1`
+读回的 sha 为准，并在对话里报出。
 
 ### 2.1 默认分支的改动范围与提交
 
 - 归档分支相对默认分支 `66f841c` 的差异：**984 个文件 = 982 个新增 + 2 个修改**（`.gitignore`、`README.md`），
   +132,473 / −370 行（`git diff --name-status 66f841c <archive tip>`）。新增的全部落在 `scripts/`、`pod_snapshot/`、
   `archive/2026-11-01/`、`docs/`、`research/`、`tests/` 这些归档目录。
-- 默认分支上没有任何运行代码的改动。唯一的改动是一次只替换 `README.md` 的提交：
-  `66f841cccf5d01204a5aba36a6e44b170aa02a21` → `39f47015b82f564a2f6eb70bd386e588c01110eb`
-  （2026-11-01 19:13:44 +0800，"docs: bring the README up to the 2026-11-01 research state"），
-  父提交就是 `66f841c`，**普通快进、没有 force、没有改写历史**，`git show --stat` 只有 README（+390 / −358）。
-  其后又补一次同样只碰 README 的一行交叉引用修正（把「报告第 6 节」改成「报告开头的 A–F 表」）。
-- 远端回读：重新 clone 到 `_clone_default_verify`，`git ls-tree HEAD README.md` = blob
-  `ec4a689f15cb8248dae13f261b66559ab7e2865d`（与本地相同）；该分支共 239 个跟踪文件，
-  `git diff --stat 66f841c HEAD` 只有 README，父链完整。
+- 默认分支上没有任何运行代码的改动，只有两次 README 提交，都是普通快进、没有 force、没有改写历史：
+  1. `66f841cccf5d01204a5aba36a6e44b170aa02a21` → `39f47015b82f564a2f6eb70bd386e588c01110eb`
+     （2026-11-01 19:13:44 +0800，"docs: bring the README up to the 2026-11-01 research state"，
+     `git show --stat` 只有 README，+390 / −358）；
+  2. `39f47015…` → **`c678beacf3db47b2bb92512527a5b1cd33eff1f5`**（2026-11-01 19:31 +0800，
+     "docs: point the A-F table reference at the report it actually lives in"，只改 1 行）。
+- 远端回读：另开目录全新 clone（`_clone_default_verify2`）到 `c678bea`，`git ls-tree HEAD README.md` = blob
+  `c641a579eb4b6b5c833b1c28ab438921575b9528`，与本地相同；该分支共 239 个跟踪文件，
+  `git diff --stat 66f841c HEAD` 只有 README，父链完整保留到最初的 `b1c450a`。
 - 默认分支 README 与归档分支 README 有三处**刻意**不同：开头的说明段（默认分支写明归档材料在
   `archive-2026-11-01` 分支）、第 11 节恢复第 1 步的 `git clone -b archive-2026-11-01 …` 命令、
   以及交叉引用措辞。其余正文（含第 11.3、11.4 节与第 13 节未完成清单）逐字相同。
@@ -204,7 +208,7 @@ bundle 是第 2 项要保存的旧 pod Git 历史（第 8 节）；TSV 是第 1 
 | **原始轨迹 NPZ**（`corpus_manifest_v1.json` 的 `entries` 逐条列出的 73 条） | 73 | 7,657,304 | HF `eval/a3_eval/demos_*/**.npz` | 逐条真实下载回读，**73/73 逐字节相同** |
 | 派生训练数组（`data/a3_fw*`） | 14 | 13.436 GiB | HF `data/a3_fw_*` | 早前已按 sha256 归档（A 档）；它们是**从原始轨迹派生**的训练语料，不能当作原始轨迹的备份 |
 | manifest 本身 | 1 | 41,118 | HF `eval/a3_eval/corpus_manifest_v1.json` | sha256 `b679fa6bd07e12c3be25e02f1d5aa3d14e3d785fe726e04f98b1f3a391dd0e00`，与本地逐字节相同 |
-| 16 个裁定来源 JSON（`sources`） | 16 | 每个 2–80 KB | 同目录 `sources/`（C1..C7 各有 c3/correct_v2 两份，wrongclosure v8/v9 各一份） | 16/16 与本地逐字节相同 |
+| 16 个裁定来源 JSON（`sources`） | 16 | 每个 0.9–14 KB | 同目录 `sources/`（C1..C7 各有 c3/correct_v2 两份，wrongclosure v8/v9 各一份） | 16/16 与本地逐字节相同 |
 
 - 方法：按 manifest 的 `hf_path` 走
   `https://hf-mirror.com/wsadwsad6779/fasterwam-a3-cookie-lora/resolve/main/<path>` 下载每个 NPZ，
