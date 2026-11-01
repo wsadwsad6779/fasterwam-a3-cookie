@@ -7,7 +7,8 @@
 判定方法：**按内容哈希，不按上传记录**。3,888 个文件的输入是 pod 全盘扫描 `backup_status_abc_final.json`
 （路径 / 字节 / sha256），对照四类外部副本实时扫描：HF 远端文件树（1,264 个文件，`tree?recursive=true`
 分页取全）、GitHub 远端 clone（含 git 历史 blob）、Windows 本机副本、固定上游 revision。
-复算脚本：`_r6_stage/final_reconcile2.py`，输出 `final_reconcile2.json`（逐文件一行）。
+复算脚本：`_r6_stage/final_reconcile2.py`；提交前输出 `final_reconcile2.json`，提交后对全新 clone
+（`_clone_verify6` @ `f40ab89`）复算输出 `final_reconcile2_postcommit.json`，两者逐文件 diff 只差下面 9 行。
 
 ## 结论
 
@@ -18,16 +19,17 @@
 | 档 | 含义 | 文件数 | 字节 | GiB |
 |---|---|---|---|---|
 | A | HF 已备份，SHA256 匹配 | 721 | 67,711,734,824 | 63.061 |
-| B | GitHub 已备份，远端 clone 验证 | 1,223 | 8,550,468 | 0.008 |
-| C | Windows 已备份，SHA256 匹配 | 1,084 | 34,191,905 | 0.032 |
+| B | GitHub 已备份，远端 clone 验证 | 1,224 | 9,018,778 | 0.008 |
+| C | Windows 已备份，SHA256 匹配 | 1,083 | 33,723,595 | 0.032 |
 | D | 固定上游 revision，可重新取得 | 69 | 29,626,865,464 | 27.592 |
 | E | 可再生 / 自测产物 / 空文件 | 397 | 1,494,379,959 | 1.392 |
 | F | 无可靠副本 | 394 | 972,633 | 0.001 |
 | 合计 | | 3,888 | 98,876,695,253 | 92.086 |
 
-（B/C 两行是**本次提交之后**的数字：提交把 8 个原先只有 Windows 副本的 C
-（`deploy/rcc_start.py`、`deploy/wait_and_launch.sh`、light_state v2/v3 源码与测试、`repro_env.sh`、`pip_freeze.txt`）
-转成了 B。提交前是 B 1,215 / C 1,092；F 两轮都是 394，不受这次提交影响。）
+（B/C 两行是**本次提交之后**的数字：提交把 9 个原先只有 Windows 副本的 C 转成了 B——`deploy/rcc_start.py`、
+`deploy/wait_and_launch.sh`、light_state v2/v3 源码与测试（4 个）、`repro_env.sh`、`pip_freeze.txt`，
+外加 `_r6_stage/out/repro/cookie_diff.patch`（与归档里的 worktree diff 逐字节相同）。
+提交前是 B 1,215 / C 1,092；F 两轮都是 394，不受这次提交影响。A/D/E 与总字节数两轮完全一致。）
 
 ## 1. 全盘备份覆盖（逐重点项）
 
@@ -64,9 +66,9 @@ E 档构成（397 个 / 1.392 GiB）：`chk3_*` / `chk4_*` 自测检查点 32 �
 
 | 检查 | 结果 |
 |---|---|
-| `archive-2026-11-01` 远端 tip | `b82854fd1679f0709f130c4282a9bd12eeec2fbe`（`git ls-remote`，等于要求的 `b82854f`，本次终审提交在其之上） |
-| 分支列表 | `a3-cookie-r27` `66f841cc…`、`archive-2026-11-01` `b82854f…`、`backup-2026-11-01-r6-audit` `1fb28037…` |
-| 远端 README 是否最新 | 是。`origin/archive-2026-11-01:README.md` 含第 11.3 节（上传手册）与第 11.4 节（GitHub 上传经验），本次又修正了三处失真见下 |
+| `archive-2026-11-01` 远端 tip | `f40ab89cd5347750c5a1809a859d95d509d463fc`（`git ls-remote` 读回）——把 9 个文件转成 B 的那次提交，父提交是要求核对的 `b82854f`；本报告的修订提交在其之上 |
+| 分支列表 | `a3-cookie-r27` `66f841cc…`（默认分支，未动）、`archive-2026-11-01` `f40ab89…`、`backup-2026-11-01-r6-audit` `1fb28037…` |
+| 远端 README 是否最新 | 是。推送后在全新 clone `_clone_verify6` 里读到第 11.3 节（上传手册）与第 11.4 节（GitHub 上传经验）都在；本次又修正了三处失真见下 |
 | **默认分支 README** | **未更新**。GitHub 默认分支是 `a3-cookie-r27`（`git ls-remote --symref` → `ref: refs/heads/a3-cookie-r27`），其 README 26,051 B、最后改动 `66f841c`（2026-10-30），**没有第 11 节**。按你的要求没有改写默认分支历史，是否合并由你决定 |
 | 恢复脚本可执行且正确 | `scripts/restore_new_instance.sh` 远端 blob 13,973 B / `745e20e7…`（与 README 第 11 节钉的值一致） |
 | HF Model Card | 已提交且可远端读取：`resolve/main/README.md` 200，5,228 B，含 YAML front matter 与「已知缺口 / 数据与许可 / 校验口径」 |
@@ -74,6 +76,10 @@ E 档构成（397 个 / 1.392 GiB）：`chk3_*` / `chk4_*` 自测检查点 32 �
 | HF revision | `refs` 与 `tree?expand=true` 一致：`main = f2aaf55c6ce1b164de97c5b6ec2cd75e942d0de0`（2026-11-01T08:48:11Z，"Archive M batch 1/1"）。注意 `GET /api/models/...` 会返回 2026-10-26 的陈旧缓存体（sha `dc10a5d4…`、9 siblings），不能当依据 |
 | README 链接真实性 | 逐目录实测：`weights/r4`、`weights/r5`、`parts60gz`、`data`、`eval/a3_eval`、`eval/bridge`、`videos/*`、`runs`、`replay/bridge`、`tests`、`research`、`MANIFEST` 全部 200；**`weights/r2`、`weights/r3` 是 404**——台账里这两行是目标路径，远端只存了分片。README 本次已改 |
 | 台账逐行对远端 | 715 行台账，0 行缺失：712 行按 path 命中，3 行由 532 个分片装配（178 + 177 + 177，索引连续 0..N） |
+
+提交 sha 无法写进提交自身：上表 `f40ab89` 是推送后立即读回的 tip；本报告的修订提交是它的子提交，
+分支最终 tip 以 `git ls-remote origin refs/heads/archive-2026-11-01` 或 `git log -1` 为准
+（本次终审推送后读回的是 `f40ab89` 的子提交，见对话里报出的最终 commit）。
 
 README 本次修正的三处失真（都是这次对着远端查出来的）：
 
@@ -138,7 +144,11 @@ HF 仓库目前是**公开**状态（`private: false`），第三方数据集与
 
 前两个是 pod 上未纳管、也没有 git 历史的启动脚本（原来唯一的副本在即将销毁的 pod 上）；六个是只有 Windows
 副本的修复代码 / 测试 / 环境配置；最后一个把旧 pod 仓库 11 个未提交改动的 diff 固化进 git。
-全部是逐字节从 pod 取回、sha256 与 pod 侧 `SHA256SUMS.txt` 对拍一致后写入的。
+全部是逐字节从 pod 取回、sha256 与 pod 侧 `SHA256SUMS.txt` 对拍一致后写入的；推送后在全新 clone 里再逐文件
+sha256 复核，10 个文件（含 `PRE_SHUTDOWN_FINAL_REPORT_v1.md`）与本地逐字节相同。
+
+补充：pod 上还有一份 `_r6_stage/out/repro/cookie_diff.patch`，与上面最后一行那个 diff 逐字节相同
+（4e9a680f…），所以它在提交后也从 C 变成 B——这就是 B 增加 9 个而不是 8 个的原因。
 
 ## 6. 仍需你做的三件事（都不是数据阻断项）
 
