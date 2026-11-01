@@ -1,0 +1,2 @@
+origin	git@github.com:wsadwsad6779/fasterwam-a3-cookie.git (fetch)
+origin	git@github.com:wsadwsad6779/fasterwam-a3-cookie.git (push)

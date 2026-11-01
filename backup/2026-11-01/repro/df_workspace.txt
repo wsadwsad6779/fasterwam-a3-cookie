@@ -1,0 +1,2 @@
+Filesystem        1B-blocks        Used  Available Use% Mounted on
+/dev/loop3     105089261568 96299327488 3404447744  97% /workspace

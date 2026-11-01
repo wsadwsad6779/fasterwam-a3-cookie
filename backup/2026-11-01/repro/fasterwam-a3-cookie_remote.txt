@@ -1,0 +1,4 @@
+fatal: detected dubious ownership in repository at '/workspace/fasterwam-a3-cookie'
+To add an exception for this directory, call:
+
+	git config --global --add safe.directory /workspace/fasterwam-a3-cookie

@@ -1,0 +1,63 @@
+=== FasterWAM
+total 1344
+drwxr-xr-x 10 root root   4096 Oct 31 17:44 .
+drwxrwxrwx 20 root root  36864 Nov  1 01:44 ..
+-rw-rw-r--  1 root root   4141 Aug 31 14:57 .gitignore
+-rw-rw-r--  1 root root      5 Aug 31 14:57 .python-version
+-rw-rw-r--  1 root root  11357 Aug 31 14:57 LICENSE
+-rw-rw-r--  1 root root  10313 Aug 31 14:57 README.md
+drwxrwxr-x  2 root root   4096 Aug 31 14:57 assets
+drwxr-xr-x  4 root root   4096 Oct 30 12:24 checkpoints
+drwxrwxr-x  5 root root   4096 Aug 31 14:57 configs
+-rw-r--r--  1 root root      0 Oct 30 14:17 ds_check.log
+drwxrwxr-x  5 root root   4096 Aug 31 14:57 environments
+drwxrwxr-x  5 root root   4096 Aug 31 14:57 experiments
+-rw-r--r--  1 root root   2998 Oct 30 19:20 export_lora_merged.log
+-rw-r--r--  1 root root    848 Oct 30 14:07 precompute_text_embeds.log
+-rw-rw-r--  1 root root   1561 Aug 31 14:57 pyproject.toml
+drwxrwxr-x  6 root root   4096 Oct 31 17:44 scripts
+drwxrwxr-x  3 root root   4096 Aug 31 14:57 src
+drwxrwxr-x  3 root root   4096 Aug 31 14:57 third_party
+-rw-r--r--  1 root root 943101 Oct 30 19:19 train.log
+-rw-r--r--  1 root root 100206 Oct 31 13:52 train_light.log
+-rw-r--r--  1 root root  50218 Oct 31 20:31 train_light_r5.log
+-rw-rw-r--  1 root root 141379 Aug 31 14:57 uv.lock
+=== a3_dual_arm_sim
+total 100
+drwxr-xr-x 10 root root  4096 Oct 30 12:32 .
+drwxrwxrwx 20 root root 36864 Nov  1 01:44 ..
+-rw-rw-r--  1 root root   503 Oct 21 12:42 .gitignore
+-rw-rw-r--  1 root root  1065 Oct 21 12:42 LICENSE
+-rw-rw-r--  1 root root   194 Oct 21 12:42 MANIFEST.in
+-rw-rw-r--  1 root root  6886 Oct 21 12:42 README.md
+drwxrwxr-x  3 root root  4096 Oct 21 12:42 assets
+drwxrwxr-x  2 root root  4096 Oct 21 12:42 configs
+drwxrwxr-x  2 root root  4096 Oct 21 12:42 docs
+drwxrwxr-x  2 root root  4096 Oct 21 12:42 examples
+drwxrwxr-x  2 root root  4096 Oct 21 12:42 models
+-rw-rw-r--  1 root root   965 Oct 21 12:42 pyproject.toml
+drwxrwxr-x  2 root root  4096 Oct 21 12:42 scripts
+-rw-rw-r--  1 root root   600 Oct 21 12:42 setup.py
+drwxrwxr-x  3 root root  4096 Oct 21 12:42 src
+drwxrwxr-x  2 root root  4096 Oct 21 12:42 tests
+=== fasterwam_a3_bridge
+total 44
+drwxr-xr-x  3 root root  4096 Oct 30 12:48 .
+drwxrwxrwx 20 root root 36864 Nov  1 01:44 ..
+lrwxrwxrwx  1 root root    20 Oct 30 12:48 FasterWAM -> /workspace/FasterWAM
+drwxr-xr-x  5 root root  4096 Oct 31 10:33 bridge
+=== fasterwam-a3-cookie
+total 104
+drwxr-xr-x 11 197609 197121  4096 Oct 30 02:07 .
+drwxrwxrwx 20 root   root   36864 Nov  1 01:44 ..
+drwxr-xr-x  7 197609 197121  4096 Nov  1 03:27 .git
+-rw-r--r--  1 197609 197121   123 Oct 30 02:07 .gitignore
+-rw-r--r--  1 197609 197121 22630 Oct 29 15:27 README.md
+drwxr-xr-x  3 197609 197121  4096 Oct 29 15:17 bridge
+drwxr-xr-x  3 197609 197121  4096 Oct 26 18:33 data
+drwxr-xr-x  2 197609 197121  4096 Oct 30 06:46 deploy
+drwxr-xr-x  2 197609 197121  4096 Oct 29 13:32 docs
+drwxr-xr-x  6 197609 197121  4096 Oct 31 11:08 finetune
+drwxr-xr-x  2 197609 197121  4096 Oct 30 06:37 outputs
+drwxr-xr-x  7 197609 197121  4096 Oct 26 18:07 results
+drwxr-xr-x  2 197609 197121  4096 Oct 26 18:07 tools
