@@ -301,6 +301,63 @@ os.environ.pop('HF_HUB_DISABLE_XET', None)       # 必须允许 Xet
 这一轮 `HF_HOME` 缓存 + gz 分片在 `/root` 下占了约 88 GB（`/root` 有 1.6 TB），`/workspace` 全程没被撑爆。
 收尾时这些中间产物只列清单、等确认后再清，不自动删。
 
+### 11.4 代码上传到 GitHub 的经验（本轮实测）
+
+仓库是私有的，pod 又只放行 `hf-mirror.com`（`github.com` 不通），所以代码侧的推送、clone、比对全部在本机做，
+pod 上只跑「从 HF 取数据」的恢复演练。下面几条都是这一轮真踩到的。
+
+**1) `.gitattributes` 写 `* -text`，否则克隆出来字节就变了**
+
+本机 `core.autocrlf=true`。不加这一行，clone 时会把仓库里的 LF 转成 CRLF，脚本的 sha256 随之改变，
+跟 pod 上对过账的文件不再是同一份字节。仓库根的 `.gitattributes` 只有一行：
+
+```
+* -text
+```
+
+**注意 add 顺序**：`.gitattributes` 必须与其它文件在同一个 commit 里**先**生效。这一轮它比 `README.md` 晚加，
+结果 `README.md` 的 blob 是按旧规则归一化的；文件内容没丢，但「工作区字节 = 仓库 blob」这句话当时不成立。
+下次先写 `.gitattributes`，再 `git add -A`。
+
+**2) 推完必须另开目录全新 clone 再逐文件比**
+
+不能拿 `git status` / 本地 `git diff` 代替——它们看的是同一个工作区。做法是 `git clone` 到新目录，
+对「仓库里每个受管文件」比 sha256，并单独统计只差行尾的数量：
+
+```
+clone 1207 个受管文件：953 逐字节相同 / 254 仅 CRLF↔LF / 0 其他差异 / 0 缺失
+archive/2026-11-01/p0p1_manifest.tsv      sha256 54f4e3669a46b3af58331abee2b55c350c1292516b692c19cb4bb0520d596b08
+archive/2026-11-01/parts60gz_manifest.tsv sha256 307172a4f82d98f58391068c2ac4078ac4f8ff64efafa50470361456db6d0f04
+```
+
+台账和恢复脚本的 sha256 是钉死的常量，clone 回来对不上就说明传输/归一化出了问题，先别庆祝推送成功。
+
+**3) 大文件和大目录不进 git**
+
+- 11 GB 级的权重、分片、评估视频、replay 帧一律走 HF；`.gitignore` 显式排除，并在 README 里写清它们在哪。
+- `pod_snapshot/` 里的 `FasterWAM/`、`a3_dual_arm_sim/` 上游 checkout 也不进 git：它们与 pinned commit 逐字节相同，
+  且整棵上游树另有 `archive/2026-11-01/git_snapshot_20261101.tar.gz`。
+
+**4) 推送前扫密钥，token 不落任何持久位置**
+
+提交前全量扫一遍 token / 私钥 / 口令；这一轮扫描后只剩 `HF_TOKEN=...` 这类占位符和一条第三方报错文本。
+HF token 只存在于旧 pod 的 `/root/.cache/huggingface/token`（0600），不写进脚本、Git 历史、日志或聊天正文；
+实例销毁后自然失效，但仍建议在 HF 后台吊销。
+
+**5) 分支与验收顺序**
+
+新开 `archive-2026-11-01` 分支推送，不动既有分支；推送成功只算「发出去了」，真正通过的标准是第 2 条的
+全新 clone 比对 + 台账 sha 对上 + 之后的真实恢复演练。
+
+**6) 恢复脚本必须真跑一遍，静态审查看不出台账列错位**
+
+`restore_new_instance.sh` 第一版是把「分片台账第 1 列当路径」写的，而这一列其实是档位（P0/P1）。
+脚本照常启动、照常往下跑，只是 532 个分片一个都没装配，`--verify` 还把 532 个不存在的路径算成
+`giants_missing`、最后仍然 `rc=0`——只看代码和本地 `bash -n` 完全发现不了。是空目录演练把它逼出来的。
+所以：改完恢复脚本，先在新目录里跑一遍 `--parts` + `--verify`，确认末行是
+`verify rows=715 ok=715 missing=0 sha_bad=0 giants_missing=0 giants_bad=0`、退出码为 0，再谈恢复成功。
+（这次的实测过程与两轮数字见 `PRE_SHUTDOWN_FINAL_REPORT.md` 第 10 节。）
+
 ## 12. 新实例恢复与重启步骤
 
 一键脚本（先读它，别手敲）：
@@ -338,6 +395,11 @@ ln -sfn /workspace/FasterWAM /workspace/fasterwam_a3_bridge/FasterWAM
 
 11.1 GB 级别的权重用六路分段脚本，脚本在 `scripts/restore_new_instance.sh` 里（`fetch_range6`）。取完必须比对 sha256，本 README 里出现的每个字节数与 sha256 都以 `archive/2026-11-01/p0p1_manifest.tsv` 为准。
 
+`--verify` 先逐行核对 `p0p1_manifest.tsv` 的 715 个文件，再对由 532 个分片重装配出的 3 个整文件核对整文件 sha256
+（预期输出 `verify rows=715 ok=715 missing=0 sha_bad=0 giants_missing=0 giants_bad=0`）。全量恢复后才允许 `missing=0`；
+如果只试取了几个文件，`--verify` 要把这些路径一起带上（如 `--verify weights/r4/light/step_004000/adapter.pt`），
+否则缺文件会被算成失败。任何下载或装配失败都会以非零退出码结束，并在最后打印 `RESTORE FAILED: N file(s) ...`。
+
 ## 13. 未完成工作与下阶段计划
 
 明确未完成、且不得被当成已完成的：
@@ -353,7 +415,7 @@ ln -sfn /workspace/FasterWAM /workspace/fasterwam_a3_bridge/FasterWAM
 
 下一轮建议的最小闭环（按依赖排序）：
 
-1. 新实例上跑 `scripts/restore_new_instance.sh`，先做只读恢复演练：取 1 个小权重 + 1 个分片，比对 sha256，确认台账可用。
+1. 新实例上跑 `scripts/restore_new_instance.sh --code --deps`，再 `--all`。旧 pod 上已经用空目录做过全量演练（`weights`/`rest`/`data`/`parts`/`verify` 全过，`rows=715 ok=715 missing=0`，详见 `PRE_SHUTDOWN_FINAL_REPORT.md` 第 10 节），**没演练过的只剩代码与环境安装这两步**。
 2. 用 v3 修复后的落盘逻辑跑 1-step smoke，核对张量数 = 786、元素数 = 30,707,712。
 3. 把 73 条语料 + `a3_fw_force` 拼成 14D 输入训练集，先做等预算的 V0/V1 对照（同 step、同 lr 形状、同语料），评估一律 B0/C0 成对，报 `rest_in_bin` 与官方值两栏。
 4. 只有在 `single > 0` 之后才讨论加长训练。

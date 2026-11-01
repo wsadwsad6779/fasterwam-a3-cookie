@@ -3,7 +3,7 @@
 对应 2026-11-01 退租归档。所有字节数与 sha256 以两份台账为准，不认别的：
 
 ```
-archive/2026-11-01/p0p1_manifest.tsv      # 715 行：档、path_in_repo、pod 相对路径、字节、sha256
+archive/2026-11-01/p0p1_manifest.tsv      # 715 行（每个文件一行）：档、path_in_repo、pod 相对路径、字节、sha256
 archive/2026-11-01/parts60gz_manifest.tsv # 532 行：档、分片 path_in_repo、相对路径、字节、sha256
 ```
 
@@ -143,7 +143,7 @@ sha256sum /workspace/a3_train_runs/a3_lora_r3/checkpoints/weights/step_003000.pt
 `videos/a3_eval/**`、`videos/fasterwam_a3_bridge/**`、`replay/bridge/**`、`runs/**`（各轮 `trainer_state.json`、`lr_restart.json`）、
 `tests/light_state_test{,2}/**`、`research/**`。
 
-打分口径别搞混：`cookies_in_target` 有三套统计（READM 第 6 节），报告里的数字都标了口径。
+打分口径别搞混：`cookies_in_target` 有三套统计（README 第 6 节），报告里的数字都标了口径。
 
 ## 7. 校验
 
@@ -156,6 +156,10 @@ bash scripts/restore_new_instance.sh --verify
 ```
 verify rows=715 ok=715 missing=0 sha_bad=0 giants_missing=0 giants_bad=0
 ```
+
+这份期望值不是算出来的：2026-11-01 在旧 pod 的 `/root/drill` 空目录上真跑了一遍
+`--weights --rest --data --parts --verify`，第一轮就是靠这里的差异抓出「分片台账列错位」的 bug，
+修复后复跑得到上面这一行、退出码 0（过程见 `PRE_SHUTDOWN_FINAL_REPORT.md` 第 10 节）。
 
 只要 `sha_bad` 或 `giants_bad` 不为 0，就先别启动任何训练。
 

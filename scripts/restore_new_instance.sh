@@ -44,10 +44,14 @@ for a in "$@"; do
     --parts) actions+=(parts) ;;
     --verify) actions+=(verify) ;;
     --*) echo "unknown flag: $a" >&2; exit 2 ;;
-    *) only_paths+=("$a"); actions+=(weights) ;;
+    *) only_paths+=("$a") ;;
   esac
 done
+# A bare path means "fetch just these"; adding the action once here keeps
+# `--weights a b c` from running the same list three times.
+if [ ${#only_paths[@]} -gt 0 ] && [ ${#actions[@]} -eq 0 ]; then actions+=(weights); fi
 
+fails=0
 log() { printf '%s %s\n' "$(date -u +%FT%TZ)" "$*"; }
 url_for() { printf '%s/%s/resolve/main/%s' "$BASE" "$REPO" "$1"; }
 sha_of() { sha256sum "$1" | cut -d' ' -f1; }
@@ -84,6 +88,12 @@ bytes_for() { awk -F'\t' -v p="$1" '$2==p {print $4; exit}' "$MANIFEST"; }
 # and .../checkpoints/light/... both carry a "checkpoints" segment that a naive
 # weights/<round>/<rest> rewrite drops.
 rel_for()   { awk -F'\t' -v p="$1" '$2==p {print $3; exit}' "$MANIFEST"; }
+# The part ledger's first column is the tier (P0/P1), so the path to rebuild is
+# column 2 with the parts60gz/<tier>/ prefix and the /part_NNN.gz suffix removed.
+whole_paths() {
+  awk -F'\t' '{p=$2; sub("^parts60(gz)?/[^/]+/", "", p);
+               sub("/part_[0-9]+([.]gz)?$", "", p); if (p != "") print p}' "$PARTS" | sort -u
+}
 
 # Parallel byte-range fetch. Measured against the mirror: one stream ~5.6 MB/s,
 # six ranges ~26 MB/s; a straight huggingface.co stream is ~1.7 MB/s.
@@ -204,7 +214,7 @@ do_data() {
   local in_repo rel
   while IFS=$'\t' read -r _b in_repo rel _n _s; do
     case "$in_repo" in
-      data/*) fetch_one "$in_repo" "$WS/$rel" ;;
+      data/*) fetch_one "$in_repo" "$WS/$rel" || fails=$((fails + 1)) ;;
     esac
   done < "$MANIFEST"
   if [ "${WITH_DATASET:-0}" = 1 ]; then
@@ -220,8 +230,8 @@ do_weights() {
     local p r
     for p in "${only_paths[@]}"; do
       r="$(rel_for "$p")"
-      [ -n "$r" ] || { echo "not in manifest: $p" >&2; return 1; }
-      fetch_one "$p" "$WS/$r"
+      [ -n "$r" ] || { echo "not in manifest: $p" >&2; fails=$((fails + 1)); continue; }
+      fetch_one "$p" "$WS/$r" || fails=$((fails + 1))
     done
     return
   fi
@@ -231,7 +241,7 @@ do_weights() {
       large_parts/*|parts60/*|parts60gz/*) : ;;
       weights/*|trainer/*)
         if [ "${n:-0}" -gt 2000000000 ]; then log "skip $in_repo (giant, rebuild with --parts)"; continue; fi
-        fetch_one "$in_repo" "$WS/$rel" ;;
+        fetch_one "$in_repo" "$WS/$rel" || fails=$((fails + 1)) ;;
     esac
   done < "$MANIFEST"
 }
@@ -242,7 +252,7 @@ do_rest() {
   local in_repo rel
   while IFS=$'\t' read -r _b in_repo rel _n _s; do
     case "$in_repo" in
-      eval/*|videos/*|replay/*|runs/*|tests/*|research/*) fetch_one "$in_repo" "$WS/$rel" ;;
+      eval/*|videos/*|replay/*|runs/*|tests/*|research/*) fetch_one "$in_repo" "$WS/$rel" || fails=$((fails + 1)) ;;
     esac
   done < "$MANIFEST"
 }
@@ -252,9 +262,9 @@ do_parts() {
   while read -r w; do
     [ -n "$w" ] || continue
     r="$(rel_for "$w")"
-    [ -n "$r" ] || { echo "no manifest row for $w" >&2; return 1; }
-    assemble_part "$w" "$WS/$r"
-  done < <(awk -F'\t' '{sub("^parts60(gz)?/[^/]+/", ""); sub("/part_[0-9]+(\\.gz)?$", ""); print}' "$PARTS" | sort -u)
+    [ -n "$r" ] || { echo "no manifest row for $w" >&2; fails=$((fails + 1)); continue; }
+    assemble_part "$w" "$WS/$r" || fails=$((fails + 1))
+  done < <(whole_paths)
 }
 
 do_verify() {
@@ -274,10 +284,11 @@ do_verify() {
       pdest="$WS/$(rel_for "$whole")"
       if [ ! -f "$pdest" ]; then pw=$((pw + 1)); log "missing (assembled) $whole"; continue; fi
       if [ "$(sha_of "$pdest")" = "$wsha" ]; then log "OK (assembled) $whole"; else pbad=$((pbad + 1)); echo "BAD $whole"; fi
-    done < <(awk -F'\t' '{sub("^parts60(gz)?/[^/]+/", ""); sub("/part_[0-9]+(\\.gz)?$", ""); print}' "$PARTS" | sort -u)
+    done < <(whole_paths)
   fi
   log "verify rows=$rows ok=$ok missing=$missing sha_bad=$bad giants_missing=$pw giants_bad=$pbad"
-  [ "$bad" = 0 ] && [ "$pbad" = 0 ]
+  # A partial restore is allowed to be missing files; a full one is not.
+  [ "$bad" = 0 ] && [ "$pbad" = 0 ] && { [ ${#only_paths[@]} -gt 0 ] || [ "$missing" = 0 ]; }
 }
 
 for act in "${actions[@]}"; do
@@ -286,15 +297,22 @@ for act in "${actions[@]}"; do
   esac
 done
 
+rc=0
 for act in "${actions[@]}"; do
   case "$act" in
-    code) do_code ;;
-    deps) do_deps ;;
+    code) do_code || rc=1 ;;
+    deps) do_deps || rc=1 ;;
     data) do_data ;;
     weights) do_weights ;;
     rest) do_rest ;;
     parts) do_parts ;;
-    verify) do_verify ;;
+    verify) do_verify || rc=1 ;;
     *) echo "unknown action: $act" >&2; exit 2 ;;
   esac
 done
+
+if [ "$fails" -gt 0 ]; then
+  echo "RESTORE FAILED: $fails file(s) could not be fetched or assembled" >&2
+  exit 1
+fi
+exit "$rc"
