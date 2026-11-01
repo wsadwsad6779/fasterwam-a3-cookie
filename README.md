@@ -225,7 +225,7 @@ https://huggingface.co/datasets/Eter0109/a3-front-close-left-100/tree/8fdd8a7caf
 
 每个文件上传前先算 sha256，与台账记录不符就拒绝上传；因此「上传成功」的定义是**远端可读回且字节与 sha256 相同**，仅文件大小相同不算验证通过。全量服务端对账与抽样真实回读见 `archive/2026-11-01/` 与 `PRE_SHUTDOWN_FINAL_REPORT.md`。
 
-3,888 个原始 pod 文件的最终分类按**内容哈希**判定，不看当初的上传记录（完整表见 `PRE_SHUTDOWN_FINAL_REPORT.md` 第 6 节与 `docs/BACKUP_STATUS_ABC_FINAL.md`）：
+3,888 个原始 pod 文件的最终分类按**内容哈希**判定，不看当初的上传记录（完整表见归档分支 `PRE_SHUTDOWN_FINAL_REPORT.md` 开头的 A–F 表与 `docs/BACKUP_STATUS_ABC_FINAL.md`）：
 
 | 档 | 含义 |
 |---|---|
