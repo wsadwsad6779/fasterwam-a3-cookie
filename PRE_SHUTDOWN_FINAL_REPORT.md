@@ -25,7 +25,7 @@ archive/2026-11-01/parts60gz_manifest.tsv 532 个分片：分片 path_in_repo、
 | 仓库 | `https://github.com/wsadwsad6779/fasterwam-a3-cookie`（私有） |
 | 分支 | `archive-2026-11-01`（新开，未动既有分支） |
 | 内容冻结提交 | `82e807cb299c49901f724b9651ec52913ff9dc0` — "archive: freeze the 2026-11-01 working set before the pod is torn down"（970 files changed, 123,442 insertions） |
-| 报告与本轮修复 | `e7c9eb000c0bf23cbd5172e2c61835df7916107e` — 恢复脚本修复、README 第 11.4 节、本报告、`docs/BACKUP_STATUS_ABC_FINAL.md` |
+| 报告与本轮修复 | `e7c9eb000c0bf23cbd5172e2c61835df7916107e`、`46944a1dd6f00ecc765b7aee537d8268d021368a` — 恢复脚本修复、README 第 11.4 节、本报告、`docs/BACKUP_STATUS_ABC_FINAL.md` |
 | 受管文件 | 1,209 个（`git ls-files`） |
 
 提交 sha 无法写进提交自身；上表是推送时的远端 HEAD，之后若还有文档修订，以 `git log -1` 为准。
@@ -36,7 +36,7 @@ archive/2026-11-01/parts60gz_manifest.tsv 532 个分片：分片 path_in_repo、
 
 ## 2. GitHub README 回读
 
-推送后在新目录做了全新 clone（不是 `git status`），以下数字来自 `e7c9eb0` 那次复验：
+推送后在新目录做了全新 clone（不是 `git status`），每次推送后都重跑一遍；下面这组数字在 1,209 个受管文件上始终一致：
 
 - 克隆出的受管文件 1,209 个，与推送前工作区逐文件比 sha256：
   **956 个逐字节相同 / 253 个仅行尾 CRLF↔LF / 0 个其它差异 / 0 个缺失**。
