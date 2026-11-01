@@ -25,10 +25,10 @@ archive/2026-11-01/parts60gz_manifest.tsv 532 个分片：分片 path_in_repo、
 | 仓库 | `https://github.com/wsadwsad6779/fasterwam-a3-cookie`（私有） |
 | 分支 | `archive-2026-11-01`（新开，未动既有分支） |
 | 内容冻结提交 | `82e807cb299c49901f724b9651ec52913ff9dc0` — "archive: freeze the 2026-11-01 working set before the pod is torn down"（970 files changed, 123,442 insertions） |
-| 受管文件 | 1,207 个（`git ls-files`） |
+| 报告与本轮修复 | `e7c9eb000c0bf23cbd5172e2c61835df7916107e` — 恢复脚本修复、README 第 11.4 节、本报告、`docs/BACKUP_STATUS_ABC_FINAL.md` |
+| 受管文件 | 1,209 个（`git ls-files`） |
 
-本报告、恢复脚本修复与 README 第 11.4 节在内容冻结提交之后的同一批提交里。提交 sha 无法写进提交自身，
-请以 GitHub 页面 `archive-2026-11-01` 分支 HEAD 或 `git log -1` 为准。
+提交 sha 无法写进提交自身；上表是推送时的远端 HEAD，之后若还有文档修订，以 `git log -1` 为准。
 
 仓库里有什么：`pod_snapshot/2026-11-01/`（949 个本项目代码/文档/脚本）、`scripts/`、`docs/`、`bridge/`、
 `finetune/`、`tools/`、`results/`、`archive/2026-11-01/`（台账、上传器源码、git 快照 tar.gz）。
@@ -36,19 +36,20 @@ archive/2026-11-01/parts60gz_manifest.tsv 532 个分片：分片 path_in_repo、
 
 ## 2. GitHub README 回读
 
-推送后在新目录做了全新 clone（不是 `git status`）：
+推送后在新目录做了全新 clone（不是 `git status`），以下数字来自 `e7c9eb0` 那次复验：
 
-- 克隆出的受管文件 1,207 个，与推送前工作区逐文件比 sha256：
-  **953 个逐字节相同 / 254 个仅行尾 CRLF↔LF / 0 个其它差异 / 0 个缺失**。
-- 台账 sha256 与钉死值一致：
+- 克隆出的受管文件 1,209 个，与推送前工作区逐文件比 sha256：
+  **956 个逐字节相同 / 253 个仅行尾 CRLF↔LF / 0 个其它差异 / 0 个缺失**。
+- 三个钉死文件的 sha256 在 clone 里逐一核对通过：
   - `archive/2026-11-01/p0p1_manifest.tsv` = `54f4e3669a46b3af58331abee2b55c350c1292516b692c19cb4bb0520d596b08`
   - `archive/2026-11-01/parts60gz_manifest.tsv` = `307172a4f82d98f58391068c2ac4078ac4f8ff64efafa50470361456db6d0f04`
+  - `scripts/restore_new_instance.sh` = `98510b0774ef9023e72cd9e1c51c0033e5c59b9e9187b48ae0cab6cd485492c7`
 - README 含任务书要求的 13 项：研究目标、A3 任务、专家策略、r1→r5 训练史、B0/C0 评估表、两套入盒口径、
   接触力量级、`proprio_encoder` 漏存、73 条新增示范、V1 方案、归档位置与校验、恢复步骤、未完成工作。
-  另加第 11.3 节上传手册与第 11.4 节 GitHub 上传经验。
+  另加第 11.3 节上传手册与第 11.4 节 GitHub 上传经验（6 条，含「台账列错位只有真跑演练才能发现」）。
 
-254 个行尾差异的来源是本机 `core.autocrlf=true`：这类文件在仓库里是 LF，pod 原始文件是 CRLF。
-内容没有差异，但「仓库字节 = pod 字节」对这 254 个文件不成立；仓库根已加 `.gitattributes`（`* -text`）阻止后续归一化。
+253 个行尾差异的来源是本机 `core.autocrlf=true`：这类文件在仓库里是 LF，pod 原始文件是 CRLF。
+内容没有差异，但「仓库字节 = pod 字节」对这 253 个文件不成立；仓库根已加 `.gitattributes`（`* -text`）阻止后续归一化。
 
 ## 3. HF 模型仓库
 
