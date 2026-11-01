@@ -159,7 +159,7 @@ r4 B0/22 同一条动作流下 Safety 的影子计数（不执行、只统计）
 - 轻量 ckpt 只落 **784** 个张量、**30,670,848** 个元素；而优化器里实际有 **786** 个张量、**30,707,712** 个元素，差 **36,864** 个元素，正好是 `proprio_encoder` 的两层权重与偏置。
 - 判据要用「是否在优化器成员里」，不能只看 `requires_grad`（本轮就差点用错）。
 - 后果：r4 `step_004000` 与 r5 `step_008000` 的 `proprio_encoder` **末态参数只存在于内存里那一次评估，pod 上没有任何副本，本次 HF/GitHub 备份也无法恢复它**。能恢复的是 adapter.pt / optimizer.pt / rng.pt / scheduler.pt / trainer_state.json 与训练脚本、配置、语料。
-- 修复代码（light_state v3，把 786 张量全量落盘）本体与测试在 HF 的 `tests/light_state_test`、`tests/light_state_test2` 和仓库 `pod_snapshot/2026-11-01/_r5_stage/`；它只保证「下一次训练不再漏存」，不追认 r4/r5。
+- 修复代码（light_state v3，把 786 张量全量落盘）本体与测试在仓库 `pod_snapshot/2026-11-01/_r6_stage/`（`light_state_v3.py`、`test_light_state_v3.py`，v2 两件同目录）；HF 的 `tests/light_state_test*` 是它产出的 checkpoint 与自测目录，不是源码。它只保证「下一次训练不再漏存」，不追认 r4/r5。
 - 因此 r4→r5 这条比较线**不能从权重层面重跑复现**，只能引用已归档的 npz/视频/json 读数。这一条在任何后续报告里都得写在前面。
 
 ## 9. 73 条新增示范（低力 + 纠正）
@@ -193,20 +193,23 @@ r4 B0/22 同一条动作流下 Safety 的影子计数（不执行、只统计）
 https://huggingface.co/wsadwsad6779/fasterwam-a3-cookie-lora
 ```
 
+当前 `main` 指针：`f2aaf55c6ce1b164de97c5b6ec2cd75e942d0de0`（2026-11-01T08:48:11Z，最后一次提交 "Archive M batch 1/1"）。
+远端共 1,264 个文件；`MANIFEST/` 下 4 份台账可直接下载。
+
 目录约定（本次归档新建，未覆盖任何既有文件）：
 
 | HF 路径 | 内容 | 档 |
 |---|---|---|
 | `step_002000_merged.pt`、`trainer/**`、`data/frames.dat` | r1 权重与训练状态（2026-10 就已上传） | 既有 |
-| `weights/r2/`、`weights/r3/` | r2、r3 的 11.1 GB 合并权重与 `full_state` | P0/P1 |
+| `weights/r2/`、`weights/r3/` | **台账里的目标路径，远端并没有这两个目录**：三个 >2 GiB 整文件上传会冻结，实际只存了分片（见下一行与 11.2）；恢复必须装配，不能直接下载 | — |
 | `weights/r4/`、`weights/r5/` | r4、r5 轻量 ckpt（step_000500…step_008000）：adapter / optimizer / rng / scheduler / trainer_state | P0/P1 |
-| `parts60gz/<档>/<原路径>/part_NNN.gz` | 三个 >2 GiB 权重的 60 MiB 分片，gzip 压缩（原因与恢复方式见 11.2 与 `docs/RESTORE_NEW_INSTANCE.md` 第 4 节） | P0/P1 |
+| `parts60gz/<档>/<原路径>/part_NNN.gz` | 三个 >2 GiB 权重的 60 MiB 分片（r3 `full_state` 178 片、r3 与 r2 的 `step_003000_merged.pt` 各 177 片，共 532 片），gzip 压缩（原因与恢复方式见 11.2 与 `docs/RESTORE_NEW_INSTANCE.md` 第 4 节） | P0/P1 |
 | `data/` | `a3_fw`、`a3_fw_dagger`、`a3_fw_dagger_near`、`a3_fw_force` 的数组、`frames.dat`、归一化统计 | P0 |
 | `eval/a3_eval/`、`eval/bridge/` | B0/C0 的 `summary_lora.json`、`manifest_lora.json`、npz、打分日志、dagger 恢复件 | P0 |
 | `videos/a3_eval/`、`videos/fasterwam_a3_bridge/` | 评估与桥接录像 | P0 |
 | `runs/a3_lora_r{2,3,4,5}`、`runs/a3_lora_r4_crashed_step500` | `trainer_state.json`、`lr_restart.json` 等训练侧记录 | P0/P1 |
 | `replay/bridge/` | 确定性回放的 `frames.dat` | P1 |
-| `tests/light_state_test`、`tests/light_state_test2` | light_state v3 修复代码与测试 | P1 |
+| `tests/light_state_test`、`tests/light_state_test2` | v3 产出的轻量 checkpoint（`adapter/optimizer/rng/scheduler`）与自测目录，**不是源码**；源码在仓库 `pod_snapshot/2026-11-01/_r6_stage/` | P1 |
 | `research/**` | `_r4_stage` 脚本、`expert_seed{11,21,22}.npz`、`_selftest` | P1 |
 | `MANIFEST/p0p1_manifest.tsv` 等 | 归档台账（每行：档、`path_in_repo`、pod 相对路径、字节数、sha256） | — |
 
@@ -216,9 +219,22 @@ https://huggingface.co/wsadwsad6779/fasterwam-a3-cookie-lora
 https://huggingface.co/datasets/Eter0109/a3-front-close-left-100/tree/8fdd8a7caf8275eba8be8a83b53a99176a084062
 ```
 
-### 11.1 校验口径
+### 11.1 校验口径与 A–F 分类
 
-每个文件上传前先算 sha256，与台账记录不符就拒绝上传；因此「上传成功」的定义是**远端可读回且字节与 sha256 相同**，仅文件大小相同不算验证通过。全量服务端对账与抽样真实回读见 `archive/2026-11-01/` 与 `PRE_SHUTDOWN_FINAL_REPORT.md`（含状态表：A = pod 外有逐字节相同副本；B = 只有大小一致；C = pod 唯一副本）。
+每个文件上传前先算 sha256，与台账记录不符就拒绝上传；因此「上传成功」的定义是**远端可读回且字节与 sha256 相同**，仅文件大小相同不算验证通过。全量服务端对账与抽样真实回读见 `archive/2026-11-01/` 与 `PRE_SHUTDOWN_FINAL_REPORT.md`。
+
+3,888 个原始 pod 文件的最终分类按**内容哈希**判定，不看当初的上传记录（完整表见 `PRE_SHUTDOWN_FINAL_REPORT.md` 第 6 节与 `docs/BACKUP_STATUS_ABC_FINAL.md`）：
+
+| 档 | 含义 |
+|---|---|
+| A | HF 已备份且 SHA256 匹配（三个 >2 GiB 权重按 532 个分片装配后再核整文件 sha256） |
+| B | GitHub 已备份，远端 clone 逐文件验证 |
+| C | Windows 本机已备份，SHA256 匹配 |
+| D | 固定上游公开仓库 revision，可按 sha256 重新取得 |
+| E | 经明确判断不需要保留的可再生缓存 / 自测产物 / 空文件 |
+| F | 无可靠副本，退租后会丢失 |
+
+> 旧版文档里另有一套 A/B/C（A = pod 外有逐字节副本、B = 只核过大小、C = pod 唯一副本），已废弃，不要与新表混用。
 
 ### 11.2 >2 GiB 权重的真实状态（必须如实写）
 
@@ -377,12 +393,12 @@ docs/RESTORE_NEW_INSTANCE.md
 ln -sfn /workspace/FasterWAM /workspace/fasterwam_a3_bridge/FasterWAM
 ```
 
-2. **r1–r5 权重 / adapter / 优化器 / 训练状态** —— `weights/**` 与 `parts60gz/**`（r1 在仓库根与 `trainer/**`）。注意第 8 节的漏存事实。
+2. **r1–r5 权重 / adapter / 优化器 / 训练状态** —— `parts60gz/**`（三个 >2 GiB 权重要装配）、`weights/r4`、`weights/r5`，r1 在仓库根与 `trainer/**`；台账里 `weights/r2`、`weights/r3` 的整文件路径远端没有，别直接下。注意第 8 节的漏存事实。
 3. **原始 100 条专家与转换数据** —— 数据集按 revision 重下（第三方，需你确认允许再分发才复制），或直接取 `data/**` 的 `frames.dat` + `arrays.npz`。
 4. **73 条新增示范** —— `data/a3_fw_dagger*` + `eval/a3_eval/corpus_manifest_v1.json`。
 5. **B0/C0 评估数据与视频** —— `eval/**`、`videos/**`（`--rest` 一起取）；本地还有一份 `FasterWAM_r3_r4_r5_实验视频合集.zip`（18,732,532 B）与 `SHA256SUMS.txt`。
 6. **训练配置 / 归一化统计 / 采样器恢复逻辑** —— `runs/**`、`data/**/dataset_stats.json`、`pod_snapshot/2026-11-01/_r4_stage/run_r5.sh`（含 `lr_restart.json` 的续训接线）。
-7. **light_state v3 修复代码与测试** —— `tests/**`（`--rest`）、`pod_snapshot/2026-11-01/_r5_stage/`。
+7. **light_state v3 修复代码与测试** —— `pod_snapshot/2026-11-01/_r6_stage/`（源码与测试）、`tests/**`（`--rest`，v3 产出的 checkpoint 与自测目录）。
 8. **各阶段研究报告与后续计划** —— `docs/**`（含本 README 与旧版交接）与本仓库根的 `docs_task1…docs_task5`、`PRE_SHUTDOWN_FINAL_REPORT.md`。
 
 大文件取法实测速率（新实例照这个顺序试，别一上来直连）：
@@ -418,9 +434,14 @@ ln -sfn /workspace/FasterWAM /workspace/fasterwam_a3_bridge/FasterWAM
 下一轮建议的最小闭环（按依赖排序）：
 
 1. 新实例上跑 `scripts/restore_new_instance.sh --code --deps`，再 `--all`。旧 pod 上已经用空目录做过全量演练（`weights`/`rest`/`data`/`parts`/`verify` 全过，`rows=715 ok=715 missing=0`，详见 `PRE_SHUTDOWN_FINAL_REPORT.md` 第 10 节），**没演练过的只剩代码与环境安装这两步**。
+
 2. 用 v3 修复后的落盘逻辑跑 1-step smoke，核对张量数 = 786、元素数 = 30,707,712。
 3. 把 73 条语料 + `a3_fw_force` 拼成 14D 输入训练集，先做等预算的 V0/V1 对照（同 step、同 lr 形状、同语料），评估一律 B0/C0 成对，报 `rest_in_bin` 与官方值两栏。
 4. 只有在 `single > 0` 之后才讨论加长训练。
+
+> 恢复验证的边界（不要外推）：演练是**文件级**的，跑在同一台旧 pod 的 `/root/drill*` 空目录里，只是强制走远端下载；
+> `--code`、`--deps` 与**模型推理 smoke 都没有在另一台全新 GPU 实例上跑过**。所以不能把本归档描述成
+> 「已在新机器上端到端复现」；新机器上首次恢复仍需按上面两步重跑并自己核对 `--verify` 的输出。
 
 ## 附：仓库内容与许可
 
