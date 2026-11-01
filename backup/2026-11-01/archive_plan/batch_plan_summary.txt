@@ -1,0 +1,18 @@
+GIT  git_only                   tier=B   n=258       0.029 GiB
+GIT  git_only                   tier=C   n=1745      0.008 GiB
+L    do_not_upload_license      tier=B   n=60        4.011 GiB
+L    do_not_upload_upstream     tier=B   n=8        23.581 GiB
+P0   upload                     tier=A   n=41        0.007 GiB
+P0   upload                     tier=C   n=554      22.617 GiB
+P1   upload                     tier=C   n=120      18.115 GiB
+P2   not_upload_archive         tier=C   n=13        0.011 GiB
+P2   not_upload_cache           tier=C   n=1         0.001 GiB
+P2   not_upload_other           tier=B   n=660       0.004 GiB
+P2   not_upload_other           tier=C   n=1         0.000 GiB
+P2   not_upload_scratch         tier=C   n=327       0.000 GiB
+P2   not_upload_smoke           tier=C   n=32        1.379 GiB
+P2   not_upload_upstream_or_big tier=C   n=1         0.000 GiB
+V    verify_only                tier=A0  n=26        0.000 GiB
+V    verify_readback            tier=A   n=40       10.355 GiB
+V    verify_readback            tier=B   n=1        11.967 GiB
+upload 40.740 GiB P0 22.625 P1 18.115 git 0.036 notupload 5.407
