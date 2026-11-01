@@ -49,3 +49,32 @@ pod 侧 `git push` 不可用（`.git` 里是 SSH remote 且 pod 上没有凭据�
 一个有写权限的 HF token 才能把 `r3 merged + r4/r5 末态 + 原始 100 条示范 + 评估产物`
 推到 `wsadwsad6779/fasterwam-a3-cookie-lora`。在这些上传逐文件比对过完整 sha256 之前，
 不能把它们记为「已备份」。
+
+## v2 补扫（同日，全量对账后追加）
+
+第一版清单只覆盖了我们想到的目录。随后用一次全量 `find /workspace -type f`
+（4,933 个文件）与清单做差集，发现 **3,970 个文件、47.47 GB 从未被记录**，
+其中包含 r3 的完整训练状态、r4/r5 的全部中间 step、两批 dagger 语料与它们的未转换原始帧。
+补扫后清单为 **3,888 个条目 / 98,876,695,253 B（92.09 GiB），每个条目都有 pod 端完整 sha256**。
+
+新增文件：
+
+| 文件 | 作用 |
+|---|---|
+| `BACKUP_REPORT.md` | 核验报告：远端路径与权限、逐字节对拍结果、10 类覆盖度、未备份部分、授权偏差 |
+| `BACKUP_MANIFEST_v2.md` | 全量清单的目录级/类别级视图 + 尚无外部副本的大文件表 |
+| `backup_manifest_v2.json` | v2 逐条目（3,888 条，含 `backup_status`、`other_verified_copy`、重复组） |
+| `manifest_rows.tsv` | pod 端合并表原样（path/bytes/mtime/suffix/sha256/referenced/groups/hash_seconds） |
+| `pod_code/scan_checkpoints.py` | 补扫脚本（差集入单，按路径规则分组） |
+| `pod_code/manifest_rows.py` | 把 filelist + hashes 压成一张 TSV 供回传 |
+| `pod_code/build_backup_manifest_v2.py` | 本地重建 v2 清单与报告的脚本（入口先断言输入 TSV 的 sha256） |
+
+新链路的校验锚点：`manifest_rows.tsv` pod 端与本地重组后同为
+`62afef81caed177f1746af7c5eec42dc1c30dbbc59caabd23a9084b94d7d782e`（699,851 B / 3,888 行）。
+脚本双向对拍：`scan_checkpoints.py` = `b685830b8703487b1697e7da01aac1cc141c0ad57c8d535cef28d5e38629ad03`，
+`manifest_rows.py` = `785f92968a52ae1f6339d7a109e8615f96e41e90a23b7857d9f3da8ebe5146c2`（pod 与本地一致，且 `py_compile` 通过）。
+
+v1 的文件不改动、不覆盖；`backup_filelist.json` 补扫前的快照留在 pod 上作
+`_r6_stage/out/backup_filelist.pass1.json`（`264034ac…`）。
+本节里「清单里共 47.88 GiB」是 v1 口径，已被 v2 的 92.09 GiB 取代；
+上一节关于 HF 大小对拍、pod 无法 push、需要写 token 的结论仍然成立。
