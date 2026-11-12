@@ -1,0 +1,42 @@
+# A3 two-camera corpus with the raw 18-channel force table attached.
+#
+# Inherits everything from data/a3_2cam.yaml -- same 100 demonstrations, same
+# frames (symlinked, not re-encoded), same processor and 7-dim action. Two things
+# change, and they must change together:
+#
+#   1. `state`/proprio goes 8 -> 14. §三-A of the force task: the eight joint
+#      angles plus the six gathered force channels, normalised by the processor's
+#      14-entry state normalizer. `model.proprio_dim` interpolates
+#      `proprio_output_dim`, so this file is the single owner of the width, and
+#      `fasterwam.base_load_guard` is what lets the [4096, 8] upstream base load
+#      into the wider `proprio_encoder` (first 8 columns copied, last 6 zeroed).
+#   2. The force history/future windows are attached per sample. Their geometry is
+#      interpolated out of model/fasterwam_force.yaml so the dataset and the model
+#      cannot disagree about channel set, history length or horizon.
+#
+# The 14-dim arrays are produced by `_v1_stage/build_v1_dataset.py` into
+# /workspace/a3_data/a3_fw_v1g; the 18-channel table it reads stays separate at
+# /workspace/a3_data/a3_fw_force/arrays.npz, and the dataset asserts row-for-row
+# that both files describe the same frames.
+defaults:
+  - a3_2cam
+  - _self_
+
+train:
+  # Pinned explicitly: the original 100-episode corpus, force-aware variant. The
+  # 73 new demonstrations are excluded by decision, so the V0/V1 comparison sees
+  # identical pixels and identical actions and differs only in the force stream.
+  dataset_dirs:
+    - /workspace/a3_data/a3_fw_v1g
+  pretrained_norm_stats: /workspace/a3_data/a3_fw_v1g/dataset_stats.json
+  force_arrays_path: /workspace/a3_data/a3_fw_force/arrays.npz
+  force_channels: ${model.force.conditioner.channels}
+  force_hist_len: ${model.force.conditioner.history_encoder.hist_len}
+  force_horizon: ${model.force.conditioner.future_encoder.horizon}
+  shape_meta:
+    state:
+      - key: default
+        raw_shape: 14
+        shape: 14
+  processor:
+    proprio_output_dim: 14

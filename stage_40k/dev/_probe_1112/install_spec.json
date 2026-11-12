@@ -1,0 +1,8 @@
+{
+  "expect_sha256": {
+    "flow_test.py": "6e7dee60d0e9c3882687d9d84e9e6c7f8e89f178101fe492930d667c9fd59f6c",
+    "smoke40k.py": "2dae9a32a833ecd9622ca63d8ad3dea3479b3076686036913a46ae561b4c7311"
+  },
+  "reason": "smoke40k.py + flow_test.py round 4: the real step_040000 smoke reached the GPU, ran the rollouts, then died in the episode record with TypeError: unhashable type: list at smoke40k.py:831 (a set comprehension over the chunk shapes the recorder stores as lists). Root cause is the harness, not the model: the aggregation now goes through the named distinct_chunk_shapes(), which hashes tuples and returns plain lists, and flow_test grows two checks for it (behaviour on a synthetic log plus the call-site/no-set-of-lists source gate). No assertion standard was lowered.",
+  "round": 4
+}

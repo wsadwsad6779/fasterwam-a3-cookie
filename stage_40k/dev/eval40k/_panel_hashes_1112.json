@@ -1,0 +1,74 @@
+{
+  "RUN_RECORD_SEEDS.sh": {
+    "bytes": 11197,
+    "ever_pushed_to_pod": null,
+    "note": "never sent through the file bridge; the pod does not have this file",
+    "sha256_8": "54960596"
+  },
+  "_measured": {
+    "at": "2026-11-13",
+    "gate": "RUN_RECORD_SEEDS.sh step 0b refuses to record unless the first eight hex digits of each of its ten files match this table; the launcher's own hash cannot be checked from inside itself, so it is recorded here only",
+    "how": "sha256 over the bytes on disk in dev/eval40k",
+    "re_pinned": "2026-11-13, after C6 stopped being a hardcoded refusal: --require-right-press now reads a recorded press (pad_forcen plus its labels, or a force18 npz) and sensor_identity_tamper40k.py grades four synthetic press files against it, which rewrote sensor_identity40k.py, the tamper harness and this launcher's own 0b pins"
+  },
+  "force_stream.py": {
+    "bytes": 5437,
+    "ever_pushed_to_pod": "unknown",
+    "note": "identity on the pod cannot be re-read while the channel answers 403",
+    "sha256_8": "49c22eb8"
+  },
+  "panel_sample40k.py": {
+    "bytes": 13755,
+    "ever_pushed_to_pod": null,
+    "note": "never sent through the file bridge; the pod does not have this file",
+    "sha256_8": "14d7aeaf"
+  },
+  "panelsink_selftest40k.py": {
+    "bytes": 16088,
+    "ever_pushed_to_pod": null,
+    "note": "never sent through the file bridge; the pod does not have this file",
+    "sha256_8": "53e4adb6"
+  },
+  "panelvideo40k.py": {
+    "bytes": 27648,
+    "ever_pushed_to_pod": null,
+    "note": "never sent through the file bridge; the pod does not have this file",
+    "sha256_8": "1fec32db"
+  },
+  "panelvideo_selftest40k.py": {
+    "bytes": 23860,
+    "ever_pushed_to_pod": null,
+    "note": "never sent through the file bridge; the pod does not have this file",
+    "sha256_8": "ff599a99"
+  },
+  "record40k.py": {
+    "bytes": 63197,
+    "ever_pushed_to_pod": null,
+    "note": "never sent through the file bridge; the pod does not have this file",
+    "sha256_8": "a036ad81"
+  },
+  "recorder_selftest40k.py": {
+    "bytes": 16945,
+    "ever_pushed_to_pod": null,
+    "note": "never sent through the file bridge; the pod does not have this file",
+    "sha256_8": "0515eb5d"
+  },
+  "rollout40k.py": {
+    "bytes": 4737,
+    "ever_pushed_to_pod": "unknown",
+    "note": "identity on the pod cannot be re-read while the channel answers 403",
+    "sha256_8": "70d9adc9"
+  },
+  "sensor_identity40k.py": {
+    "bytes": 26908,
+    "ever_pushed_to_pod": null,
+    "note": "never sent through the file bridge; the pod does not have this file",
+    "sha256_8": "b05b510f"
+  },
+  "sensor_identity_tamper40k.py": {
+    "bytes": 8793,
+    "ever_pushed_to_pod": null,
+    "note": "never sent through the file bridge; the pod does not have this file",
+    "sha256_8": "969964f3"
+  }
+}

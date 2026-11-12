@@ -1,0 +1,40 @@
+# @package _global_
+
+defaults:
+  - override /data: a3_2cam
+  - override /model: fasterwam
+  - _self_
+
+# dataloading
+batch_size: 2
+num_workers: 4
+
+model:
+  redirect_common_files: false
+  mot_checkpoint_mixed_attn: false
+  skip_dit_load_from_pretrain: true
+
+# LoRA: a 5.56B full fine-tune needs ~44GB of params/grads/Adam alone and OOMs on
+# this 48GB card, so only q/k/v/o adapters of both experts are trained.
+lora:
+  experts: [video_expert, action_expert]
+  target_modules: [q, k, v, o]
+  r: 16
+  alpha: 32
+  dropout: 0.0
+
+# scheduler
+lr_scheduler_type: cosine
+learning_rate: 1e-4
+num_epochs: 10
+max_steps: null
+log_every: 10
+save_every: 0
+eval_every: 0
+
+# training
+gradient_accumulation_steps: 1
+weight_decay: 1e-2
+resume: null
+
+default_action_infer_mode: one_pass_future_cache

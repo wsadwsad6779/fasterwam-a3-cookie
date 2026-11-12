@@ -1,0 +1,118 @@
+_target_: fasterwam.runtime.create_fasterwam
+model_id: Wan-AI/Wan2.2-TI2V-5B
+tokenizer_model_id: Wan-AI/Wan2.1-T2V-1.3B
+tokenizer_max_len: 128
+load_text_encoder: false
+proprio_dim: ${data.train.processor.proprio_output_dim}
+redirect_common_files: true
+mot_checkpoint_mixed_attn: true
+condition_layers: [0, 4, 8, 12, 16, 20, 24, 28]
+video_kv_fusion: interval_weighted_sum
+video_kv_fusion_init: current_layer
+action_dit_pretrained_path: checkpoints/SparseActionDiT_cond_0_4_8_12_16_20_24_28_Wan22_alphascale_1024hdim.pt
+skip_dit_load_from_pretrain: false
+
+video_dit_config:
+  has_image_input: false
+  patch_size: [1, 2, 2]
+  in_dim: 48
+  hidden_dim: 3072
+  ffn_dim: 14336
+  freq_dim: 256
+  text_dim: 4096
+  out_dim: 48
+  num_heads: 24
+  attn_head_dim: 128
+  num_layers: 30
+  eps: 1.0e-06
+  seperated_timestep: true
+  require_clip_embedding: false
+  require_vae_embedding: false
+  fuse_vae_embedding_in_latents: true
+  use_gradient_checkpointing: ${model.mot_checkpoint_mixed_attn}
+  video_attention_mask_mode: "first_frame_causal"
+  action_conditioned: false
+  action_dim: ${data.train.processor.action_output_dim}
+  action_group_causal_mask_mode: "group_diagonal"
+
+action_dit_config:
+  action_dim: ${data.train.processor.action_output_dim}
+  hidden_dim: 1024
+  ffn_dim: 4096
+  num_layers: 30
+  num_heads: 24
+  noncondition_num_heads: 8
+  attn_head_dim: 128
+  text_dim: 4096
+  freq_dim: 256
+  eps: 1.0e-06
+  condition_layers: ${model.condition_layers}
+  use_gradient_checkpointing: ${model.mot_checkpoint_mixed_attn}
+
+video_scheduler:
+  train_shift: 5.0
+  infer_shift: 5.0
+  num_train_timesteps: 1000
+
+action_scheduler:
+  train_shift: 5.0
+  infer_shift: 5.0
+  num_train_timesteps: 1000
+
+loss:
+  lambda_action: 1.0
+
+# ---------------------------------------------------------------------------
+# Force conditioning (FAWAM-style, layered on the unchanged FasterWAM core).
+#
+# This file is a copy of model/fasterwam.yaml plus the `force` block below: the
+# video world model, the SparseMoT / Lite KV-Fusion path, the scheduler shifts
+# and the action expert geometry are all identical. It is experimental
+# acceleration on top of FasterWAM, not the official FasterWAM or FAWAM model.
+#
+# Everything the dataset needs is read back out of here by
+# data/a3_2cam_force.yaml through interpolation, so the force windows in the
+# data and the frozen dimensions in the model cannot drift apart.
+# ---------------------------------------------------------------------------
+force:
+  lambda_force: 1.0
+  conditioner:
+    enabled: true
+    # Raw columns gathered from the 18-channel force table.
+    channels: [0, 1, 2, 12, 13, 16]
+    channel_note: >-
+      Left wrist 3-axis force (cols 0-2), left finger-pad normal forces
+      (cols 12-13) and left gripper actuation force (col 16). This is NOT a
+      six-axis wrench: it mixes three orthogonal force components of one
+      sensor with three scalar contact/actuation magnitudes, and the wrist
+      components are expressed in the flange frame, not the world frame.
+      Right-arm channels are excluded because the audit measured them as
+      constant, and left wrist torques because they barely discriminate
+      contact.
+    history_encoder:
+      force_dim: 6
+      hidden_dim: 256
+      hist_len: 16
+      num_layers: 2
+      num_heads: 4
+      dropout: 0.0
+    future_encoder:
+      force_dim: 6
+      hidden_dim: 256
+      horizon: 32
+      dropout: 0.0
+    inject:
+      action_hidden_dim: ${model.action_dit_config.hidden_dim}
+      force_hidden_dim: 256
+      num_heads: 8
+      dropout: 0.0
+    force_head:
+      action_hidden_dim: ${model.action_dit_config.hidden_dim}
+      force_dim: 6
+      horizon: 32
+      hidden_dim: 512
+  norm_stats:
+    # Written by the calibration script over the same 100 demonstrations the
+    # trainer reads; holding mean/std there instead of in this file keeps one
+    # owner of force units and records which corpus and code version produced it.
+    file: /workspace/a3_data/a3_fw_force/force_calib_v1.json

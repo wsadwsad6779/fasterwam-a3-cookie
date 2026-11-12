@@ -1,0 +1,95 @@
+{
+  "chain_provenance": {
+    "44.37": "not shown here on purpose: section 1.1 establishes it is a post-denormalisation magnitude in dims 0-5, so the old sample printing it in the normalised row was wrong",
+    "burst_frames_[170,205)": "seed 17, chunk 26 row 31, every stage logged end to end",
+    "other frames": "seed 11, per-dimension |max| over the episode (never saturated)",
+    "units": "model |max| per dim in normalised units, denorm/pm1 rows in LIBERO action units, executed row in the +-1 rate command env.step receives"
+  },
+  "contact_tick_threshold_n": 20.0,
+  "duration_s": 15.0,
+  "fps": 20,
+  "frames": 300,
+  "ok": true,
+  "panel_video": {
+    "backend": "cv2/mp4v",
+    "bytes": 3841025,
+    "force_columns_note": "l_inner/l_outer/r_inner/r_outer are columns 12/13/14/15 of the env's 18-wide observation.force, raw newtons; the left pair minus force_calib_v1's zero-load reference is proprio14 columns 11/12, which is what the model conditioned on. The trace itself is in the steps npz as pad_forcen, one row per video frame.",
+    "fps": 20,
+    "frames_written": 300,
+    "notes": [
+      "encoded by cv2/mp4v, not the pod's libx264: layout and synchronisation verified here, bitstream parity not"
+    ],
+    "pad_channel_columns": {
+      "l_inner": 12,
+      "l_outer": 13,
+      "r_inner": 14,
+      "r_outer": 15
+    },
+    "pad_trace_samples": {
+      "l_inner": 300,
+      "l_outer": 300,
+      "r_inner": 300,
+      "r_outer": 300
+    },
+    "path": "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_v1_stage\\dev\\out40k\\panel_layout_sample\\LAYOUT_SAMPLE_synth_300f_1664x576_20fps.mp4",
+    "wh": [
+      1664,
+      576
+    ]
+  },
+  "problems": [],
+  "produced_by": "panel_sample40k.py through record40k.PanelSink.add_frame",
+  "purpose": "layout/format review only -- synthetic force and camera content, no model weights loaded and no MuJoCo state, so nothing here describes the policy or a real contact event. The action chain is not synthetic: it replays the logged stage numbers transcribed into ROOT_CAUSE_40K_20261112.md section 1.1.",
+  "sample_last_force_n": {
+    "l_in": 6.0,
+    "l_out": 3.0,
+    "r_in": 0.0,
+    "r_out": 0.0
+  },
+  "script_timeline": {
+    "emergency_stop_at": 205,
+    "left_press": [
+      90,
+      160
+    ],
+    "quiet": [
+      0,
+      90
+    ],
+    "release": [
+      205,
+      300
+    ],
+    "right_burst_119_N": [
+      170,
+      205
+    ]
+  },
+  "stills": [
+    {
+      "bytes": 262982,
+      "frame": 0,
+      "png": "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_v1_stage\\dev\\out40k\\panel_layout_sample\\sample_frame_000.png"
+    },
+    {
+      "bytes": 338887,
+      "frame": 110,
+      "png": "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_v1_stage\\dev\\out40k\\panel_layout_sample\\sample_frame_110.png"
+    },
+    {
+      "bytes": 372708,
+      "frame": 182,
+      "png": "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_v1_stage\\dev\\out40k\\panel_layout_sample\\sample_frame_182.png"
+    },
+    {
+      "bytes": 368094,
+      "frame": 245,
+      "png": "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_v1_stage\\dev\\out40k\\panel_layout_sample\\sample_frame_245.png"
+    },
+    {
+      "bytes": 367391,
+      "frame": 299,
+      "png": "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_v1_stage\\dev\\out40k\\panel_layout_sample\\sample_frame_299.png"
+    }
+  ]
+}

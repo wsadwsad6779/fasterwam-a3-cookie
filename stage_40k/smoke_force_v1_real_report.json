@@ -1,0 +1,89 @@
+{
+  "passed": {
+    "R6_calibration_provenance": "force_calib_v1.json version=force-calib-v1 mean=[-0.095, -10.912, -0.036, 0.704, 0.708, 1.402] std=[0.7339, 0.5887, 0.1809, 0.6814, 0.6855, 1.397]; foreign/width-less/version-less variants refused",
+    "R1_corpus_and_geometry": "39481 windows / 100 episodes, 18-col table, channels [0, 1, 2, 12, 13, 16], proprio 14; 20 of 600 sampled windows left-padded, 0 right-padded; no cross-episode borrow",
+    "R2b_proprio_force_units": "global-reference residual 7.39e-08 (accepted); per-episode-median residual 6.21e-02 (rejected, would not exist at step 0)",
+    "R2_leak_gate_real": "windows [0, '...', 39480]: 256 steps exact against force_rows(); +1 shift rejected",
+    "R3_zero_init_equivalence": "pre_dit, 30-block forward and post-DiT injection bitwise equal at init; both injection points live once out_proj is non-zero",
+    "R4_gradient_ladder": "step 0 subset = ['force_conditioner.force_head.linear.2.weight', 'force_conditioner.inject.attn.out_proj.bias', 'force_conditioner.inject.attn.out_proj.weight']; force-only freezes the gate (negative control); after 3 joint steps every one of 42 force tensors (4258304 elements) has non-zero gradient",
+    "R5_joint_flow_target": "target == noise - x0 (invertible to 1e-5), never the clean value; pred == 0 at init so loss_force starts at E||target||^2 ~ 2.058",
+    "R7_train_infer_units": "history bitwise equal across the two paths; denormalize within 2.4e-07 N; the min/max proprio stream and the z-score force stream are distinct",
+    "R8_light_state_v3": "42 force tensors + Adam moments restored bitwise, fingerprint enforced, adapter 17111605 B",
+    "R9_sampler_continuity": "39481 windows x 10000 steps: mid-pass and pass-end boundaries both reproduce the uninterrupted order exactly; without the offset 1200 of 1200 windows repeat",
+    "R10_lr_continuity": "40000 steps in 8 segments bitwise equal to one continuous cosine (end 1.000e-06 = eta_min); a per-segment cosine would differ by up to 9.809e-05 and climb 2000 times"
+  },
+  "failed": [],
+  "notes": {
+    "R6_calibration_provenance": {
+      "version": "force-calib-v1",
+      "units": "newton (raw sensor values, no gravity compensation, no torque)",
+      "mean": [-0.09457391287444591, -10.91199034824051, -0.035530148213373705, 0.7043228806416401, 0.7084547944127559, 1.4016550609363514],
+      "std": [0.7338846360941355, 0.588731316848893, 0.18089430557257583, 0.6814043397960897, 0.6854666218546087, 1.396991039122968],
+      "channels": [0, 1, 2, 12, 13, 16],
+      "scale": 1.0,
+      "corpus": "/workspace/a3_data/a3_fw_v1g/arrays.npz",
+      "n_rows": 42681,
+      "source_sha256": {
+        "force_arrays": "d130363f13ea511fdbad277e9d1ddcc7c4c9712f0661c898bada2b34e7aac7dd",
+        "corpus_arrays": "942164b71c9fa6809517139b449dc4666415471e94f4bf15a6f40c73631a4466"
+      }
+    },
+    "R1_corpus_and_geometry": { "n_windows": 39481, "n_episodes": 100, "n_rows": 42681, "sampled": 600 },
+    "R2b_proprio_force_units": {
+      "d_global": 7.390917744487524e-08,
+      "d_per_episode": 0.06213784217834473,
+      "global_zero_ref": [-0.000117704868898727, -10.721150159835815, -0.028226930182427168, 0.0, 0.0, -0.018633414525538683]
+    },
+    "R2_leak_gate_real": { "max_abs_diff": 0.0, "horizon": 32, "compared_steps": 256, "atol": 0.0001 },
+    "R4_gradient_ladder": {
+      "force_tensors": 42,
+      "force_elements": 4258304,
+      "step0_stepped": [
+        "force_conditioner.force_head.linear.2.weight",
+        "force_conditioner.inject.attn.out_proj.bias",
+        "force_conditioner.inject.attn.out_proj.weight"
+      ]
+    },
+    "R5_joint_flow_target": { "E_target_sq_estimate": 2.058072328567505 },
+    "R7_train_infer_units": {
+      "proprio_cols_at_s": [-0.0812, -0.7582, -0.0806, 1.4588, 1.4536, 2.9282],
+      "raw_newtons_at_s": [-0.081, -11.479, -0.109, 1.459, 1.454, 2.91],
+      "zscore_at_s": [0.018, -0.9637, -0.4054, 1.1072, 1.0871, 1.0794],
+      "force_stream_absmax": 1.3830474615097046
+    },
+    "R8_light_state_v3": {
+      "adapter_bytes": 17111605,
+      "projected_bytes": 4272640,
+      "fingerprint": {
+        "force_mean_sha256": "0f6a3b01822e203071bd8e93edecaac0e49a173f25c0587f63fd4e70a223645d",
+        "force_std_sha256": "7e064ee4959f8df6db332d5de0184bde143c987e7a5466c844c1d22857bb704f",
+        "force_dim": 6,
+        "hist_len": 16,
+        "scale": 1.0
+      }
+    },
+    "R9_sampler_continuity": {
+      "n_windows": 39481,
+      "cases": {
+        "mid-pass": { "first_steps": 5000, "epoch": 0, "batch_in_epoch": 5000 },
+        "pass-end": { "first_steps": 6581, "epoch": 0, "batch_in_epoch": 6581 }
+      },
+      "control_overlap": 1200,
+      "batches_per_pass": 6581
+    },
+    "R10_lr_continuity": {
+      "lr_at_5k": 9.848631760954636e-05,
+      "lr_at_40k": 1.0000000000000002e-06,
+      "warmup_steps": 2000,
+      "restart_curve_worst_diff": 9.808531316399698e-05
+    }
+  },
+  "_provenance": {
+    "run_on": "2026-11-10, instance rgapi-one-click-24316-57b6b870, /workspace/_v1_stage",
+    "command": "PYTHONPATH=/workspace/_v1_stage/fw/src /opt/venv/bin/python -u smoke_force_v1_real.py --report /workspace/_v1_stage/smoke_force_v1_real_report.json",
+    "python": "3.12 (/opt/venv/bin/python)",
+    "tier2_md5": "16f31ac110025e5682d9159e06470eb7",
+    "tier1_md5": "f992bd0bc44b5bd275ebd1782eb7849b",
+    "a3_video_dataset_md5": "91a9500d9d4663af1b09e67293a86b60"
+  }
+}

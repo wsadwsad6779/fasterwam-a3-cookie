@@ -1,0 +1,65 @@
+{
+  "run": "r4 lora  C0 = interface + safety only  seed 22",
+  "steps": 600,
+  "final_in_target": 3,
+  "entry_events": [
+    {
+      "cookie": 1,
+      "first_moved_step": 72,
+      "first_in_target_step": 481,
+      "in_target_steps": 112,
+      "finger_contact_steps": 0,
+      "finger_contact_20_steps_around_entry": 0,
+      "min_gap_to_cookie0_around_entry_mm": 6.3,
+      "max_lift_mm": 52.8,
+      "displacement_xy_mm": 139.2,
+      "gripper_opened_after_entry": false
+    },
+    {
+      "cookie": 0,
+      "first_moved_step": 73,
+      "first_in_target_step": 491,
+      "in_target_steps": 92,
+      "finger_contact_steps": 344,
+      "finger_contact_20_steps_around_entry": 40,
+      "min_gap_to_cookie0_around_entry_mm": 0.0,
+      "max_lift_mm": 52.6,
+      "displacement_xy_mm": 136.7,
+      "gripper_opened_after_entry": false
+    },
+    {
+      "cookie": 2,
+      "first_moved_step": 70,
+      "first_in_target_step": 492,
+      "in_target_steps": 70,
+      "finger_contact_steps": 0,
+      "finger_contact_20_steps_around_entry": 0,
+      "min_gap_to_cookie0_around_entry_mm": 12.2,
+      "max_lift_mm": 53.7,
+      "displacement_xy_mm": 142.2,
+      "gripper_opened_after_entry": false
+    }
+  ],
+  "rule_totals": {
+    "hard_estop_steps": 7,
+    "soft_force_steps": 73,
+    "binfloor_steps": 79,
+    "clipped_steps": 0
+  },
+  "bundle": {
+    "cookies_moved_gt_10mm": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      18,
+      20,
+      21
+    ],
+    "gripper_opening_min": 0.107,
+    "gripper_opening_last": 0.368,
+    "max_pad_force_N": 49.79
+  }
+}

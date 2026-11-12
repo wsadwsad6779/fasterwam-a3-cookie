@@ -1,0 +1,28 @@
+{
+  "run": "r4 lora  C0 = interface + safety only  seed 21",
+  "steps": 600,
+  "final_in_target": 0,
+  "entry_events": [],
+  "rule_totals": {
+    "hard_estop_steps": 0,
+    "soft_force_steps": 19,
+    "binfloor_steps": 0,
+    "clipped_steps": 0
+  },
+  "bundle": {
+    "cookies_moved_gt_10mm": [
+      2,
+      3,
+      4,
+      5,
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "gripper_opening_min": 0.217,
+    "gripper_opening_last": 0.91,
+    "max_pad_force_N": 25.96
+  }
+}

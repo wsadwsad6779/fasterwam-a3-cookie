@@ -1,0 +1,8 @@
+{
+  "expect_sha256": {
+    "batch_eval.py": "7dc2a0c5ba2541164e06bed7f0a9cdd2cf1a5dc0c4f3c24e704e80c91f95122a",
+    "flow_test.py": "ee45c272ffac1a98fefd6e14a98f13098ac23471c31907372a23d9db89e7c31e"
+  },
+  "reason": "round 10. The 160-episode launch refused itself before touching a checkpoint with `only 27.44 GiB free, merging needs 15.53 GiB at margin 1.5x` -- both numbers are true of the run40k volume, so the refusal was arithmetic, not capacity: the gate compared the GiB reading returned by `free_gib()` against `MERGED_BYTES * args.disk_margin`, which is in bytes. It was therefore true for every volume that could physically hold the merge, and it sat inside `if not args.dry_run`, which is why the step-6 interlock that reads `--dry-run` blockers printed `blockers: []` minutes before the real launch refused. batch_eval.py now has `disk_blocker(free_gib_value, merged_bytes, margin)` -- one helper, both sides converted to GiB -- and the call site is outside the dry-run guard, so the interlock answers the same question the launch does. flow_test.py grows four checks for it: the threshold in GiB, that the gate still fires below it and names both numbers, that a 1024 GiB reading passes while the old comparison would have blocked it (the unit error cannot come back silently), and on the pod an end-to-end `--dry-run` through `main()` with `free_gib` patched to 27.44 and to 1.00, plus a source check that the byte-threshold form is gone. No assertion standard was lowered and nothing was deleted: the failed launch left every checkpoint, merged artifact and publish record where it was.",
+  "round": 10
+}

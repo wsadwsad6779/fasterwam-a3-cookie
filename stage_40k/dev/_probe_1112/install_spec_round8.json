@@ -1,0 +1,8 @@
+{
+  "expect_sha256": {
+    "smoke40k.py": "d69a038d512a3cb37b4ac7e3c3478c14cb7a4cc38a69bc472214767f58beaf72",
+    "flow_test.py": "215458cc1476241f61e993b9249c66093354952ea7652b062fb4fdf81f155929"
+  },
+  "round": 8,
+  "reason": "round 8. The second live step_040000 smoke (out/smoke_20261112_r7) reported 45 of 47 and both failures were the same compound check, whose only false term was the assertion that the eight base proprio columns stayed inside -1.02/+1.02 for the whole episode. That term is about where the robot went, not about how the harness built the vector: the per-replan forensics added in round 7 -- copied pre-call snapshot, raw witness of the same replan, element-by-element band-map equality, unexplained-excursion count -- is what guards the interface, and it passed on both episodes (worst band-map diff 4.5e-07, 0 unexplained). The compound check therefore now states only what an interface check can prove (no-grad outputs, deployment diffusion step count and rand device, 14-wide proprio, the +-5 clamp holding on the six force columns), and a new per-episode check asserts the attribution instead: every column that left the recorded band must name the raw value and frame that put it there, and one that cannot is a hard failure. flow_test.py gains two checks for episode_band_finding (the explained case and the forged clamp with a mid-band raw), and the consumed-key scan now skips an assignment written with a space before the equals sign, which is how the new record key was being misread as a report dependency."
+}

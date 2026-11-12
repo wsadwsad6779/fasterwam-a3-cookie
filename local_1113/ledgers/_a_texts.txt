@@ -1,0 +1,135 @@
+==========================================================================================
+21276 2026-11-10T07:34:13.871Z
+The request could not be completed. Please try again.
+==========================================================================================
+21285 2026-11-10T07:34:31.002Z
+The request could not be completed. Please try again.
+==========================================================================================
+21295 2026-11-10T07:35:53.795Z
+计算图摸清了，架构决策基本落定。有一个**关键纠正**：实际训练走的是 `FasterWAM`→`SparseActionDiT`+`SparseMoT`，不是 `fastwam.py` 里那个 `ActionDiT`/`MoT`——但因为三个类都没重写 `training_loss`/`_append_proprio_to_context`，那些方法仍是活路径。
+
+要点：
+- **AdaLN 存在但不是 AdaLN-Zero**：`t_mod` 由 `time_projection` 产出 `[B,6,1024]`，`modulation` 是 `randn/D**0.5` 初始化的裸参数（sparse_action_dit.py:43），没有零初始化投影。→ 力注入用**零初始化的 `Linear(force_feat → 6*1024)` 加到 `t_mod`** 上，恰好就是 FAWAM 的 AdaLN-Zero 偏移机制，且能覆盖全部 30 层（含 22 个不读 context 的层），第 0 步与预训练骨干严格等价。
+- **KV-Fusion 不受扰动**：context 走 cross_attn，视频 K/V 融合走 `[Sv+Sa]`，加 force token 不改 `video_seq_len/action_seq_len`。
+- 未来力预测头可挂在同一 `tokens_out["action"]`（[B,32,1024]）上做 `Linear(1024,6)`，horizon 32 = 1.6 s @20 Hz 已确认。
+- 损失是 flow-matching velocity（`target = noise - sample`），力头必须沿用同一目标而非 MSE。
+- 两个坑：agent 明确报告 **6 维力在数据里根本不存在**（`shape_meta` 只有 images/action/state），必须新增数据键；且 **LoRA 只包 q/k/v/o**，新增的力模块必须显式进 optimizer——这正是 r4/r5 丢 proprio 的同一类故障。
+
+schema agent 失败了，重发；同时我自己读 `training_loss` 定注入缝。
+
+
+==========================================================================================
+21311 2026-11-10T07:37:05.340Z
+关键发现：`a3_fasterwam.yaml:8` 的注释写明「5.56B 全参微调需 ~44 GB，在这块 **48 GB 卡**上会 OOM」——所以旧 pod 也是 48 GB，历史 2.33 s/step 可直接参照。且 `model.load_text_encoder: false`：训练时**不加载 T5，只读文本缓存**，所以 #59 是硬阻塞，我现在就启动它。
+
+`proprio_dim: ${data.train.processor.proprio_output_dim}` 是单一真源——改数据配置即自动把模型撑到 14 维。
+
+先部署 base 加载守卫并启动文本预计算。
+
+
+==========================================================================================
+21329 2026-11-10T07:37:31.937Z
+逐字节一致（`a2abcf36…`）。趁预计算在跑，读调度器和推理路径，把 P3 的「flow-matching 还是伪装成 flow-matching 的 MSE」这个核心问题定下来。
+
+
+==========================================================================================
+21355 2026-11-10T07:42:38.686Z
+Text precompute failed on a Hydra struct error, and the force-schema agent returned ground truth that changes the architecture labels. Fixing both, then confirming which arm the 8-dim state comes from.
+
+
+==========================================================================================
+21446 2026-11-10T07:45:07.317Z
+Proprio semantics confirmed (this corrects my earlier assumption). Now fixing the failed text-embed launch.
+
+
+==========================================================================================
+21485 2026-11-10T07:46:37.144Z
+PUT requires form-encoded `body` — the JSON form silently created a 0-byte file. Rewriting correctly.
+
+
+==========================================================================================
+21524 2026-11-10T07:48:47.297Z
+Text-embed precompute is running with the override accepted. While T5 loads, collecting the rest of the 阶段A evidence in one round trip.
+
+
+==========================================================================================
+21535 2026-11-10T07:49:33.636Z
+Text embeddings are done (`new=1`). Reading the rest of the status output and building a code-version manifest.
+
+
+==========================================================================================
+21548 2026-11-10T07:50:23.307Z
+Text-embed cache landed with exactly the expected filename hash. Now verifying the pod copy equals the archived snapshot and auditing the five historical bugs.
+
+
+==========================================================================================
+21612 2026-11-10T08:06:51.970Z
+阶段 A 核查完成。先交执行审计。
+
+## 1. 当前已经实现了哪些力反馈功能？
+
+| 层 | 状态 | 证据 |
+|---|---|---|
+| P1 力数据落盘 + 归一化 | **已实现并测试通过** | `/workspace/a3_data/a3_fw_v1g/arrays.npz` 内 `proprio [42681,14] float32`；14 维 stats 已写入 `dataset_stats.json`，float32 往返误差 1.0e-07，`scale==1/std` 全维通过 |
+| P1 因果校准 | **已实现并测试通过（且推翻了旧方案）** | 旧「每条 episode 前 20 帧估 zero_ref」实测在推理第 0 帧不可用：progressive 偏差最大 **5.017 σ**（wrist_fy，k=6）。已改成固定全局零点，per-episode 相对全局残差 ≤0.215 σ |
+| P2 力历史编码 | **未实现** | 无代码 |
+| P3 未来力预测 | **未实现** | 无代码 |
+| P4 在线反馈接口 | **未实现** | 无代码 |
+
+## 2. 还缺哪些模块？
+`configs/data/a3_2cam_force.yaml`（14 维 + `dataset_dirs=a3_fw_v1g`）、`base_load_guard.install()` 接进 `train_seg.py`、力历史编码器、力预测头、耦合采样器、推理侧 `build_proprio` 的 +6 通道、以及 §九 的 20 项准入测试。**关键约束（本轮新查到）**：`FastWAM.save_checkpoint` 只序列化 `mot` + `proprio_encoder`（fastwam.py:1172-1182）。所以新参数**必须挂在 `action_expert` 里**（它在 `mot.mixtures.action` 内）才会自动落盘；挂成 FastWAM 的兄弟模块就会重演 r4/r5 丢 `proprio_encoder` 那类静默丢失。第二个约束：`trainer.py:286-299` 的冻结闸门把非 `lora_` 参数全部 `requires_grad_(False)`，只对 `proprio_encoder` 网开一面 —— 力模块不加进去就是**零梯度**。
+
+## 3. 当前数据能否支持未来力预测？
+**能，且标签完整无缺。** 力数组与基座数组是同一批 100 条 / 42,681 帧（`episode_index/ep_start/ep_len/action/opening/joint_cmd` 逐列相等，`force6 == force18[:,FORCE_V6]`，均在 build 脚本的 guard 里断言过）。20 Hz 控制频率、`(obs_t, a_t)` 严格配对（`recorder.add_frame(previous_observation, applied_action)`，步内先 `mj_step×substeps` 再统一读传感）。action horizon = 32 步，未来力 = `force[s+1 .. s+32]`，而窗口本来就是按 episode 边界生成、不跨 episode —— 所以 **39,481 个窗口每一个都有 32×6 的合法未来力标签，不需要缺失 mask**。推理侧每步都能拿到 `obs["observation.force"]`(18)，预测输出可被 P4 消费。
+
+## 4. 当前数据能否支持在线修正器的监督训练？
+**不能 —— P5 明确条件不足。** DAgger 接管流程存在（`collect_smolvla_dagger_cli.py`、`dagger_recover.py`、`collect_second_round_cli.py` 写 `intervention_events`），但 `dagger_to_dataset.py` 只把专家轨迹重算成**单一** `action` 列，专家 14 维命令 `action14` 只用于标量 check，从未落盘；DAgger 数组里根本没有 force 列。所以训练集里**没有 (policy_action, corrected_action) 配对样本**。按 §三-D：不伪造标签、不把力误差直接映射成动作修正、接口做完但 **correction 默认 disabled 输出原始策略动作**。
+
+## 5. 最终准备采用什么力感知架构？（含两处必须纠正的描述）
+
+**纠正一（§三-A 要求核对索引）**：`FORCE_V6 = [0,1,2,12,13,16]` 实测不是六轴 wrench —— 它是 **左腕三轴力(N, 法兰坐标系) + 左指两片触点法向力(N) + 左夹爪作动力合力(N)**，**零个力矩通道**。力矩在 **3,4,5（左）/ 9,10,11（右）**。所以任何 "wrench" 措辞都不诚实，只能叫 force。由此产生一个必须在冻结前定的选择：改用 **[0,1,2,3,4,5] = 左腕完整六轴力螺旋**（维度、成本不变，但"力矩/接触力矩"信息进来，且 wrist 是法兰系、力矩对抓取接触直接相关），代价是重算一遍 stats（数据已在盘上，脚本改一个常量）。这是**决策项 1**。
+
+**纠正二**：8 维 proprio 的真实含义是 `observation.state[:8]` = **左臂 7 个关节角 + 左指关节位置（米）**，不是 eef 位姿。14 维 = 这 8 维 + 6 维力。
+
+**主架构（方案一 + 方案二混合，注入点按实际计算图定）**：
+- 当前力：14 维拼接走已有 `proprio_encoder`，旧 8 列载原权重、新 6 列**零初
+==========================================================================================
+21621 2026-11-10T08:22:36.147Z
+决策已记录。先看力数组里已有什么，再决定统计脚本要补什么。
+
+
+==========================================================================================
+21642 2026-11-10T08:23:23.948Z
+The terminal websocket died silently. Rebuilding the channel with a liveness check.
+
+
+==========================================================================================
+21654 2026-11-10T08:24:50.618Z
+Channel work now. Writing the full 18-channel audit (pad channels turn out to carry a ~0.94 N un-zeroed baseline, and `L_wrist_fy` a −10.72 N gravity bias — both need quantifying before freezing).
+
+
+==========================================================================================
+21700 2026-11-10T08:28:30.213Z
+Decision 1 is settled by measurement, and it contradicts my own recommendation — so let me read the two driver files before locking the freeze.
+
+
+==========================================================================================
+21716 2026-11-10T08:29:13.914Z
+The r4/r5 light-state path is better than what I proposed in the audit — I'll correct that. Now reading the actual injection seam in the action expert.
+
+
+==========================================================================================
+21729 2026-11-10T08:30:21.537Z
+Force-channel question is now settled by data, and it overturns my own recommendation. Setting up an editable code mirror before writing the freeze record.
+
+
+==========================================================================================
+21863 2026-11-10T08:38:57.072Z
+Now I'll implement P2 (causal force-history encoder) and P3 (joint flow-matching force stream) in the overlay mirror. Starting with the new module.
+
+
+==========================================================================================
+22890 2026-11-10T09:12:51.788Z
+The tail only shows my current turn. Let me find the last real exchange before compaction.
+
+

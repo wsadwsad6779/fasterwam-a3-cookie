@@ -1,0 +1,7 @@
+{
+  "expect_sha256": {
+    "report40k.py": "b48b7a33f5f638381bcf6c68cc57f3e4838ef8b3ed16247ca611b868d83646ea"
+  },
+  "reason": "round 9. The 160-episode decision is made from this file, and until now it printed only successes and force MAE: a node whose proprio readings left the training band, and the measured cost of the run, were both invisible in the report. Adds two sections -- proprio against the recorded band (per node, per column, with the raw witness and an unexplained count that makes the report exit 1) and measured wall/simulation/inference time with the 160-episode projection -- plus band_rows/timing_rows in the JSON. Writing them found a real bug: the per-column collapse rebuilt its row when a wider episode arrived, silently dropping the seeds already recorded for that column; fixed and covered by r9_report_test.py (33 checks, one source-level check that PROPRIO_BASE_DIM agrees with eval40k.PROPRIO_BASE_DIM without importing torch).",
+  "round": 9
+}

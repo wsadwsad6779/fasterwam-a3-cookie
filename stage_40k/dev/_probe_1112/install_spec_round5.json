@@ -1,0 +1,8 @@
+{
+  "expect_sha256": {
+    "flow_test.py": "9796a58e5ee0f9edeefd747b80cb89d098e2451b9edbc73e041bd62012a7d2f8",
+    "smoke40k.py": "3a477a5206db27e7840efb1c6e94f08d2a9bd194b25813dcf46db207d6b59353"
+  },
+  "reason": "the third live smoke died at smoke40k.py:845 with KeyError: 'gripper_in_pm1' after both episodes had rolled: the per-episode fold is now summarize_episode() and flow_test drives the real recorders through it",
+  "round": 5
+}

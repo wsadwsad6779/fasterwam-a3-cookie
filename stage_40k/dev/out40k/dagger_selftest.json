@@ -1,0 +1,1103 @@
+{
+  "checks": [
+    {
+      "check": "a rule-free episode records one row per executed step, not per chunk",
+      "pass": true,
+      "detail": {
+        "rows": 24,
+        "want": 24
+      }
+    },
+    {
+      "check": "and every one of them is policy-controlled",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "with zero intervention flags and zero trainable labels",
+      "pass": true,
+      "detail": {
+        "contract": "p5-dagger-v1",
+        "seed": 7,
+        "episode_id": 0,
+        "rows": 24,
+        "frames": 25,
+        "state_rows": 25,
+        "by_source": {
+          "policy": 24,
+          "expert": 0,
+          "none": 0
+        },
+        "by_label_kind": {
+          "executed": 0,
+          "counterfactual": 0,
+          "none": 24
+        },
+        "by_intervention_reason": {
+          "policy": 24
+        },
+        "by_note": {
+          "peek_disabled": 24
+        },
+        "intervention_rows": 0,
+        "takeover_episodes": 0,
+        "trainable_label_rows": 0,
+        "discarded_policy_actions": 0,
+        "decision_chunks": 3,
+        "nan_abort_frame": -1,
+        "wall_s": 0.0,
+        "controller": {
+          "sticky": "end",
+          "release_after": null,
+          "rules": []
+        },
+        "integrity_problems": [],
+        "integrity_ok": true,
+        "ts_first": 1794325515.7556803,
+        "ts_last": 1794325515.7563436
+      }
+    },
+    {
+      "check": "the policy was asked for a chunk exactly at the replan boundaries 0,10,20",
+      "pass": true,
+      "detail": [
+        0,
+        10,
+        20
+      ]
+    },
+    {
+      "check": "and observed every single frame, takeover or not (24 steps -> 1+24 pushes)",
+      "pass": true,
+      "detail": 25
+    },
+    {
+      "check": "the force stream advanced one frame per executed step",
+      "pass": true,
+      "detail": 25
+    },
+    {
+      "check": "one state row per visited frame, i.e. steps + 1",
+      "pass": true,
+      "detail": {
+        "contract": "p5-dagger-v1",
+        "seed": 7,
+        "episode_id": 0,
+        "rows": 24,
+        "frames": 25,
+        "state_rows": 25,
+        "by_source": {
+          "policy": 24,
+          "expert": 0,
+          "none": 0
+        },
+        "by_label_kind": {
+          "executed": 0,
+          "counterfactual": 0,
+          "none": 24
+        },
+        "by_intervention_reason": {
+          "policy": 24
+        },
+        "by_note": {
+          "peek_disabled": 24
+        },
+        "intervention_rows": 0,
+        "takeover_episodes": 0,
+        "trainable_label_rows": 0,
+        "discarded_policy_actions": 0,
+        "decision_chunks": 3,
+        "nan_abort_frame": -1,
+        "wall_s": 0.0,
+        "controller": {
+          "sticky": "end",
+          "release_after": null,
+          "rules": []
+        },
+        "integrity_problems": [],
+        "integrity_ok": true,
+        "ts_first": 1794325515.7556803,
+        "ts_last": 1794325515.7563436
+      }
+    },
+    {
+      "check": "every row's policy action is the array the policy says it emitted for that frame",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "and the applied action the env reported matches what was executed",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "the recorded force6 is exactly the frozen channels of the recorded force18",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "force18 at row f is the observation the action was taken from, not the next one",
+      "pass": true,
+      "detail": [
+        2.5,
+        -1.25,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.0,
+        0.0
+      ]
+    },
+    {
+      "check": "cookies_in_target follows the env's own counter at the post-step frame",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "the predicted force stored on a row is the chunk's entry for the NEXT frame",
+      "pass": true,
+      "detail": {
+        "got": [
+          0.0,
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0,
+          7.0,
+          8.0,
+          9.0,
+          0.0,
+          1.0
+        ],
+        "want": [
+          0.0,
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0,
+          7.0,
+          8.0,
+          9.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "check": "so a chunk issued at frame 0 covers frames 1..10 with indices 0..9",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "a manual takeover at frame 8 makes frames 0..7 policy and 8..23 expert",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "the split is exactly 8 and 16 rows",
+      "pass": true,
+      "detail": {
+        "policy": 8,
+        "expert": 16,
+        "none": 0
+      }
+    },
+    {
+      "check": "the two leftover chunk actions are reported as discarded, not silently dropped",
+      "pass": true,
+      "detail": {
+        "contract": "p5-dagger-v1",
+        "seed": 7,
+        "episode_id": 0,
+        "rows": 24,
+        "frames": 25,
+        "state_rows": 25,
+        "by_source": {
+          "policy": 8,
+          "expert": 16,
+          "none": 0
+        },
+        "by_label_kind": {
+          "executed": 16,
+          "counterfactual": 0,
+          "none": 8
+        },
+        "by_intervention_reason": {
+          "policy": 8,
+          "manual:f8": 1,
+          "sticky:end": 15
+        },
+        "by_note": {
+          "peek_disabled": 8
+        },
+        "intervention_rows": 16,
+        "takeover_episodes": 1,
+        "trainable_label_rows": 16,
+        "discarded_policy_actions": 2,
+        "decision_chunks": 1,
+        "nan_abort_frame": -1,
+        "wall_s": 0.0,
+        "controller": {
+          "sticky": "end",
+          "release_after": null,
+          "rules": [
+            {
+              "rule": "manual",
+              "n_points": 1,
+              "seed": null
+            }
+          ]
+        },
+        "integrity_problems": [],
+        "integrity_ok": true,
+        "ts_first": 1794325515.7597845,
+        "ts_last": 1794325515.760416
+      }
+    },
+    {
+      "check": "the expert is asked once per expert row and no more",
+      "pass": true,
+      "detail": 16
+    },
+    {
+      "check": "the model is never asked for a chunk while the expert holds the wheel",
+      "pass": true,
+      "detail": [
+        0
+      ]
+    },
+    {
+      "check": "every expert row is labelled executed, and only those are trainable",
+      "pass": true,
+      "detail": {
+        "executed": 16,
+        "counterfactual": 0,
+        "none": 8
+      }
+    },
+    {
+      "check": "the reason recorded on the takeover frame names the rule and the frame",
+      "pass": true,
+      "detail": "manual:f8"
+    },
+    {
+      "check": "and the frames after it name the stickiness, not a second trigger",
+      "pass": true,
+      "detail": "sticky:end"
+    },
+    {
+      "check": "the expert action actually reached the simulator",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "intervention flag equals expert control on all 24 rows",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "with sticky=rule two isolated manual points give exactly two expert rows",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "and the policy is asked again after the release (chunks 0,6,16)",
+      "pass": true,
+      "detail": [
+        0,
+        6,
+        16
+      ]
+    },
+    {
+      "check": "both handovers drop the model's unused chunk actions, and say how many",
+      "pass": true,
+      "detail": {
+        "contract": "p5-dagger-v1",
+        "seed": 7,
+        "episode_id": 0,
+        "rows": 24,
+        "frames": 25,
+        "state_rows": 25,
+        "by_source": {
+          "policy": 22,
+          "expert": 2,
+          "none": 0
+        },
+        "by_label_kind": {
+          "executed": 2,
+          "counterfactual": 0,
+          "none": 22
+        },
+        "by_intervention_reason": {
+          "policy": 22,
+          "manual:f5": 1,
+          "manual:f15": 1
+        },
+        "by_note": {
+          "peek_disabled": 22
+        },
+        "intervention_rows": 2,
+        "takeover_episodes": 1,
+        "trainable_label_rows": 2,
+        "discarded_policy_actions": 6,
+        "decision_chunks": 3,
+        "nan_abort_frame": -1,
+        "wall_s": 0.0,
+        "controller": {
+          "sticky": "rule",
+          "release_after": null,
+          "rules": [
+            {
+              "rule": "manual",
+              "n_points": 2,
+              "seed": null
+            }
+          ]
+        },
+        "integrity_problems": [],
+        "integrity_ok": true,
+        "ts_first": 1794325515.7606747,
+        "ts_last": 1794325515.7612972
+      }
+    },
+    {
+      "check": "release_after=3 holds the wheel for frames 5,6,7 only",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "with the trigger frame plus two sticky frames",
+      "pass": true,
+      "detail": [
+        "manual:f5",
+        "sticky:1f_of3",
+        "sticky:2f_of3"
+      ]
+    },
+    {
+      "check": "and control returns to the model on frame 8",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "the expert saw 3 frames while the policy resumed for the rest",
+      "pass": true,
+      "detail": {
+        "policy": 21,
+        "expert": 3,
+        "none": 0
+      }
+    },
+    {
+      "check": "a force-z rule fires on the first frame whose z exceeds the band (frame 11)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "and the reason carries the channel and the measured z",
+      "pass": true,
+      "detail": "force_z:c0=z5.5"
+    },
+    {
+      "check": "the takeover covers the rest of the episode",
+      "pass": true,
+      "detail": {
+        "policy": 11,
+        "expert": 13,
+        "none": 0
+      }
+    },
+    {
+      "check": "the rule's thresholds are written into the report, not only into the code",
+      "pass": true,
+      "detail": {
+        "sticky": "end",
+        "release_after": null,
+        "rules": [
+          {
+            "rule": "force_z",
+            "z": 5.0,
+            "channels": 6,
+            "mean": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "std": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "check": "a zero-std calibration is refused by the rule instead of becoming an infinite z",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "no-progress counts from the first frame that raised the task counter",
+      "pass": true,
+      "detail": [
+        15,
+        16,
+        17
+      ]
+    },
+    {
+      "check": "and the reason states the counter and how long it sat",
+      "pass": true,
+      "detail": "no_progress:cookies_in_target=1x8f"
+    },
+    {
+      "check": "the step that produced a non-finite force is recorded rather than lost",
+      "pass": true,
+      "detail": 12
+    },
+    {
+      "check": "and the loop reports where it aborted instead of pretending the episode ended",
+      "pass": true,
+      "detail": 12
+    },
+    {
+      "check": "the measured history stops before the bad frame, so nothing poisoned it",
+      "pass": true,
+      "detail": 12
+    },
+    {
+      "check": "the bad row keeps its finite executed action and names the bad force",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "one state row is still written for the last clean frame only",
+      "pass": true,
+      "detail": {
+        "contract": "p5-dagger-v1",
+        "seed": 7,
+        "episode_id": 0,
+        "rows": 12,
+        "frames": 13,
+        "state_rows": 12,
+        "by_source": {
+          "policy": 12,
+          "expert": 0,
+          "none": 0
+        },
+        "by_label_kind": {
+          "executed": 0,
+          "counterfactual": 0,
+          "none": 12
+        },
+        "by_intervention_reason": {
+          "policy": 12
+        },
+        "by_note": {
+          "peek_disabled": 11,
+          "nonfinite_force_after_step": 1
+        },
+        "intervention_rows": 0,
+        "takeover_episodes": 0,
+        "trainable_label_rows": 0,
+        "discarded_policy_actions": 0,
+        "decision_chunks": 2,
+        "nan_abort_frame": 12,
+        "wall_s": 0.0,
+        "controller": {
+          "sticky": "end",
+          "release_after": null,
+          "rules": []
+        },
+        "integrity_problems": [
+          "state rows 12 != action rows 12 + 1"
+        ],
+        "integrity_ok": false,
+        "ts_first": 1794325515.7654557,
+        "ts_last": 1794325515.7657232
+      }
+    },
+    {
+      "check": "a diverged pose hands the wheel over on the frame it is seen",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "with the field named in the reason",
+      "pass": true,
+      "detail": "nonfinite_state:observation.eef_pose"
+    },
+    {
+      "check": "and the recovery runs to the end of the episode",
+      "pass": true,
+      "detail": {
+        "policy": 10,
+        "expert": 14,
+        "none": 0
+      }
+    },
+    {
+      "check": "the bad pose itself is stored, on the row that visited it",
+      "pass": true,
+      "detail": [
+        0.1,
+        0.2,
+        NaN,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "check": "a stateful expert is never peeked: it is not advanced by a policy-controlled frame",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "check": "and the rows say so instead of storing a borrowed action",
+      "pass": true,
+      "detail": "stateful_expert_peek_refused"
+    },
+    {
+      "check": "label_kind stays none, so no counterfactual supervision is claimed",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "the refusal is counted in the report, not only written in the rows",
+      "pass": true,
+      "detail": {
+        "stateful_expert_peek_refused": 24
+      }
+    },
+    {
+      "check": "a stateless expert can be queried on every visited frame",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "those rows are labelled counterfactual, never executed",
+      "pass": true,
+      "detail": {
+        "executed": 0,
+        "counterfactual": 24,
+        "none": 0
+      }
+    },
+    {
+      "check": "the counterfactual action is a function of the visited observation only",
+      "pass": true,
+      "detail": 0.03
+    },
+    {
+      "check": "and it is NOT counted as a trainable label -- a takeover is still required",
+      "pass": true,
+      "detail": {
+        "contract": "p5-dagger-v1",
+        "seed": 7,
+        "episode_id": 0,
+        "rows": 24,
+        "frames": 25,
+        "state_rows": 25,
+        "by_source": {
+          "policy": 24,
+          "expert": 0,
+          "none": 0
+        },
+        "by_label_kind": {
+          "executed": 0,
+          "counterfactual": 24,
+          "none": 0
+        },
+        "by_intervention_reason": {
+          "policy": 24
+        },
+        "by_note": {
+          "stateless_peek": 24
+        },
+        "intervention_rows": 0,
+        "takeover_episodes": 0,
+        "trainable_label_rows": 0,
+        "discarded_policy_actions": 0,
+        "decision_chunks": 3,
+        "nan_abort_frame": -1,
+        "wall_s": 0.0,
+        "controller": {
+          "sticky": "end",
+          "release_after": null,
+          "rules": []
+        },
+        "integrity_problems": [],
+        "integrity_ok": true,
+        "ts_first": 1794325515.7676926,
+        "ts_last": 1794325515.7682822
+      }
+    },
+    {
+      "check": "exporting labels from an expert-free episode raises rather than falling back",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "labels_for_training returns exactly the 16 takeover frames",
+      "pass": true,
+      "detail": 16
+    },
+    {
+      "check": "every returned label has a finite expert action equal to what was executed",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "and no policy-controlled frame leaks in",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "a truthful table verifies with no problems",
+      "pass": true,
+      "detail": {
+        "frame": 0,
+        "seed": 1,
+        "episode_id": 0,
+        "source": "policy",
+        "policy_action": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "expert_action": [
+          NaN,
+          NaN,
+          NaN,
+          NaN,
+          NaN,
+          NaN,
+          NaN,
+          NaN,
+          NaN,
+          NaN,
+          NaN,
+          NaN,
+          NaN,
+          NaN
+        ],
+        "applied_action": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "executed_action": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "label_kind": "none",
+        "intervention": 0,
+        "reason": "policy",
+        "ts_wall": 1.0,
+        "ts_mono": 1.0,
+        "force18": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "force6": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pred_force": null,
+        "eef_pose": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "opening": 0.0,
+        "cookies_in_target": 0,
+        "reward": 0.0,
+        "terminated": false,
+        "truncated": false,
+        "note": ""
+      }
+    },
+    {
+      "check": "a policy row without a policy action is caught",
+      "pass": true,
+      "detail": [
+        "row0(frame=0): executed != policy action under policy control",
+        "row0(frame=0): policy-controlled row with no policy action",
+        "row0(frame=0): expert label claimed on a policy-controlled frame"
+      ]
+    },
+    {
+      "check": "an expert label claimed on a policy-controlled frame is caught",
+      "pass": true,
+      "detail": [
+        "row0(frame=0): executed != policy action under policy control",
+        "row0(frame=0): policy-controlled row with no policy action",
+        "row0(frame=0): expert label claimed on a policy-controlled frame"
+      ]
+    },
+    {
+      "check": "an expert row whose executed action is not the expert's is caught",
+      "pass": true,
+      "detail": [
+        "row0(frame=0): executed != expert action under expert control"
+      ]
+    },
+    {
+      "check": "an expert-controlled frame that forgot to set the intervention flag is caught",
+      "pass": true,
+      "detail": [
+        "row0(frame=0): intervention flag disagrees with the control source"
+      ]
+    },
+    {
+      "check": "a clock that goes backwards between frames is caught",
+      "pass": true,
+      "detail": [
+        "row1(frame=2): monotonic clock went backwards",
+        "row1(frame=2): wall clock went backwards"
+      ]
+    },
+    {
+      "check": "an epoch-scale ts_mono -- the two clocks mixed -- is caught",
+      "pass": true,
+      "detail": [
+        "row0(frame=0): ts_mono is not an elapsed time (-1782703536.79)"
+      ]
+    },
+    {
+      "check": "the frame column is exactly 0..steps-1",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "wall-clock timestamps are non-decreasing and real epoch seconds",
+      "pass": true,
+      "detail": 1794325515.7695463
+    },
+    {
+      "check": "monotonic offsets start near zero and increase",
+      "pass": true,
+      "detail": 2.9100105166435242e-05
+    },
+    {
+      "check": "the two clocks are not mixed: ts_mono is elapsed, ts_wall is epoch",
+      "pass": true,
+      "detail": {
+        "ts_mono_first": 2.9100105166435242e-05,
+        "ts_wall_first": 1794325515.7695463
+      }
+    },
+    {
+      "check": "the report carries first and last timestamps so a reader can audit the wall",
+      "pass": true,
+      "detail": {
+        "contract": "p5-dagger-v1",
+        "seed": 7,
+        "episode_id": 0,
+        "rows": 24,
+        "frames": 25,
+        "state_rows": 25,
+        "by_source": {
+          "policy": 24,
+          "expert": 0,
+          "none": 0
+        },
+        "by_label_kind": {
+          "executed": 0,
+          "counterfactual": 0,
+          "none": 24
+        },
+        "by_intervention_reason": {
+          "policy": 24
+        },
+        "by_note": {
+          "peek_disabled": 24
+        },
+        "intervention_rows": 0,
+        "takeover_episodes": 0,
+        "trainable_label_rows": 0,
+        "discarded_policy_actions": 0,
+        "decision_chunks": 3,
+        "nan_abort_frame": -1,
+        "wall_s": 0.0,
+        "controller": {
+          "sticky": "end",
+          "release_after": null,
+          "rules": []
+        },
+        "integrity_problems": [],
+        "integrity_ok": true,
+        "ts_first": 1794325515.7695463,
+        "ts_last": 1794325515.7701037
+      }
+    },
+    {
+      "check": "the episode writes a dagger.npz and a report.json",
+      "pass": true,
+      "detail": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmprso2d78r\\seed7_ep0"
+    },
+    {
+      "check": "npz row count matches the table",
+      "pass": true,
+      "detail": [
+        24,
+        14
+      ]
+    },
+    {
+      "check": "the r3-compatible action14 column is the executed action, not the expert's intent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "under takeover the executed action is the expert's and the policy column is NaN",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "source codes and names agree",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "state rows are one more than action rows and start at frame 0",
+      "pass": true,
+      "detail": 24
+    },
+    {
+      "check": "the terminal state is the last visited observation's force",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "timestamps survive the round trip",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "the report on disk says the same thing the table said",
+      "pass": true,
+      "detail": 24
+    },
+    {
+      "check": "a shadow verdict alone never changes control: proceed -> 24 policy rows",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "with ShadowVerdict enabled a stop verdict hands over from the next frame",
+      "pass": true,
+      "detail": {
+        "policy": 1,
+        "expert": 23,
+        "none": 0
+      }
+    },
+    {
+      "check": "the reason names the verdict so the audit trail separates observation from action",
+      "pass": true,
+      "detail": "shadow_verdict:stop"
+    },
+    {
+      "check": "the monitor is fed one payload per policy decision, never per step",
+      "pass": true,
+      "detail": [
+        0
+      ]
+    },
+    {
+      "check": "and the model is not chunked again while the expert recovers",
+      "pass": true,
+      "detail": [
+        0
+      ]
+    },
+    {
+      "check": "an off-band prediction is a hold verdict, which the stated rule turns into a takeover",
+      "pass": true,
+      "detail": {
+        "verdicts": {
+          "proceed": 0,
+          "hold": 1,
+          "stop": 0
+        },
+        "rows": 23
+      }
+    },
+    {
+      "check": "the real shadow monitor still reports zero mutated actions under all of this",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "check": "and its feedback-applied counter stays at zero",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "check": "the takeover is accounted by the collector, not by the monitor",
+      "pass": true,
+      "detail": 23
+    },
+    {
+      "check": "counterfactual rows before the takeover and executed rows after are both present",
+      "pass": true,
+      "detail": {
+        "counterfactual": 6,
+        "executed": 18
+      }
+    },
+    {
+      "check": "a counterfactual row is never marked as an intervention",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "the reason column for policy frames is exactly the string policy",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "the report carries the collector contract version",
+      "pass": true,
+      "detail": "p5-dagger-v1"
+    },
+    {
+      "check": "an empty rule set is reported as an empty rule set",
+      "pass": true,
+      "detail": {
+        "sticky": "end",
+        "release_after": null,
+        "rules": []
+      }
+    },
+    {
+      "check": "two rules are reported in evaluation order with their thresholds",
+      "pass": true,
+      "detail": [
+        {
+          "rule": "force_z",
+          "z": 4.0,
+          "channels": 6,
+          "mean": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "std": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "rule": "no_progress",
+          "patience": 50,
+          "key": "cookies_in_target"
+        }
+      ]
+    },
+    {
+      "check": "rule order decides which reason a frame gets when several fire",
+      "pass": true,
+      "detail": [
+        "force_z:c0=z4.5",
+        "force_z:c0=z5.0",
+        "force_z:c0=z5.5"
+      ]
+    }
+  ],
+  "n_checks": 96,
+  "n_passed": 96,
+  "failed": [],
+  "all_passed": true
+}

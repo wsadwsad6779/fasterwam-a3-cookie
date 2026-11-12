@@ -1,0 +1,58 @@
+# @package _global_
+#
+# One continuous 40,000-step run of the force-conditioned FasterWAM.
+#
+# Launch through scripts/train_seg.py so the r4 sampler fixes and the segmented
+# stop step are installed; `max_steps` stays 40000 for every segment so the
+# cosine is built once over the whole trajectory, and FW_STOP_STEP decides where
+# each segment ends. Never set FW_LR_RESTART.
+#
+# Evaluation is deliberately off here (eval_every: 0): the 8-node cookie
+# benchmark runs on a separate instance under one protocol for all eight
+# checkpoints, so nothing about a checkpoint's success rate is inferred from a
+# training-process number.
+
+defaults:
+  - override /data: a3_2cam_force
+  - override /model: fasterwam_force
+  - _self_
+
+# dataloading
+batch_size: 6
+num_workers: 8
+
+model:
+  redirect_common_files: false
+  mot_checkpoint_mixed_attn: false
+  # The action expert starts from the upstream libero base loaded via `resume`,
+  # not from the Wan2.2 action-dit backbone, so its pretrained load is skipped.
+  skip_dit_load_from_pretrain: true
+
+# LoRA: a 5.56B full fine-tune needs ~44GB of params/grads/Adam alone and OOMs
+# on this 48GB card. Only q/k/v/o of both experts get adapters; the force
+# conditioning modules are trained as ordinary full parameters, because they are
+# new structure rather than an adaptation of pretrained weights (the trainer
+# re-enables them after the LoRA freeze and refuses to build an optimizer that
+# would leave them frozen).
+lora:
+  experts: [video_expert, action_expert]
+  target_modules: [q, k, v, o]
+  r: 16
+  alpha: 32
+  dropout: 0.0
+
+# scheduler: one cosine over the whole 40k, warmup 5% of it
+lr_scheduler_type: cosine
+learning_rate: 1e-4
+num_epochs: 10
+max_steps: 40000
+log_every: 20
+save_every: 5000
+eval_every: 0
+
+# training
+gradient_accumulation_steps: 1
+weight_decay: 1e-2
+resume: null
+
+default_action_infer_mode: one_pass_future_cache

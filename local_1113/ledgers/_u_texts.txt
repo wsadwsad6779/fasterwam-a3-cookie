@@ -1,0 +1,108 @@
+==========================================================================================
+21283 2026-11-10T07:34:30.683Z
+[SYSTEM NOTIFICATION - NOT USER INPUT]
+This is an automated background-task event, NOT a message from the user.
+Do NOT interpret this as user acknowledgement, confirmation, or response to any pending question.
+
+<task-notification>
+<task-id>a30c3c7db4608213d</task-id>
+<tool-use-id>call_8474cd7f7c024b5d9553bfc1</tool-use-id>
+<output-file>C:\Users\ASUS\AppData\Local\Temp\qoder-cli-cn\C--Users-ASUS-Documents-Qoder-2026-10-31-b462d38d\e329b1ad-c486-4412-aca9-7ad410a70781\tasks\a30c3c7db4608213d.output</output-file>
+<status>completed</status>
+<summary>Agent "Map action expert compute graph" finished</summary>
+<result>I have the complete compute graph. Note a critical correction: the `a3_fasterwam` task builds **FasterWAM** (`fasterwam.py` → `SparseActionDiT` + `SparseMoT`), not the `ActionDiT`/`MoT` in `fastwam.py`. But `FasterWAM` ← `JointWAM` ← `FastWAM`, and none override `training_loss`/`build_inputs`/`_append_proprio_to_context`, so those `fastwam.py` methods ARE the live training path. All paths below are under root `C:\Users\ASUS\Documents\Qoder\2026-10-31\b462d38d\_backup_repo\pod_snapshot\2026-11-01\FasterWAM\`.
+
+## 1. Action expert = `SparseActionDiT` (`src/fasterwam/models/wan22/sparse_action_dit.py:78`)
+- `action_dim=7`, `hidden_dim=1024`, `ffn_dim=4096`, `num_layers=30`, `num_heads=24`, `noncondition_num_heads=8`, `attn_head_dim=128` (`configs/model/fasterwam.yaml:38-50`).
+- Blocks (`sparse_action_dit.py:141-160`): `DiTBlock` at the 8 `condition_layers` `[0,4,8,12,16,20,24,28]`; `ActionOnlyDiTBlock` at the other 22.
+- `forward(action_tokens, timestep, context, context_mask=None)` (`:411`). In training, `pre_dit`/`post_dit` are used and `SparseMoT` drives the blocks.
+- **AdaLN modulation: YES (AdaLN, NOT AdaLN-Zero).** Both block types do scale-shift+gate. `DiTBlock` (`wan_video_dit.py:255-267`): `shift_msa,scale_msa,gate_msa,shift_mlp,scale_mlp,gate_mlp = (self.modulation + t_mod).chunk(6,...)`; `modulate(self.norm1(x),shift_msa,scale_msa)`; `modulate(x,shift,scale)=x*(1+scale)+shift` (`wan_video_dit.py:27`). `ActionOnlyDiTBlock` identical (`sparse_action_dit.py:58-74`) but **deletes context** (`:55`) → no cross-attn.
+- Conditioning vector producer: `self.time_projection = nn.Sequential(nn.SiLU(), nn.Linear(hidden_dim, hidden_dim*6))` (`:140`); `t_mod = self.time_projection(t).unflatten(1,(6,hidden_dim))` (`:388`), `t` from timestep only. `modulation` is `nn.Parameter(randn(1,6,D)/D**0.5)` (`:43`) — **no zero-init projection exists**. This `t_mod` (
+==========================================================================================
+21292 2026-11-10T07:35:02.446Z
+继续
+==========================================================================================
+21340 2026-11-10T07:42:06.400Z
+This session is being continued from a previous conversation that ran out of context.
+The summary below covers the earlier portion of the conversation.
+
+Summary:
+1. Primary Request and Intent:
+
+   **CURRENT GOVERNING SPEC (this session, delivered as an attached file `C:\Users\ASUS\.qoder-cn\tmp\...\attachments\b462d38d-2bab-475d-a8b3-0dbd231385f9\fbfd7ffe-235c-40ad-bbd7-d5666502eaa5.txt`, 571 lines) — 「FasterWAM 完整力感知架构改造与 40k 连续训练任务」.** This supersedes/extends all earlier framing. Roles assigned: 机器人学习研究工程师、FasterWAM 架构工程师、训练可靠性工程师、部署工程师. 核心目标 verbatim: 「尽可能在第一次正式 40,000 optimizer steps 训练之前，一次性完成力感知架构、数据处理、联合预测、训练状态恢复以及推理接口的实现与测试，避免训练完成后才发现需要更改核心模型并重新训练。」 Also: 「这是实际工程执行任务，不是单纯写建议」 and 「不要为了追求一次性完成而编造训练数据、假装测试通过，或将未经验证的控制器部署到真实机器人。」
+
+   Section requirements:
+   - **一、约束**: 40,000 optimizer steps total; save every 5,000 (5k/10k/15k/20k/25k/30k/35k/40k); 「这不是八次独立训练，而是同一个实验连续训练 40k」; no re-init of model/optimizer/scheduler/sampler at 5k boundaries; one cosine curve over 40k; keep all eight checkpoints plus recoverable state; prefer existing pretrained FasterWAM weights; 「保持 FasterWAM 原有视觉世界模型及 DoT / Lite KV-Fusion 的核心架构，不要为了加入力反馈而随意替换整个模型」; 「不得将实验性组件谎称为原版 FasterWAM 或 FAWAM 官方实现」; environment must be re-checked, 「不要直接沿用旧实例信息」.
+   - **二、先检查项目现状**: git commit + local mods, model construction, trainer.py/Wan22Trainer, data loading and window sampling, real schema of observation.state / observation.force / action, true meaning of the 8-dim proprio, whether historical force data exists and its rate, whether future force labels can align to action chunks, which modalities the 100 vs 73 episodes each have, normalizer/dataset_stats.json/inference adapter, checkpoint/resume/optimizer/scheduler/sampler/RNG, whether training already started and its step count. Then: 「请逐项确认这些问题在当前代码中是否仍然存在，不要盲目重复打补丁」 for the five known bugs (resume counter reset; sampler permutation replay; light_state dropping proprio_encoder; r5_patch lr climbing; train/infer inconsistent force zero estimation). 「如果已有正式训练正在运行，先保护 checkpoint 和实验记录，不得直接覆盖或破坏。」
+   - **三、力感知架构** referencing FAWAM three layers (Force Perception / Force Prediction / Force-Guided Feedback), paper https://arxiv.org/abs/2606.08555, FasterWAM https://github.com/TeamFasterwam/FasterWAM. 「不能直接照搬 FAWAM 的动作专家结构，因为 FasterWAM 的动作专家明显更轻量，力条件化的注入位置需要根据实际计算图决定。」
+     - A 力观测输入: 8→14 dim, FORCE_V6 = [0,1,2,12,13,16]. 「必须核对上述六个索引是否真实对应预期的传感器通道、单位、参考坐标系以及采样时刻。不要仅凭索引名称假设六维数据一定是标准 Fx、Fy、Fz、Tx、Ty、Tz。如果实际通道不是完整六轴 wrench，必须明确标注并调整模型描述。」 Keep th
+==========================================================================================
+21567 2026-11-10T08:03:20.029Z
+继续
+==========================================================================================
+21618 2026-11-10T08:21:54.859Z
+这份阶段 A 审计总体合理，可以继续阶段 B、C，但现在还不能直接启动 40k 正式训练。 你本地 AI 发现的几个关键问题非常重要，尤其是力通道的真实物理含义、新模块的梯度和 checkpoint 完整性。
+
+我建议按以下决定执行：
+
+1\. 力通道：先完成 18 通道统计，再定最终方案。 我倾向使用 `[0,1,2,3,4,5]` 的完整六轴腕部力/力矩作为 FAWAM 式预测的基础，但不要未经比较就删除指尖接触力。对于抓取、接触操作，指尖力可能同样重要。如果数据质量允许，可以评估同时使用腕部六轴力/力矩和指尖力，但必须在正式训练前冻结维度和架构。
+
+2\. 评估预算：选择方案 (b)。 优先保证 40k 连续训练及每 5k 保存一次，共八个节点。完整的 480 回合评估可以在训练完成后使用另一个实例执行，避免评估耗尽当前实例额度。训练前仍需运行必要的小规模验证。
+
+3\. SSH：维持当前方案。 继续使用现有持久化目录、JupyterLab 和持久训练进程，不需要为了 SSH 改动已经可工作的流程。
+
+另外，有一个我认为必须补充的风险：
+
+云端剩余 57 GB 空间，不一定能保存八套完整训练状态。 `accelerator.save_state` 可能已经包含大体积模型和优化器状态，因此只上传 `model.save_checkpoint` 权重，并不能保证完整断点恢复。需要分别测量两类文件的实际大小，制定备份策略；必须验证远端文件完整、可重新下载并加载后，才能删除本地副本。上传 Hugging Face 也要确认仓库权限和模型文件的上传许可。
+
+最后，正式启动前必须确保：
+
+- 预训练基础权重完整加载。
+- 历史力编码器和未来力预测头真正获得非零、有效梯度。
+- 未来力标签没有时间泄漏。
+- 八个节点使用同一条 40k 学习率曲线。
+- 中断恢复后能够接着正确的 optimizer step 和 sampler 状态训练。
+- 训练与推理的力归一化一致。
+- 新增模块都能保存和恢复。
+
+结论：继续推进，不需要推翻现有工作，也不需要现在重新设计整个 FasterWAM。先测量 18 通道并冻结架构，完成 P2/P3、修复与测试，再启动 40k。
+
+P4 在线反馈接口可以同时完成，但 P5 缺少真实修正标签，暂不训练，也不应阻塞主模型。
+==========================================================================================
+21735 2026-11-10T08:34:28.376Z
+This session is being continued from a previous conversation that ran out of context.
+The summary below covers the earlier portion of the conversation.
+
+Summary:
+1. Primary Request and Intent:
+
+   **GOVERNING SPEC (attached file, 571 lines): 「FasterWAM 完整力感知架构改造与 40k 连续训练任务」** — roles 机器人学习研究工程师 / FasterWAM 架构工程师 / 训练可靠性工程师 / 部署工程师. 核心目标 verbatim: 「尽可能在第一次正式 40,000 optimizer steps 训练之前，一次性完成力感知架构、数据处理、联合预测、训练状态恢复以及推理接口的实现与测试，避免训练完成后才发现需要更改核心模型并重新训练。」 Plus 「这是实际工程执行任务，不是单纯写建议」 and 「不要为了追求一次性完成而编造训练数据、假装测试通过，或将未经验证的控制器部署到真实机器人。」
+
+   Key section requirements (condensed but complete): §一 40k single continuous run, save at 5k/10k/…/40k from ONE trajectory, no re-init of model/optimizer/scheduler/sampler, one cosine over 40k, prefer pretrained FasterWAM base, 「保持 FasterWAM 原有视觉世界模型及 DoT / Lite KV-Fusion 的核心架构」, 「不得将实验性组件谎称为原版 FasterWAM 或 FAWAM 官方实现」, environment must be re-measured not inherited. §二 re-check project state and 「请逐项确认这些问题在当前代码中是否仍然存在，不要盲目重复打补丁」 for 5 known bugs. §三 FAWAM three layers (arXiv 2606.08555, github.com/TeamFasterwam/FasterWAM); 「不能直接照搬 FAWAM 的动作专家结构」; A force input 8→14 with FORCE_V6=[0,1,2,12,13,16] which 「必须核对…如果实际通道不是完整六轴 wrench，必须明确标注并调整模型描述」; B configurable causal force-history encoder, compare 方案一 vs 方案二 and justify; C future-force head with 「如果原模型使用 flow matching 或其他噪声预测目标，应严格按照原始训练目标实现辅助力预测，而不是机械地添加一个与原模型不兼容的 MSE」, 「不能因为有未来力预测头就宣称已经完成闭环力控制」; D pluggable feedback interface, 「不允许伪造人工干预标签」, 「默认 correction disabled」. §四 normalization/calibration with 8 sub-requirements incl. 「不能将基于未来 20 帧得到的零点直接用作在线第一帧可用的观测值」 and 「如果不能证明训练与推理完全一致，不能进入正式训练」. §五 init compatibility, 「不能错误声称所有新增结构都在第 0 步与旧模型严格等价，除非有实际数值测试证明」. §六 data verification, 「禁止跨 episode 拼接训练窗口」. §七 TOTAL_STEPS=40000/SAVE_EVERY=5000 + 11 artifacts per save, 「Gradient accumulation 的 microstep 不能算作 optimizer step」. §八 the 5 bugs. §九 20 admission tests before any formal training. §十 real-robot safety (default-disabled correction, E-stop, no unvalidated NN force→torque). §十一 cloud/local file management (says SSH; superseded by user decision 3 below), atomic writes, verified transfers, disk budget. §十二 evaluate all 8 nodes with one protocol. §十三 priorities P0-P5; 「如果 P1-P3 中已选定并启用的训练功能尚未正确实现，不能开始正式训练」; 「不得把一个只有 14 维拼接输入的模型汇报为已经实现全部 P0-P5」. §十四 phases A-F, must stop and report on 8 listed conditions. §十五 report the 8-question audit FIRST, then implement; record launch metadata; strictly distinguish 已实现并测试通过 / 已实现但尚未充分验证 / 因数据或硬件条件不足而暂未实现, 「不得把第三种状态伪装成第一种」.
+
+   **Carried-forward governin
+==========================================================================================
+22299 2026-11-10T08:55:03.469Z
+This session is being continued from a previous conversation that ran out of context.
+The summary below covers the earlier portion of the conversation.
+
+Summary:
+1. Primary Request and Intent:
+
+   **GOVERNING SPEC (attached file, 571 lines): 「FasterWAM 完整力感知架构改造与 40k 连续训练任务」** — roles 机器人学习研究工程师 / FasterWAM 架构工程师 / 训练可靠性工程师 / 部署工程师. 核心目标 verbatim: 「尽可能在第一次正式 40,000 optimizer steps 训练之前，一次性完成力感知架构、数据处理、联合预测、训练状态恢复以及推理接口的实现与测试，避免训练完成后才发现需要更改核心模型并重新训练。」 Plus 「这是实际工程执行任务，不是单纯写建议」 and 「不要为了追求一次性完成而编造训练数据、假装测试通过，或将未经验证的控制器部署到真实机器人。」
+
+   Section requirements (condensed): §一 one continuous 40k run, saves at 5k…40k from ONE trajectory, no re-init of model/optimizer/scheduler/sampler, one cosine over 40k, prefer the pretrained FasterWAM base, 「保持 FasterWAM 原有视觉世界模型及 DoT / Lite KV-Fusion 的核心架构」, 「不得将实验性组件谎称为原版 FasterWAM 或 FAWAM 官方实现」, environment must be re-measured not inherited. §二 re-check project state and 「请逐项确认这些问题在当前代码中是否仍然存在，不要盲目重复打补丁」. §三 FAWAM three layers (arXiv 2606.08555, github.com/TeamFasterwam/FasterWAM); 「不能直接照搬 FAWAM 的动作专家结构」; A force input 8→14 with FORCE_V6=[0,1,2,12,13,16] which 「必须核对…如果实际通道不是完整六轴 wrench，必须明确标注并调整模型描述」; B configurable causal force-history encoder, compare 方案一 vs 方案二 and justify; C future-force head — 「如果原模型使用 flow matching 或其他噪声预测目标，应严格按照原始训练目标实现辅助力预测，而不是机械地添加一个与原模型不兼容的 MSE」, 「不能因为有未来力预测头就宣称已经完成闭环力控制」; D pluggable feedback interface, 「不允许伪造人工干预标签」, 「默认 correction disabled」. §四 normalization/calibration, incl. 「不能将基于未来 20 帧得到的零点直接用作在线第一帧可用的观测值」 and 「如果不能证明训练与推理完全一致，不能进入正式训练」. §五 init compatibility — 「不能错误声称所有新增结构都在第 0 步与旧模型严格等价，除非有实际数值测试证明」. §六 data verification — 「禁止跨 episode 拼接训练窗口」. §七 TOTAL_STEPS=40000/SAVE_EVERY=5000 + 11 artifacts per save, 「Gradient accumulation 的 microstep 不能算作 optimizer step」. §八 the 5 bugs. §九 20 admission tests before any formal training. §十 real-robot safety. §十一 cloud/local file management (SSH superseded by user decision 3), atomic writes, verified transfers, disk budget. §十二 evaluate all 8 nodes with one protocol. §十三 priorities P0-P5; 「如果 P1-P3 中已选定并启用的训练功能尚未正确实现，不能开始正式训练」; 「不得把一个只有 14 维拼接输入的模型汇报为已经实现全部 P0-P5」. §十四 phases A-F, must stop and report on 8 listed conditions. §十五 report the 8-question audit FIRST, then implement; record launch metadata; strictly distinguish 已实现并测试通过 / 已实现但尚未充分验证 / 因数据或硬件条件不足而暂未实现, 「不得把第三种状态伪装成第一种」.
+
+   **Carried-forward governing request (verbatim)**: 「等一下。请记住，我现在需要的是重训FasterWAM,而不是接着之前的R5R6继续。必要的代码和文件、适配脚本这些全都可以下载，但是权重用原始FasterWAM的，然后启动训练。每10K步的权重上传到hugging face里面，因为本地
+==========================================================================================
+22877 2026-11-10T09:12:43.180Z
+This session is being continued from a previous conversation that ran out of context.
+The summary below covers the earlier portion of the conversation.
+
+
+
+If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: C:\Users\ASUS\.qoder-cn\projects\C--Users-ASUS-Documents-Qoder-2026-10-31-b462d38d\b462d38d-2bab-475d-a8b3-0dbd231385f9.jsonl
+
+Continue the conversation from where it left off without asking the user any further questions.
+Resume directly — do not acknowledge the summary, do not recap what was happening, do not preface with "I'll continue" or similar.
+Pick up the last task as if the break never happened.

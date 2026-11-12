@@ -1,0 +1,9 @@
+{
+  "expect_sha256": {
+    "eval40k.py": "fb723254032813c7bc5d187fa98bea1b6ce39d46d9389366bdccce8b4ede4ff8",
+    "smoke40k.py": "72fb1f8202e8c43b7fc655f81113c1595450013860931007908e2eb24fad64f1",
+    "flow_test.py": "418dd83c1f02fa13b9a2123a6c9dc04f12ca43464e83b56b665fd21fc9b55c72"
+  },
+  "reason": "rounds 6-7. Round 6: the +-5 proprio clamp reported by the first live step_040000 smoke is now attributable -- the recorder keeps a copied pre-call snapshot and the chunk recorder witnesses the raw 14 columns of the same replan, so every out-of-band column names its raw value and frame, and the fold proves the vector fed to the model is that band's own map of it. Round 7: the three failures that smoke blamed on the model were the harness's own expectations -- devices compared as strings (cuda vs cuda:0), a (1, T, D) shape expectation against a model that indexes latents[0], and a scene hash taken after the robot had moved the cookies -- plus the wall-time split (simulated vs inference vs cgroup CPU throttling) that the 160-episode projection is now argued from instead of a single 41.58 h number.",
+  "round": 7
+}
