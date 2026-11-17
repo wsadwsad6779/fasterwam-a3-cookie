@@ -1,0 +1,92 @@
+{
+  "repositories": [
+    {
+      "repo": "wsadwsad6779/fasterwam-a3-cookie-lora",
+      "revision": "f2aaf55c6ce1b164de97c5b6ec2cd75e942d0de0",
+      "file_count": 1264,
+      "candidates": [
+        "MANIFEST/p0p1_manifest.tsv",
+        "MANIFEST/parts60_manifest.tsv",
+        "MANIFEST/parts60gz_manifest.tsv",
+        "MANIFEST/parts_reassembly.tsv",
+        "data/a3_fw/dataset_stats.json",
+        "data/a3_fw_dagger/dataset_stats.json",
+        "data/a3_fw_dagger_near/dataset_stats.json",
+        "data/a3_fw_force/force_stats.json",
+        "eval/a3_eval/corpus_manifest_v1.json",
+        "eval/a3_eval/r3_c0_diag_600/manifest.json",
+        "eval/a3_eval/r3_c0_diag_det/manifest.json",
+        "eval/a3_eval/r3_c0_diag_smoke/manifest.json",
+        "eval/a3_eval/r3_c0_entry_check/manifest_lora.json",
+        "eval/a3_eval/r4_b0_c0_paired/manifest_lora.json",
+        "eval/a3_eval/r4_c0_frozen/manifest_lora.json",
+        "eval/a3_eval/r4_c0_seed21_video/manifest_lora.json",
+        "eval/a3_eval/r4_c0_seed22_video/manifest_lora.json",
+        "eval/a3_eval/r5_b0_c0_paired/manifest_lora.json",
+        "eval/bridge/C1/manifest_lora.json",
+        "eval/bridge/C2/manifest_lora.json",
+        "eval/bridge/C3/manifest_lora.json",
+        "eval/bridge/C4/manifest_lora.json",
+        "eval/bridge/C5/manifest_lora.json",
+        "eval/bridge/E0_C0/manifest_lora.json",
+        "eval/bridge/_smoke_lora/manifest_lora.json",
+        "eval/bridge/_smoke_raw/manifest_raw.json",
+        "eval/bridge/r2/C0/manifest_lora.json",
+        "eval/bridge/r2/C3/manifest_lora.json",
+        "eval/bridge/r3/C0/manifest_lora.json"
+      ]
+    },
+    {
+      "repo": "wsadwsad6779/fasterwam-a3-force-40k",
+      "revision": "c25f73640670b1be1592feab05cc8e84f88300b9",
+      "file_count": 132,
+      "candidates": [
+        "v1_force_40k/nodes/step_005000/force_calib_v1.json",
+        "v1_force_40k/nodes/step_005000/manifest.json",
+        "v1_force_40k/nodes/step_010000/force_calib_v1.json",
+        "v1_force_40k/nodes/step_010000/manifest.json",
+        "v1_force_40k/nodes/step_015000/force_calib_v1.json",
+        "v1_force_40k/nodes/step_015000/manifest.json",
+        "v1_force_40k/nodes/step_020000/force_calib_v1.json",
+        "v1_force_40k/nodes/step_020000/manifest.json",
+        "v1_force_40k/nodes/step_025000/force_calib_v1.json",
+        "v1_force_40k/nodes/step_025000/manifest.json",
+        "v1_force_40k/nodes/step_030000/force_calib_v1.json",
+        "v1_force_40k/nodes/step_030000/manifest.json",
+        "v1_force_40k/nodes/step_035000/force_calib_v1.json",
+        "v1_force_40k/nodes/step_035000/manifest.json",
+        "v1_force_40k/nodes/step_040000/force_calib_v1.json",
+        "v1_force_40k/nodes/step_040000/manifest.json",
+        "v1_force_rehearsal/nodes/step_000012/force_calib_v1.json",
+        "v1_force_rehearsal/nodes/step_000012/manifest.json"
+      ]
+    }
+  ],
+  "downloads": [
+    {
+      "path": "/workspace/eval_restore_20261117/archive_evidence/data/a3_fw/arrays.npz",
+      "repo_path": "data/a3_fw/arrays.npz",
+      "bytes": 2070331,
+      "sha256": "b5468c274cc5eede761242478750e13e0a58529dba9b5400ccd2872f7f9fc7f0"
+    },
+    {
+      "path": "/workspace/eval_restore_20261117/archive_evidence/data/a3_fw/dataset_stats.json",
+      "repo_path": "data/a3_fw/dataset_stats.json",
+      "bytes": 3071,
+      "sha256": "ed833168725b0b63179a8aa3f870543f119b6891305fb94d17b3357989ccfffd"
+    },
+    {
+      "path": "/workspace/eval_restore_20261117/archive_evidence/data/a3_fw_force/arrays.npz",
+      "repo_path": "data/a3_fw_force/arrays.npz",
+      "bytes": 5243625,
+      "sha256": "d130363f13ea511fdbad277e9d1ddcc7c4c9712f0661c898bada2b34e7aac7dd"
+    },
+    {
+      "path": "/workspace/eval_restore_20261117/archive_evidence/data/a3_fw_force/force_stats.json",
+      "repo_path": "data/a3_fw_force/force_stats.json",
+      "bytes": 16529,
+      "sha256": "6333ed02482cba1fc36e38c4ddd11a6442b1d411591ece964b84d9417daec15c"
+    }
+  ],
+  "errors": []
+}

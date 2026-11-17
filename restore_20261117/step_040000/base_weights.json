@@ -1,0 +1,17 @@
+{
+  "bytes": 11117679929,
+  "file": "step_021700.pt",
+  "hub_sources": [
+    {
+      "note": "W2 checks this repo and BASE_SOURCES by sha256+bytes; this field is the claim being checked",
+      "path": "libero/step_021700.pt",
+      "repo": "hustvl/FasterWAM",
+      "revision": "main"
+    }
+  ],
+  "merge_recipe": "python scripts/export_merged_v3.py <node light dir> --base <this file> --out merged_stepNNNNNN.pt",
+  "path_on_instance": "/workspace/FasterWAM/checkpoints/fasterwam_release/libero/step_021700.pt",
+  "role": "the frozen 40k run resumed from this file at global_step 0; each node is this base plus that node's adapter, so pinning it is what makes the eight merged models reproducible elsewhere",
+  "sha256": "01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d",
+  "upstream_release": "fasterwam_release/libero"
+}

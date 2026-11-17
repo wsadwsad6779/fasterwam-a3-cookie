@@ -1,0 +1,80 @@
+{
+  "gpu_execution": false,
+  "checks": {
+    "code_integrity": {
+      "pass": true,
+      "facts": {
+        "transferred_files": 333,
+        "node_code_matches": 9
+      }
+    },
+    "derived_stats": {
+      "pass": true,
+      "facts": {
+        "path": "/workspace/eval_restore_20261117/derived/dataset_stats_14d_DERIVED.json",
+        "sha256": "354f59738d96e6962a0e1705635c5bf21c87c076c72bb512344c423093765b51",
+        "status": "DERIVED_NOT_ORIGINAL",
+        "widths": [
+          14,
+          7
+        ],
+        "calibration_std_match": true,
+        "force_stats_keys": [
+          "channels",
+          "names",
+          "unit",
+          "hz",
+          "zero_load_ref_per_episode",
+          "zero_load_ref_median",
+          "raw_median",
+          "raw_p95",
+          "raw_max",
+          "residual_median",
+          "residual_p95",
+          "residual_absmax",
+          "residual_mean",
+          "residual_std"
+        ]
+      }
+    },
+    "normalizer_cpu": {
+      "pass": false,
+      "error": "ModuleNotFoundError: No module named 'fasterwam'"
+    },
+    "capture_tests": {
+      "pass": true,
+      "facts": {
+        "tests": 12,
+        "skipped": 0,
+        "source_path_binding": "AST-only; original file unchanged"
+      }
+    },
+    "sim_resources": {
+      "pass": true,
+      "facts": {
+        "xml_sha256": "65bb94eeded431d95af874e0256edd247a84b1367ec4bd81b7f722b421af46c6",
+        "sensors": [
+          "L_wrist_force",
+          "L_wrist_torque",
+          "L_finger_inner_touch_sensor",
+          "L_finger_outer_touch_sensor",
+          "R_wrist_force",
+          "R_wrist_torque",
+          "R_finger_inner_touch_sensor",
+          "R_finger_outer_touch_sensor"
+        ],
+        "nsensordata": 16,
+        "nq": 585,
+        "mujoco": "4.0.1",
+        "episode_run": false
+      }
+    }
+  },
+  "errors": [],
+  "original_stats_found": false,
+  "inference_identity_accepted": false,
+  "blocking": [
+    "Original 14D stats file identity not recovered; derived stats are quarantined and not silently substituted.",
+    "No GPU model construction, merge, prompt encoding or inference was performed."
+  ]
+}

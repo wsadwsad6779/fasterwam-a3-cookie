@@ -1,0 +1,19 @@
+{
+  "status": "DERIVED_NOT_ORIGINAL",
+  "algorithm": "stage_40k/build_v1_dataset.py global, lines 116-149 and 191-192",
+  "sources": {
+    "/workspace/eval_restore_20261117/archive_evidence/data/a3_fw/arrays.npz": "b5468c274cc5eede761242478750e13e0a58529dba9b5400ccd2872f7f9fc7f0",
+    "/workspace/eval_restore_20261117/archive_evidence/data/a3_fw/dataset_stats.json": "ed833168725b0b63179a8aa3f870543f119b6891305fb94d17b3357989ccfffd",
+    "/workspace/eval_restore_20261117/archive_evidence/data/a3_fw_force/arrays.npz": "d130363f13ea511fdbad277e9d1ddcc7c4c9712f0661c898bada2b34e7aac7dd",
+    "/workspace/eval_restore_20261117/archive_evidence/data/a3_fw_force/force_stats.json": "6333ed02482cba1fc36e38c4ddd11a6442b1d411591ece964b84d9417daec15c",
+    "/workspace/eval_restore_20261117/step_040000/force_calib_v1.json": "2e821a8a019f966d0d2418df7f587d9d469ccd5596abcc39e9f20f5f830d1bd5"
+  },
+  "original_stats_sha256": null,
+  "training_corpus_sha256": "942164b71c9fa6809517139b449dc4666415471e94f4bf15a6f40c73631a4466",
+  "training_corpus_reconstructed": false,
+  "limitations": [
+    "Original 14D JSON bytes/hash unavailable.",
+    "Derived values do not by themselves prove original training input identity."
+  ],
+  "derived_sha256": "354f59738d96e6962a0e1705635c5bf21c87c076c72bb512344c423093765b51"
+}

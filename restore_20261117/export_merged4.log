@@ -1,0 +1,53 @@
+nohup: ignoring input
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[2026-11-17 07:06:28,998][fasterwam.runtime][INFO] - Force conditioning enabled: channels=[0, 1, 2, 12, 13, 16] hist_len=16 horizon=32 lambda_force=1.0 calibration=force-calib-v1
+[2026-11-17 07:06:28,998][fasterwam.models.wan22.helpers.loader][INFO] - Loading Wan2.2-TI2V-5B components...
+[2026-11-17 07:06:28,998][fasterwam.models.wan22.helpers.loader][INFO] - Skipping pretrained video DiT load (`skip_dit_load_from_pretrain=True`); initializing video expert randomly and expecting checkpoint override.
+[2026-11-17 07:07:02,564][fasterwam.models.wan22.helpers.loader][INFO] - Skipping pretrained text encoder/tokenizer load (`load_text_encoder=False`); training must provide cached `context/context_mask`.
+[2026-11-17 07:07:12,036][fasterwam.models.wan22.helpers.loader][INFO] - Finished loading Wan2.2-TI2V-5B components in 43.04 seconds.
+[2026-11-17 07:07:12,037][fasterwam.models.wan22.sparse_action_dit][INFO] - Skipping SparseActionDiT pretrained load (`skip_dit_load_from_pretrain=True`); initializing action expert randomly and expecting checkpoint override.
+[2026-11-17 07:07:15,129][fasterwam.models.wan22.sparse_mot][INFO] - Initialized SparseMoT with layers=30, condition_layers=[0, 4, 8, 12, 16, 20, 24, 28], condition_heads=24, noncondition_heads=8, video_kv_fusion=interval_weighted_sum
+[2026-11-17 07:07:15,132][fasterwam.models.wan22.sparse_mot][INFO] -   Expert 'video': num_params=5.00 B
+[2026-11-17 07:07:15,133][fasterwam.models.wan22.sparse_mot][INFO] -   Expert 'action': num_params=0.56 B
+[2026-11-17 07:07:15,133][fasterwam.models.wan22.fastwam][INFO] - MoT Action->Video attention enabled at layers [0, 4, 8, 12, 16, 20, 24, 28] (disabled elsewhere).
+[2026-11-17 07:07:23,333][fasterwam.models.wan22.fastwam][WARNING] - /workspace/eval_restore_20261117/base_step_021700.pt has no force-conditioning weights; all 45 force tensors stay at initialization (expected only when loading a pre-force base).
+[2026-11-17 07:07:23,435][fasterwam.base_load_guard][WARNING] - base_load_guard: {"action": "expanded_zero_filled", "bias_verified": true, "copied_columns_verified": true, "event": "proprio_load", "path": "/workspace/eval_restore_20261117/base_step_021700.pt", "pid": 4264, "src_absmax": 0.375, "src_dtype": "torch.bfloat16", "src_in": 8, "stage": "unlabelled", "target_in": 14, "zero_columns": 6, "zero_columns_verified": true}
+[2026-11-17 07:07:28,089][fasterwam.base_load_guard][WARNING] - base_load_guard: {"absent": 0, "checkpoint_tensors": 1393, "event": "mot_load", "model_tensors": 2222, "path": "/workspace/eval_restore_20261117/base_step_021700.pt", "pid": 4264, "shape_mismatch": 0, "stage": "unlabelled", "value_verified": true, "verified_elements": 5558669540}
+{
+  "adapter_restored_elements": 34990592,
+  "adapter_restored_tensors": 828,
+  "base_ckpt": "/workspace/eval_restore_20261117/base_step_021700.pt",
+  "base_load_guard_installed_here": true,
+  "base_mot_tensors": 1393,
+  "device": "cuda",
+  "event": "publish_merged",
+  "force_buffer_keys": [
+    "mixtures.action.force_conditioner.history_encoder.force_mean",
+    "mixtures.action.force_conditioner.history_encoder.force_std",
+    "mixtures.action.force_conditioner.history_encoder.stats_are_set"
+  ],
+  "force_elements": 4258317,
+  "force_tensors": 45,
+  "light_dir": "/workspace/eval_restore_20261117/step_040000",
+  "lora_layers": 392,
+  "lora_trainable_params": 30670848,
+  "merge_check": "all 392 wrapped matrices equal base+(B@A)*scaling bitwise",
+  "merged_layers": 392,
+  "model_dtype": "torch.bfloat16",
+  "mot_tensors": 1438,
+  "output": "/workspace/eval_restore_20261117/step_040000_merged.pt",
+  "output_bytes": 11126493579,
+  "published_force_calibration": {
+    "force_dim": 6,
+    "force_mean_sha256": "cfbf5e9312a981e56565c3b867225a996d8c923edeed422c8c584fb086abc69e",
+    "force_std_sha256": "fe3911624a89ceee5196608dae88baa7e24f21971494775579d9db8b886e498f",
+    "hist_len": 16,
+    "scale": 1.0
+  },
+  "published_step": 40000,
+  "ts": 1794899186.8618279,
+  "untouched_mot_tensors_verified": 1001,
+  "wrapped_matrices": 392
+}
+published -> /workspace/eval_restore_20261117/step_040000_merged.pt (11126493579 B)

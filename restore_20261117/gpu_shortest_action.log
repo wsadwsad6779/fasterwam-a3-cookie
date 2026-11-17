@@ -1,0 +1,17 @@
+device=cuda dtype=torch.bfloat16
+instantiating model...
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+loading merged checkpoint...
+building dummy inputs...
+running infer_action...
+Traceback (most recent call last):
+  File "/workspace/eval_restore_20261117/gpu_shortest_action.py", line 75, in <module>
+    main()
+  File "/workspace/eval_restore_20261117/gpu_shortest_action.py", line 49, in main
+    out = model.infer_action(
+          ^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+TypeError: JointWAM.infer_action() missing 1 required positional argument: 'num_video_frames'

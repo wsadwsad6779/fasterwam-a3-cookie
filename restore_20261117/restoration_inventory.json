@@ -1,0 +1,43 @@
+{
+  "node_files": [
+    {
+      "file": "manifest.json",
+      "bytes": 55687,
+      "sha256": "54085b15f00b4e0e6a5850a92917678fb89ad3467dc1f5580a7dfa9d38f67e32"
+    },
+    {
+      "file": "run_config.yaml",
+      "bytes": 6364,
+      "sha256": "4aa66c57cdfe2804ae56cf244a907be9e13fe232d4ede65ba7ef0695eb79abfd"
+    },
+    {
+      "file": "base_weights.json",
+      "bytes": 841,
+      "sha256": "06d4e629c23ef7bde224ef893d60b6bb22de24a9ad7e4d4c5bdaf627eed43f5c"
+    },
+    {
+      "file": "force_calib_v1.json",
+      "bytes": 1904,
+      "sha256": "2e821a8a019f966d0d2418df7f587d9d469ccd5596abcc39e9f20f5f830d1bd5"
+    },
+    {
+      "file": "trainer_state.json",
+      "bytes": 49953,
+      "sha256": "9b1c150fb01f6c22c9fe0aa73245f819ba5a3d276aa446ff6ed09146a170e566"
+    },
+    {
+      "file": "adapter.pt",
+      "bytes": 70257165,
+      "sha256": "1e19f1e3f81f96b770311608fbff00a3ec6739c6346b1e464af41baf491a3852"
+    }
+  ],
+  "manifest_checks": true,
+  "base_storage": "symlink to previously full-SHA-verified HF cache, not independent byte copy",
+  "base_target": "/workspace/.cache/huggingface/hub/models--hustvl--FasterWAM/snapshots/6bf9471ced6919a15ab8fded89f7772f5060c44b/libero/step_021700.pt",
+  "missing": [
+    "original 14D normalizer",
+    "bound training text cache",
+    "verified evaluation source and environment"
+  ],
+  "gpu_inference_started": false
+}

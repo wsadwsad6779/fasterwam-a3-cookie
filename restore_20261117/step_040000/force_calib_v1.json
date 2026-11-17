@@ -1,0 +1,79 @@
+{
+  "version": "force-calib-v1",
+  "units": "newton (raw sensor values, no gravity compensation, no torque)",
+  "channels": [
+    0,
+    1,
+    2,
+    12,
+    13,
+    16
+  ],
+  "channel_names": [
+    "L_wrist_fx",
+    "L_wrist_fy",
+    "L_wrist_fz",
+    "L_pad_inner",
+    "L_pad_outer",
+    "L_gripper"
+  ],
+  "channel_note": "Left wrist 3-axis force + left finger-pad normal forces + left gripper actuation force. Not a six-axis wrench: no torque channel is present, and the wrist components are in the flange frame.",
+  "mean": [
+    -0.09457391287444591,
+    -10.91199034824051,
+    -0.035530148213373705,
+    0.7043228806416401,
+    0.7084547944127559,
+    1.4016550609363514
+  ],
+  "std": [
+    0.7338846360941355,
+    0.588731316848893,
+    0.18089430557257583,
+    0.6814043397960897,
+    0.6854666218546087,
+    1.396991039122968
+  ],
+  "scale": 1.0,
+  "zero_load_ref_median": [
+    -0.000117704868898727,
+    -10.721150159835815,
+    -0.028226930182427168,
+    0.0,
+    0.0,
+    -0.018633414525538683
+  ],
+  "n_rows": 42681,
+  "n_episodes": 100,
+  "corpus": "/workspace/a3_data/a3_fw_v1g/arrays.npz",
+  "source_arrays": "/workspace/a3_data/a3_fw_force/arrays.npz",
+  "source_sha256": {
+    "force_arrays": "d130363f13ea511fdbad277e9d1ddcc7c4c9712f0661c898bada2b34e7aac7dd",
+    "corpus_arrays": "942164b71c9fa6809517139b449dc4666415471e94f4bf15a6f40c73631a4466"
+  },
+  "generator": "make_force_calib.py",
+  "per_channel_absmax": [
+    3.5628063678741455,
+    14.267963409423828,
+    1.3804129362106323,
+    1.5398412942886353,
+    1.5180184841156006,
+    2.9520156383514404
+  ],
+  "per_channel_min": [
+    -1.408474087715149,
+    -14.267963409423828,
+    -1.3804129362106323,
+    0.0,
+    0.0,
+    -1.2381830215454102
+  ],
+  "per_channel_max": [
+    3.5628063678741455,
+    -9.44865894317627,
+    0.45449596643447876,
+    1.5398412942886353,
+    1.5180184841156006,
+    2.9520156383514404
+  ]
+}
