@@ -1,0 +1,153 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "original_stats_sha256": "UNKNOWN",
+  "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+  "seed": 17,
+  "frame": 0,
+  "noise": 335444155,
+  "action_noise": 303,
+  "name": "follow_s17_action303",
+  "noise_draws": [
+    {
+      "stream": "video",
+      "shape": [
+        1,
+        48,
+        3,
+        14,
+        28
+      ],
+      "sha256": "4782a54300946a8cf320fdcbaa8671cee344cb9847e8f136916e663c68213723",
+      "override_seed": null
+    },
+    {
+      "stream": "action",
+      "shape": [
+        1,
+        32,
+        7
+      ],
+      "sha256": "c3decd11673042a502142693e1dd24f5ab16b6e6cf2436e2586dcfc80328527b",
+      "override_seed": 303
+    },
+    {
+      "stream": "force",
+      "shape": [
+        1,
+        32,
+        6
+      ],
+      "sha256": "7e86529fb4e84ebaede29dabfc2f20fdc1a01064eca7010eeef6961fd0a8bb4d",
+      "override_seed": null
+    }
+  ],
+  "wall_seconds": 1.3811790943145752,
+  "raw_gripper32": [
+    1.0078125,
+    1.03125,
+    1.015625,
+    1.046875,
+    0.95703125,
+    0.859375,
+    0.8671875,
+    0.84375,
+    0.984375,
+    1.0546875,
+    1.015625,
+    0.9375,
+    0.94921875,
+    0.8984375,
+    0.91796875,
+    1.046875,
+    -0.8515625,
+    0.48828125,
+    -1.0390625,
+    -0.8671875,
+    -1.046875,
+    -0.98046875,
+    -0.99609375,
+    -1.03125,
+    -1.03125,
+    -1.0078125,
+    -1.0234375,
+    -1.0234375,
+    -1.0390625,
+    -0.9921875,
+    -1.0234375,
+    -1.03125
+  ],
+  "diff_gripper31": [
+    0.0234375,
+    -0.015625,
+    0.03125,
+    -0.08984375,
+    -0.09765625,
+    0.0078125,
+    -0.0234375,
+    0.140625,
+    0.0703125,
+    -0.0390625,
+    -0.078125,
+    0.01171875,
+    -0.05078125,
+    0.01953125,
+    0.12890625,
+    -1.8984375,
+    1.33984375,
+    -1.52734375,
+    0.171875,
+    -0.1796875,
+    0.06640625,
+    -0.015625,
+    -0.03515625,
+    0.0,
+    0.0234375,
+    -0.015625,
+    0.0,
+    -0.015625,
+    0.046875,
+    -0.03125,
+    -0.0078125
+  ],
+  "signs_first10": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "flip_rows32": [
+    16,
+    17,
+    18
+  ],
+  "flip_count_first10": 0,
+  "large_jumps_first10": 0,
+  "trace_flip_counts_first10": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    0,
+    0
+  ],
+  "observation_sha256": {
+    "observation.images.front": "3407c6c6cbcd0788ab705c6ddf9a7806a11b5813900f9bee5d1ef2c5c0853568",
+    "observation.images.left_wrist": "e25935de332baa84ba8c6c9019f8386a2196de8bab15900ebe5159b22cf83d30",
+    "observation.images.right_wrist": "b54f39437c5cad06994900789ebc7a0fc891a24b3821a419eb69dc6e09cb2e28",
+    "observation.state": "7ad58774b8e2f9a1b28a5110afa1055e1be7da00cf5c96b2f8244542ef3e696b",
+    "observation.velocity": "4eab673c8d38b0e184cc20a035898f31663419dd6216d8df506cbe1d93fe2538",
+    "observation.eef_pose": "d05a0aaacece62b97605225a8daf91d8f1516f48d42d6d352b2b2b25952b4e92",
+    "observation.force": "166887f50a75d6ec7be996015bca5f81c0723913a641b32fb40233728a40c136"
+  },
+  "npz_sha256": "f13899fb48192e0e99e43eda4d2dc3ac109b8bbbfa656392bdaefb95a03d8619"
+}

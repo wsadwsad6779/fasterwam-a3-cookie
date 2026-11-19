@@ -1,0 +1,62 @@
+[
+  {
+    "name": "mechanismv5_negative_s17_f0_all6clip.npz",
+    "status": 200,
+    "sha256": "c8f852d965ab87b807a35499e78c0dd09a17e992c024266c02aeeb81c33fd346",
+    "bytes": 130342
+  },
+  {
+    "name": "mechanismv5_request_002_done.json",
+    "status": 200,
+    "sha256": "bfb1d15a79be9ecf4661682289b6d5d5a54ff3771ae6c96f9a74e3394356bcbf",
+    "bytes": 15
+  },
+  {
+    "name": "mechanismv5_request_002.json",
+    "status": 200,
+    "sha256": "6982e99bffcfd9aefc07e9bebf36994fe16f89369f299dc84025e7b22848102c",
+    "bytes": 2028
+  },
+  {
+    "name": "mechanismv5_dose_s17_f143_N202_range4.json",
+    "status": 200,
+    "sha256": "913b653a2795f230e165c3cc9dcb4b8a95b7be09afd16f32377e18c3b75e293b",
+    "bytes": 3784
+  },
+  {
+    "name": "mechanismv5_dose_s17_f143_N202_range2.json",
+    "status": 200,
+    "sha256": "285aad6d92cb59dbfba82bfc6465c114d5a0bca5c6fc8d48d7472f04e7a32b59",
+    "bytes": 3767
+  },
+  {
+    "name": "mechanismv5_dose_s17_f143_N202_range4.npz",
+    "status": 200,
+    "sha256": "04ebf5fd939133b3578c1601ec119c4302f668c927658406840460f11096266b",
+    "bytes": 140894
+  },
+  {
+    "name": "mechanismv5_negative_s12_f0_all6clip.json",
+    "status": 200,
+    "sha256": "752ebf388a39157e5a32d742b58a9bae7b1639c258bf50e2872258a377237701",
+    "bytes": 3755
+  },
+  {
+    "name": "mechanismv5_negative_s12_f0_all6clip.npz",
+    "status": 200,
+    "sha256": "ee474cc47df7f73f0a537de3d16fff4ef8c2813b1a1404767b32a381b73feba4",
+    "bytes": 130458
+  },
+  {
+    "name": "mechanismv5_negative_s17_f0_all6clip.json",
+    "status": 200,
+    "sha256": "a3682982fc83510718b1ee6dc99fee9ddd53f2b22de4269f22e651f9565a2a7e",
+    "bytes": 3767
+  },
+  {
+    "name": "mechanismv5_dose_s17_f143_N202_range2.npz",
+    "status": 200,
+    "sha256": "7c7c5ec98352d1c249570f77f11db5b38c09de2ea5a02ff7c56c108e3da9fce3",
+    "bytes": 140825
+  }
+]

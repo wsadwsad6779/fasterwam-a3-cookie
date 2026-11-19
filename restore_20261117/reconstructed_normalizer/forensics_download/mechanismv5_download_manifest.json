@@ -1,0 +1,110 @@
+[
+  {
+    "name": "mechanismv5_request_001.json",
+    "status": 200,
+    "sha256": "35a38f9daf2fa74d5a8100746ff0de5e9ff51f2e822fb8906a2d172d36f95a75",
+    "bytes": 660
+  },
+  {
+    "name": "mechanismv5_batch_ready.json",
+    "status": 200,
+    "sha256": "cc3347303c184c80d052ed15893590fef4a4d3060b9bfa3150ea49cd4426a195",
+    "bytes": 98
+  },
+  {
+    "name": "mechanismv5_robust_s17_f143_N202_all6clip.npz",
+    "status": 200,
+    "sha256": "8f1ee33517c534555082ebc9b4711106586de6054d4668fae94092ddbde2a58c",
+    "bytes": 140470
+  },
+  {
+    "name": "mechanismv5_holdout_s17_f159_all6clip.json",
+    "status": 200,
+    "sha256": "43b425a4e5135f3d62bc4569654193d42ab8751803b7607b1ecb2f4d58367503",
+    "bytes": 3714
+  },
+  {
+    "name": "mechanismv5_holdout_s11_f98_baseline.json",
+    "status": 200,
+    "sha256": "0d879d4218685a8a2d03ff698fab5bdd1d16e706ed25c2674103df2c1c17c993",
+    "bytes": 3231
+  },
+  {
+    "name": "mechanismv5_request_001_done.json",
+    "status": 200,
+    "sha256": "cbaf2aa7b70d71023eb2650faf08fea57338f8308acf99dc165b36547aaa7bf9",
+    "bytes": 15
+  },
+  {
+    "name": "mechanismv5_holdout_s11_f98_all6clip.json",
+    "status": 200,
+    "sha256": "0202cf86174f6a5562c7af8d6ef203e291869cc3f29adc5351bfc476c6321045",
+    "bytes": 3714
+  },
+  {
+    "name": "mechanismv5_robust_s17_f143_N202_all6clip.json",
+    "status": 200,
+    "sha256": "f509f64b31f34bd1bc05ff57ea1c7b35d25bc55ff392b6c4cda400f0f4015cbe",
+    "bytes": 3670
+  },
+  {
+    "name": "mechanismv5_holdout_s17_f159_all6clip.npz",
+    "status": 200,
+    "sha256": "a63383c1fa4cbf38f04d4a43be5a4ba0117a6a4cc51eb305cd439d3827aef25e",
+    "bytes": 124413
+  },
+  {
+    "name": "mechanismv5_identity.json",
+    "status": 200,
+    "sha256": "05c836baecf910d4b530e10ed7ae55e1b45e3e52def554959c26e9ee6c6ec0f1",
+    "bytes": 5344
+  },
+  {
+    "name": "mechanismv5_holdout_s11_f98_baseline.npz",
+    "status": 200,
+    "sha256": "f66bc586848b1d65087a21bdf1e53ea64dc06ac29d27166734a49811a3ca288d",
+    "bytes": 150109
+  },
+  {
+    "name": "mechanismv5_summary.json",
+    "status": 200,
+    "sha256": "1661210a925492a34f66f26ffa70726411950e937a4a0c35c2c01ab01ab3f123",
+    "bytes": 24410
+  },
+  {
+    "name": "mechanismv5_holdout_s11_f98_all6clip.npz",
+    "status": 200,
+    "sha256": "50b0c3ff8befa154c43234c8ec9a97fed94e21ccbf7bacb804afc2d8fefed9a5",
+    "bytes": 149818
+  },
+  {
+    "name": "mechanismv5_holdout_s17_f159_baseline.npz",
+    "status": 200,
+    "sha256": "c994c4aa71164f0bfc57351901c1da495d0e040438fd325e13e747b76fb052ab",
+    "bytes": 125317
+  },
+  {
+    "name": "mechanismv5_robust_s17_f143_N202_baseline.json",
+    "status": 200,
+    "sha256": "eb7b12d4bfb7d2d557b0daaf9be587f05d66f9a5ac0e14ed1645bb1a686ddba9",
+    "bytes": 2917
+  },
+  {
+    "name": "mechanismv5_robust_s17_f143_N202_baseline.npz",
+    "status": 200,
+    "sha256": "d94df0a0d785d52fac173482025f108dabeb9b7f5d72fa86b41fd2c7636a0337",
+    "bytes": 141125
+  },
+  {
+    "name": "mechanismv5_holdout_s17_f159_baseline.json",
+    "status": 200,
+    "sha256": "a7480e45168a53fc2226a649a438746184553587f94a367ed81442fe7ce8ce68",
+    "bytes": 2860
+  },
+  {
+    "name": "mechanismv5_predeclared_jobs.json",
+    "status": 200,
+    "sha256": "23c5d56b871bba5a0cc5f831dc0cf0e82552e67e2a77577f3744cfbf73de587d",
+    "bytes": 1788
+  }
+]

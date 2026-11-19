@@ -1,0 +1,18 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "checks": {
+    "A_B_same_artifacts_object": true,
+    "default_blocks_runtime": true,
+    "execution_error_preserved": true,
+    "failed_preflight_blocks_runtime": true,
+    "import_does_not_load_torch": true,
+    "initialization_error_preserved": true,
+    "preflight_only_blocks_runtime": true,
+    "synthetic_fixture_hashes_use_real_function": true
+  },
+  "original_stats_sha256": "UNKNOWN",
+  "pass": true,
+  "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+  "scope": "SYNTHETIC_LAUNCHER_REGRESSION_ONLY_NOT_REAL_WEIGHT_ACCEPTANCE",
+  "torch_imported": false
+}

@@ -1,0 +1,118 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "original_stats_sha256": "UNKNOWN",
+  "purpose": "Req1 fixed reconstruction evidence for the limited 40k GPU diagnosis. This is diagnosis under traceable reconstructed statistics, NOT proof of original training-normalizer byte identity.",
+  "generated_utc": "2026-11-17",
+  "original_inputs": {
+    "a3_fw_dataset_stats_json": {
+      "repo_path": "data/a3_fw/dataset_stats.json",
+      "hf_repo": "wsadwsad6779/fasterwam-a3-cookie-lora",
+      "hf_revision": "f2aaf55c6ce1b164de97c5b6ec2cd75e942d0de0",
+      "sha256": "ed833168725b0b63179a8aa3f870543f119b6891305fb94d17b3357989ccfffd",
+      "bytes": 3071,
+      "role": "ORIGINAL 8D proprio state stats + 7D action stats, verbatim source for action and proprio[0:8]",
+      "num_episodes": 100,
+      "num_transition": 42681
+    },
+    "force_calib_v1_json": {
+      "repo_path": "v1_force_40k/nodes/step_040000/force_calib_v1.json",
+      "hf_repo": "wsadwsad6779/fasterwam-a3-force-40k",
+      "hf_revision": "c25f73640670b1be1592feab05cc8e84f88300b9",
+      "sha256": "2e821a8a019f966d0d2418df7f587d9d469ccd5596abcc39e9f20f5f830d1bd5",
+      "bytes": 1904,
+      "role": "v1g-corresponding ORIGINAL force calibration (corpus-aligned, 42681 rows). channels [0,1,2,12,13,16]. std is global-zeroed residual std; mean is RAW mean (before zeroing).",
+      "channels": [0, 1, 2, 12, 13, 16],
+      "n_rows": 42681,
+      "n_episodes": 100,
+      "source_sha256": {
+        "force_arrays": "d130363f13ea511fdbad277e9d1ddcc7c4c9712f0661c898bada2b34e7aac7dd",
+        "corpus_arrays": "942164b71c9fa6809517139b449dc4666415471e94f4bf15a6f40c73631a4466"
+      }
+    },
+    "force_stats_json": {
+      "repo_path": "data/a3_fw_force/force_stats.json",
+      "sha256": "6333ed02482cba1fc36e38c4ddd11a6442b1d411591ece964b84d9417daec15c",
+      "bytes": 16529,
+      "role": "Used ONLY for zero_load_ref_median (identical to force_calib). Its residual_std/residual_mean are PER-EPISODE-zeroed (the REJECTED episode mode) and are NOT used as the v1g normalizer force std/mean.",
+      "zero_load_ref_median": [-0.000117704868898727, -10.721150159835815, -0.028226930182427168, 0.0, 0.0, -0.018633414525538683]
+    },
+    "force_arrays_npz": {
+      "repo_path": "data/a3_fw_force/arrays.npz",
+      "sha256": "d130363f13ea511fdbad277e9d1ddcc7c4c9712f0661c898bada2b34e7aac7dd",
+      "bytes": 5243625,
+      "role": "ORIGINAL force corpus. force6 (42681,6) float32 == force18[:, [0,1,2,12,13,16]] (max_abs_diff 0.0). Re-computation source for force std/mean.",
+      "local_copy": "_rescue_recv/a3_fw_force_arrays.npz"
+    }
+  },
+  "reconstruction_algorithm": {
+    "script": "stage_40k/build_v1_dataset.py",
+    "commit_sha": "e39e62f060d7201ad010bca0f869a020e377f44c",
+    "commit_date": "2026-11-13 01:00:07 +0800",
+    "script_file_sha256": "a13e909bfe84776c4eed3bbbe5c28e8636bb1a5ab4847f248e18210a8b9ec079",
+    "mode": "global",
+    "standalone_recompute_script": "recompute_v1g_stats.py",
+    "steps": [
+      "global_zero = force_stats.zero_load_ref_median (== force_calib.zero_load_ref_median)",
+      "zeroed = force6(float64) - global_zero",
+      "std = zeroed.std(axis=0)  # ddof=0, build line 120",
+      "mean = zeroed.mean(axis=0)  # build line 121",
+      "std32 = std.astype(float32).astype(float64)  # build line 137 float32 trick",
+      "q01 = np.percentile(zeroed, 1, axis=0); q99 = np.percentile(zeroed, 99, axis=0)  # build lines 148-149",
+      "state14 = base_state8 verbatim + force6 dims: global_min=-std32, global_max=+std32, global_mean=mean, global_std=std, global_q01=q01, global_q99=q99  # build lines 143-150",
+      "action7 = base action_stats verbatim  # build line 138/191",
+      "min/max normalizer: scale=2/(max-min)=1/std32, offset=-1-scale*min=0 -> force norm = residual/std32 clipped [-5,5]  # build lines 152-161"
+    ]
+  },
+  "reconstructed_output": {
+    "file": "recomputed_v1g_dataset_stats.json",
+    "sha256": "47fbe4c4e3a40eeb4f76c2a06857914351dc863da36d8b8d4d4794b1d1b56d6b",
+    "bytes": 4175,
+    "local_path": "_rescue_recv/recomputed_v1g_dataset_stats.json",
+    "proprio_dim": 14,
+    "action_dim": 7,
+    "proprio_layout": ["eef_pos_x", "eef_pos_y", "eef_pos_z", "eef_aa_x", "eef_aa_y", "eef_aa_z", "gripper_finger_a", "gripper_finger_b", "L_wrist_fx", "L_wrist_fy", "L_wrist_fz", "L_pad_inner", "L_pad_outer", "L_gripper_act"],
+    "force_channels_in_raw18": [0, 1, 2, 12, 13, 16],
+    "excluded_channels": [14, 15],
+    "excluded_note": "raw FORCE channels 14,15 are the RIGHT finger pads; they are NOT part of the model 6D force input and must not be confused with left pads 12,13."
+  },
+  "per_field_provenance": {
+    "action_7d": "VERBATIM from original a3_fw/dataset_stats.json (ed833168) action.default; all 6 stat kinds byte-identical.",
+    "proprio_first_8d": "VERBATIM from original a3_fw/dataset_stats.json (ed833168) state.default[0:8]; all 6 stat kinds byte-identical.",
+    "force_6d_global_min": "-std32 (float32-rounded residual std, negated)",
+    "force_6d_global_max": "+std32",
+    "force_6d_global_mean": "recomputed zeroed.mean (ddof=0) == force_calib raw_mean - zero_load_ref_median",
+    "force_6d_global_std": "recomputed zeroed.std (ddof=0, float64) == force_calib.std to 1.11e-16",
+    "force_6d_global_q01": "np.percentile(zeroed, 1, axis=0)",
+    "force_6d_global_q99": "np.percentile(zeroed, 99, axis=0)"
+  },
+  "exact_float32_trick_values": {
+    "std_float64": [0.7338846360941355, 0.5887313168488929, 0.18089430557257585, 0.6814043397960898, 0.6854666218546087, 1.396991039122968],
+    "std32_float64": [0.7338846325874329, 0.5887312889099121, 0.18089430034160614, 0.6814043521881104, 0.6854666471481323, 1.3969910144805908],
+    "global_min_force": [-0.7338846325874329, -0.5887312889099121, -0.18089430034160614, -0.6814043521881104, -0.6854666471481323, -1.3969910144805908],
+    "global_max_force": [0.7338846325874329, 0.5887312889099121, 0.18089430034160614, 0.6814043521881104, 0.6854666471481323, 1.3969910144805908],
+    "force_scale": [1.3626119904900216, 1.6985677826833159, 5.52809015049988, 1.4675574008132213, 1.4588601854816368, 0.7158242176466724],
+    "force_offset": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "scale_equals_1_over_std32": true,
+    "offset_equals_zero": true
+  },
+  "element_by_element_comparison": {
+    "recomputed_vs_derived": {
+      "derived_file": "derived/dataset_stats_14d_DERIVED.json",
+      "derived_sha256": "354f59738d96e6962a0e1705635c5bf21c87c076c72bb512344c423093765b51",
+      "max_abs_diff_all_fields_all_dims": 2.220446049250313e-16,
+      "diff_locations": [
+        {"field": "state/global_mean", "dim": 13, "recomputed": 1.4202884754618903, "derived": 1.4202884754618901, "abs_diff": 2.22e-16},
+        {"field": "state/global_std", "dim": 11, "recomputed": 0.68140433979608983, "derived": 0.68140433979608972, "abs_diff": 1.11e-16}
+      ],
+      "verdict": "WITHIN_1e-12",
+      "interpretation": "Only float64 last-bit (1 ULP) rounding noise. No unexplainable key-field difference. Derived file is numerically faithful to the original deterministic algorithm."
+    },
+    "recomputed_std_vs_force_calib_std": {"max_abs_diff": 1.1102230246251565e-16, "verdict": "EXACT_to_float_precision"},
+    "recomputed_mean_vs_force_calib_raw_mean": {"max_abs_diff": 10.721150159835815, "per_dim_diff_equals_abs_global_zero": true, "interpretation": "calib.mean is RAW; normalizer mean is ZEROED. recomputed_mean = calib_raw_mean - zero_load_ref_median. Expected, explainable."},
+    "recomputed_std_vs_force_stats_residual_std": {"max_abs_diff": 0.0014053200424446188, "interpretation": "force_stats.residual_std is PER-EPISODE-zeroed (matches stored force6_zeroed std to ~1e-9). v1g uses GLOBAL zeroing -> recomputed std matches force_calib, NOT force_stats. Correct per user warning: do not substitute generic force_stats for v1g calibration."},
+    "stored_force6_zeroed_per_episode_std": [0.7339168680323914, 0.5891096616642304, 0.18229962595410368, 0.6814043397959912, 0.6854666218546186, 1.3969695962405735],
+    "force_stats_residual_std": [0.7339168681356893, 0.5891096616642304, 0.18229962561502047, 0.6814043397959912, 0.6854666218546186, 1.3969695968046985]
+  },
+  "gate_decision": "PASS — proceed to Req2/Req3/Req4. No unexplainable key-field differences; reconstructed normalizer is deterministic and traceable to original inputs + original build algorithm.",
+  "scope_limit": "Only shortest action block + seed 11/17 diagnosis approved. NOT 160-episode batch eval, NOT retraining, NOT model-structure modification. Results must be labeled '在可追溯重建 normalizer 条件下的 40k 诊断结果' and must NOT overwrite original 0/11 eval records."
+}

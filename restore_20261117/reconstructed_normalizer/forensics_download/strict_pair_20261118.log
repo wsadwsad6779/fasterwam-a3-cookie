@@ -1,0 +1,7 @@
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+/opt/venv/lib/python3.12/site-packages/torch/nn/functional.py:6487: UserWarning: Using AOTriton backend for Efficient Attention forward... (Triggered internally at /app/pytorch/aten/src/ATen/native/transformers/hip/attention.hip:1452.)
+  attn_output = scaled_dot_product_attention(
+pair_rc=0

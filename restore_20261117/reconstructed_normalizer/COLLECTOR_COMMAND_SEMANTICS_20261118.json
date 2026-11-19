@@ -1,0 +1,574 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "original_stats_sha256": "UNKNOWN",
+  "scope": "Local CPU research. No original code modified; only this independent JSON written. No simulator startup/import, FK recomputation, network, GPU, installation, training, robot control or deletion. Python lacks numpy; NPZ inspected through standard-library zipfile/struct/ast/array.",
+  "source_sha256": {
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/bridge/action_adapter_v3.py": "75325f70b89e217d85cd8cf3227b7966444a766863f6b5d6c771fdbee4cf9650",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/data/dataset_meta/a3_episode_metadata.jsonl": "e1e3929c53730f7195ae3bdd55131e7097b056fdb2f5d027135731001abb2d0a",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/data/dataset_meta/collection_summary.json": "4bdea35cc93cbd83105af6a8140fdeea62b9801905d0a4ee427704f991a93002",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/data/dataset_meta/README.md": "aa71e8c1c6d907075e08fbbec8a569686744e1b1bb118f1acc7cec4ac8b2ee6b",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/finetune/prepare_a3_arrays.py": "7a94154b7876d47e35850bcd610f32ee1d038f8d9f68b4998eb42b78a970f4ed",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/local_1113/tools/build_force_arrays.py": "4c4cbad32fee214aec3dd6738ad959dc59a140948636275909aef7c3827f6a73",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/config.py": "63ef0bcdc9d0c9da411f7ab8d8f8785a437a2de181d3df84a9d92743383f7c12",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/controllers/batch_expert.py": "3093179d1483945ee7c8f5958fd14c9a75263b46422b5dbf0af0db2635cbd440",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/controllers/same_column_batch_expert.py": "198ce6d9c2890794854655650339935bf119345d782d95cd39a1fa48d0900e37",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/data/collect_cookie_benchmark_cli.py": "2270b6d2888c6f2b9a8ff2ea8f5530204be2bd18fd461a523742c88a63ba824e",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/data/prepare_left_arm_dataset_cli.py": "bf0d424b57ff4d54d792e5d1ce903847b49f112ec3652546f06eef7aa7de3459",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/data/recording.py": "ef9a688a2151af9b3e231381875a92392e6330535c0817a417b48d7ed89aeeb1",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/actions.py": "736ed22cce5915912c68451550d2e1a7b5a5fbdb1f4dc85916d3fec5c6f0911d",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/env.py": "9656d34fd7fc64eff6d88e78e9e7755daf6906cff2f40ed7b9faa45e846a4b3e",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/model.py": "46f7a327f4020045e2d6e596bb991b93bb0afc2065cdb4a5fcff01c753868b99",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/episode_execution.py": "35fb6861aaf1d032b8f59d106c589f0243fdd8238c9d87919b32dfe2f8f01d8b",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/policy_adapters.py": "ec7c18ccb315bc11d6b57d48bbba4b51386680053364c8d1f395ebf1187cf904",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/reconstructed_normalizer/forensics_download/training_source_a3_fw_arrays.npz": "b5468c274cc5eede761242478750e13e0a58529dba9b5400ccd2872f7f9fc7f0",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/reconstructed_normalizer/forensics_download/training_source_a3_fw_force_arrays.npz": "d130363f13ea511fdbad277e9d1ddcc7c4c9712f0661c898bada2b34e7aac7dd",
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/reconstructed_normalizer/SEED17_FK_BASELINE_CPU_20261118.json": "49a3c4f1c2f7aa9d4758b1ac85b47d16dd3b07dcb9a0eb7facb9df2dd34704d8"
+  },
+  "source_root": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default",
+  "sim_source_root": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim",
+  "primary_conclusions": [
+    "Recovered collector source DOES use command-base increments, just like deployment sim/actions.py. It is not a measured-base expert versus command-base deployment split.",
+    "The same-column expert computes rate-limited displacement from FK(previous applied joint command) toward an absolute privileged waypoint. The common converter produces absolute IK joint targets; env rate-limits those targets relative to previous commands and applies finite-gain position servos for one control period.",
+    "Measured EEF, joint velocity and contacts still gate phase completion, speed and safety. Shared command-base control allows normal tracking error, but available NPZ cannot establish whether deployment i63 signed offset is typical expert tracking.",
+    "A distinct source-level semantic mismatch remains: training teaches realized measured EEF displacement, not the requested expert command increment. Applying that displacement from the commanded-pose base is not generally an inverse of collection. Shared controller design does not establish faithful replay.",
+    "The existing i63 base offset explains target geometry but alone proves neither a new deployment bug nor normal demonstration tracking, and does not establish failure causality."
+  ],
+  "semantic_equations": {
+    "definitions": "m_t=measured EEF before transition t; c_t=FK(last applied command before transition t)=FK(stored_action[t-1]); u_t=stored_action[t]; c_(t+1)=FK(u_t). Reset and terminal/cross-episode transitions need separate handling.",
+    "expert": "d_t=rate_limit(absolute_waypoint_t-c_t); target_t=c_t+d_t; u_t=joint_limit(IK(target_t)); dynamics evolve under u_t for 50 ms.",
+    "training": "a_t=clip((m_(t+1)-m_t)/0.05,-1,1).",
+    "deployment_no_saturation": "target_replay_t=c_t+0.025*(2*a_t)=c_t+(m_(t+1)-m_t). Its pre-IK difference from m_(t+1) is c_t-m_t.",
+    "tracking_error_relation": "Let e_t=c_t-m_t. Then c_(t+1)-c_t=(m_(t+1)-m_t)+(e_(t+1)-e_t). Measured displacement equals post-IK/post-limiter command FK increment only if tracking error is locally constant. Dynamic equivalence additionally needs matched position/velocity/contact/controller state.",
+    "caveats": "IK residual, joint limiting and adapter saturation break simplistic endpoint equivalence. Translation saturation occurs when doubled adapter output exceeds [-1,1]. Do not automatically switch to measured-base execution; source explicitly avoids integrating idle-arm sag. No change proposed/applied."
+  },
+  "verified_evidence": [
+    {
+      "kind": "RECOVERED_METADATA_DECLARATION_NOT_BYTE_ATTESTATION",
+      "path": "data/dataset_meta/collection_summary.json",
+      "lines": [
+        3,
+        17
+      ],
+      "fact": "same_column; source cartesian_delta; stored joint_position; physics_hz=1000; control_hz=20; translation_scale=0.025.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/data/dataset_meta/collection_summary.json",
+      "verified_excerpt": "3:   \"task\": \"cookie_transfer\",\n4:   \"task_instruction\": \"transfer 10 cookies into target box\",\n5:   \"policy\": \"same_column\",\n6:   \"source_action_mode\": \"cartesian_delta\",\n7:   \"stored_action_mode\": \"joint_position\",\n8:   \"config\": {\n9:     \"physics_hz\": 1000,\n10:     \"control_hz\": 20,\n11:     \"horizon\": 6000,\n12:     \"image_width\": 256,\n13:     \"image_height\": 256,\n14:     \"max_joint_step_rad\": 0.05,\n15:     \"max_gripper_step\": 0.08,\n16:     \"cartesian_translation_scale_m\": 0.025,\n17:     \"cartesian_rotation_scale_rad\": 0.1,"
+    },
+    {
+      "kind": "RECOVERED_METADATA_DECLARATION_NOT_BYTE_ATTESTATION",
+      "path": "data/dataset_meta/collection_summary.json",
+      "lines": [
+        546,
+        551
+      ],
+      "fact": "seed_start=6001; declared git_commit=f5a416005701d813a4994f9f8b973dd5629db3b1; left-only projection from a3_front_close_v2_100; joint order L_q1..L_q7,L_gripper. This does not attest recovered source bytes.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/data/dataset_meta/collection_summary.json",
+      "verified_excerpt": "546:   \"seed_start\": 6001,\n547:   \"git_commit\": \"f5a416005701d813a4994f9f8b973dd5629db3b1\",\n548:   \"training_arm_mode\": \"left\",\n549:   \"source_dataset\": \"/home/eter/\\u684c\\u9762/workspace/a3_dual_arm_sim/datasets/a3_front_close_v2_100\",\n550:   \"training_joint_order\": \"L_q1..L_q7,L_gripper\",\n551:   \"environment_action_dim\": 16"
+    },
+    {
+      "kind": "RECOVERED_METADATA_DECLARATION_NOT_BYTE_ATTESTATION",
+      "path": "data/dataset_meta/README.md",
+      "lines": [
+        12,
+        18
+      ],
+      "fact": "Left-only projection, not independent collection; declares 100 episodes, 42681 frames, 20 Hz; original state and action are 8D joint positions plus gripper.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/data/dataset_meta/README.md",
+      "verified_excerpt": "12: LeRobot v3.0 simulation dataset for the A3 cookie-transfer task. This is the left-only training projection of `a3_front_close_v2_100`, not a new independent collection.\n13: \n14: - 100 episodes, 42,681 frames, 20 Hz control.\n15: - Task: transfer 10 cookies into the target box using the same-column expert.\n16: - State and action: 8 dimensions (`L_q1..L_q7,L_gripper`); stored actions are joint-position commands.\n17: - Three embedded 256 x 256 RGB image streams: front, left wrist, right wrist.\n18: - Auxiliary observations retain their original dual-arm dimensions; environment action dimension is 16."
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "data/collect_cookie_benchmark_cli.py",
+      "lines": [
+        179,
+        183
+      ],
+      "fact": "collector invokes benchmark.run_episode(same_column).",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/data/collect_cookie_benchmark_cli.py",
+      "verified_excerpt": "179:                 break\n180:             try:\n181:                 result = benchmark.run_episode(\"same_column\", seed, env=None, recorder=recorder)\n182:                 with attempts_path.open(\"a\", encoding=\"utf-8\") as stream:\n183:                     stream.write(json.dumps(asdict(result)) + \"\\n\")"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "workflows/policy_adapters.py",
+      "lines": [
+        179,
+        187
+      ],
+      "fact": "same_column resolves to ExpertPolicyAdapter(A3SameColumnBatchExpert).",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/policy_adapters.py",
+      "verified_excerpt": "179: def make_policy_adapter(policy_or_spec: Any, env: A3CookieTransferEnv | None = None) -> Any:\n180:     \"\"\"Create a policy runner from a string name, spec, or object.\"\"\"\n181:     if isinstance(policy_or_spec, str):\n182:         spec = policy_or_spec.strip().lower()\n183:         if spec in (\"same_column\", \"same-column\", \"same\"):\n184:             adapter = ExpertPolicyAdapter(A3SameColumnBatchExpert, name=\"same_column\")\n185:             if env is not None:\n186:                 adapter.bind_env(env)\n187:             return adapter"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "workflows/policy_adapters.py",
+      "lines": [
+        43,
+        63
+      ],
+      "fact": "Actual wrapper declares cartesian_delta and delegates expert.act; inherited joint_position attribute in base expert is not actual wrapper execution semantics.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/policy_adapters.py",
+      "verified_excerpt": "43: class ExpertPolicyAdapter:\n44:     \"\"\"Adapts an expert model to the standard BenchmarkPolicy interface.\"\"\"\n45: \n46:     def __init__(self, expert_factory: Callable[[A3CookieTransferEnv], Any], name: str = \"expert\"):\n47:         self.expert_factory = expert_factory\n48:         self.name = name\n49:         self.expert: Any | None = None\n50:         self.action_mode: ActionMode = \"cartesian_delta\"\n51: \n52:     def bind_env(self, env: A3CookieTransferEnv) -> None:\n53:         self.expert = self.expert_factory(env)\n54:         self.expert.reset()\n55: \n56:     def reset(self, context: EpisodeContext | None = None) -> None:\n57:         if self.expert is not None:\n58:             self.expert.reset(context)\n59: \n60:     def act(self, observation: dict[str, Any], task: str = \"\") -> np.ndarray:\n61:         if self.expert is None:\n62:             raise RuntimeError(\"Expert policy must be bound to an environment before acting\")\n63:         return self.expert.act(observation, task)"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "controllers/same_column_batch_expert.py",
+      "lines": [
+        13,
+        18
+      ],
+      "fact": "Same-column expert inherits A3CookieBatchExpert. Whole-file search found no _servo override.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/controllers/same_column_batch_expert.py",
+      "verified_excerpt": "13: from a3_dual_arm_sim.controllers.batch_expert import A3CookieBatchExpert\n14: from a3_dual_arm_sim.controllers.expert import CookiePhase\n15: \n16: \n17: class A3SameColumnBatchExpert(A3CookieBatchExpert):\n18:     MAX_INSERTION_FORCE_N = 20.0"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "controllers/batch_expert.py",
+      "lines": [
+        162,
+        186
+      ],
+      "fact": "_servo replaces measured arm q with last_applied_action; FK gives cmd_pos; pos_err=absolute waypoint-cmd_pos; bounded step divided by cartesian_translation_scale_m creates normalized delta. Speed argument is displacement per invocation, not m/s.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/controllers/batch_expert.py",
+      "verified_excerpt": "162:     def _servo(self, position, rotation, opening, speed=0.0024):\n163:         \"\"\"Rate-limited Cartesian delta TCP command.\"\"\"\n164:         work = self.env._ik._work\n165:         work.qpos[:] = self.data.qpos\n166:         work.qpos[list(self.env._ik._qpos_ids[0])] = self.env.last_applied_action[:7]\n167:         work.qpos[list(self.env._ik._qpos_ids[1])] = self.env.last_applied_action[8:15]\n168:         mujoco.mj_kinematics(self.model, work)\n169:         cmd_pos = work.site_xpos[self._l_site].copy()\n170: \n171:         target_pos = np.asarray(position, dtype=np.float64)\n172:         pos_err = target_pos - cmd_pos\n173:         dist = np.linalg.norm(pos_err)\n174: \n175:         # Soft deceleration ramp to prevent abrupt stopping impact\n176:         decel_dist = 0.020\n177:         if dist < decel_dist and speed > 0.0020:\n178:             effective_speed = max(0.0012, speed * (dist / decel_dist))\n179:         else:\n180:             effective_speed = speed\n181:         step_dist = min(dist, effective_speed)\n182:         if dist > 1e-6:\n183:             delta_p = (pos_err / dist) * (step_dist / self.env.config.cartesian_translation_scale_m)\n184:         else:\n185:             delta_p = np.zeros(3)\n186:         delta_p = np.clip(delta_p, -1.0, 1.0)"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "controllers/batch_expert.py",
+      "lines": [
+        219,
+        231
+      ],
+      "fact": "Reached uses measured position <2.5mm, rotation error <0.045 and qvel norm <0.25, so command-base generation coexists with measured completion feedback.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/controllers/batch_expert.py",
+      "verified_excerpt": "219:         meas_pos = self.data.site_xpos[self._l_site]\n220:         meas_q = np.empty(4, dtype=np.float64)\n221:         mujoco.mju_mat2Quat(meas_q, self.data.site_xmat[self._l_site])\n222:         meas_rot_err = np.empty(3, dtype=np.float64)\n223:         mujoco.mju_subQuat(meas_rot_err, target_q, meas_q)\n224: \n225:         qvel_norm = float(np.linalg.norm(self.data.qvel[:7]))\n226:         reached = (\n227:             np.linalg.norm(target_pos - meas_pos) < 0.0025\n228:             and np.linalg.norm(meas_rot_err) < 0.045\n229:             and qvel_norm < 0.25\n230:         )\n231:         return action, reached"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "controllers/same_column_batch_expert.py",
+      "lines": [
+        348,
+        355
+      ],
+      "fact": "DESCEND uses measured waypoint distance to select 3.5mm or 1mm displacement per control invocation and calls inherited _servo.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/controllers/same_column_batch_expert.py",
+      "verified_excerpt": "348:             if self._insertion_jammed(self._total_pad_forces):\n349:                 self._fail(f\"insertion blocked; pad forces={self._total_pad_forces.tolist()}\")\n350:                 return self._hold_command(self._opening)\n351:             dist = np.linalg.norm(self._pick_eef - self.data.site_xpos[self._l_site])\n352:             descend_speed = 0.0035 if dist > 0.015 else 0.0010\n353:             action, reached = self._servo(\n354:                 self._pick_eef, self._grasp_rotation, self._opening, speed=descend_speed\n355:             )"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "sim/actions.py",
+      "lines": [
+        88,
+        106
+      ],
+      "fact": "Common converter overwrites arm q with last commanded q, obtains FK base and adds translation_scale*normalized delta before IK.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/actions.py",
+      "verified_excerpt": "88:         command = validate_action(action, \"cartesian_delta\").reshape(2, 7)\n89:         work = self._work\n90:         work.qpos[:] = data.qpos\n91:         if last_applied is not None:\n92:             work.qpos[list(self._qpos_ids[0])] = last_applied[:7]\n93:             work.qpos[list(self._qpos_ids[1])] = last_applied[8:15]\n94:         work.qvel[:] = data.qvel\n95:         mujoco.mj_kinematics(self.model, work)\n96:         targets: list[np.ndarray] = []\n97:         for arm_index in range(2):\n98:             qids = list(self._qpos_ids[arm_index])\n99:             initial_q = work.qpos[qids].copy()\n100:             if not np.any(command[arm_index, :6]):\n101:                 targets.append(initial_q)\n102:                 continue\n103: \n104:             site_id = self._sites[arm_index]\n105:             target_position = work.site_xpos[site_id].copy()\n106:             target_position += command[arm_index, :3] * self.config.cartesian_translation_scale_m"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "sim/actions.py",
+      "lines": [
+        128,
+        150
+      ],
+      "fact": "Absolute world target becomes absolute arm joint targets through bounded regularized least-squares IK; 35-evaluation limit, not measured-pose integration.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/actions.py",
+      "verified_excerpt": "128:                 work.qpos[qids] = qpos\n129:                 mujoco.mj_kinematics(self.model, work)\n130:                 current_quaternion = np.empty(4, dtype=np.float64)\n131:                 mujoco.mju_mat2Quat(current_quaternion, work.site_xmat[site_id])\n132:                 rotation_error = np.empty(3, dtype=np.float64)\n133:                 mujoco.mju_subQuat(rotation_error, target_quaternion, current_quaternion)\n134:                 p_err = work.site_xpos[site_id] - target_position\n135:                 reg_err = 0.001 * (qpos - initial_q)\n136:                 return np.r_[p_err, rot_weight * rotation_error, reg_err]\n137: \n138:             res = least_squares(\n139:                 residual,\n140:                 np.clip(initial_q, limits[:, 0] + 1e-4, limits[:, 1] - 1e-4),\n141:                 bounds=(limits[:, 0] + 1e-4, limits[:, 1] - 1e-4),\n142:                 max_nfev=35,\n143:                 ftol=1e-4,\n144:                 xtol=1e-4,\n145:                 gtol=1e-4,\n146:             )\n147:             targets.append(np.asarray(res.x, dtype=np.float64))\n148:         return np.ascontiguousarray(\n149:             np.r_[targets[0], (command[0, 6] + 1.0) / 2.0, targets[1], (command[1, 6] + 1.0) / 2.0],\n150:             dtype=np.float64,"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "sim/env.py",
+      "lines": [
+        242,
+        262
+      ],
+      "fact": "14D action is inferred cartesian_delta independent of env default. convert receives last_applied_action. Converted absolute targets pass joint limiter, actuator controls, then physics substeps.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/env.py",
+      "verified_excerpt": "242:     def step(self, action: np.ndarray) -> tuple[dict[str, Any], float, bool, bool, dict[str, Any]]:\n243:         mode = \"cartesian_delta\" if len(action) == CARTESIAN_ACTION_DIM else self.action_mode\n244:         requested = validate_action(action, mode)\n245:         if self._safety_stop:\n246:             applied = self._current_joint_action()\n247:         else:\n248:             canonical = (\n249:                 requested\n250:                 if mode == \"joint_position\"\n251:                 else self._ik.convert(self.data, requested, self._last_applied_action)\n252:             )\n253:             if mode == \"cartesian_delta\":\n254:                 # An idle arm holds its commanded pose, not its gravity-deflected\n255:                 # measurement. Re-targeting the measurement integrates sag forever.\n256:                 for offset, start in ((0, 0), (7, 8)):\n257:                     if not np.any(requested[offset : offset + 6]):\n258:                         canonical[start : start + 7] = self._last_applied_action[start : start + 7]\n259:             applied = self._limit_joint_action(canonical)\n260:             self._apply_controls(applied)\n261:             for _ in range(self.config.substeps):\n262:                 mujoco.mj_step(self.model, self.data)"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "sim/env.py",
+      "lines": [
+        274,
+        289
+      ],
+      "fact": "mj_forward refreshes post-step derived state. last_applied_action and info.applied_action are limited joint commands, not measured q.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/env.py",
+      "verified_excerpt": "274:             # mj_step integrates qpos/qvel but leaves derived state (sites, contacts,\n275:             # sensors, camera poses) one physics substep behind; refresh it so the\n276:             # exported observation and task scoring read a single consistent instant.\n277:             mujoco.mj_forward(self.model, self.data)\n278:         self._last_applied_action = applied.copy()\n279:         self._step_count += 1\n280:         terminated = self._safety_stop\n281:         truncated = self._step_count >= self.config.horizon and not terminated\n282:         if self.render_mode == \"human\" and self._viewer is not None:\n283:             self._update_viewer_force_hud()\n284:             self._viewer.sync()\n285:         observation = self._observation()\n286:         info = {\n287:             \"applied_action\": applied.copy(),\n288:             \"requested_action\": requested.copy(),\n289:             \"safety_reason\": self._safety_reason,"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "sim/env.py",
+      "lines": [
+        294,
+        318
+      ],
+      "fact": "Joint trajectory limited relative to previous commanded joints. Vector-preserving versus per-component limiting depends on env.action_mode, not locally inferred action mode; collector default and deployment must not be assumed identical in this detail.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/env.py",
+      "verified_excerpt": "294:     def _limit_joint_action(self, canonical: np.ndarray) -> np.ndarray:\n295:         command = validate_action(canonical, \"joint_position\").copy()\n296:         # Rate-limit the commanded trajectory, not the measured state. Limiting against\n297:         # measured qpos caps the position error (and therefore actuator torque), which can\n298:         # make gravity compensation impossible for the shoulder joints.\n299:         current = self._last_applied_action\n300:         arm_command = np.r_[command[:7], command[8:15]]\n301:         arm_current = np.r_[current[:7], current[8:15]]\n302:         arm_command = np.clip(arm_command, self._arm_ranges[:, 0], self._arm_ranges[:, 1])\n303:         if self.action_mode == \"cartesian_delta\":\n304:             arm_delta = arm_command - arm_current\n305:             max_delta = float(np.max(np.abs(arm_delta)))\n306:             if max_delta > self.config.max_joint_step_rad:\n307:                 arm_delta = arm_delta * (self.config.max_joint_step_rad / max_delta)\n308:             arm_command = np.clip(\n309:                 arm_current + arm_delta,\n310:                 self._arm_ranges[:, 0],\n311:                 self._arm_ranges[:, 1],\n312:             )\n313:         else:\n314:             arm_command = np.clip(\n315:                 arm_command,\n316:                 arm_current - self.config.max_joint_step_rad,\n317:                 arm_current + self.config.max_joint_step_rad,\n318:             )"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "sim/env.py",
+      "lines": [
+        330,
+        343
+      ],
+      "fact": "Absolute joint commands set data.ctrl; current_joint_action reads measured qpos.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/env.py",
+      "verified_excerpt": "330:     def _apply_controls(self, canonical: np.ndarray) -> None:\n331:         arm_values = np.r_[canonical[:7], canonical[8:15]]\n332:         for name, value in zip(ARM_JOINTS, arm_values, strict=True):\n333:             self.data.ctrl[self._actuator_ids[name]] = value\n334:         for side, opening in zip((\"L\", \"R\"), (canonical[7], canonical[15]), strict=True):\n335:             value = (1.0 - float(opening)) * self.GRIPPER_RANGE_M\n336:             for actuator_id in self._finger_actuators[side]:\n337:                 self.data.ctrl[actuator_id] = value\n338: \n339:     def _current_joint_action(self) -> np.ndarray:\n340:         left = [self.data.qpos[self._qpos_ids[name]] for name in LEFT_JOINTS]\n341:         right = [self.data.qpos[self._qpos_ids[name]] for name in RIGHT_JOINTS]\n342:         grips = [self._gripper_state(side)[0] for side in (\"L\", \"R\")]\n343:         return np.asarray([*left, grips[0], *right, grips[1]], dtype=np.float64)"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "sim/model.py",
+      "lines": [
+        275,
+        288
+      ],
+      "fact": "Finite-gain position actuators: kp 600/400/200 and kv 40/30/15 selected by effort; force limits apply. Tracking is dynamic, not kinematic teleportation.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/model.py",
+      "verified_excerpt": "275:     actuators = ET.SubElement(root, \"actuator\")\n276:     for joint in source_joints.values():\n277:         kp = 600.0 if joint.effort >= 60 else (400.0 if joint.effort >= 30 else 200.0)\n278:         kv = 40.0 if joint.effort >= 60 else (30.0 if joint.effort >= 30 else 15.0)\n279:         ET.SubElement(\n280:             actuators,\n281:             \"position\",\n282:             name=f\"{joint.name}_position\",\n283:             joint=joint.name,\n284:             kp=str(kp),\n285:             kv=str(kv),\n286:             ctrlrange=_vec(joint.limits),\n287:             forcerange=f\"{-joint.effort} {joint.effort}\",\n288:         )"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "sim/model.py",
+      "lines": [
+        240,
+        249
+      ],
+      "fact": "Cookie scene includes ideal gravity compensation routed through force-limited actuators. Tracking offset alone must not be labeled uncompensated gravity.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/model.py",
+      "verified_excerpt": "240:     if scene == \"cookie_transfer\":\n241:         # Ideal model-based gravity compensation for the prototype arm servos.\n242:         # Route compensation through actuators so joint force limits still apply.\n243:         for body in base.iter(\"body\"):\n244:             body.set(\"gravcomp\", \"1\")\n245:         for joint in base.iter(\"joint\"):\n246:             joint.set(\"actuatorgravcomp\", \"true\")\n247:             source = source_joints.get(joint.attrib.get(\"name\"))\n248:             effort = source.effort if source is not None else 40\n249:             joint.set(\"actuatorfrcrange\", f\"{-effort} {effort}\")"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "config.py",
+      "lines": [
+        121,
+        130
+      ],
+      "fact": "Defaults: control_hz=20; max_joint_step=0.05rad; max_gripper_step=0.08; translation_scale=0.025m.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/config.py",
+      "verified_excerpt": "121: class SimConfig:\n122:     physics_hz: int = 500\n123:     control_hz: int = 20\n124:     horizon: int = 1000\n125:     image_width: int = 256\n126:     image_height: int = 256\n127:     max_joint_step_rad: float = 0.05\n128:     max_gripper_step: float = 0.08\n129:     cartesian_translation_scale_m: float = 0.025\n130:     cartesian_rotation_scale_rad: float = 0.10"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "config.py",
+      "lines": [
+        177,
+        179
+      ],
+      "fact": "substeps=physics_hz//control_hz. Declared collector configuration implies 50 physics ticks per 50ms control interval.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/config.py",
+      "verified_excerpt": "177:     @property\n178:     def substeps(self) -> int:\n179:         return self.physics_hz // self.control_hz"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "sim/model.py",
+      "lines": [
+        47,
+        55
+      ],
+      "fact": "Physics timestep=1/physics_hz, hence declared 1000Hz means 1ms. Not an extra 25ms control interval.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/sim/model.py",
+      "verified_excerpt": "47:     option = ET.SubElement(\n48:         root,\n49:         \"option\",\n50:         timestep=f\"{1 / config.physics_hz:.10g}\",\n51:         gravity=\"0 0 -9.81\",\n52:         integrator=\"implicitfast\",\n53:         cone=\"elliptic\" if scene == \"cookie_transfer\" else \"pyramidal\",\n54:         impratio=\"10\" if scene == \"cookie_transfer\" else \"1\",\n55:         noslip_iterations=\"5\" if scene == \"cookie_transfer\" else \"0\","
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "workflows/episode_execution.py",
+      "lines": [
+        303,
+        326
+      ],
+      "fact": "Row t pairs previous_observation before step with info.applied_action for t->t+1. This action is not action[t-1].",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/workflows/episode_execution.py",
+      "verified_excerpt": "303:                 policy_seconds = time.perf_counter() - policy_start\n304:                 previous_observation = observation\n305:                 observation, _, terminated, truncated, info = env.step(action)\n306:                 if self.strict_policy_completion:\n307:                     counts = info.get(\"target_column_counts\")\n308:                     if counts is None:\n309:                         occupancy = info.get(\"target_slot_occupancy\", ())\n310:                         counts = [sum(int(cookie) >= 0 for cookie in occupancy[column::2])\n311:                                   for column in range(2)]\n312:                     for target_column in range(2):\n313:                         if first_column_seen[target_column] is None and counts[target_column] > 0:\n314:                             first_column_seen[target_column] = steps\n315:                 if diagnostic is not None:\n316:                     plugin = getattr(runner_policy, \"plugin\", runner_policy)\n317:                     diagnostic.add_frame(\n318:                         previous_observation,\n319:                         action,\n320:                         info,\n321:                         raw_action=getattr(plugin, \"last_raw_action\", None),\n322:                         phase=getattr(runner_policy, \"phase_name\", \"\"),\n323:                         env=env, policy_seconds=policy_seconds,\n324:                     )\n325:                 if recorder is not None:\n326:                     recorder.add_frame(previous_observation, info[\"applied_action\"])"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "data/recording.py",
+      "lines": [
+        167,
+        180
+      ],
+      "fact": "Recorder separately writes measured state, velocity, EEF pose, force and supplied absolute joint command.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/data/recording.py",
+      "verified_excerpt": "167:     def add_frame(self, observation: dict[str, Any], action: np.ndarray) -> None:\n168:         if self._context is None:\n169:             raise RuntimeError(\"start_episode must be called before add_frame\")\n170:         frame = {\n171:             FRONT_IMAGE: observation[FRONT_IMAGE],\n172:             LEFT_WRIST_IMAGE: observation[LEFT_WRIST_IMAGE],\n173:             RIGHT_WRIST_IMAGE: observation[RIGHT_WRIST_IMAGE],\n174:             STATE: np.asarray(observation[STATE], dtype=np.float32),\n175:             VELOCITY: np.asarray(observation[VELOCITY], dtype=np.float32),\n176:             EEF_POSE: np.asarray(observation[EEF_POSE], dtype=np.float32),\n177:             FORCE: np.asarray(observation[FORCE], dtype=np.float32),\n178:             ACTION: np.asarray(action, dtype=np.float32),\n179:             TASK: self._context.task,\n180:         }"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "sim_path": "data/prepare_left_arm_dataset_cli.py",
+      "lines": [
+        33,
+        50
+      ],
+      "fact": "Left-arm projection slices state/action to first eight elements; does not turn original absolute joint actions into deltas.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/deploy/a3_dual_arm_sim/src/a3_dual_arm_sim/data/prepare_left_arm_dataset_cli.py",
+      "verified_excerpt": "33:     for path in sorted((source / \"data\").rglob(\"*.parquet\")):\n34:         table = pq.read_table(path)\n35:         eef_positions = (\n36:             [row[:3] for row in table[\"observation.eef_pose\"].to_pylist()]\n37:             if include_left_eef_position else None\n38:         )\n39:         for key in FIELDS:\n40:             values = [row[:8] for row in table[key].to_pylist()]\n41:             if key == \"observation.state\" and eef_positions is not None:\n42:                 values = [state + position for state, position in zip(values, eef_positions)]\n43:             field = table.schema.field(key)\n44:             dtype = (\n45:                 pa.list_(field.type.value_type, 11 if key == \"observation.state\" and eef_positions is not None else 8)\n46:                 if pa.types.is_fixed_size_list(field.type)\n47:                 else field.type\n48:             )\n49:             table = table.set_column(\n50:                 table.schema.get_field_index(key), key, pa.array(values, type=dtype)"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "path": "finetune/prepare_a3_arrays.py",
+      "lines": [
+        84,
+        111
+      ],
+      "fact": "Supervision derives from measured next-minus-current EEF /0.05 and measured rotations; joint_cmd receives ac[:,7] ONLY, a scalar gripper command, not seven arm joint commands.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/finetune/prepare_a3_arrays.py",
+      "verified_excerpt": "84: for ep, a, b in bounds:\n85:     L = b - a\n86:     eef = np.stack([r[3] for r in rec[a:b]])\n87:     st = np.stack([r[2] for r in rec[a:b]])\n88:     ac = np.stack([r[4] for r in rec[a:b]])\n89:     p, quat = eef[:, :3], eef[:, 3:7]\n90:     R = Rotation.from_quat(np.stack([quat[:, 1], quat[:, 2], quat[:, 3], quat[:, 0]], -1)).as_matrix()\n91:     dR = R[1:] @ np.transpose(R[:-1], (0, 2, 1))\n92:     pos = np.diff(p, axis=0) / POS_SCALE\n93:     rot = Rotation.from_matrix(dR).as_rotvec() / ROT_SCALE\n94:     op = st[:, 7]\n95:     d = np.diff(op)\n96:     g = np.full(L, -1.0, dtype=np.float32)\n97:     for t in range(L - 1):\n98:         if d[t] < -GRIP_EPS: g[t] = 1.0\n99:         elif d[t] > GRIP_EPS: g[t] = -1.0\n100:         else: g[t] = g[t - 1] if t > 0 else -1.0\n101:     g[L - 1] = g[L - 2] if L > 1 else -1.0\n102:     act[a:a + L - 1, :3] = pos\n103:     act[a:a + L - 1, 3:6] = rot\n104:     act[a:a + L - 1, 6] = g[:L - 1]\n105:     act[a + L - 1] = act[a + L - 2]\n106:     prop[a:b, :3] = p\n107:     prop[a:b, 3:6] = quat_wxyz_to_aa(quat)\n108:     prop[a:b, 6] = 0.04 * op\n109:     prop[a:b, 7] = -0.04 * op\n110:     opening[a:b] = op\n111:     joint_cmd[a:b] = ac[:, 7]"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "path": "finetune/prepare_a3_arrays.py",
+      "lines": [
+        124,
+        127
+      ],
+      "fact": "Saved NPZ omits raw measured joint7 and original absolute arm joint command7.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/finetune/prepare_a3_arrays.py",
+      "verified_excerpt": "124: np.savez_compressed(os.path.join(OUT, \"arrays.npz\"),\n125:                     action=act, proprio=prop, opening=opening, joint_cmd=joint_cmd,\n126:                     episode_index=ep_arr, ep_start=np.array([a for _, a, _ in bounds], dtype=np.int64),\n127:                     ep_len=lens.astype(np.int64), ep_ids=np.array([e for e, _, _ in bounds], dtype=np.int64))"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "path": "bridge/action_adapter_v3.py",
+      "lines": [
+        29,
+        33
+      ],
+      "fact": "Adapter doubles translational action: absent saturation, 0.025*adapter_xyz=0.05*action_xyz.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/bridge/action_adapter_v3.py",
+      "verified_excerpt": "29:         output = np.zeros(14, dtype=np.float64)\n30: \n31:         # LIBERO: 1 unit = 0.05 m\n32:         # A3:     1 unit = 0.025 m\n33:         output[:3] = action[:3] * 2.0"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "path": "bridge/action_adapter_v3.py",
+      "lines": [
+        50,
+        53
+      ],
+      "fact": "Final adapter clips all outputs; above equivalence is conditional on no saturation.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/bridge/action_adapter_v3.py",
+      "verified_excerpt": "50:         # Keep right gripper at requested opening.\n51:         output[13] = 2.0 * right_gripper_opening - 1.0\n52: \n53:         return np.clip(output, -1.0, 1.0)"
+    },
+    {
+      "kind": "DIRECT_RECOVERED_SOURCE_FACT",
+      "path": "local_1113/tools/build_force_arrays.py",
+      "lines": [
+        83,
+        97
+      ],
+      "fact": "Force source copies upstream action/proprio/opening/scalar joint_cmd and adds force/timestamp/frame_index; does not save raw measured arm joints.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/local_1113/tools/build_force_arrays.py",
+      "verified_excerpt": "83:     np.savez_compressed(\n84:         OUT / \"arrays.npz\",\n85:         action=np.asarray(base[\"action\"]),\n86:         proprio=np.asarray(base[\"proprio\"]),\n87:         opening=np.asarray(base[\"opening\"]),\n88:         joint_cmd=np.asarray(base[\"joint_cmd\"]),\n89:         episode_index=ep,\n90:         ep_start=starts.astype(np.int64),\n91:         ep_len=lens.astype(np.int64),\n92:         ep_ids=ep_ids,\n93:         force18=force,\n94:         force6=sub.astype(np.float32),\n95:         force6_zeroed=(residual).astype(np.float32),\n96:         timestamp=ts.astype(np.float32),\n97:         frame_index=frame,"
+    },
+    {
+      "kind": "PRIOR_ANALYSIS_REUSED_NOT_RECOMPUTED",
+      "path": "restore_20261117/reconstructed_normalizer/SEED17_FK_BASELINE_CPU_20261118.json",
+      "lines": [
+        7559,
+        7560
+      ],
+      "fact": "i63 command baseline z offset=-2.758875mm; nominal dz=-2.745163mm; target-minus-measured dz=-5.504037mm. Prior IK residual 0.028087mm and next measured-target norm 4.679216mm are different quantities. No new FK executed.",
+      "verified_path": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/reconstructed_normalizer/SEED17_FK_BASELINE_CPU_20261118.json",
+      "verified_excerpt": "7559:     \"At i63 actual target is 0.126453,-0.086635,-2.758875 mm relative to the measured-base target; norm 2.763130 mm. Actual target z=0.776401169 m versus measured-base target z=0.779160043 m. Nominal dz=-2.745163 mm becomes target-minus-measured z=-5.504037 mm.\",\n7560:     \"At i63 IK FK positional residual is 0.028087 mm, versus next measured-to-target norm 4.679216 mm. These are distinct errors; neither is an identification of contact cause.\","
+    }
+  ],
+  "npz_inventory": {
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/reconstructed_normalizer/forensics_download/training_source_a3_fw_arrays.npz": {
+      "action": {
+        "descr": "<f4",
+        "fortran_order": false,
+        "shape": [
+          42681,
+          7
+        ]
+      },
+      "proprio": {
+        "descr": "<f4",
+        "fortran_order": false,
+        "shape": [
+          42681,
+          8
+        ]
+      },
+      "opening": {
+        "descr": "<f4",
+        "fortran_order": false,
+        "shape": [
+          42681
+        ]
+      },
+      "joint_cmd": {
+        "descr": "<f4",
+        "fortran_order": false,
+        "shape": [
+          42681
+        ]
+      },
+      "episode_index": {
+        "descr": "<i8",
+        "fortran_order": false,
+        "shape": [
+          42681
+        ]
+      },
+      "ep_start": {
+        "descr": "<i8",
+        "fortran_order": false,
+        "shape": [
+          100
+        ]
+      },
+      "ep_len": {
+        "descr": "<i8",
+        "fortran_order": false,
+        "shape": [
+          100
+        ]
+      },
+      "ep_ids": {
+        "descr": "<i8",
+        "fortran_order": false,
+        "shape": [
+          100
+        ]
+      }
+    },
+    "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/reconstructed_normalizer/forensics_download/training_source_a3_fw_force_arrays.npz": {
+      "action": {
+        "descr": "<f4",
+        "fortran_order": false,
+        "shape": [
+          42681,
+          7
+        ]
+      },
+      "proprio": {
+        "descr": "<f4",
+        "fortran_order": false,
+        "shape": [
+          42681,
+          8
+        ]
+      },
+      "opening": {
+        "descr": "<f4",
+        "fortran_order": false,
+        "shape": [
+          42681
+        ]
+      },
+      "joint_cmd": {
+        "descr": "<f4",
+        "fortran_order": false,
+        "shape": [
+          42681
+        ]
+      },
+      "episode_index": {
+        "descr": "<i8",
+        "fortran_order": false,
+        "shape": [
+          42681
+        ]
+      },
+      "ep_start": {
+        "descr": "<i8",
+        "fortran_order": false,
+        "shape": [
+          100
+        ]
+      },
+      "ep_len": {
+        "descr": "<i8",
+        "fortran_order": false,
+        "shape": [
+          100
+        ]
+      },
+      "ep_ids": {
+        "descr": "<i8",
+        "fortran_order": false,
+        "shape": [
+          100
+        ]
+      },
+      "force18": {
+        "descr": "<f4",
+        "fortran_order": false,
+        "shape": [
+          42681,
+          18
+        ]
+      },
+      "force6": {
+        "descr": "<f4",
+        "fortran_order": true,
+        "shape": [
+          42681,
+          6
+        ]
+      },
+      "force6_zeroed": {
+        "descr": "<f4",
+        "fortran_order": false,
+        "shape": [
+          42681,
+          6
+        ]
+      },
+      "timestamp": {
+        "descr": "<f4",
+        "fortran_order": false,
+        "shape": [
+          42681
+        ]
+      },
+      "frame_index": {
+        "descr": "<i8",
+        "fortran_order": false,
+        "shape": [
+          42681
+        ]
+      }
+    }
+  },
+  "bounded_actual_data_checks": {
+    "metadata_episodes": 100,
+    "metadata_total_frames": 42681,
+    "metadata_frames_match_npz_lengths": true,
+    "metadata_ids_match_npz": true,
+    "source_modes": [
+      "cartesian_delta"
+    ],
+    "stored_modes": [
+      "joint_position"
+    ],
+    "gripper_only_command_minus_measured_abs_max": 0.08017438650131226,
+    "gripper_only_command_minus_measured_abs_mean": 0.018404373472597886,
+    "gripper_warning": "Not arm/Cartesian tracking evidence",
+    "force_npz_timestamp_dt_seconds": {
+      "n": 42581,
+      "min": 0.049999237060546875,
+      "median": 0.05000019073486328,
+      "p99": 0.05000114440917969,
+      "max": 0.05000114440917969,
+      "max_abs_deviation_from_0_05": 1.1444091796847244e-06
+    }
+  },
+  "identity_limits": {
+    "original_v1g_bytes": "UNKNOWN",
+    "actual_acquisition_source_byte_identity": "UNKNOWN",
+    "declared_acquisition_git_commit": "f5a416005701d813a4994f9f8b973dd5629db3b1",
+    "source_recovery_limit": "Current recovered sources can establish their own behavior, not actual historical collection byte identity. Declared metadata commit is not an attestation of current recovered files.",
+    "npz_limit": "Local upstream a3_fw and force copy hashes identify inspected files only, NOT actual v1g inputs used in 40k training. Matching metadata lengths/IDs does not attest original joint content or original normalizer.",
+    "comparison_limit": "Neither NPZ has raw measured arm joint vector or absolute arm joint command vector. proprio width8 is measured Cartesian pose/gripper proxy, not joint state. Scalar joint_cmd is gripper only. force18 is not positional tracking evidence. Local recursive discovery returned no Parquet files."
+  },
+  "minimum_next_comparison_no_sim_required": [
+    "Obtain one original expert descent window of 10-20 adjacent rows plus previous row: episode/frame/timestamp, measured joint7, measured EEF, stored absolute joint command7 and gripper. Original left-only Parquet already stores necessary channels; no full-dataset dump is needed.",
+    "Bind that window to collection code/model/config hashes, especially _servo, convert, env.step/limiter and actuator model. Separately recover actual v1g action rows/stats identity before claims about original 40k training bytes.",
+    "In a later authorized comparison, use validated FK to compare signed c_t-m_t, applied-command FK increments, measured displacement and Delta e_t for expert descent against existing deployment i55..75. Reuse existing deployment FK. This task did not recalculate FK.",
+    "If requested expert delta or pre-IK target is logged, compare measured-label reconstructed delta against it at the same pre-state and previous command. With stored absolute joint commands alone, only post-IK/post-limiter command increments are identifiable; pre-IK target is not uniquely recoverable.",
+    "Original expert tracking error matching deployment would support normal tracking but not establish dynamic replay equivalence. A causal claim about failure would still require a separately authorized matched-state counterfactual; no simulation has been started here."
+  ]
+}

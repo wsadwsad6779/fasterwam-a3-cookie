@@ -1,0 +1,97 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "original_stats_sha256": "UNKNOWN",
+  "scope": "CPU descriptive segmentation of stored seed17 episode; grasp-close runs and following releases with EEF height and pad force. No contact-pair identity, no simulator.",
+  "source_sha256": {
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\reconstructed_normalizer\\seed17_grasp_release_cycles_cpu_20261118.py": "3bb81120a7b36acc8cf77765fac8616d297e884d84d9b278977615e82e345325",
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\reconstructed_normalizer\\forensics_download\\cpu_seed17_state_force.npz": "2dff7b30d323a5110ceef41ce187d5714f18ce66cd20e084ff5b330218d732b2",
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\reconstructed_normalizer\\forensics_download\\seed17_steps.npz": "80b7e5a71446a94e872f07eb27b48c100bb062087b441511c101273e3bdbb10e",
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\step_040000\\force_calib_v1.json": "2e821a8a019f966d0d2418df7f587d9d469ccd5596abcc39e9f20f5f830d1bd5"
+  },
+  "definitions": {
+    "closed": "opening<0.25",
+    "open": "opening>0.65",
+    "closed_run_min_len": 3,
+    "pad_before_release": "max pad channel of last3 closed frames",
+    "pad_at_release": "max pad channel of release frame and next2"
+  },
+  "eef_z_percentiles_m": [
+    0.732860267162323,
+    0.74043869972229,
+    0.80464768409729,
+    1.6555893421173096,
+    1.8167158365249634
+  ],
+  "segment_counts": {
+    "closed_runs_ge3": 5,
+    "open_runs": 5
+  },
+  "cycles": [
+    {
+      "closed_frames": [
+        80,
+        85
+      ],
+      "closed_len": 6,
+      "z_min_m": 0.812210738658905,
+      "z_max_m": 0.8164904117584229,
+      "z_release_m": 0.810554563999176,
+      "z_change_m": -0.001656174659729004,
+      "pad_before_release_N": 0.0,
+      "pad_at_release_N": 0.0,
+      "release_frame": 86,
+      "release_gap_steps": 0
+    },
+    {
+      "closed_frames": [
+        301,
+        319
+      ],
+      "closed_len": 19,
+      "z_min_m": 0.7841090559959412,
+      "z_max_m": 0.8014115691184998,
+      "z_release_m": 0.7946875095367432,
+      "z_change_m": 0.010578453540802002,
+      "pad_before_release_N": 0.0,
+      "pad_at_release_N": 0.0,
+      "release_frame": 320,
+      "release_gap_steps": 0
+    },
+    {
+      "closed_frames": [
+        333,
+        377
+      ],
+      "closed_len": 45,
+      "z_min_m": 0.7732177376747131,
+      "z_max_m": 0.7975392937660217,
+      "z_release_m": 0.7722384333610535,
+      "z_change_m": -0.000979304313659668,
+      "pad_before_release_N": 0.0,
+      "pad_at_release_N": 0.0,
+      "release_frame": 378,
+      "release_gap_steps": 0
+    },
+    {
+      "closed_frames": [
+        420,
+        431
+      ],
+      "closed_len": 12,
+      "z_min_m": 0.8327474594116211,
+      "z_max_m": 0.8967298865318298,
+      "z_release_m": 0.9044550061225891,
+      "z_change_m": 0.07170754671096802,
+      "pad_before_release_N": 0.0,
+      "pad_at_release_N": 0.0,
+      "release_frame": 432,
+      "release_gap_steps": 0
+    }
+  ],
+  "limits": [
+    "No direct cookie/box occupancy; releases are inferred from opening transitions only.",
+    "EEF site z is not cookie z; no object height or contact pair.",
+    "Segmentation thresholds are descriptive, not a task-success metric.",
+    "Pad force zero can occur without contact with the target object."
+  ]
+}

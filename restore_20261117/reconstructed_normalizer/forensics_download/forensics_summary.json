@@ -1,0 +1,111 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "max_steps": 600,
+  "original_stats_sha256": "UNKNOWN",
+  "replan": 10,
+  "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+  "results": [
+    {
+      "files": [
+        "/workspace/eval_restore_20261117/reconstructed_normalizer/forensics_full_wide_out/seed11_composed_panel.mp4",
+        "/workspace/eval_restore_20261117/reconstructed_normalizer/forensics_full_wide_out/seed11_steps.npz",
+        "/workspace/eval_restore_20261117/reconstructed_normalizer/forensics_full_wide_out/seed11_actions.npz"
+      ],
+      "infer_calls": 60,
+      "panel": {
+        "backend": "cv2/mp4v",
+        "bytes": 15100778,
+        "force_columns_note": "l_inner/l_outer/r_inner/r_outer are columns 12/13/14/15 of the env's 18-wide observation.force, raw newtons; the left pair minus force_calib_v1's zero-load reference is proprio14 columns 11/12, which is what the model conditioned on. The trace itself is in the steps npz as pad_forcen, one row per video frame.",
+        "fps": 20,
+        "frames_written": 601,
+        "notes": [
+          "encoded by cv2/mp4v: the pod imageio resolves to PyAV, whose write() rejects the compositor's quality= kwarg; layout and synchronisation verified, bitstream (libx264/yuv420p) parity not"
+        ],
+        "pad_channel_columns": {
+          "l_inner": 12,
+          "l_outer": 13,
+          "r_inner": 14,
+          "r_outer": 15
+        },
+        "pad_trace_samples": {
+          "l_inner": 601,
+          "l_outer": 601,
+          "r_inner": 601,
+          "r_outer": 601
+        },
+        "path": "/workspace/eval_restore_20261117/reconstructed_normalizer/forensics_full_wide_out/seed11_composed_panel.mp4",
+        "wh": [
+          1984,
+          576
+        ]
+      },
+      "record": {
+        "cookies_in_target": 0,
+        "decision_chunks": 60,
+        "frames": 601,
+        "nan_abort_frame": -1,
+        "seed": 11,
+        "steps_executed": 600,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "wall_s": 185.46
+      },
+      "seed": 11,
+      "wall_s": 192.08
+    },
+    {
+      "files": [
+        "/workspace/eval_restore_20261117/reconstructed_normalizer/forensics_full_wide_out/seed17_composed_panel.mp4",
+        "/workspace/eval_restore_20261117/reconstructed_normalizer/forensics_full_wide_out/seed17_steps.npz",
+        "/workspace/eval_restore_20261117/reconstructed_normalizer/forensics_full_wide_out/seed17_actions.npz"
+      ],
+      "infer_calls": 60,
+      "panel": {
+        "backend": "cv2/mp4v",
+        "bytes": 20486472,
+        "force_columns_note": "l_inner/l_outer/r_inner/r_outer are columns 12/13/14/15 of the env's 18-wide observation.force, raw newtons; the left pair minus force_calib_v1's zero-load reference is proprio14 columns 11/12, which is what the model conditioned on. The trace itself is in the steps npz as pad_forcen, one row per video frame.",
+        "fps": 20,
+        "frames_written": 601,
+        "notes": [
+          "encoded by cv2/mp4v: the pod imageio resolves to PyAV, whose write() rejects the compositor's quality= kwarg; layout and synchronisation verified, bitstream (libx264/yuv420p) parity not"
+        ],
+        "pad_channel_columns": {
+          "l_inner": 12,
+          "l_outer": 13,
+          "r_inner": 14,
+          "r_outer": 15
+        },
+        "pad_trace_samples": {
+          "l_inner": 601,
+          "l_outer": 601,
+          "r_inner": 601,
+          "r_outer": 601
+        },
+        "path": "/workspace/eval_restore_20261117/reconstructed_normalizer/forensics_full_wide_out/seed17_composed_panel.mp4",
+        "wh": [
+          1984,
+          576
+        ]
+      },
+      "record": {
+        "cookies_in_target": 0,
+        "decision_chunks": 60,
+        "frames": 601,
+        "nan_abort_frame": -1,
+        "seed": 17,
+        "steps_executed": 600,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "wall_s": 383.38
+      },
+      "seed": 17,
+      "wall_s": 389.67
+    }
+  ],
+  "seeds": [
+    11,
+    17
+  ]
+}

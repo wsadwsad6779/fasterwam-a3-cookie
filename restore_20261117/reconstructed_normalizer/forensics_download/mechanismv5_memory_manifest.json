@@ -1,0 +1,38 @@
+[
+  {
+    "name": "mechanismv5_memory_s17_f70_impulse4clip.json",
+    "status": 200,
+    "sha256": "f0fc1d9cad0377146dcb7fd1c0efcbdea4bb93508d07006053596c1e9bb84f4e",
+    "bytes": 3508
+  },
+  {
+    "name": "mechanismv5_memory_s17_f70_actuatorclip.npz",
+    "status": 200,
+    "sha256": "3cf6eb80cc513c60cbe6eb4dd2f3983538506bd9fa45352a6224e38bbc1e81f9",
+    "bytes": 139141
+  },
+  {
+    "name": "mechanismv5_memory_s17_f70_actuatorclip.json",
+    "status": 200,
+    "sha256": "f08718fab85f751aa6a5048beb873081dfcd03a5b397aa04faab08c1df6ab682",
+    "bytes": 3298
+  },
+  {
+    "name": "mechanismv5_request_005.json",
+    "status": 200,
+    "sha256": "5638debe2cbc6b30844399e68ea606babd2a0016d8030dfc0c370f4ec2eac706",
+    "bytes": 689
+  },
+  {
+    "name": "mechanismv5_request_005_done.json",
+    "status": 200,
+    "sha256": "cbaf2aa7b70d71023eb2650faf08fea57338f8308acf99dc165b36547aaa7bf9",
+    "bytes": 15
+  },
+  {
+    "name": "mechanismv5_memory_s17_f70_impulse4clip.npz",
+    "status": 200,
+    "sha256": "b0dac914105e353c253fa0ccc1834c116e0a4e9ede79a888dcc277562827c270",
+    "bytes": 138742
+  }
+]

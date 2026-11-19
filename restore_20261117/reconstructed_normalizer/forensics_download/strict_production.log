@@ -1,0 +1,22 @@
+/opt/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/workspace/eval_restore_20261117/reconstructed_normalizer/strict_production_pair.py", line 77, in <module>
+    A = D.run_one(E, factory, policy, args, 12, record_chain=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/eval_restore_20261117/reconstructed_normalizer/diag_reconstructed_40k.py", line 269, in run_one
+    result = E.run_episode(env, policy, seed=seed, reset=reset,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/eval_restore_20261117/reconstructed_normalizer/strict_production_pair.py", line 53, in witnessed_runner
+    result, capture = EC.run_captured(original_runner, env=env, policy=policy,
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/eval_restore_20261117/deploy/capture/evaluation_capture.py", line 99, in run_captured
+    capture = Capture(artifacts)
+              ^^^^^^^^^^^^^^^^^^
+  File "/workspace/eval_restore_20261117/reconstructed_normalizer/execution_chain_capture_fixed.py", line 56, in __init__
+    self.artifacts = hash_files(artifacts)
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/eval_restore_20261117/reconstructed_normalizer/execution_chain_capture_fixed.py", line 36, in hash_files
+    raise ValueError("artifacts must include weights, config and source paths")
+ValueError: artifacts must include weights, config and source paths
+strict_rc=1

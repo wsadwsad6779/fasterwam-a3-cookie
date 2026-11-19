@@ -1,0 +1,15 @@
+{
+  "source": "forensics_v2_out/seed12_observations.npz",
+  "frame": 0,
+  "observation_sha256": {
+    "observation.images.front": "3407c6c6cbcd0788ab705c6ddf9a7806a11b5813900f9bee5d1ef2c5c0853568",
+    "observation.images.left_wrist": "e25935de332baa84ba8c6c9019f8386a2196de8bab15900ebe5159b22cf83d30",
+    "observation.images.right_wrist": "b54f39437c5cad06994900789ebc7a0fc891a24b3821a419eb69dc6e09cb2e28",
+    "observation.state": "7ad58774b8e2f9a1b28a5110afa1055e1be7da00cf5c96b2f8244542ef3e696b",
+    "observation.velocity": "4eab673c8d38b0e184cc20a035898f31663419dd6216d8df506cbe1d93fe2538",
+    "observation.eef_pose": "d05a0aaacece62b97605225a8daf91d8f1516f48d42d6d352b2b2b25952b4e92",
+    "observation.force": "166887f50a75d6ec7be996015bca5f81c0723913a641b32fb40233728a40c136"
+  },
+  "history_sha256": "565b8cdd967fcc528c39e733495eabc60d49c0ba680426ada92f3eb9b3bc92c0",
+  "mask_sha256": "7c3ccd10bb7ec37b46d37926ae6274267f007a34aeaf15c882a715a7f3300529"
+}

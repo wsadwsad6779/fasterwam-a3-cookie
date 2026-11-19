@@ -1,0 +1,126 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "artifact_hashes": {
+    "config": [
+      {
+        "bytes": 6364,
+        "path": "/workspace/eval_restore_20261117/step_040000/run_config.yaml",
+        "sha256": "4aa66c57cdfe2804ae56cf244a907be9e13fe232d4ede65ba7ef0695eb79abfd"
+      },
+      {
+        "bytes": 4175,
+        "path": "/workspace/eval_restore_20261117/reconstructed_normalizer/dataset_stats_14d_RECONSTRUCTED.json",
+        "sha256": "47fbe4c4e3a40eeb4f76c2a06857914351dc863da36d8b8d4d4794b1d1b56d6b"
+      },
+      {
+        "bytes": 1904,
+        "path": "/workspace/eval_restore_20261117/step_040000/force_calib_v1.json",
+        "sha256": "2e821a8a019f966d0d2418df7f587d9d469ccd5596abcc39e9f20f5f830d1bd5"
+      },
+      {
+        "bytes": 3500,
+        "path": "/workspace/eval_restore_20261117/deploy/a3_dual_arm_sim/configs/cookie_batch.yaml",
+        "sha256": "62f6c8638955c84761b8f3c6ef6198ecb448aafb839f72103844f4a154812df9"
+      },
+      {
+        "bytes": 1250,
+        "path": "/workspace/eval_restore_20261117/deploy/stage_40k/fw/configs/sim_libero.yaml",
+        "sha256": "29a5ffc130f5cb692340de26fb100dfe89f0ed458c878dc1008c4af0bf789311"
+      }
+    ],
+    "source": [
+      {
+        "bytes": 10865,
+        "path": "/workspace/eval_restore_20261117/deploy/stage_40k/dev/eval40k/policy40k.py",
+        "sha256": "f7d8ec3c9936aa34d8a7776781c539d4bd5312e0ee21135f117d5a4eee87a8d8"
+      },
+      {
+        "bytes": 4737,
+        "path": "/workspace/eval_restore_20261117/deploy/stage_40k/dev/eval40k/rollout40k.py",
+        "sha256": "70d9adc92ac0d7808d0fb56decb5a576b04cf33b32c8cd21eaeff913a201412d"
+      },
+      {
+        "bytes": 5437,
+        "path": "/workspace/eval_restore_20261117/deploy/stage_40k/dev/eval40k/force_stream.py",
+        "sha256": "49c22eb84f2a9d69093079deaa8cb4f1aeb2ad559a60c0afffd2db62597fe9bf"
+      },
+      {
+        "bytes": 11250,
+        "path": "/workspace/eval_restore_20261117/deploy/bridge/infer_a3_worker.py",
+        "sha256": "1e4738ba065eeb5450ba547d9a438dc85d3a5206deadb8680fd5642da7431ff3"
+      },
+      {
+        "bytes": 1972,
+        "path": "/workspace/eval_restore_20261117/deploy/bridge/action_adapter_v3.py",
+        "sha256": "75325f70b89e217d85cd8cf3227b7966444a766863f6b5d6c771fdbee4cf9650"
+      },
+      {
+        "bytes": 6649,
+        "path": "/workspace/eval_restore_20261117/deploy/bridge/_next/env_factory.py",
+        "sha256": "c6b49941cc52e0da44c97a7e81467fabe1bf39bc6e5344a296275cbdacc60c40"
+      },
+      {
+        "bytes": 4578,
+        "path": "/workspace/eval_restore_20261117/deploy/capture/evaluation_capture.py",
+        "sha256": "bf63a93358be21c30a3192ebe0907490f2fbc6627dfe7e4d10275fc00ac97ee3"
+      },
+      {
+        "bytes": 5850,
+        "path": "/workspace/eval_restore_20261117/deploy/capture/execution_chain_capture.py",
+        "sha256": "6e41095da4b54c9f8261f62203647532eba8c727f7d35a4b1977682630a1a80d"
+      }
+    ],
+    "weights": [
+      {
+        "bytes": 11126493579,
+        "path": "/workspace/eval_restore_20261117/step_040000_merged.pt",
+        "sha256": "d118eb2172b04165990c032e291057aaa9313b1d9fd0e6cd7a9ada3637c9cc20"
+      }
+    ]
+  },
+  "artifacts": {
+    "config": [
+      "/workspace/eval_restore_20261117/step_040000/run_config.yaml",
+      "/workspace/eval_restore_20261117/reconstructed_normalizer/dataset_stats_14d_RECONSTRUCTED.json",
+      "/workspace/eval_restore_20261117/step_040000/force_calib_v1.json",
+      "/workspace/eval_restore_20261117/deploy/a3_dual_arm_sim/configs/cookie_batch.yaml",
+      "/workspace/eval_restore_20261117/deploy/stage_40k/fw/configs/sim_libero.yaml"
+    ],
+    "source": [
+      "/workspace/eval_restore_20261117/deploy/stage_40k/dev/eval40k/policy40k.py",
+      "/workspace/eval_restore_20261117/deploy/stage_40k/dev/eval40k/rollout40k.py",
+      "/workspace/eval_restore_20261117/deploy/stage_40k/dev/eval40k/force_stream.py",
+      "/workspace/eval_restore_20261117/deploy/bridge/infer_a3_worker.py",
+      "/workspace/eval_restore_20261117/deploy/bridge/action_adapter_v3.py",
+      "/workspace/eval_restore_20261117/deploy/bridge/_next/env_factory.py",
+      "/workspace/eval_restore_20261117/deploy/capture/evaluation_capture.py",
+      "/workspace/eval_restore_20261117/deploy/capture/execution_chain_capture.py"
+    ],
+    "weights": [
+      "/workspace/eval_restore_20261117/step_040000_merged.pt"
+    ]
+  },
+  "errors": [],
+  "original_stats_sha256": "UNKNOWN",
+  "pass": true,
+  "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+  "scope": "REAL_ASSETS_CPU_PREFLIGHT",
+  "source_identity": {
+    "fixed": {
+      "bytes": 6364,
+      "path": "/workspace/eval_restore_20261117/reconstructed_normalizer/execution_chain_capture_fixed.py",
+      "sha256": "380ca4c24ca5858c22f5d6ad7bb72984320c85e0f057099c67f2b7e5e87d9641"
+    },
+    "launcher": {
+      "bytes": 8875,
+      "path": "/workspace/eval_restore_20261117/reconstructed_normalizer/strict_production_pair.py",
+      "sha256": "28b53a2f895b9c69612b8c074b0117e7443de78838d96ebca5a1098688702a67"
+    },
+    "original": {
+      "bytes": 5850,
+      "path": "/workspace/eval_restore_20261117/deploy/capture/execution_chain_capture.py",
+      "sha256": "6e41095da4b54c9f8261f62203647532eba8c727f7d35a4b1977682630a1a80d"
+    }
+  },
+  "status": "PASS"
+}

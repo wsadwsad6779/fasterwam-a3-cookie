@@ -1,0 +1,47 @@
+{
+  "identity": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "audit_date": "2026-11-18",
+  "scope": "local_cpu_file_audit_only",
+  "run_config": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/step_040000/run_config.yaml",
+  "report": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/restore_20261117/reconstructed_normalizer/cpu40k_config_audit.md",
+  "processor": {
+    "class": "FastWAMProcessor",
+    "action_dim": 7,
+    "state_dim": 14,
+    "num_obs_steps": 33,
+    "num_output_cameras": 2,
+    "delta_action_dim_mask": [true, true, true, true, true, true, false],
+    "use_stepwise_action_norm": false,
+    "norm_default_mode": "min/max",
+    "norm_exception_mode": null,
+    "action_state_transforms": null,
+    "merger": "ConcatLeftAlign"
+  },
+  "force": {
+    "data_config": "a3_2cam_force.yaml",
+    "model_config": "fasterwam_force.yaml",
+    "channels": [0, 1, 2, 12, 13, 16],
+    "history": 16,
+    "horizon": 32,
+    "historical_stats_reference": "/workspace/a3_data/a3_fw_v1g/dataset_stats.json",
+    "plain_a3_2cam_used_as_substitute": false
+  },
+  "infer_gripper": {
+    "source": "C:/Users/ASUS/Documents/Qoder/2026-10-31/b462d38d/_clone_default/bridge/infer_a3_worker.py",
+    "order": "action normalizer backward, then gripper conversion",
+    "pm1": "g >= 0 maps to +1, otherwise -1",
+    "default_libero01": "-(2*g-1), optional sign binarization",
+    "force40k_historical_binding_verified": false,
+    "warning": "Worker defaults to libero assets and builds 8D proprio; not proven to be force40k inference entry."
+  },
+  "gaps": [
+    "Historical v1g dataset_stats content, dimensions, hashes and provenance not verified",
+    "Located force calibration file not read or bound to historical arrays",
+    "Current source revision not bound to historical 40k checkpoint",
+    "Historical inference entry, environment and gripper mode not verified",
+    "No numeric round-trip, checkpoint loading or execution validation"
+  ],
+  "config_evidence_status": "completed_with_explicit_gaps",
+  "original_normalizer_verified": false,
+  "gpu_training_remote_used": false
+}

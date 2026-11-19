@@ -1,0 +1,36 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "TRAINING_DATA_IDENTITY": "CANDIDATE_RECONSTRUCTED_TRAINING_DATA",
+  "TEACHER_DATA_IDENTITY": "CANDIDATE_TEACHER_DATA",
+  "subject": "step_000100.pt and the bounded adaptation run of 2026-11-18",
+  "naming_correction": {
+    "old_name": "LoRA / bounded LoRA",
+    "correct_name": "action_expert local full fine-tune (no low-rank factors)",
+    "evidence": {
+      "trainable_tensors": 602,
+      "all_action_expert": true,
+      "trainable_params": 563140103,
+      "lora_like_keys": [],
+      "checkpoint_total_params": 23074443986,
+      "delta_bytes_bf16": 1126280206,
+      "aliases": "dit.mixtures.action.* and mot.mixtures.action.* are bit-identical aliases of the trained action_expert weights (40/40 checked)"
+    }
+  },
+  "checkpoint_policy_correction": {
+    "problem": "train_lora_300.py saved model.state_dict() every 100 steps: 24 GB per snapshot; /workspace (98 GB) filled up and step_000200.pt was truncated mid-zip",
+    "step_000200_status": "CORRUPT (no central directory, unloadable); quarantined to /root/quarantine_lora300/",
+    "step_000100_status": "VALID (4746 keys, step=100, sha256 71b3460c10da9c739cb79fca7b093a9d3d6d05edd04606d125c2af1fb6afd9cd)",
+    "delta_artifact": "model_repair_runs/lora_300/step_000100_action_expert_delta.pt, 1.126 GB, 602/602 tensors bit-equal on reload",
+    "optimizer_state": "NEVER_SAVED; there is no seamless resume from step 100 or 200"
+  },
+  "training_data_defect": {
+    "arrays_ep_start": [0, 1, 2, 3],
+    "correct_ep_start": [0, 600, 1200, 1800],
+    "proprio_zero_rows": 1797,
+    "proprio_zero_fraction": 0.74875,
+    "cause": "collect_expert_replay_20261118.py used starts.append(len(frames)) (episode count) instead of cumulative frame offsets, and wrote proprio columns 6..7 as +-0.04*opening with columns 8..13 hard zero (the deployment force-tare residual was never added)",
+    "consequence": "the 2272 training windows covered only frames 0..603 (the approach phase), with 75% zero proprio and 1-3 frame action offsets between overlapping 'episodes'",
+    "meaning_of_the_earlier_17_sigma": "artifact of this array assembly, not a different eef coordinate frame; the raw eef_pose is identical between the teacher and deployment observations (same-state audit)"
+  },
+  "validity_of_existing_C_results": "c_class_eval_20261119 (A vs step_100 on seeds 29/30) is a valid measurement of this mis-specified trial; it is NOT evidence about the corrected-data policy. C seed29: 600 steps, 0 cookies, force 60.7 N; C seed30: force abort at f139 (163 N); A seed29/30 also aborted at f156/f140."
+}

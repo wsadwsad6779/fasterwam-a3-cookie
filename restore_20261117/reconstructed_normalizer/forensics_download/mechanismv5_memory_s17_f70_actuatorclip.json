@@ -1,0 +1,156 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "original_stats_sha256": "UNKNOWN",
+  "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+  "seed": 17,
+  "frame": 70,
+  "noise": 448068021,
+  "steps": 10,
+  "name": "memory_s17_f70_actuatorclip",
+  "history_clip": [
+    {
+      "channel": 5,
+      "min": -1.2381830215454102,
+      "max": 2.9520156383514404
+    }
+  ],
+  "noise_draws": [
+    {
+      "stream": "video",
+      "shape": [
+        1,
+        48,
+        3,
+        14,
+        28
+      ],
+      "sha256": "fc8ae9bd5f4a5361fb574cbbb0b22673494fa6e66e3ad77d1f7328290ed91443",
+      "override_seed": null
+    },
+    {
+      "stream": "action",
+      "shape": [
+        1,
+        32,
+        7
+      ],
+      "sha256": "9db38f2c78cfbe93e8dd65f79fd95ac6889bddb5e160c07e74dc5feb61cd8702",
+      "override_seed": null
+    },
+    {
+      "stream": "force",
+      "shape": [
+        1,
+        32,
+        6
+      ],
+      "sha256": "9457c8637bd0820d8078716eaee20669106c74129ef72b7a7cc7eae9ac976550",
+      "override_seed": null
+    }
+  ],
+  "wall_seconds": 1.3959264755249023,
+  "raw_gripper32": [
+    0.4765625,
+    0.45703125,
+    0.27734375,
+    0.796875,
+    0.8046875,
+    0.78125,
+    0.37109375,
+    0.51171875,
+    0.66796875,
+    0.609375,
+    0.3203125,
+    0.51953125,
+    0.466796875,
+    0.70703125,
+    0.4609375,
+    0.76953125,
+    0.8046875,
+    0.36328125,
+    0.5859375,
+    0.21875,
+    0.4296875,
+    0.455078125,
+    0.69921875,
+    0.74609375,
+    0.4609375,
+    0.57421875,
+    0.70703125,
+    0.36328125,
+    0.16015625,
+    0.35546875,
+    0.357421875,
+    0.203125
+  ],
+  "diff_gripper31": [
+    -0.01953125,
+    -0.1796875,
+    0.51953125,
+    0.0078125,
+    -0.0234375,
+    -0.41015625,
+    0.140625,
+    0.15625,
+    -0.05859375,
+    -0.2890625,
+    0.19921875,
+    -0.052734375,
+    0.240234375,
+    -0.24609375,
+    0.30859375,
+    0.03515625,
+    -0.44140625,
+    0.22265625,
+    -0.3671875,
+    0.2109375,
+    0.025390625,
+    0.244140625,
+    0.046875,
+    -0.28515625,
+    0.11328125,
+    0.1328125,
+    -0.34375,
+    -0.203125,
+    0.1953125,
+    0.001953125,
+    -0.154296875
+  ],
+  "signs_first10": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "flip_rows32": [],
+  "flip_count_first10": 0,
+  "large_jumps_first10": 0,
+  "trace_flip_counts_first10": [
+    5,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    0
+  ],
+  "observation_sha256": {
+    "observation.images.front": "d2a1cdd0152210b4fcaff17d189c89605937007b1b1d529cdd8113f5501d99f4",
+    "observation.images.left_wrist": "1bcdc4398b50d41d1b7d34829f0890fd4b9c631134ea9bb30ecf47105d40e889",
+    "observation.images.right_wrist": "f50081897468a4f12998504c57b293d9fd20bc26871aafc11767c4d755116312",
+    "observation.state": "bc2852c7586f11de8f69e47c8b4eb9aee19efbc2671cfcd3fc5668095d0838a2",
+    "observation.velocity": "2f19d4d19a7e9a0f7585f8589ee96e71009257e0294ec75625aa8732082a1d3a",
+    "observation.eef_pose": "d453fe409a4c10ea1e323f6615535321f8e6a365d4c083e01afa4cc14783e2e8",
+    "observation.force": "446449fda998d5e56c3a748ca6c387616270127e7b16347647a52ba5bbaedd01"
+  },
+  "npz_sha256": "3cf6eb80cc513c60cbe6eb4dd2f3983538506bd9fa45352a6224e38bbc1e81f9"
+}

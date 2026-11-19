@@ -1,0 +1,1973 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "original_stats_sha256": "UNKNOWN",
+  "task_complete": false,
+  "control_counterfactuals_executed": false,
+  "original_assets_modified": false,
+  "verified_local_mechanism": {
+    "phenomenon": "Large continuous action and future-force amplitudes at recorded late seed17 states",
+    "intervention": "Only clip valid P2 raw-force-history entries to calibration-bound source marginal channel ranges; hold normalized P1 proprio, images, text, mask and all three initial noise draws fixed",
+    "states": [
+      {
+        "frame": 143,
+        "noise": "protocol",
+        "action7_absmax_before": 12.3125,
+        "after": 1.015625
+      },
+      {
+        "frame": 159,
+        "noise": "protocol",
+        "action7_absmax_before": 32.5,
+        "after": 1.125
+      },
+      {
+        "frame": 207,
+        "noise": "protocol",
+        "action7_absmax_before": 101.5,
+        "after": 1.09375
+      },
+      {
+        "frame": 143,
+        "noise": 202,
+        "action7_absmax_before": 12.6875,
+        "after": 1.015625
+      }
+    ],
+    "specificity": "Single wrist-fz clipping and complementary other-five clipping leave substantial motion/action amplification at frames143/207. P1 remains unchanged and saturated; it is not necessary to change P1 to remove the large amplification at these fixed observations.",
+    "mechanism_link": "Unbounded calibrated history enters a linear projection; residual blocks retain the input path, and cross-attention normalizes action queries but not force keys/values before residual injection. Source linkage is consistent with observed input-path causal effects, not a measured layer-by-layer attribution.",
+    "negative_controls": "Exactly identical initial observation under two protocol-noise groups has zero changed history entries and bit-exact raw action/future-force after clipping. A force-OOD seed11 frame98 without large gripper amplitude also changes under clipping, ruling out a claim that OOD alone is sufficient or clipping affects only failures.",
+    "limitations": [
+      "Marginal source-range clipping is an offline amplitude intervention, not a joint-distribution or deployment-safety guarantee.",
+      "Future force remains above some source ranges even after clipping.",
+      "Clipped frame159 retains two early gripper reversals.",
+      "No task-success, grasp, release or stable-in-bin improvement has been demonstrated.",
+      "The mechanism explains late amplification, not yet why the original trajectory entered abnormal contact."
+    ]
+  },
+  "force_interface_saturation_cpu": {
+    "claim": "The deployed seed17 force inputs are far outside the training support; P1 (proprio force columns) is clamped to 5 sigma after normalisation and P2 (16-frame raw-newton history) is fed unclamped at hundreds of sigma.",
+    "P1_mechanism": "dims 8..13 = raw6 - zero_load_ref_median, then the v1g min/max normaliser whose force bounds are (-sigma,+sigma), i.e. residual/sigma32, clamped to [-5,+5].",
+    "P2_mechanism": "raw6 -> ForceHistoryEncoder.normalize = (raw - mean_raw)/std * 1.0, no clamp. mean_raw/std come from the same calibration file.",
+    "training_source_range_P1_sigma": {
+      "min": [
+        -1.9190432941494557,
+        -6.024502716944516,
+        -7.475006141568293,
+        0.0,
+        0.0,
+        -0.8729831433263062
+      ],
+      "max": [
+        4.8548830627252135,
+        2.1614125843653995,
+        2.6685356902086896,
+        2.259805487511096,
+        2.2145767273014383,
+        2.1264625341784917
+      ],
+      "pad_inner_max_sigma": 2.259805487511096,
+      "pad_outer_max_sigma": 2.2145767273014383,
+      "frames_any_abs_gt_5": 620,
+      "note": "pad_inner/pad_outer never exceed 2.27 sigma anywhere in the 42681-row corpus; only wrist fy/fz cross 5 sigma in 300/320 rows."
+    },
+    "training_source_range_P2_sigma": {
+      "min": [
+        -1.7903361239901594,
+        -5.700347450761959,
+        -7.434633078915157,
+        -1.0336342748454004,
+        -1.033536530919551,
+        -1.8896599967735324
+      ],
+      "max": [
+        4.9835902005168276,
+        2.4855674620751094,
+        2.7089084595382755,
+        1.2261712537625225,
+        1.1810402780991394,
+        1.1097856278222131
+      ]
+    },
+    "deployment_seed17_P1_sigma": {
+      "min": [
+        -246.27400761548733,
+        -107.90700914179543,
+        -565.8193350676557,
+        0.0,
+        0.0,
+        -6.431486473455923
+      ],
+      "max": [
+        436.32650644574505,
+        775.4622839180697,
+        2175.6437500344946,
+        497.3064219002196,
+        485.546939876465,
+        33.78141773780785
+      ],
+      "frames_any_abs_gt_5": 475,
+      "fraction_any_abs_gt_5": 0.7903494176372712,
+      "first_saturated_frame": {
+        "L_wrist_fx": 73,
+        "L_wrist_fy": 4,
+        "L_wrist_fz": 64,
+        "L_pad_inner": 64,
+        "L_pad_outer": 73,
+        "L_gripper_act": 138
+      },
+      "jam_frames_134_311_saturated": 176,
+      "jam_fraction_134_311": 0.9887640449438202,
+      "pads_both_saturated_longest_run_frames": 135
+    },
+    "deployment_seed17_P2_sigma": {
+      "min": [
+        -246.1453052261386,
+        -107.58284782574083,
+        -565.7789559733089,
+        -1.0336342748454004,
+        -1.033536530919551,
+        -7.448163535185077
+      ],
+      "max": [
+        436.4552055734408,
+        775.786383874165,
+        2175.68404985321,
+        496.2727966693898,
+        484.51342126208954,
+        32.76473928407559
+      ]
+    },
+    "amplitude_lost_to_P1_clamp": {
+      "jam_clip_removed_L2_ratio_median": 0.9800879136740998,
+      "jam_clip_removed_L2_ratio_max": 0.996420128519407,
+      "preclip_norm_median_sigma": 502.825400712024,
+      "preclip_norm_max_sigma": 2368.1576731450273
+    },
+    "downstream_mechanism": "force_condition.py keeps the raw amplitude on the residual trunk (_CausalResidualBlock) and does not normalise the cross-attention force K/V, so P2's hundreds-of-sigma history can inject large magnitudes; P1's clamp destroys pad amplitude information by pinning it to a constant 5.",
+    "limits": [
+      "A saturated input is a measured interface fact, not proof that it caused any action.",
+      "The P1 clamp is applied after normalisation in the model normaliser; the exact call site is action_norm_identity40k.py:82 and has not been re-derived for this file.",
+      "The P2 ring buffer feeds raw newtons; the model normalises internally, so the 500-sigma value reaches the encoder unless the model itself guards it (it does not).",
+      "No intervention was run here; whether the model response changes is still open.",
+      "Saturation is a measured interface fact; it does not by itself prove causation of contact onset or gripper reversals."
+    ],
+    "source": "SEED17_FORCE_SATURATION_CPU_20261118.json"
+  },
+  "force_action_observational_coupling_cpu": {
+    "claim": "Within the recorded seed17 action stream, force-history peak and model-output action amplitude co-vary strongly in the same frame and the recorded executed chunks sit inside the amplified regime, so the amplification is not a re-inference artifact.",
+    "pre_contact_i0_60": {
+      "pad_max_med": 0.0,
+      "pad_max_max": 0.0,
+      "raw_absmax_med": 1.015625,
+      "raw_absmax_max": 1.078125
+    },
+    "jam_i134_311": {
+      "pad_max_med": 177.7683868408203,
+      "pad_max_max": 338.86676025390625,
+      "raw_absmax_med": 27.4375,
+      "raw_absmax_max": 92.0,
+      "adapter_trans_saturated_fraction": 0.9044943820224719
+    },
+    "whole_episode": {
+      "raw_absmax_med": 2.0234375,
+      "raw_absmax_max": 92.0,
+      "adapter_trans_saturated_fraction": 0.41333333333333333
+    },
+    "same_frame_correlation_pad_max_vs_absmax": 0.8089447734819842,
+    "lag_correlation_pad_leads_action": {
+      "-6": 0.7540588750662556,
+      "-5": 0.7621387686282771,
+      "-4": 0.7747238963386598,
+      "-3": 0.7871720628436024,
+      "-2": 0.7981346375997187,
+      "-1": 0.8041301946151119,
+      "0": 0.8089447734819842,
+      "1": 0.8128627616496201,
+      "2": 0.8166144398930552,
+      "3": 0.824936238567547,
+      "4": 0.8258995872310279,
+      "5": 0.8267717270693914,
+      "6": 0.8282034545145183
+    },
+    "recorded_chunk_absmax": "chunks 14/15/16/17/18/19/20/21/30/31 record 6.75/21.25/30.5/30.1/27.1/43.75/26.75/94.0/31.25/10.9; handed_14d translation saturates in 248/600 rows and 90.4% of jam frames.",
+    "counterexample": "i350 has pad=0 but wrist fz=-88.2 N and raw absmax still 15.25, so wrist force alone can sustain amplification.",
+    "limits": [
+      "Observational only: contact, state and images co-vary.",
+      "Raw model rows are the recorded executed-chunk outputs; rows 10..31 were never executed.",
+      "Adapter saturation is a command saturation, not a measured motion."
+    ],
+    "source": "SEED17_FORCE_ACTION_COUPLING_CPU_20261118.json"
+  },
+  "v5_counterfactual_plan_semantics_cpu": {
+    "claim": "Replaying the v5 clip counterfactuals through the identified de-normaliser and adapter shows a dose-response in time: at pre-contact f60 clipping changes nothing, while at f64/f70/f143/f159 it changes translation signs, saturation rows and gripper commands.",
+    "denorm_identified": {
+      "max_abs_error_vs_recorded_denorm": {
+        "minmax_literal": 8.270144462585449e-07,
+        "minmax_scale": 8.270144462585449e-07,
+        "meanstd": 8.272592160850763
+      },
+      "selected": "minmax_literal"
+    },
+    "rotation_caveat": "The adapter rotates the world rotation vector by R^T before scaling; no recorded EEF rotation is replayed here, so rotation dims 3..5 are only amplitude-mapped and their signs are not compared.",
+    "f60_precontact": {
+      "raw_absmax_baseline": 1.0703125,
+      "raw_absmax_clip": 1.0703125,
+      "trans_sign_agree_xyz_of_10": [
+        10,
+        10,
+        10
+      ],
+      "gripper_cmd_agree_of_10": 10,
+      "interpretation": "No history entry was out of source range yet, so the clip is a null operation; this is the temporal specificity control."
+    },
+    "contact_and_jam_pairs": [
+      {
+        "tag": "s17_f159",
+        "baseline_absmax_raw": 32.5,
+        "clip_absmax_raw": 1.125,
+        "baseline_trans_saturated_rows_of_10": 10,
+        "clip_trans_saturated_rows_of_10": 0,
+        "trans_sign_agree_xyz_of_10": [
+          10,
+          1,
+          4
+        ],
+        "gripper_cmd_agree_of_10": 6
+      },
+      {
+        "tag": "s17_f143",
+        "baseline_absmax_raw": 12.6875,
+        "clip_absmax_raw": 1.015625,
+        "baseline_trans_saturated_rows_of_10": 8,
+        "clip_trans_saturated_rows_of_10": 0,
+        "trans_sign_agree_xyz_of_10": [
+          7,
+          0,
+          9
+        ],
+        "gripper_cmd_agree_of_10": 10
+      },
+      {
+        "tag": "s11_f98",
+        "baseline_absmax_raw": 1.8125,
+        "clip_absmax_raw": 1.15625,
+        "baseline_trans_saturated_rows_of_10": 0,
+        "clip_trans_saturated_rows_of_10": 0,
+        "trans_sign_agree_xyz_of_10": [
+          6,
+          6,
+          4
+        ],
+        "gripper_cmd_agree_of_10": 6
+      },
+      {
+        "tag": "s17_f70",
+        "baseline_absmax_raw": 2.125,
+        "clip_absmax_raw": 1.1171875,
+        "baseline_trans_saturated_rows_of_10": 0,
+        "clip_trans_saturated_rows_of_10": 0,
+        "trans_sign_agree_xyz_of_10": [
+          8,
+          6,
+          1
+        ],
+        "gripper_cmd_agree_of_10": 5
+      },
+      {
+        "tag": "s17_f64",
+        "baseline_absmax_raw": 2.09375,
+        "clip_absmax_raw": 1.1015625,
+        "baseline_trans_saturated_rows_of_10": 0,
+        "clip_trans_saturated_rows_of_10": 0,
+        "trans_sign_agree_xyz_of_10": [
+          4,
+          6,
+          1
+        ],
+        "gripper_cmd_agree_of_10": 1
+      },
+      {
+        "tag": "s17_f60",
+        "baseline_absmax_raw": 1.0703125,
+        "clip_absmax_raw": 1.0703125,
+        "baseline_trans_saturated_rows_of_10": 0,
+        "clip_trans_saturated_rows_of_10": 0,
+        "trans_sign_agree_xyz_of_10": [
+          10,
+          10,
+          10
+        ],
+        "gripper_cmd_agree_of_10": 10
+      }
+    ],
+    "interpretation": "These are offline predicted-plan comparisons. A sign disagreement says the plans diverge, not that either plan or the clipped policy is correct or safe.",
+    "limits": [
+      "Offline arithmetic; a sign flip here says the two predicted action plans differ, not that either would succeed.",
+      "The adapter gripper rule is -sign(pm1); raw->pm1 uses the model binarisation."
+    ],
+    "source": "SEED17_V5_ADAPTER_REPLAY_CPU_20261118.json"
+  },
+  "separate_initial_fragmentation": {
+    "observations": "Seed12 and seed17 initial observations, P1 and P2 inputs are exactly identical; they are one independent initial state, not two-state replication.",
+    "noise_intervention": "Action-noise101 alone yields4 early reversals; action-noise202 and303 alone yield0 with video/force draws held fixed. Cross-stream independent draws do not eliminate fragmentation.",
+    "solver_counterevidence": "At fixed original draws,10/20/40 inference steps preserve the complete32-token sign pattern in both protocol-noise groups. Recorded BF16 Euler updates reproduced exactly.",
+    "supervision": "Calibration-bound recovered source copy reproduces stored labels exactly. All100 initial32-token windows have3/4/5/7 reversals;274 close-to-open opening rebounds occur with unchanged joint target. Generated patterns resemble this distribution, but this is not a paired-state training intervention.",
+    "not_proven": "That the fragmented supervision caused the learned40k failure. Originalv1g bytes and originalnormalizer are not recovered; action-preserving construction code is linkage evidence, not original corpus byte identity.",
+    "repair_boundary": "Command-derived or hysteretic relabeling remains offline and requires collector-semantic calibration and a separately authorized training comparison for weight-level causality. Choosing a favorable inference seed is not a repair."
+  },
+  "verified_artifacts": [
+    "forensics_download/NOISE_ISOLATION_ANALYSIS_20261118.json",
+    "forensics_download/SOLVER_HISTORY_ANALYSIS_20261118.json",
+    "forensics_download/HISTORY_HOLDOUT_ANALYSIS_20261118.json",
+    "INPUT_OOD_ANALYSIS_20261118.json",
+    "LABEL_GENERATION_COUNTEREVIDENCE_20261118.json",
+    "SEED17_FORCE_SATURATION_CPU_20261118.json",
+    "SEED17_FORCE_ACTION_COUPLING_CPU_20261118.json",
+    "SEED17_V5_ADAPTER_REPLAY_CPU_20261118.json"
+  ],
+  "onset_memory_control": {
+    "actual_event": "First wrist3 and inner-pad source-range crossing follows actual i63=chunk6 row3, observed at frame64. Opening had already been commanded open since i59. No replan boundary at i63.",
+    "fixed_observation_intervention": "At frame70, current wrist/pad readings have returned to low values. Only four out-of-range values, all at historical frame64, are clipped; proprio, images, mask, other history entries and noise448068021 remain fixed.",
+    "motion6_absmax_baseline": 2.125,
+    "motion6_absmax_impulse4_clip": 0.5078125,
+    "motion6_absmax_actuator_only_clip": 2.109375,
+    "interpretation": "A single retained impulse causally affects offline prediction through the history path six frames after its measurement; actuator-only clipping does not remove that effect. This is not proof of correct clipping behavior or real-control recovery.",
+    "temporal_support": "Same-noise motion6 absmax at f63/f64/f70/f79/f80 is0.5273/2.0938/2.125/2.0938/0.8906. Frame64 exits16-step history at f80; cross-state timing is supporting evidence, not an isolated intervention.",
+    "execution_semantics": "21 actual adapter rows reproduce within3.23e-9; no double scaling or m/mm error found in the linked local source. Target integration uses previous commanded-joint FK, not measured EEF; numerical consequence still under investigation."
+  },
+  "fk_baseline_validation": {
+    "model_geometry_validation": "Both arms across all601 recorded frames: max position error1.06449e-7m, max orientation error1.13014e-5deg; no fitted tool/alignment transform. Exact remote model byte identity remains UNKNOWN.",
+    "command_alignment": "All599 noninitial last-applied rows exactly equal previous applied command across16 columns.",
+    "i63": {
+      "baseline_z_offset_mm": -2.7588745932691783,
+      "nominal_dz_mm": -2.7451625093817715,
+      "target_relative_to_measured_dz_mm": -5.50403710265095,
+      "ik_position_residual_mm": 0.028086651439961086,
+      "next_measured_target_residual_mm": 4.679215754476855
+    },
+    "temporal_precedence": "Before first wrist/pad source-range crossing atf64, i60/61/62 targets relative to measured EEF have dz=-4.962/-6.037/-5.875mm. Left baseline dz is negative throughouti57..70, then reverses positive.",
+    "counterevidence": "Earlieri0..19 includes baseline dz as low as-12.808mm before first wrist/pad range crossing; discrepancy alone is not sufficient for that event. Source-range crossing is not the first possible contact. Later large offsets cannot establish the original onset cause.",
+    "causal_status": "Observed command-base versus measured-base target discrepancy, not a verified controller defect or collision cause. No modified target/control executed; expert command-chain comparison pending.",
+    "artifacts": [
+      "SEED17_FK_BASELINE_CPU_20261118.json",
+      "SEED17_FK_TEMPORAL_CPU_20261118.json"
+    ]
+  },
+  "replan_observational_audit": {
+    "actual_boundaries_verified": 59,
+    "actual_gripper_flips": 96,
+    "actual_boundary_flips": 21,
+    "actual_within_chunk_flips": 75,
+    "old_unexecuted_row10_new_actual_row0_disagreements": 17,
+    "i60_boundary": "No gripper flip. Actual nominal dz changes from-1.5485mm at i59 to-3.9032mm at i60; old unexecuted row10 would have nominal dz-2.0117mm. This is not an alternate executed trajectory.",
+    "causal_limit": "Recorded observation, force history and noise change together at replan. Counts reject all-flips-at-boundaries, but do not isolate observation-versus-noise causality.",
+    "artifact": "SEED17_REPLAN_DISCONTINUITY_CPU_20261118.json"
+  },
+  "collector_command_semantics": {
+    "verified_source_fact": "Recovered same_column expert also generates increments from FK(last applied commanded arm joints), then uses shared IK/command rate limiting/position servo. It uses measured EEF/velocity/contact for phase and speed feedback. This rejects a simple measured-base expert versus command-base deployment split.",
+    "remaining_question": "Training labels use realized measured EEF displacement, not expert requested delta. Delta(command_FK)=Delta(measured_EEF)+Delta(tracking_error). Shared bottom-level controller does not establish exact inverse/replay semantics.",
+    "data_limit": "Both recovered42681-row upstream NPZs lack complete arm measured-joint and commanded-joint arrays; joint_cmd is a scalar gripper command, not arm7. Cannot classify deploymenti63 tracking offset as normal expert range.",
+    "provenance_limit": "Recovered source and metadata are linked, not attested original collector/v1g byte identity.",
+    "artifact": "COLLECTOR_COMMAND_SEMANTICS_20261118.json",
+    "verified_source_sha256_count": 20
+  },
+  "next_question": "G3 with the exact sim criterion at release + pad-channel force guard; then repeat on a pre-declared third seed without seed picking.",
+  "ledger_updated_utc": "2026-11-18T08:20:00Z",
+  "v6_gpu_replan_counterfactuals": {
+    "kind": "GPU 只读前向反事实（真实 replan 边界），未执行任何控制",
+    "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+    "worker": "final_gpu_mechanism_worker_v6_20261118.py",
+    "worker_sha256": "44d732e0281b868cd231da8129002fbc73b29df7da706b5a36b6339ef445468e",
+    "jobs_completed": 33,
+    "state_basis": "seed17 录制回合的 7 个真实 replan 边界 f=10k（k=6,7,14,15,16,20,21）；观测、图像、prompt、mask 与初始噪声均保持协议值",
+    "identity_gate": {
+      "claim": "重建 normalizer + 重编码 prompt + 协议噪声下，A0 在 7 个帧上的 32x7 计划与录制 chunk_k_model_out 逐位一致",
+      "bit_equal_frames": [
+        60,
+        70,
+        140,
+        150,
+        160,
+        200,
+        210
+      ],
+      "max_abs_diff": 0.0,
+      "gripper_sign_agree": "7/7 帧均为 10/10",
+      "adapter_translation_vs_recorded_max_abs": 9e-08,
+      "f140_A0_repeat": {
+        "bit_equal": true,
+        "max_abs_diff": 0.0
+      },
+      "note": "这是本轮最强身份闸门：A0 与录制计划同源同值，后续 A0 与干预臂的差异只能来自干预"
+    },
+    "interventions": {
+      "A0": "不变",
+      "P2clip_all": "把 mask 为真的全部 16x6 力历史行裁剪到语料 per-channel min/max（原始牛顿）",
+      "P2clip_current": "只裁最新一行",
+      "P2clip_history": "裁除最新一行外的历史",
+      "P1neutral": "把归一化 proprio 的 8..13 力维置 0",
+      "P1P2": "P2clip_all + P1neutral"
+    },
+    "clip_bounds_newton": {
+      "lo": [
+        -1.408,
+        -14.268,
+        -1.38,
+        0.0,
+        0.0,
+        -1.238
+      ],
+      "hi": [
+        3.563,
+        -9.449,
+        0.454,
+        1.54,
+        1.518,
+        2.952
+      ],
+      "source": "step_040000/force_calib_v1.json per_channel_min/max；与训练语料支撑一致"
+    },
+    "plan_absmax_table_raw32": [
+      {
+        "frame": 60,
+        "A0": 1.0703125,
+        "P2clip_all": 1.0703125,
+        "P1neutral": 1.0703125,
+        "P1P2": 1.0703125,
+        "a0_vs_recorded_max_abs_diff": 0.0
+      },
+      {
+        "frame": 70,
+        "A0": 1.78125,
+        "P2clip_all": 1.046875,
+        "P1neutral": 1.78125,
+        "P1P2": 1.046875,
+        "a0_vs_recorded_max_abs_diff": 0.0
+      },
+      {
+        "frame": 140,
+        "A0": 6.75,
+        "P2clip_all": 1.0546875,
+        "P1neutral": 6.78125,
+        "P1P2": 1.0703125,
+        "P2clip_current": 5.9375,
+        "P2clip_history": 7.4375,
+        "a0_vs_recorded_max_abs_diff": 0.0
+      },
+      {
+        "frame": 150,
+        "A0": 21.25,
+        "P2clip_all": 1.03125,
+        "P1neutral": 21.125,
+        "P1P2": 1.125,
+        "a0_vs_recorded_max_abs_diff": 0.0
+      },
+      {
+        "frame": 160,
+        "A0": 30.5,
+        "P2clip_all": 1.046875,
+        "P1neutral": 31.0,
+        "P1P2": 1.1640625,
+        "a0_vs_recorded_max_abs_diff": 0.0
+      },
+      {
+        "frame": 200,
+        "A0": 26.75,
+        "P2clip_all": 1.15625,
+        "P1neutral": 27.375,
+        "P1P2": 1.1875,
+        "P2clip_current": 27.0,
+        "P2clip_history": 25.125,
+        "a0_vs_recorded_max_abs_diff": 0.0
+      },
+      {
+        "frame": 210,
+        "A0": 94.0,
+        "P2clip_all": 1.0625,
+        "P1neutral": 95.0,
+        "P1P2": 1.15625,
+        "a0_vs_recorded_max_abs_diff": 0.0
+      }
+    ],
+    "findings": [
+      "仅裁剪 P2 原始牛顿历史即可把 6.75/21.25/30.5/26.75/94.0 的饱和计划压回 1.03-1.16，即训练语料自身幅值；P1neutral 不能（仍 6.78/21.13/31.0/27.38/95.0），放大不走 P1",
+      "P2 内部不是单帧尖峰：f140 只裁当前帧仍 5.94、只裁历史 7.44，全裁才 1.05；f200 当前 27.0、历史 25.13、全裁 1.16 → 整段饱和历史共同驱动",
+      "hook 分级（输出 max-abs）：history_encoder.value f140 A0=62.75 / clip=3.28；f200 A0=450.0 / clip=4.22；inject f200 A0=412.0 / clip=11.69 → 放大从 P2 输入投影一路带到 action expert 注入",
+      "未来力预测幅值同时回落：训练支撑上限 14.3 N，A0 达 45/110/78/172 N，裁剪后 ~11.5-12.5 N",
+      "夹爪行为翻转：A0 在 f150-f210 前 10 行夹爪全 -1（保持闭合挤压），裁剪后 f200 全 +1（张开）、f160/f210 混合 → 放大不仅影响平移，也改变夹持决策",
+      "A0 前 10 步世界系平移：f150 [-0.054,-0.249,-0.161] m，裁剪后 [-0.003,+0.002,+0.027] m → 饱和计划是持续向下压的命令"
+    ],
+    "closed_loop_status": "未验证：以上全部是离线前向，未执行反事实控制；闭环下裁剪能否打断正反馈（越压越大力→计划越饱和→压得更狠）仍需单回合对照",
+    "unexplained": [
+      "P1 neutral 仍留下 0.69-5.0 的次级效应，量级小但机制未拆分",
+      "碰撞对象身份（一捆金棒）仅由左腕视觉推断，未做几何/接触对核验",
+      "原始 v1g 字节与原始 normalizer 未恢复，身份仍为重建"
+    ]
+  },
+  "v6_closed_loop_plan": {
+    "authorization_basis": "用户允许必要的有限 GPU 实验与最小修复验证；禁止项为重训、完整 160 回合批评估、无限 seed 扫描、大规模搜索",
+    "scope": "模拟器内单回合、单 seed=17；唯一改动是在 policy._infer_kwargs 之后把 force_history 的 mask-true 行裁到 per_channel_min/max；模型、权重、normalizer、pm1、Adapter、协议文件均不改",
+    "safety": "裁剪是单调有界的输入钳制，只减小条件信号幅度，动作仍由模型产生；反事实仅在仿真中执行，不接真实硬件",
+    "arms": [
+      "B0：不裁剪（身份自检：应与录制轨迹逐位一致）",
+      "CL：裁剪 P2 历史"
+    ],
+    "metrics": [
+      "前 14 chunk 的 model_out 与录制逐位一致（B0 闸门）",
+      "接触力包络/越界次数",
+      "指令 vs 实测位移 track 比",
+      "堵死段长度与是否脱困",
+      "cookies_in_target"
+    ],
+    "script": "closed_loop_p2clamp_20261118.py"
+  },
+  "v6_closed_loop_result": {
+    "claim": "Under the reconstructed normalizer the deployed seed17 episode is reproduced bit-exactly; clamping only the P2 raw-newton history to the corpus per-channel range removes the squeeze-and-saturate loop (jam 228->0 steps, peak force 446->111 N, plan 95.5->1.27) but the task still fails, now as a pinch-carry-release sequence that places no cookie.",
+    "scope": "simulator closed loop, single seed 17, same process, two arms; only policy._infer_kwargs force_history changed in the CL arm; model, weights, normalizer, pm1, Adapter, sim config and evaluation protocol untouched; no control change deployed outside simulation",
+    "identity_gate": {
+      "reference": "forensics_full_wide_out seed17 (600 steps, 60 chunks)",
+      "chunks_compared": 60,
+      "chunks_bit_equal": 60,
+      "first_divergent_chunk": null,
+      "model_out_max_abs_diff": 0.0,
+      "measured_rows_compared": 601,
+      "measured_max_abs_diff": 0.0,
+      "gate_passed": true,
+      "meaning": "B0 is the recorded failure trajectory, not merely a similar run; the reconstructed normalizer + re-encoded prompt + protocol noise are therefore deterministic and the CL arm differs only by the clip"
+    },
+    "arms": {
+      "B0": {
+        "clip": "none",
+        "wall_s": 344.54,
+        "force_absmax_N": 445.82,
+        "frames_gt_14.3N": 234,
+        "frames_gt_50N": 183,
+        "frames_gt_100N": 141,
+        "force_absmax_by_period_N": {
+          "0-100": 25.24,
+          "100-200": 332.83,
+          "200-300": 445.82,
+          "300-400": 172.9,
+          "400-500": 13.04,
+          "500-600": 10.42
+        },
+        "plan_absmax": 95.5,
+        "plan_absmax_by_10chunks": [
+          1.78125,
+          43.75,
+          95.5,
+          31.25,
+          15.0,
+          2.65625
+        ],
+        "jam_steps_cmd_gt20mm_track_lt0.3": 228,
+        "first_jam_frame": 147,
+        "jam_longest_run": 119,
+        "gripper_closed_fraction": 0.7188,
+        "eef_z_max": 1.8167,
+        "eef_z_frame_of_max": 595,
+        "eef_z_end": 1.8142,
+        "eef_z_above_1.0_frames": 155,
+        "cookies_in_target": 0,
+        "success": false
+      },
+      "CL": {
+        "clip": "P2 all mask-true rows to per_channel_min/max",
+        "wall_s": 170.67,
+        "force_absmax_N": 111.2,
+        "frames_gt_14.3N": 276,
+        "frames_gt_50N": 42,
+        "frames_gt_100N": 11,
+        "force_absmax_by_period_N": {
+          "0-100": 111.2,
+          "100-200": 102.49,
+          "200-300": 19.82,
+          "300-400": 59.49,
+          "400-500": 17.45,
+          "500-600": 11.29
+        },
+        "plan_absmax": 1.2656,
+        "plan_absmax_by_10chunks": [
+          1.078,
+          1.141,
+          1.156,
+          1.266,
+          1.055,
+          1.172
+        ],
+        "jam_steps_cmd_gt20mm_track_lt0.3": 0,
+        "first_jam_frame": null,
+        "jam_longest_run": 0,
+        "gripper_closed_fraction": 0.6406,
+        "eef_z_max": 0.92,
+        "eef_z_frame_of_max": 0,
+        "eef_z_end": 0.827,
+        "eef_z_above_1.0_frames": 0,
+        "cookies_in_target": 0,
+        "success": false
+      }
+    },
+    "deltas": {
+      "force_absmax_ratio": 0.2495,
+      "frames_gt_50N_ratio": 0.2295,
+      "frames_gt_100N_ratio": 0.078,
+      "plan_absmax_ratio": 0.01325,
+      "jam_steps_ratio": 0.0,
+      "wall_time_ratio": 0.495,
+      "first_force_divergence_frame": 12,
+      "clip_calls": 60,
+      "clip_calls_with_changes": 57
+    },
+    "per_channel_ood_z": {
+      "note": "z = (raw - calib mean)/calib std; corpus support = per_channel_min/max. Deployment values are the whole-episode extremes of the recorded B0 and the CL arm.",
+      "L_wrist_fx": {
+        "corpus_z": [
+          -1.79,
+          4.98
+        ],
+        "B0_z": [
+          -246.1,
+          436.5
+        ],
+        "CL_z": [
+          -18.2,
+          18.3
+        ],
+        "B0_frames_outside": 366,
+        "CL_frames_outside": 100
+      },
+      "L_wrist_fy": {
+        "corpus_z": [
+          -5.7,
+          2.49
+        ],
+        "B0_z": [
+          -107.6,
+          775.8
+        ],
+        "CL_z": [
+          -170.4,
+          53.8
+        ],
+        "B0_frames_outside": 474,
+        "CL_frames_outside": 88
+      },
+      "L_wrist_fz": {
+        "corpus_z": [
+          -7.43,
+          2.71
+        ],
+        "B0_z": [
+          -565.8,
+          2175.7
+        ],
+        "CL_z": [
+          -277.5,
+          87.6
+        ],
+        "B0_frames_outside": 519,
+        "CL_frames_outside": 183
+      },
+      "L_pad_inner": {
+        "corpus_z": [
+          -1.03,
+          1.23
+        ],
+        "B0_z": [
+          -1.0,
+          496.3
+        ],
+        "CL_z": [
+          -1.0,
+          52.2
+        ],
+        "B0_frames_outside": 179,
+        "CL_frames_outside": 286
+      },
+      "L_pad_outer": {
+        "corpus_z": [
+          -1.03,
+          1.18
+        ],
+        "B0_z": [
+          -1.0,
+          484.5
+        ],
+        "CL_z": [
+          -1.0,
+          58.2
+        ],
+        "B0_frames_outside": 181,
+        "CL_frames_outside": 291
+      },
+      "L_gripper": {
+        "corpus_z": [
+          -1.89,
+          1.11
+        ],
+        "B0_z": [
+          -7.4,
+          32.8
+        ],
+        "CL_z": [
+          -2.6,
+          41.6
+        ],
+        "B0_frames_outside": 253,
+        "CL_frames_outside": 349
+      }
+    },
+    "free_space_tare": {
+      "fy_mean_frames_0_60_N": -10.71,
+      "note": "L_wrist_fy carries a static tare; the whole 42681-row corpus band is [-14.27,-9.45] N, so the free-space robot already sits at about -5 sigma of that channel. The force encoder input is OOD before any contact happens."
+    },
+    "scene_geometry": {
+      "table_top_z_m": 0.75,
+      "target_bin_center_xy_m": [
+        0.095,
+        0.1
+      ],
+      "target_bin_floor_z_m": 0.753,
+      "target_bin_rim_z_m": 0.779,
+      "target_inner_half_size_m": [
+        0.063,
+        0.035
+      ],
+      "source_bin_center_xy_m": [
+        0.175,
+        0.315
+      ],
+      "source_bin_rim_z_m": 0.776,
+      "cookie_half_size_m": [
+        0.025,
+        0.0031667,
+        0.0125
+      ],
+      "cookie_row_spacing_m": 0.0088333,
+      "cookie_gap_m": 0.0025,
+      "cookie_columns": 4,
+      "slots_in_target": 10,
+      "required_cookies": 10,
+      "success_hold_steps": 20,
+      "note": "source and target are 0.21 m apart at the same height; the transfer is a short, low-clearance insertion, so eef z near 0.81 is already a valid carry height."
+    },
+    "new_failure_mode_CL": {
+      "summary": "no jam, but no placement: the arm pinches at the source, carries horizontally at z~0.81 toward the target footprint, opens, and repeats; cookies_in_target stays 0.",
+      "commanded_lift_last_200_frames_mm": {
+        "B0": {
+          "up": 1595.6,
+          "down": -323.3,
+          "net_z": 1272.3
+        },
+        "CL": {
+          "up": 91.8,
+          "down": -74.5,
+          "net_z": 17.3
+        }
+      },
+      "grasp_segments_opening_lt_0_30": {
+        "CL": [
+          {
+            "frames": [
+              197,
+              283
+            ],
+            "opening_floor": 0.175,
+            "pad_inner_mean_N": 9.24,
+            "pad_outer_mean_N": 9.19,
+            "gripper_force_mean_N": 18.1,
+            "carry_y_m": [
+              0.222,
+              0.094
+            ],
+            "eef_z_mean": 0.813,
+            "pad_inner_absmax_N": 16.49,
+            "pad_outer_absmax_N": 40.59
+          },
+          {
+            "frames": [
+              373,
+              493
+            ],
+            "opening_floor": 0.159,
+            "pad_inner_mean_N": 11.64,
+            "pad_outer_mean_N": 8.34,
+            "gripper_force_mean_N": 17.74,
+            "carry_y_m": [
+              0.304,
+              0.1
+            ],
+            "eef_z_mean": 0.815,
+            "pad_inner_absmax_N": 16.64,
+            "pad_outer_absmax_N": 15.42
+          }
+        ],
+        "B0": [
+          {
+            "frames": [
+              280,
+              297
+            ],
+            "opening_floor": 0.294,
+            "pad_inner_mean_N": 78.71,
+            "pad_outer_mean_N": 179.21,
+            "gripper_force_mean_N": 21.44,
+            "eef_z_mean": 0.747
+          },
+          {
+            "frames": [
+              333,
+              371
+            ],
+            "opening_floor": -0.016,
+            "note": "fingers fully closed, crushing"
+          },
+          {
+            "frames": [
+              479,
+              600
+            ],
+            "opening_floor": -0.016,
+            "eef_z": [
+              1.263,
+              1.814
+            ],
+            "note": "fully closed while climbing to the ceiling"
+          }
+        ]
+      },
+      "squeeze_vs_corpus": "the entire expert corpus never exceeds 1.54 N on either finger pad or 2.95 N on the gripper actuator; CL squeezes at 9-12 N mean (40 N peak) and B0 at 79-179 N mean, i.e. CL is already 6-12x the corpus pad force",
+      "first_contact_CL_f78_121": {
+        "per_channel_absmax_N": {
+          "fx": 13.44,
+          "fy": 111.2,
+          "fz": 50.24,
+          "pad_inner": 36.28,
+          "pad_outer": 35.35,
+          "gripper": 58.97
+        },
+        "cmd_sum_mm": [
+          7.7,
+          -18.6,
+          44.5
+        ],
+        "disp_sum_mm": [
+          1.2,
+          -3.4,
+          31.3
+        ],
+        "grip_cmd_mean": -0.864,
+        "read": "fingers closing while the commanded horizontal motion is blocked and the commanded lift is partly absorbed; this is the CL analogue of the B0 jam, three orders of magnitude smaller and 60 frames earlier"
+      },
+      "release_events_CL": {
+        "opening_jumps": [
+          [
+            283,
+            290
+          ],
+          [
+            493,
+            510
+          ]
+        ],
+        "eef_at_release_1": [
+          0.06,
+          0.094,
+          0.778
+        ],
+        "eef_at_release_2": [
+          0.04,
+          0.1,
+          0.819
+        ],
+        "note": "both releases are inside the target-bin footprint at rim height; no cookie is counted, so either nothing was held or the plates were lost before settling"
+      }
+    },
+    "verified": [
+      "The reconstructed pipeline reproduces the recorded seed17 600-step episode bit-exactly (60/60 chunks, 601/601 measured rows), so a single-input counterfactual is well defined.",
+      "Unbounded P2 history is a dominant cause of the action saturation and the crash-jam: with only that input clipped, the plan amplitude returns to the corpus range and jam steps go to 0.",
+      "The physical forces remain far outside the corpus support in both arms; clipping the policy input does not clip the simulator contact.",
+      "After clipping, the policy still fails, and fails differently: it never places a cookie."
+    ],
+    "unverified": [
+      "Whether the CL gripper actually held cookie plates during the two carries; v2 did not log cookie body positions, so the 0 is unexplained by object state.",
+      "Whether the CL failure mode is systematic across seeds or an artefact of the f12 chaos divergence of this one rollout.",
+      "The source of the 6-12x over-squeeze: not established whether it is the force conditioning, the gripper command head, or the state being off-distribution.",
+      "Original normalizer/v1g bytes remain unrecovered (identity marker unchanged)."
+    ],
+    "artifacts_sha256": {
+      "closed_loop_p2clamp_20261118_v2/B0.npz": "1e1af340daf8e023d088a766ef961a58263d153967e3995a643005eda72979ed",
+      "closed_loop_p2clamp_20261118_v2/CL.npz": "5f7a55312fcdfd4033026e407bb6f2644f7b703e42fbb36df0c95f250b776025",
+      "closed_loop_p2clamp_20261118_v2/analysis_closed_loop.json": "f7db7dcb34348e99aa360fe203662fcf1e485e18bb457917e4921f70371db837",
+      "closed_loop_p2clamp_20261118_v2/analysis_failure_mode.json": "e91372279a208499f7ba77f5914e219e8e1d969740b2a5d948764a306eb521dc",
+      "closed_loop_p2clamp_20261118.py": "f37d7bf0fe8367bd76e9e361fe237407653d766b46d034fa0270735455479315",
+      "analyze_closed_loop.py": "e466888e91404c8a88bcfc51655b505d749a2957a450de51c968f3f59ad8612c",
+      "analyze_closed_loop_failure_mode.py": "26583253626396df7fd5afadd8758a5dbcd885e809ff77aa2541018f1665309b"
+    },
+    "caveats": [
+      "Single seed, single episode, simulator only; no claim of deployment safety or success.",
+      "Chaos: a clip of a few newtons at f12 changes the trajectory; the mechanism claim rests on the structural argument (bounded history cannot re-enter the saturation loop) plus the aggregate force/jam contrast, not on frame-wise causality after divergence."
+    ]
+  },
+  "gripper_supervision_and_generation_20261118": {
+    "claim": "Action dim 7 is not a command but a label derived from the measured opening, so the supervision itself toggles sign 3-8 times per 32-frame window at grasp/release states; the policy reproduces that propensity at matched states and only exceeds it where it extrapolates. The sampler is not the cause: 50 Euler steps keep the chatter and the pattern can be bit-identical across noise seeds at some states.",
+    "training_data_identity": "CANDIDATE_RECONSTRUCTED_TRAINING_DATA",
+    "training_data_note": "arrays.npz sha256 b5468c274cc5eede761242478750e13e0a58529dba9b5400ccd2872f7f9fc7f0; the calibration file records the original corpus sha256 942164b7... but that file was not recovered, so byte identity with the historical training data cannot be claimed.",
+    "source_chain": {
+      "run_config": "step_040000/run_config.yaml: data.train._target_ = A3VideoDataset, dataset_dirs=/workspace/a3_data/a3_fw_v1g, num_frames=33, action 7 / state 14, processor.delta_action_dim_mask=[T,T,T,T,T,T,F] (gripper not delta), norm min/max, model.loss.lambda_action=1.0, lambda_force=1.0",
+      "label_construction": "finetune/prepare_a3_arrays.py lines 94-107: op=state[:,7]; d=diff(op); GRIP_EPS=1e-4; d<-eps -> +1 (closing), d>+eps -> -1 (opening), |d|<=eps -> hold previous; g[L-1]=g[L-2]; act[a+L-1]=act[a+L-2]. joint_cmd=action[:,7] is stored but NOT used for the label.",
+      "temporal_alignment": "robot_video_dataset.py _get: action is [T-1, 7] and proprio is proprio[:-1], so row t pairs the action taken at state t; the label at t already uses opening[t+1]-opening[t] (one-step lookahead).",
+      "loss": "fastwam.py training_loss: action_loss_token = mse(pred,target).mean(dim=2) over all 7 dims equally, masked only by action_is_pad over time; no per-dim weight, no temporal-difference or consistency term.",
+      "sampler": "fastwam.py infer_action: latents_action = randn(1, horizon=32, 7) (iid across rows and dims), 10-step schedule, shift 5; scheduler_continuous.py step is plain Euler; the last step covers sigma 0.357 -> 0.",
+      "action_expert": "sparse_action_dit.py: action_encoder = Linear(7, hidden), RoPE freqs 0..31, head = Linear(hidden, 7); no per-dimension special casing anywhere."
+    },
+    "corpus_statistics": {
+      "rows": 42681,
+      "episodes": 100,
+      "ep_len_mean": 426.8,
+      "label_plus1_fraction": 0.6621,
+      "rule_reproduction_mismatch": "0 / 42681",
+      "flips_per_episode": {
+        "mean": 18.92,
+        "median": 19,
+        "min": 15,
+        "max": 23
+      },
+      "label_run_length_frames": {
+        "p50": 5,
+        "p90": 73.8,
+        "p99": 140
+      },
+      "flip_d_opening": {
+        "p50": 0.000549,
+        "p90": 0.0628,
+        "frac_lt_1e-3": 0.5687,
+        "frac_lt_1e-2": 0.7828
+      },
+      "windows_32": {
+        "n": 39481,
+        "mean_flips": 1.2135,
+        "p_any": 0.4817,
+        "p_constant": 0.5183,
+        "classes": {
+          "constant": 0.5183,
+          "single_step": 0.2337,
+          "multi_step": 0.2213,
+          "alternating": 0.0267
+        },
+        "max_flips": 10,
+        "p99_flips": 8,
+        "frac_ge_6": 0.0537
+      },
+      "window_10": {
+        "mean_flips_of_9": 0.3909,
+        "p_any": 0.211
+      }
+    },
+    "generation_statistics_seed17_60chunks": {
+      "mean_flips_32": 3.7333,
+      "mean_flips_first10": 1.25,
+      "p_constant_32": 0.55,
+      "classes": {
+        "constant": 0.55,
+        "single_step": 0.05,
+        "multi_step": 0.35,
+        "alternating": 0.05
+      },
+      "replan_boundary_flip_rate": 0.3559,
+      "within_chunk_row_flip_rate": "0.083-0.200",
+      "flip_decision_margin": {
+        "n": 224,
+        "p50": 0.359,
+        "frac_lt_0.2": 0.411,
+        "frac_gt_0.8": 0.371
+      },
+      "position_structure": {
+        "mod4_mean_spread": 0.129,
+        "global_std": 23.12,
+        "mod4_boundary_flip_rate": 0.138,
+        "mod4_elsewhere": 0.115,
+        "conclusion": "no per-4-row grouping or RoPE index artefact"
+      }
+    },
+    "state_sweep_9states_5seeds": {
+      "note": "offline single-action inference at recorded replan states; protocol seed plus 1001-1004; flip counts are per 32-row plan",
+      "rows": [
+        {
+          "frame": 0,
+          "model_flips": [
+            7,
+            5,
+            5,
+            5,
+            7
+          ],
+          "knn20_label_flips": 4.75,
+          "label_const_frac": 0.0,
+          "nn_dist": 0.0,
+          "eef_z": 0.92,
+          "force_sigma": 1.0,
+          "opening": 1.0
+        },
+        {
+          "frame": 30,
+          "model_flips": [
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "knn20_label_flips": 3.05,
+          "label_const_frac": 0.0,
+          "nn_dist": 0.32,
+          "eef_z": 0.838,
+          "force_sigma": 1.0,
+          "opening": 0.852
+        },
+        {
+          "frame": 50,
+          "model_flips": [
+            4,
+            10,
+            5,
+            1,
+            4
+          ],
+          "knn20_label_flips": 3.55,
+          "label_const_frac": 0.0,
+          "nn_dist": 1.54,
+          "eef_z": 0.794,
+          "force_sigma": 1.0,
+          "opening": 1.0
+        },
+        {
+          "frame": 80,
+          "model_flips": [
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "knn20_label_flips": 0.0,
+          "label_const_frac": 1.0,
+          "nn_dist": 0.75,
+          "eef_z": 0.813,
+          "force_sigma": 3.7,
+          "opening": 0.187
+        },
+        {
+          "frame": 110,
+          "model_flips": [
+            6,
+            4,
+            4,
+            5,
+            2
+          ],
+          "knn20_label_flips": 3.25,
+          "label_const_frac": 0.0,
+          "nn_dist": 0.61,
+          "eef_z": 0.826,
+          "force_sigma": 4.3,
+          "opening": 1.002
+        },
+        {
+          "frame": 140,
+          "model_flips": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "knn20_label_flips": 0.25,
+          "label_const_frac": 0.75,
+          "nn_dist": 0.1,
+          "eef_z": 0.763,
+          "force_sigma": 55.2,
+          "opening": 0.451
+        },
+        {
+          "frame": 200,
+          "model_flips": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "knn20_label_flips": 0.0,
+          "label_const_frac": 1.0,
+          "nn_dist": 0.79,
+          "eef_z": 0.74,
+          "force_sigma": 290.5,
+          "opening": 0.468
+        },
+        {
+          "frame": 300,
+          "model_flips": [
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          "knn20_label_flips": 0.0,
+          "label_const_frac": 1.0,
+          "nn_dist": 6.46,
+          "eef_z": 0.785,
+          "force_sigma": 280.0,
+          "opening": 0.303
+        },
+        {
+          "frame": 440,
+          "model_flips": [
+            10,
+            12,
+            17,
+            19,
+            13
+          ],
+          "knn20_label_flips": 7.25,
+          "label_const_frac": 0.0,
+          "nn_dist": 4.79,
+          "eef_z": 0.964,
+          "force_sigma": 17.5,
+          "opening": 0.522
+        }
+      ],
+      "reading": "the model tracks the matched-state label flip propensity within 1.3x at in-distribution states (f0 5.8 vs 4.75, f30 3.0 vs 3.05, f110 4.2 vs 3.25), is quiet where the labels are constant (f80/f140/f200/f300), and exceeds the labels 2x only at f440, the post-jam pose at the target bin (nn distance 4.8)",
+      "corr_flips_vs_eef_z": 0.879,
+      "corr_flips_vs_force_sigma": -0.444,
+      "note_on_correlation": "the z correlation is carried almost entirely by the single f440 point; f200 sits at 290 sigma with zero chatter, so chatter does not track OOD by itself"
+    },
+    "gpu_controls": {
+      "gate": "f440 and f80 protocol-noise jobs reproduce recorded chunks 44 and 8 bit-exactly (max_abs_diff 0.0)",
+      "steps_50_same_noise": {
+        "f440": {
+          "flips_10steps": 10,
+          "flips_50steps": 14,
+          "sign10_equal": true
+        },
+        "f80": {
+          "flips_10steps": 0,
+          "flips_50steps": 0,
+          "sign10_equal": true
+        }
+      },
+      "seed_spread_f440_10steps": [
+        12,
+        17,
+        19,
+        13
+      ],
+      "seed_spread_f440_sign10": [
+        "+-+++++--+",
+        "+---++-+--",
+        "+---++-+--",
+        "+--+-----+"
+      ],
+      "per_row_agreement_with_protocol_seed": 0.5,
+      "verdict": "M1 (Euler discretisation) rejected; the per-seed sign pattern changes but every seed stays chattery, so the chatter is a property of the conditional distribution at that state, not of one noise draw"
+    },
+    "direct_exhibit_f50_nearest_demo_window": {
+      "opening_head": [
+        0.99981,
+        1.00016,
+        0.99975,
+        0.91002,
+        0.8252,
+        0.74749
+      ],
+      "d_opening_head": [
+        0.000354,
+        -0.00041,
+        -0.089737,
+        -0.084812,
+        -0.077718,
+        -0.080185
+      ],
+      "label_head": "-+++++...",
+      "joint_cmd_head": [
+        1.0,
+        1.0,
+        0.92,
+        0.84,
+        0.76,
+        0.68
+      ],
+      "read": "the first two frames differ by 4e-4 in opening (0.04% of the aperture) and already flip the label; after the close completes, settling jitter of 1e-4..1e-2 produces four more flips while joint_cmd stays constant at 0.4486"
+    },
+    "conclusions": {
+      "root_of_gripper_chatter": "label construction: hard sign of the measured-opening first difference with a 1e-4 deadband, no hysteresis, one-step lookahead; 57% of all label flips come from |d opening| < 1e-3 and the expert command itself is smooth",
+      "policy_behaviour": "the model reproduces the label flip propensity at matched states, and adds a factor ~2 only where the pose leaves the demo support (f440, nn distance 4.8)",
+      "not_the_cause": "sampler discretisation (50 steps), per-row noise (deterministic at some states), action-token indexing or grouping (no mod-4 structure), and a gripper-specific code path (dim 7 uses the same DiT and MSE as dims 0-5)",
+      "open": "whether the executed chatter (a 50 ms open pulse inside a grasp) is what makes the plates leave the source bin yet never settle in the target; the closed-loop fix test is running"
+    },
+    "post_process_offline": {
+      "median_k5": {
+        "mean_flips_32": 1.1333,
+        "mean_flips_first10": 0.3167,
+        "executed_majority_intent_changes": 2
+      },
+      "hysteresis": {
+        "h0.2": 2.5167,
+        "h0.8": 1.5833,
+        "h0.95": 1.4667
+      },
+      "note": "median k=5 brings the model back to the supervision rate; hysteresis alone cannot remove confident alternation (37% of flips have a margin above 0.8)"
+    },
+    "artifacts": {
+      "GRIPPER_SUPERVISION_VS_GENERATION.json": "corpus vs model statistics",
+      "GRIPPER_MATCHED_PHASE.json": "pattern classes, phase matching, per-chunk listing",
+      "GRIPPER_MARGIN_HYSTERESIS.json": "flip margins and hysteresis sweep",
+      "GRIPPER_STRUCTURE.json": "mod-4/mod-8 structure and median filter",
+      "GRIPPER_STATE_MATCHED.json": "nearest-neighbour and kNN-20 label comparison",
+      "gpu_gripper_mechanism_20261118/": "steps-50 and noise-seed controls with bit-exact gates",
+      "gpu_gripper_state_sweep_20261118/": "9 states x 5 seeds sweep"
+    }
+  },
+  "gripper_fix_closed_loop_20261118": {
+    "claim": "A deployment-side temporal filter on the predicted gripper reduces executed chatter by about half (M5) or a fifth (H8) and removes the one-step open/close pulses, but it does not put a single plate in the bin and, in this seed, the filtered rollouts reach much higher contact forces. The chatter is therefore real but not the binding failure.",
+    "scope": "simulator, seed 17, one process per arm, only the predicted dim 7 post-processed inside the run; model, weights, normalizer, pm1, Adapter and protocol untouched",
+    "gate": "the CL arm reproduces closed_loop_p2clamp_20261118_v2/CL.npz bit-exactly on eef pose, force and opening (max_abs_diff 0.0)",
+    "arms": {
+      "CL": {
+        "executed_grip_flips": 77,
+        "one_step_close_pulses": 20,
+        "short_close_pulses_le2": 20,
+        "close_runs_ge10_followed_by_open": 3,
+        "force_absmax_N": 111.2,
+        "cookies_in_source_final": 69,
+        "cookies_in_target": 0
+      },
+      "M5": {
+        "executed_grip_flips": 37,
+        "one_step_close_pulses": 1,
+        "short_close_pulses_le2": 1,
+        "close_runs_ge10_followed_by_open": 7,
+        "force_absmax_N": 1533.2,
+        "cookies_in_source_final": 73,
+        "cookies_in_target": 0
+      },
+      "H8": {
+        "executed_grip_flips": 63,
+        "one_step_close_pulses": 6,
+        "short_close_pulses_le2": 6,
+        "close_runs_ge10_followed_by_open": 8,
+        "force_absmax_N": 1398.7,
+        "cookies_in_source_final": 79,
+        "cookies_in_target": 0
+      }
+    },
+    "interpretation": "flips 77->37 (M5) and 77->63 (H8) with releases preserved or increased, so the filter does not suppress real open/close events; the force increase and the zero placement are single-seed outcomes and are being repeated on seeds 11 and 21 before any claim is made",
+    "multi_seed_M5": {
+      "seed17": {
+        "CL_flips": 77,
+        "M5_flips": 37,
+        "CL_short_pulses": 20,
+        "M5_short_pulses": 1,
+        "CL_force_absmax_N": 111.2,
+        "M5_force_absmax_N": 1533.2
+      },
+      "seed11": {
+        "CL_flips": 69,
+        "M5_flips": 49,
+        "CL_short_pulses": 15,
+        "M5_short_pulses": 2,
+        "CL_force_absmax_N": 1522.4,
+        "M5_force_absmax_N": 82.3
+      },
+      "seed21": {
+        "CL_flips": 65,
+        "M5_flips": 49,
+        "CL_short_pulses": 17,
+        "M5_short_pulses": 2,
+        "CL_force_absmax_N": 72.3,
+        "M5_force_absmax_N": 1280.5
+      },
+      "reading": "M5 halves the executed chatter and removes 90%+ of the one-step pulses on all three seeds and never reduces the number of genuine releases; the >1 kN single-frame force spikes appear in both arms (CL s11 1522 N, M5 s17 1533 N, M5 s21 1280 N), so they are state-draw dependent, not a side effect of the filter. cookies_in_target stays 0 everywhere."
+    }
+  },
+  "cookie_transport_outcome_20261118": {
+    "claim": "In every arm the policy does grasp, lift and carry plates toward the bin; the plates come to rest at bin-floor height inside the outer bin footprint, yet the sim's in-target test (inner footprint + bottom on the floor) never passes. The exact failing component is not yet established because cookie rotations were not logged.",
+    "geometry": {
+      "target_centre_xy": [
+        0.095,
+        0.1
+      ],
+      "target_outer_half": [
+        0.063,
+        0.035
+      ],
+      "slot_band": "x +/-0.028, y +/-0.01267",
+      "floor_world_z": 0.7575,
+      "resting_plate_centre_z": 0.77,
+      "rim_z": 0.779
+    },
+    "arms": {
+      "CL_s17": {
+        "cookies_moved_gt_20mm": 13,
+        "moved_gt_50mm": 13,
+        "max_disp_mm": 245,
+        "lifted_gt_20mm": 13,
+        "final_in_outer_footprint": 3
+      },
+      "CL_s11": {
+        "cookies_moved_gt_20mm": 16,
+        "moved_gt_50mm": 16,
+        "max_disp_mm": 1073,
+        "lifted_gt_20mm": 8,
+        "final_in_outer_footprint": 0
+      },
+      "CL_s21": {
+        "cookies_moved_gt_20mm": 15,
+        "moved_gt_50mm": 9,
+        "max_disp_mm": 183,
+        "lifted_gt_20mm": 9,
+        "final_in_outer_footprint": 7
+      },
+      "M5_s17": {
+        "cookies_moved_gt_20mm": 15,
+        "moved_gt_50mm": 7,
+        "max_disp_mm": 215,
+        "lifted_gt_20mm": 7,
+        "final_in_outer_footprint": 2
+      }
+    },
+    "plate_positions_that_should_have_counted": {
+      "CL_s21": [
+        [
+          0.0555,
+          0.0668,
+          0.7682
+        ],
+        [
+          0.0552,
+          0.0738,
+          0.7682
+        ],
+        [
+          0.055,
+          0.0805,
+          0.7682
+        ],
+        [
+          0.0561,
+          0.0882,
+          0.7711
+        ],
+        [
+          0.0558,
+          0.0999,
+          0.7748
+        ],
+        [
+          0.0707,
+          0.0991,
+          0.7871
+        ],
+        [
+          0.0703,
+          0.1159,
+          0.7882
+        ]
+      ],
+      "note": "all at resting height (0.768-0.788) but x ~0.055, i.e. 40 mm to the -x side of the bin centre; a 50 mm plate there spans x 0.030-0.080 while the inner region starts near x 0.057, so the stack straddles the near wall"
+    },
+    "expert_release_reference": {
+      "n_events": 414,
+      "dx_from_centre_mm": {
+        "p10": -30.3,
+        "p50": -4.6,
+        "p90": 12.0
+      },
+      "dy_from_centre_mm": {
+        "p10": -0.8,
+        "p50": 97.3,
+        "p90": 194.7
+      },
+      "z": {
+        "p10": 0.7647,
+        "p50": 0.7656,
+        "p90": 0.848
+      },
+      "note": "about half of the label-defined releases happen back at the source (return release), so dy is bimodal; the releases at the bin sit within a few mm of the centre in x"
+    },
+    "policy_release_positions": {
+      "CL_s21": {
+        "release_offsets_mm": [
+          151.9,
+          27.6,
+          24.0,
+          145.3
+        ]
+      },
+      "M5_s17": {
+        "release_offsets_mm": [
+          135.9,
+          149.1,
+          27.7,
+          163.2,
+          39.3,
+          228.6,
+          225.9
+        ]
+      },
+      "reading": "the policy does release near the bin on some events (24-39 mm) but lands the stack about 40 mm to the -x side, i.e. at the near wall rather than in the slots"
+    },
+    "conclusion": "the binding failure after the force fix is transport/release precision, not gripper chatter; the next measurement must log cookie orientation and the sim's per-cookie in_target decomposition",
+    "correction": "An earlier reading of a systematic -40 mm x bias is withdrawn: the expert itself carries through the bin band at x p10/50/90 = 0.060/0.073/0.126 with the gripper closed (12318 corpus frames), so the model at x 0.061-0.068 is inside the expert range. The remaining difference is release geometry/orientation, not a frame offset.",
+    "arms_detail_note": "final_in_outer_footprint counts plates whose final xy lies within the OUTER half size; it is not the sim criterion and does not imply in_target"
+  },
+  "placement_decomposition_20261118": {
+    "arm": "P2clamp CL, seed 17, cookie orientations logged every step",
+    "constants_from_env": {
+      "inner_half_xy": [
+        0.057,
+        0.029
+      ],
+      "tol": 0.004,
+      "floor_top": 0.006,
+      "wall_height": 0.026,
+      "cookie_half": [
+        0.025,
+        0.003167,
+        0.0125
+      ]
+    },
+    "counts_at_final_state": {
+      "footprint_inside": 0,
+      "vertically_inside": 75,
+      "released": 77,
+      "in_target_test": 0,
+      "total_cookies": 80
+    },
+    "best_near_miss": {
+      "cookie": 4,
+      "p_rel_mm_xy": [
+        -39.0,
+        -17.8
+      ],
+      "z_above_bin_floor_m": 0.0297,
+      "x_violation_mm": 5.8,
+      "y_margin_mm": -5.1,
+      "vertically_inside": true,
+      "resting_centre_z_m": 0.0185,
+      "note": "5.8 mm too wide in x and still about 11 mm above the resting height; the sim requires inner footprint AND bottom on the floor"
+    },
+    "conclusion": "the binding failure is centimetre-scale placement precision: 75 of 80 plates end at bin-floor height and 77 are released, but none fits the inner footprint"
+  },
+  "success_criterion_validation_20261118": {
+    "claim": "The task success criterion is correct and achievable: writing the 10 cookies into the 10 target slots (bottom on the bin floor, upright) makes the env return target_count=10, source_count=70, occupancy 0..9, touches_all_walls=True and exact_fill=True, and the state survives 60 physics steps.",
+    "method": "cookie free-joint qpos written directly, mj_forward, then the env's own predicates; no policy, no criterion change",
+    "constants": {
+      "inner_half_xy": [
+        0.057,
+        0.029
+      ],
+      "tolerance": 0.004,
+      "floor_top_local": 0.006,
+      "wall_height": 0.026,
+      "cookie_half": [
+        0.025,
+        0.003167,
+        0.0125
+      ],
+      "required_cookies": 10,
+      "success_hold_steps": 20
+    },
+    "result": {
+      "immediately_after_write": {
+        "target": 10,
+        "source": 70,
+        "exact_fill": true
+      },
+      "after_60_steps": {
+        "target": 10,
+        "source": 70,
+        "exact_fill": true
+      }
+    },
+    "artifact": "ORACLE_PLACEMENT.json"
+  },
+  "placement_failure_taxonomy_20261118": {
+    "arm_categories": {
+      "CL_s17": {
+        "landed_outside": 11,
+        "in_footprint_but_high": 1,
+        "pass_approx": 1,
+        "never_moved": 67
+      },
+      "CL_s11": {
+        "landed_outside": 16,
+        "never_moved": 64
+      },
+      "CL_s21": {
+        "landed_outside": 13,
+        "in_footprint_but_high": 2,
+        "never_moved": 65
+      },
+      "M5_s17": {
+        "landed_outside": 14,
+        "pass_approx": 1,
+        "never_moved": 65
+      },
+      "M5_s11": {
+        "landed_outside": 3,
+        "pass_approx": 4,
+        "never_moved": 73
+      },
+      "H8_s17": {
+        "landed_outside": 8,
+        "never_moved": 72
+      }
+    },
+    "signed_margins_of_landed_outside": {
+      "CL_s17": {
+        "x_med_mm": 19.7,
+        "y_med_mm": -39.5
+      },
+      "CL_s21": {
+        "x_med_mm": 19.9,
+        "y_med_mm": -121.4
+      },
+      "CL_s11": {
+        "x_med_mm": 33.5,
+        "y_med_mm": -93.1
+      },
+      "M5_s17": {
+        "x_med_mm": 31.1,
+        "y_med_mm": -174.3
+      },
+      "H8_s17": {
+        "x_med_mm": 33.0,
+        "y_med_mm": -113.5
+      }
+    },
+    "reading": "most dropped plates are short in +y (40-175 mm) i.e. released before the transport completes; the few that reach the bin are within +2 to +26 mm of the horizontal criterion. The earlier single \"5.8 mm\" figure was one plate, not the population.",
+    "carry_mode": {
+      "CL_s17": {
+        "released_open": 7,
+        "slip_closed": 6
+      },
+      "CL_s21": {
+        "released_open": 9,
+        "slip_closed": 6
+      },
+      "M5_s17": {
+        "released_open": 13,
+        "slip_closed": 1
+      },
+      "M5_s11": {
+        "released_open": 1,
+        "slip_closed": 6
+      },
+      "M5_s21": {
+        "released_open": 7,
+        "slip_closed": 5
+      },
+      "H8_s17": {
+        "released_open": 4,
+        "slip_closed": 4
+      }
+    },
+    "carry_mode_reading": "about half of the moved plates leave the gripper while the command is still closed (slip); the median release offset from the bin centre for explicit releases ranges from 21 mm (CL_s21) to 220 mm (M5_s17) across arms",
+    "release_attitude": {
+      "CL_s17_deg": 4.6,
+      "CL_s21_deg": 12.4,
+      "CL_s11_deg": 10.9,
+      "M5_s17_deg": 8.8,
+      "H8_deg": 15.7,
+      "note": "geodesic angle to the closest expert release rotation; not the dominant error"
+    },
+    "artifacts": [
+      "COOKIE_EVENTS.json",
+      "CARRY_MODE.json",
+      "RELEASE_ATTITUDE.json"
+    ]
+  },
+  "placement_counterfactual_v1_20261118": {
+    "design": "restore the real final state of CL seed17, apply C (settle only), A (xy to slots), B (bottom on floor), D (both), 60 physics steps each",
+    "result": {
+      "baseline": {
+        "before": 0,
+        "after": 0
+      },
+      "C": {
+        "before": 2,
+        "after": 0
+      },
+      "A": {
+        "before": 5,
+        "after": 0
+      },
+      "B": {
+        "before": 2,
+        "after": 0
+      },
+      "D": {
+        "before": 13,
+        "after": 2
+      }
+    },
+    "caveat": "v1 assigned 13 moved cookies onto 10 slots with duplicates, so D produced overlapping plates and scattered; A left the plates 2-3 cm above the floor and they bounced out. The distinct-slot rerun (v2) is the valid comparison.",
+    "conclusion_provisional": "height alone is insufficient (B), horizontal alone does not survive the drop (A), both together need distinct slots to be interpretable"
+  },
+  "placement_counterfactual_v2_20261118": {
+    "design": "real final state of CL seed17; the 13 moved cookies mapped greedily onto distinct nearest slots (only 3 distinct slots available among them); C settle-only, A xy-to-slot, B bottom-on-floor, D both; 60 physics steps each; restore drift verified 0",
+    "slot_assignment": {
+      "3": 9,
+      "4": 0,
+      "5": 8
+    },
+    "result": {
+      "C": {
+        "before": 1,
+        "after": 0
+      },
+      "A": {
+        "before": 2,
+        "after": 0
+      },
+      "B": {
+        "before": 1,
+        "after": 0
+      },
+      "D": {
+        "before": 3,
+        "after": 1,
+        "ids_after": [
+          3
+        ]
+      }
+    },
+    "confound": "the arm ends inside the bin region (EEF z around 0.83 above the bin), so plates written into the slots below the gripper collide with the fingers during the settle. The clean criterion test is the oracle run (arm parked at the reset pose), where 10 ideal placements stay exact_fill for 60 steps. A clean correction test must retract the arm first.",
+    "bin_stability": "target bin is a free joint body but moves only 1.4 mm over the whole episode (reset 0.095,0.100,0.74978 -> final 0.09468,0.09862,0.74973), so the criterion frame is not drifting",
+    "verdict_provisional": "height alone is not sufficient; horizontal correction is necessary; the post-release dynamics inside the bin need the arm-out-of-the-way test"
+  },
+  "placement_oracle_ABCDE_20261118": {
+    "scope": "oracle counterfactual on the real CL seed17 final state (qpos/qvel from placement_counterfactual_20261118_v2/final_state.npz); bodies moved directly, NOT policy execution",
+    "variants": {
+      "A original final state": {
+        "t0": {
+          "tc": 0,
+          "sc": 69,
+          "exact": false,
+          "max_cookie_contact_N": 305.34
+        },
+        "t20": {
+          "tc": 0
+        },
+        "t60": {
+          "tc": 0
+        }
+      },
+      "B arm retracted only": {
+        "t0": {
+          "tc": 0,
+          "sc": 69,
+          "exact": false
+        },
+        "t20": {
+          "tc": 0
+        },
+        "t60": {
+          "tc": 0
+        }
+      },
+      "C 10 cookies into distinct slots, arm untouched": {
+        "t0": {
+          "tc": 10,
+          "sc": 69,
+          "exact": false,
+          "occupancy": [
+            4,
+            6,
+            11,
+            3,
+            12,
+            0,
+            7,
+            1,
+            5,
+            2
+          ],
+          "max_cookie_contact_N": 1.78,
+          "penetration_mm": -0.08
+        },
+        "t20": {
+          "tc": 10,
+          "exact": false
+        },
+        "t60": {
+          "tc": 10,
+          "exact": false
+        }
+      },
+      "D C plus arm retraction": {
+        "t0": {
+          "tc": 10,
+          "sc": 69
+        },
+        "t20": {
+          "tc": 10
+        },
+        "t60": {
+          "tc": 10
+        },
+        "note": "identical to C: the arm left in place does not disturb the placed plates"
+      },
+      "E C plus returning the one stray plate to its source position": {
+        "t0": {
+          "tc": 10,
+          "sc": 70,
+          "exact": true,
+          "max_cookie_contact_N": 1.78
+        },
+        "t20": {
+          "tc": 10,
+          "sc": 70,
+          "exact": true
+        },
+        "t60": {
+          "tc": 10,
+          "sc": 70,
+          "exact": true
+        }
+      }
+    },
+    "slot_assignment": "global linear_sum_assignment between the 13 moved cookies and the 10 slots, 10 distinct slots used",
+    "key_findings": [
+      "arm interference is ruled out: C equals D at t0/20/60",
+      "height or horizontal correction alone is not enough, both together place 10 plates and they stay",
+      "the only reason C/D fail exact_fill is source_count 69 instead of 70: one plate was lost outside both bins",
+      "returning that single stray plate to the source makes strict exact_fill true for the full 20-step hold window",
+      "the criterion is therefore satisfiable from the real failure state with a finite correction; it is not an impossible task"
+    ],
+    "artifact": "PLACEMENT_ORACLE_ABCD.json"
+  },
+  "slip_physics_verification_20261118": {
+    "method": "per let-go event, read the six calibrated force channels: pad_inner/pad_outer load in the 10 frames before, pad collapse in the 5 frames after, wrist force magnitude before/at the event; thresholds pad_loaded 1.0 N, pad_collapse 0.3 N, collision 50 N or 5x the pre window",
+    "classes": [
+      "released_open",
+      "confirmed_slip",
+      "collision_detach",
+      "never_grasped",
+      "slip_unconfirmed"
+    ],
+    "counts": {
+      "CL_s17": {
+        "released_open": 7,
+        "confirmed_slip": 1,
+        "slip_unconfirmed": 5
+      },
+      "CL_s21": {
+        "released_open": 9,
+        "slip_unconfirmed": 6
+      },
+      "M5_s17": {
+        "released_open": 13,
+        "slip_unconfirmed": 1
+      },
+      "M5_s11": {
+        "released_open": 1,
+        "never_grasped": 3,
+        "slip_unconfirmed": 3
+      },
+      "M5_s21": {
+        "released_open": 7,
+        "confirmed_slip": 1,
+        "never_grasped": 2,
+        "slip_unconfirmed": 2
+      },
+      "H8_s17": {
+        "released_open": 4,
+        "slip_unconfirmed": 4
+      }
+    },
+    "correction_of_earlier_claim": "the earlier \"about half of the moved plates slip while the command is closed\" was based on EEF proximity alone. With pad-force evidence only 1-2 events per arm are confirmed physical slips; several \"carried\" plates never loaded the pads at all (dragged, not clamped). Intentional opens remain the dominant mode.",
+    "artifact": "SLIP_PHYSICS.json"
+  },
+  "release_gate_G_20261118": {
+    "design": "P2-clamped arm plus one rule: whenever the model commands open while the EEF is outside |x-0.095|<=0.045, |y-0.100|<=0.045, z<=0.80, the command is replaced by close; 40-step continuous-gating cap and 150 N wrist-force suspension",
+    "results": {
+      "seed17": {
+        "wall_s": 136.45,
+        "gated_rows": 1237,
+        "gated_installments": 40,
+        "force_suspensions": 1,
+        "executed_flips": 43,
+        "force_absmax_N": 241.5,
+        "cookies_in_target": 0,
+        "cookies_in_source_final": 80,
+        "frames_inside_window": 0
+      },
+      "seed21": {
+        "wall_s": 137.11,
+        "gated_rows": 1491,
+        "gated_installments": 49,
+        "force_suspensions": 0,
+        "executed_flips": 37,
+        "force_absmax_N": 164.7,
+        "cookies_in_target": 0,
+        "cookies_in_source_final": 80,
+        "frames_inside_window": 0
+      }
+    },
+    "closest_approach_under_gate": {
+      "seed17_min_dxy_mm": 78.2,
+      "seed21_min_dxy_mm": 75.4,
+      "z_min": [
+        0.741,
+        0.752
+      ],
+      "frames_z_le_0.80": [
+        381,
+        373
+      ]
+    },
+    "verdict": "falsified in this form. The gate also fires during the approach, so the fingers are forced closed before the grasp; no plate ever leaves the source (source count stays 80) and the EEF never comes closer than 75-78 mm to the bin centre. It is not evidence that release gating cannot work, only that the gate must be conditioned on an actual grasp.",
+    "next_design": "carry-only gate: apply the open-block only while a plate is actually held, i.e. gripper commanded closed AND pad force > 1 N AND measured opening < 0.6; pass through otherwise; same window and protection."
+  },
+  "early_release_vs_trajectory_20261118": {
+    "question": "is the policy releasing early on a correct transport, or never generating a bin-reaching endpoint?",
+    "method": "for each arm take the first open command that follows a closed run >=10 steps (a real release), then measure the minimum EEF distance to the bin centre over the rest of the episode and over the whole episode",
+    "results": {
+      "CL_s17": {
+        "first_real_release_frame": 117,
+        "min_dist_after_release_mm": 25.5,
+        "frame": 302,
+        "global_min_mm": 25.5,
+        "end_mm": 303.0
+      },
+      "CL_s21": {
+        "first_real_release_frame": 10,
+        "min_dist_after_release_mm": 19.1,
+        "frame": 430,
+        "global_min_mm": 19.1,
+        "end_mm": 145.3
+      },
+      "CL_s11": {
+        "first_real_release_frame": 10,
+        "min_dist_after_release_mm": 101.3,
+        "frame": 120,
+        "global_min_mm": 101.3,
+        "end_mm": 169.7
+      },
+      "M5_s21": {
+        "min_dist_after_release_mm": 23.6,
+        "frame": 320,
+        "global_min_mm": 23.6
+      },
+      "M5_s11": {
+        "min_dist_after_release_mm": 24.3,
+        "frame": 577,
+        "global_min_mm": 24.3
+      }
+    },
+    "reading": "two distinct mechanisms: in s17/s21 the EEF does later come within 19-25 mm of the bin centre, but only at frames 300-430, long after the early release - so delaying the release is a plausible fix there. In s11 the EEF never comes closer than 101 mm in the whole episode, so its transport endpoint itself is wrong and a release gate cannot help."
+  },
+  "release_gate_G2_20261118": {
+    "design": "carrying state machine confirmed from past observations (previous chunk ended closed, pad>1 N, opening<0.6, twice); only in CARRYING are new open requests evaluated; release allowed when the carried cookie is over the box (inner half + 0.02) and its bottom is <= 0.06 bin-local; 40-step cap and 150 N suspension",
+    "seed21": {
+      "wall_s": 215.08,
+      "blocked_rows": 29,
+      "open_requests_delayed": 4,
+      "releases_allowed": 36,
+      "lost": 0,
+      "force_aborts": 0,
+      "executed_flips": 65,
+      "force_absmax_N": 72.34,
+      "cookies_in_target": 0,
+      "cookies_in_source_final": 71,
+      "frames_pad_loaded": 405
+    },
+    "reading": "the state machine works and the grasp phase is preserved (no lost events, source still falls to 71, same force as CL), but the outcome equals CL s21. The gate allowed 36 releases because its test (inner+0.02, bottom<=0.06) is looser than the sim criterion (inner+0.004, bottom within [-0.003,+0.004] of the floor). At most open moments the cookie was already roughly over the box, so release timing is not the binding factor in s21; placement precision is.",
+    "seed17": {
+      "wall_s": 268.61,
+      "blocked_rows": 144,
+      "open_requests_delayed": 7,
+      "releases_allowed": 38,
+      "lost": 0,
+      "force_aborts": 0,
+      "executed_flips": 59,
+      "force_absmax_N": 4372.93,
+      "cookies_in_target": 1,
+      "cookies_in_source_final": 71,
+      "frames_pad_loaded": 452
+    },
+    "next": "G3 uses the exact sim criterion at release (tolerance 0.004 and bottom within [-0.003,+0.004]); if the 40-step cap is hit, log rather than release. If G3 still yields zero, pivot to grasp/transport endpoint and placement geometry rather than further gate tuning.",
+    "seed17_reading": "first non-zero in-target count in a real policy run (1 plate), but accompanied by a 4373 N pad-channel spike; exact_fill still false; single seed, not a validated fix"
+  },
+  "g2_spike_forensics_20261118": {
+    "frame": 128,
+    "only_frame_gt_100N": true,
+    "frames_pad_gt_50N": 82,
+    "frames_pad_gt_100N": 1,
+    "peak_channels": {
+      "pad_outer_ch13": 4372.9,
+      "pad_inner_ch12": 11.1,
+      "gripper_ch16": 46.4,
+      "wrist_norm": 30.8
+    },
+    "context": "opening 0.579->0.455 in one step at f128; pads steady 27-29 N and gripper force 58 N at f118-127; wrist 90-101 N then 31 N; grip command alternated +1/-1 because the gate blocked open requests at f110 (19 rows) and f120 (25 rows)",
+    "gate_reason": "blocked because the carried cookie sat at bin-local y=0.135 (over_box False) while low=True",
+    "why_guard_missed": "the 150 N guard only tested wrist channels 0:2; the spike is on pad_outer (ch13) and the wrist read 30.8 N",
+    "verdict": "single-step contact transient while the gate forced the fingers closed on a wedged plate; not a sustained crushing load, no plate destruction, run continued",
+    "safety_fix": "guard must latch on pad channels 12/13 and gripper 16 (peak >500 N abort, >100 N for >=2 frames suspend), plus blocked-open duration cap; verify with offline injection before further real runs"
+  },
+  "system_identity_separation_and_goal_20261118": {
+    "goal": "fix the FasterWAM model itself; external gates are diagnosis/teacher only",
+    "A_original": "40k weights + original protocol (success = 0 in every seed measured)",
+    "B_diagnostic": "40k + P2 clamp / M5 / G3 (privileged cookie poses); NOT evidence of model capability",
+    "C_fixed": "separate fine-tuned checkpoint + deployable inputs only; the only accepted proof of success",
+    "G3_s21_B_result": {
+      "cookies_in_target": 4,
+      "source": 73,
+      "force_absmax_N": 72.3,
+      "pad_absmax_N": 72.3,
+      "guard_events": 25,
+      "abort": null,
+      "allowed_releases": 58,
+      "delayed": 8,
+      "needs_descent": 21,
+      "wall_s": 210.69,
+      "note": "privileged-ballistic release gate; exact_fill false because source=73!=70"
+    },
+    "G3_s17_B_result": {
+      "aborted": true,
+      "frame": 128,
+      "events": [
+        "pad_abort",
+        "wedge"
+      ],
+      "pad_outer_N": 4372.9,
+      "wall_s": 34.06,
+      "cookies_in_target": 0,
+      "source": 80,
+      "note": "guard correctly stops the same f128 transient that G2 missed; s17 cannot be evaluated with G3 until that contact transient is addressed"
+    },
+    "safety_validation": "f128 vector injected through the live Guard -> abort; real run aborts at the same frame/channel"
+  },
+  "gripper_label_candidate_20261118": {
+    "semantics_validated": {
+      "corr_joint_cmd_vs_opening": 0.994,
+      "note": "joint_cmd is the expert target opening in the same units and time base as the measured opening; the candidate label can therefore be built from it"
+    },
+    "candidate_rule": "err=joint_cmd-opening; err<-0.02 close(+1), >+0.02 open(-1), else hold; minimum hold 3 frames",
+    "metrics": {
+      "flips_orig_mean": 18.92,
+      "flips_cand_mean": 2.0,
+      "ratio": 0.106,
+      "agreement_on_large_motion_frames": 1.0,
+      "close_runs_ge10_orig_mean": 2.37,
+      "close_runs_ge10_cand_mean": 2.0,
+      "releases_cand_mean": 1.0
+    },
+    "acceptance": "the candidate removes ~90% of label chatter while preserving every large-amplitude transition and every long close run; it is a valid supervision candidate, not yet a proven better target",
+    "artifact": "GRIPPER_LABEL_CANDIDATE.json"
+  }
+}

@@ -1,0 +1,1 @@
+{"hypothesis":"instrumentation exact match against existing no-hook raw and force outputs; inspect retained initial noise through final action","jobs":[{"seed":12,"frame":0,"noise":101,"name":"tracecheck_s12_f0_N101"},{"seed":17,"frame":0,"noise":335444155,"name":"tracecheck_s17_f0_protocol"}]}

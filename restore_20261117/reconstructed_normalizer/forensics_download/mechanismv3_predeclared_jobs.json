@@ -1,0 +1,90 @@
+[
+  {
+    "seed": 12,
+    "frame": 0,
+    "noise": 2022829660,
+    "name": "isolate_s12_baseline"
+  },
+  {
+    "seed": 12,
+    "frame": 0,
+    "noise": 2022829660,
+    "name": "isolate_s12_action202",
+    "action_noise": 202
+  },
+  {
+    "seed": 12,
+    "frame": 0,
+    "noise": 2022829660,
+    "name": "isolate_s12_video202",
+    "video_noise": 202
+  },
+  {
+    "seed": 12,
+    "frame": 0,
+    "noise": 2022829660,
+    "name": "isolate_s12_force202",
+    "force_noise": 202
+  },
+  {
+    "seed": 12,
+    "frame": 0,
+    "noise": 2022829660,
+    "name": "isolate_s12_independent",
+    "video_noise": 101,
+    "force_noise": 303
+  },
+  {
+    "seed": 12,
+    "frame": 0,
+    "noise": 2022829660,
+    "name": "isolate_s12_all202",
+    "action_noise": 202,
+    "video_noise": 202,
+    "force_noise": 202
+  },
+  {
+    "seed": 17,
+    "frame": 0,
+    "noise": 335444155,
+    "name": "isolate_s17_baseline"
+  },
+  {
+    "seed": 17,
+    "frame": 0,
+    "noise": 335444155,
+    "name": "isolate_s17_action202",
+    "action_noise": 202
+  },
+  {
+    "seed": 17,
+    "frame": 0,
+    "noise": 335444155,
+    "name": "isolate_s17_video202",
+    "video_noise": 202
+  },
+  {
+    "seed": 17,
+    "frame": 0,
+    "noise": 335444155,
+    "name": "isolate_s17_force202",
+    "force_noise": 202
+  },
+  {
+    "seed": 17,
+    "frame": 0,
+    "noise": 335444155,
+    "name": "isolate_s17_independent",
+    "video_noise": 101,
+    "force_noise": 303
+  },
+  {
+    "seed": 17,
+    "frame": 0,
+    "noise": 335444155,
+    "name": "isolate_s17_all202",
+    "action_noise": 202,
+    "video_noise": 202,
+    "force_noise": 202
+  }
+]

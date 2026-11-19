@@ -1,0 +1,362 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "original_stats_sha256": "UNKNOWN",
+  "scope": "Read-only CPU arithmetic on the recorded episode and recorded chunk outputs. No model call, no execution.",
+  "source_sha256": {
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\reconstructed_normalizer\\seed17_force_action_coupling_cpu_20261118.py": "42dec7de535adaf90ce752e34a4c11e29eebfd21b365afc9babf5a9f326c70b6",
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\step_040000\\force_calib_v1.json": "2e821a8a019f966d0d2418df7f587d9d469ccd5596abcc39e9f20f5f830d1bd5",
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\reconstructed_normalizer\\forensics_download\\seed17_steps.npz": "80b7e5a71446a94e872f07eb27b48c100bb062087b441511c101273e3bdbb10e",
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\reconstructed_normalizer\\forensics_download\\seed17_original_chunks.npz": "eb62f7d93121d1495ce5fc9fe7f45ff2132655376597a10efeba497108ac152d",
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\reconstructed_normalizer\\forensics_download\\cpu_seed17_state_force.npz": "2dff7b30d323a5110ceef41ce187d5714f18ce66cd20e084ff5b330218d732b2"
+  },
+  "values": {
+    "pre_contact_i0_60": {
+      "pad_max_med": 0.0,
+      "pad_max_max": 0.0,
+      "raw_absmax_med": 1.015625,
+      "raw_absmax_max": 1.078125
+    },
+    "jam_i134_311": {
+      "pad_max_med": 177.7683868408203,
+      "pad_max_max": 338.86676025390625,
+      "raw_absmax_med": 27.4375,
+      "raw_absmax_max": 92.0,
+      "adapter_trans_saturated_fraction": 0.9044943820224719
+    },
+    "whole_episode": {
+      "raw_absmax_med": 2.0234375,
+      "raw_absmax_max": 92.0,
+      "adapter_trans_saturated_fraction": 0.41333333333333333
+    }
+  },
+  "correlation_same_frame": 0.8089447734819842,
+  "correlation_pad_vs_absmax_by_lag": {
+    "-6": 0.7540588750662556,
+    "-5": 0.7621387686282771,
+    "-4": 0.7747238963386598,
+    "-3": 0.7871720628436024,
+    "-2": 0.7981346375997187,
+    "-1": 0.8041301946151119,
+    "0": 0.8089447734819842,
+    "1": 0.8128627616496201,
+    "2": 0.8166144398930552,
+    "3": 0.824936238567547,
+    "4": 0.8258995872310279,
+    "5": 0.8267717270693914,
+    "6": 0.8282034545145183
+  },
+  "lag_convention": "lag L>0 compares pad[i] with absmax[i+L]: force leads the action row by L steps.",
+  "trajectory": [
+    {
+      "i": 0,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": 0.00011624486796790734,
+      "raw_absmax": 1.015625,
+      "adapter_trans_absmax": 0.3213450312614441,
+      "gripper_raw": 1.015625,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 5,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": -0.28919804096221924,
+      "raw_absmax": 0.9375,
+      "adapter_trans_absmax": 0.33678582310676575,
+      "gripper_raw": -0.9375,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 10,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": -0.13793031871318817,
+      "raw_absmax": 1.015625,
+      "adapter_trans_absmax": 0.015617805533111095,
+      "gripper_raw": 1.015625,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 20,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": -0.08708257973194122,
+      "raw_absmax": 1.046875,
+      "adapter_trans_absmax": 0.009845097549259663,
+      "gripper_raw": 1.046875,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 30,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": -0.061197854578495026,
+      "raw_absmax": 1.0625,
+      "adapter_trans_absmax": 0.05113157629966736,
+      "gripper_raw": 1.0625,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 40,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": -0.025929052382707596,
+      "raw_absmax": 1.03125,
+      "adapter_trans_absmax": 0.12061504274606705,
+      "gripper_raw": -1.03125,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 50,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": -0.019820159301161766,
+      "raw_absmax": 1.0234375,
+      "adapter_trans_absmax": 0.010106260888278484,
+      "gripper_raw": 1.0234375,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 59,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": 0.05390752851963043,
+      "raw_absmax": 1.03125,
+      "adapter_trans_absmax": 0.061940114945173264,
+      "gripper_raw": -1.03125,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 60,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": 0.010388859547674656,
+      "raw_absmax": 1.0703125,
+      "adapter_trans_absmax": 0.15612880885601044,
+      "gripper_raw": -1.0703125,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 63,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": 0.04387303441762924,
+      "raw_absmax": 1.0625,
+      "adapter_trans_absmax": 0.10980650037527084,
+      "gripper_raw": -1.0625,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 64,
+      "pad_max_N": 9.219039916992188,
+      "wrist_fz_N": 3.6129584312438965,
+      "raw_absmax": 1.0625,
+      "adapter_trans_absmax": 0.09436573088169098,
+      "gripper_raw": -1.0625,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 70,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": 0.0709434449672699,
+      "raw_absmax": 0.96484375,
+      "adapter_trans_absmax": 0.24356792867183685,
+      "gripper_raw": 0.69921875,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 79,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": 0.698893666267395,
+      "raw_absmax": 1.28125,
+      "adapter_trans_absmax": 0.31172651052474976,
+      "gripper_raw": 0.5078125,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 80,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": 0.637650191783905,
+      "raw_absmax": 0.97265625,
+      "adapter_trans_absmax": 0.03877896070480347,
+      "gripper_raw": -0.97265625,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 100,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": 0.610758364200592,
+      "raw_absmax": 0.9921875,
+      "adapter_trans_absmax": 0.03996896743774414,
+      "gripper_raw": -0.9921875,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 120,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": 0.5719778537750244,
+      "raw_absmax": 1.015625,
+      "adapter_trans_absmax": 0.13837192952632904,
+      "gripper_raw": -1.015625,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 129,
+      "pad_max_N": 12.864766120910645,
+      "wrist_fz_N": 7.405270576477051,
+      "raw_absmax": 1.0,
+      "adapter_trans_absmax": 0.06811641901731491,
+      "gripper_raw": -1.0,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 133,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": 1.8235024213790894,
+      "raw_absmax": 2.625,
+      "adapter_trans_absmax": 0.5085524320602417,
+      "gripper_raw": 2.625,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 134,
+      "pad_max_N": 1.352107048034668,
+      "wrist_fz_N": 1.1487985849380493,
+      "raw_absmax": 2.71875,
+      "adapter_trans_absmax": 0.6620495319366455,
+      "gripper_raw": 2.71875,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 139,
+      "pad_max_N": 21.768449783325195,
+      "wrist_fz_N": 10.388184547424316,
+      "raw_absmax": 2.625,
+      "adapter_trans_absmax": 0.37203630805015564,
+      "gripper_raw": 2.625,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 143,
+      "pad_max_N": 62.16767501831055,
+      "wrist_fz_N": 26.446372985839844,
+      "raw_absmax": 5.0,
+      "adapter_trans_absmax": 0.41727760434150696,
+      "gripper_raw": 5.0,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 159,
+      "pad_max_N": 332.82623291015625,
+      "wrist_fz_N": 40.6419677734375,
+      "raw_absmax": 20.0,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": 20.0,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 179,
+      "pad_max_N": 164.71676635742188,
+      "wrist_fz_N": -22.714122772216797,
+      "raw_absmax": 28.625,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": 28.625,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 199,
+      "pad_max_N": 248.45045471191406,
+      "wrist_fz_N": 45.93214797973633,
+      "raw_absmax": 17.25,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": 17.25,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 207,
+      "pad_max_N": 338.86676025390625,
+      "wrist_fz_N": 393.5333251953125,
+      "raw_absmax": 23.75,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": 23.75,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 249,
+      "pad_max_N": 255.0470733642578,
+      "wrist_fz_N": 102.25829315185547,
+      "raw_absmax": 70.5,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": 70.5,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 299,
+      "pad_max_N": 19.041833877563477,
+      "wrist_fz_N": -35.64628219604492,
+      "raw_absmax": 19.625,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": 11.8125,
+      "gripper_cmd": -1.0
+    },
+    {
+      "i": 310,
+      "pad_max_N": 7.430689811706543,
+      "wrist_fz_N": 11.033150672912598,
+      "raw_absmax": 9.125,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": -3.625,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 311,
+      "pad_max_N": 3.4272313117980957,
+      "wrist_fz_N": -14.507319450378418,
+      "raw_absmax": 10.875,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": -4.15625,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 312,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": -18.287797927856445,
+      "raw_absmax": 8.1875,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": -2.296875,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 350,
+      "pad_max_N": 0.0,
+      "wrist_fz_N": -88.19657135009766,
+      "raw_absmax": 15.25,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": -14.125,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 382,
+      "pad_max_N": 8.185530662536621,
+      "wrist_fz_N": -45.226070404052734,
+      "raw_absmax": 5.03125,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": -3.96875,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 391,
+      "pad_max_N": 61.33015060424805,
+      "wrist_fz_N": -53.4719352722168,
+      "raw_absmax": 5.78125,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": -5.78125,
+      "gripper_cmd": 1.0
+    },
+    {
+      "i": 392,
+      "pad_max_N": 93.53929138183594,
+      "wrist_fz_N": -49.59004592895508,
+      "raw_absmax": 8.5,
+      "adapter_trans_absmax": 1.0,
+      "gripper_raw": -7.8125,
+      "gripper_cmd": 1.0
+    }
+  ],
+  "limits": [
+    "Observational only: contact, state and images co-vary.",
+    "Raw model rows are the recorded executed-chunk outputs; rows 10..31 were never executed.",
+    "Adapter saturation is a command saturation, not a measured motion."
+  ]
+}

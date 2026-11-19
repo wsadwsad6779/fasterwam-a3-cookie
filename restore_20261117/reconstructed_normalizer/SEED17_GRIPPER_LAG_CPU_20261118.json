@@ -1,0 +1,97 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "original_stats_sha256": "UNKNOWN",
+  "scope": "CPU arithmetic on stored seed17 episode; intent-versus-measured lag analysis. No model/simulator/network.",
+  "sign_convention": "pm1>=0 is intent +1 (close per label rule); Adapter inverts to command -1; measured opening decreases on command -1. pred_vs_executed exact negation is convention, not error.",
+  "source_sha256": {
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\reconstructed_normalizer\\seed17_gripper_lag_cpu_20261118.py": "5e31e3b6ded59fd0e87ab946f9f65f7d74fba494d24d02897d611584bdcfae49",
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\reconstructed_normalizer\\forensics_download\\seed17_steps.npz": "80b7e5a71446a94e872f07eb27b48c100bb062087b441511c101273e3bdbb10e",
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\reconstructed_normalizer\\forensics_download\\seed17_original_chunks.npz": "eb62f7d93121d1495ce5fc9fe7f45ff2132655376597a10efeba497108ac152d",
+    "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\reconstructed_normalizer\\forensics_download\\cpu_seed17_state_force.npz": "2dff7b30d323a5110ceef41ce187d5714f18ce66cd20e084ff5b330218d732b2"
+  },
+  "lag_analysis": [
+    {
+      "lag_steps": -3,
+      "agree_all": 328,
+      "n_all": 597,
+      "agree_dynamic": 272,
+      "n_dynamic": 504,
+      "agree_rate_dynamic": 0.5396825396825397
+    },
+    {
+      "lag_steps": -2,
+      "agree_all": 328,
+      "n_all": 598,
+      "agree_dynamic": 271,
+      "n_dynamic": 505,
+      "agree_rate_dynamic": 0.5366336633663367
+    },
+    {
+      "lag_steps": -1,
+      "agree_all": 341,
+      "n_all": 599,
+      "agree_dynamic": 283,
+      "n_dynamic": 505,
+      "agree_rate_dynamic": 0.5603960396039604
+    },
+    {
+      "lag_steps": 0,
+      "agree_all": 418,
+      "n_all": 600,
+      "agree_dynamic": 361,
+      "n_dynamic": 505,
+      "agree_rate_dynamic": 0.7148514851485148
+    },
+    {
+      "lag_steps": 1,
+      "agree_all": 321,
+      "n_all": 599,
+      "agree_dynamic": 264,
+      "n_dynamic": 504,
+      "agree_rate_dynamic": 0.5238095238095238
+    },
+    {
+      "lag_steps": 2,
+      "agree_all": 300,
+      "n_all": 598,
+      "agree_dynamic": 243,
+      "n_dynamic": 503,
+      "agree_rate_dynamic": 0.4831013916500994
+    },
+    {
+      "lag_steps": 3,
+      "agree_all": 304,
+      "n_all": 597,
+      "agree_dynamic": 247,
+      "n_dynamic": 502,
+      "agree_rate_dynamic": 0.49203187250996017
+    }
+  ],
+  "hold_baseline": {
+    "hold_previous_intent_vs_measured_agree": 322,
+    "hold_rate": 0.5366666666666666
+  },
+  "dynamics": {
+    "executed_close_steps": 432,
+    "executed_open_steps": 168,
+    "close_steps_delta_mm_median": -0.12977715414308477,
+    "close_steps_delta_mm_p10_p90": [
+      -90.97301354631782,
+      1.3051450252533008
+    ],
+    "open_steps_delta_mm_median": 80.32932877540588,
+    "open_steps_delta_mm_p10_p90": [
+      -1.0903000831604006,
+      100.03715753555298
+    ],
+    "measured_direction_follows_command_sign": 0.6733333333333333,
+    "command_reversals": 96,
+    "measured_reversals": 236
+  },
+  "limits": [
+    "Lag scan is descriptive on one episode and cannot distinguish policy error from plant lag/contact.",
+    "Deadband 1e-4 in normalized opening units.",
+    "No per-finger joint data; opening is a proxy.",
+    "One episode, one model, no counterfactual execution."
+  ]
+}

@@ -1,0 +1,182 @@
+[
+  {
+    "seed": 11,
+    "frame": 0,
+    "noise": 693047344,
+    "name": "s11_f0_protocol"
+  },
+  {
+    "seed": 11,
+    "frame": 0,
+    "noise": 202,
+    "name": "s11_f0_N202"
+  },
+  {
+    "seed": 11,
+    "frame": 0,
+    "noise": 303,
+    "name": "s11_f0_N303"
+  },
+  {
+    "seed": 11,
+    "frame": 10,
+    "noise": 286046148,
+    "name": "s11_f10_protocol"
+  },
+  {
+    "seed": 11,
+    "frame": 10,
+    "noise": 202,
+    "name": "s11_f10_N202"
+  },
+  {
+    "seed": 11,
+    "frame": 10,
+    "noise": 303,
+    "name": "s11_f10_N303"
+  },
+  {
+    "seed": 11,
+    "frame": 39,
+    "noise": 1224556958,
+    "name": "s11_f39_protocol"
+  },
+  {
+    "seed": 11,
+    "frame": 39,
+    "noise": 202,
+    "name": "s11_f39_N202"
+  },
+  {
+    "seed": 11,
+    "frame": 39,
+    "noise": 303,
+    "name": "s11_f39_N303"
+  },
+  {
+    "seed": 11,
+    "frame": 47,
+    "noise": 1919326196,
+    "name": "s11_f47_protocol"
+  },
+  {
+    "seed": 11,
+    "frame": 47,
+    "noise": 202,
+    "name": "s11_f47_N202"
+  },
+  {
+    "seed": 11,
+    "frame": 47,
+    "noise": 303,
+    "name": "s11_f47_N303"
+  },
+  {
+    "seed": 11,
+    "frame": 98,
+    "noise": 2075031324,
+    "name": "s11_f98_protocol"
+  },
+  {
+    "seed": 11,
+    "frame": 98,
+    "noise": 202,
+    "name": "s11_f98_N202"
+  },
+  {
+    "seed": 11,
+    "frame": 98,
+    "noise": 303,
+    "name": "s11_f98_N303"
+  },
+  {
+    "seed": 11,
+    "frame": 332,
+    "noise": 405629634,
+    "name": "s11_f332_protocol"
+  },
+  {
+    "seed": 11,
+    "frame": 332,
+    "noise": 202,
+    "name": "s11_f332_N202"
+  },
+  {
+    "seed": 11,
+    "frame": 332,
+    "noise": 303,
+    "name": "s11_f332_N303"
+  },
+  {
+    "seed": 17,
+    "frame": 63,
+    "noise": 448068021,
+    "name": "s17_f63_protocol"
+  },
+  {
+    "seed": 17,
+    "frame": 63,
+    "noise": 202,
+    "name": "s17_f63_N202"
+  },
+  {
+    "seed": 17,
+    "frame": 63,
+    "noise": 303,
+    "name": "s17_f63_N303"
+  },
+  {
+    "seed": 17,
+    "frame": 143,
+    "noise": 1296979830,
+    "name": "s17_f143_protocol"
+  },
+  {
+    "seed": 17,
+    "frame": 143,
+    "noise": 202,
+    "name": "s17_f143_N202"
+  },
+  {
+    "seed": 17,
+    "frame": 143,
+    "noise": 303,
+    "name": "s17_f143_N303"
+  },
+  {
+    "seed": 17,
+    "frame": 159,
+    "noise": 1374201922,
+    "name": "s17_f159_protocol"
+  },
+  {
+    "seed": 17,
+    "frame": 159,
+    "noise": 202,
+    "name": "s17_f159_N202"
+  },
+  {
+    "seed": 17,
+    "frame": 159,
+    "noise": 303,
+    "name": "s17_f159_N303"
+  },
+  {
+    "seed": 17,
+    "frame": 207,
+    "noise": 267176552,
+    "name": "s17_f207_protocol"
+  },
+  {
+    "seed": 17,
+    "frame": 207,
+    "noise": 202,
+    "name": "s17_f207_N202"
+  },
+  {
+    "seed": 17,
+    "frame": 207,
+    "noise": 303,
+    "name": "s17_f207_N303"
+  }
+]

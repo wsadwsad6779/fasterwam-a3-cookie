@@ -1,0 +1,317 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "original_stats_sha256": "UNKNOWN",
+  "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+  "seed": 17,
+  "reference": "forensics_full_wide_out seed17 (600 steps)",
+  "chunks_compared": 60,
+  "chunks_bit_equal": 60,
+  "first_divergent_chunk": null,
+  "model_out_max_abs_diff": 0.0,
+  "measured_shape_equal": true,
+  "measured_rows_compared": 601,
+  "measured_max_abs_diff": 0.0,
+  "gate_passed": true,
+  "per_chunk": [
+    {
+      "chunk": 0,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 1,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 2,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 3,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 4,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 5,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 6,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 7,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 8,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 9,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 10,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 11,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 12,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 13,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 14,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 15,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 16,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 17,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 18,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 19,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 20,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 21,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 22,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 23,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 24,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 25,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 26,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 27,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 28,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 29,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 30,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 31,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 32,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 33,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 34,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 35,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 36,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 37,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 38,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 39,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 40,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 41,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 42,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 43,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 44,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 45,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 46,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 47,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 48,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 49,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 50,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 51,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 52,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 53,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 54,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 55,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 56,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 57,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 58,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    },
+    {
+      "chunk": 59,
+      "max_abs_diff": 0.0,
+      "bit_equal": true
+    }
+  ]
+}

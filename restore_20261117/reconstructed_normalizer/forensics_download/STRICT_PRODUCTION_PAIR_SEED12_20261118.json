@@ -1,0 +1,430 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "checks": {
+    "cpu_rng": true,
+    "execution:chunk_0_adapter": true,
+    "execution:chunk_0_denorm": true,
+    "execution:chunk_0_raw": true,
+    "execution:chunk_0_rewritten": true,
+    "execution:step_0_applied16": true,
+    "execution:step_0_handed14": true,
+    "execution:step_0_requested14": true,
+    "execution:step_1_applied16": true,
+    "execution:step_1_handed14": true,
+    "execution:step_1_requested14": true,
+    "execution:step_2_applied16": true,
+    "execution:step_2_handed14": true,
+    "execution:step_2_requested14": true,
+    "execution:step_3_applied16": true,
+    "execution:step_3_handed14": true,
+    "execution:step_3_requested14": true,
+    "execution:step_4_applied16": true,
+    "execution:step_4_handed14": true,
+    "execution:step_4_requested14": true,
+    "execution:step_5_applied16": true,
+    "execution:step_5_handed14": true,
+    "execution:step_5_requested14": true,
+    "execution:step_6_applied16": true,
+    "execution:step_6_handed14": true,
+    "execution:step_6_requested14": true,
+    "execution:step_7_applied16": true,
+    "execution:step_7_handed14": true,
+    "execution:step_7_requested14": true,
+    "execution:step_8_applied16": true,
+    "execution:step_8_handed14": true,
+    "execution:step_8_requested14": true,
+    "execution:step_9_applied16": true,
+    "execution:step_9_handed14": true,
+    "execution:step_9_requested14": true,
+    "execution_keys": true,
+    "info_exact": true,
+    "recorded_comparison": true,
+    "witness:cuda_rng_post_0": true,
+    "witness:cuda_rng_pre_0": true,
+    "witness:mujoco.act": true,
+    "witness:mujoco.ctrl": true,
+    "witness:mujoco.qacc": true,
+    "witness:mujoco.qpos": true,
+    "witness:mujoco.qvel": true,
+    "witness:mujoco.sensordata": true,
+    "witness:observation.eef_pose": true,
+    "witness:observation.force": true,
+    "witness:observation.images.front": true,
+    "witness:observation.images.left_wrist": true,
+    "witness:observation.images.right_wrist": true,
+    "witness:observation.state": true,
+    "witness:observation.velocity": true,
+    "witness:safety_stop": true,
+    "witness:time": true,
+    "witness_keys": true
+  },
+  "comparison": {
+    "B_chain_summary": null,
+    "call_counts": {
+      "decision_chunks_A": 1,
+      "decision_chunks_B": 1,
+      "env_steps_A": 10,
+      "env_steps_B": 10,
+      "env_steps_equal": true,
+      "infer_calls_A": 1,
+      "infer_calls_B": 1,
+      "infer_calls_equal": true
+    },
+    "capture_chunks_recorded": null,
+    "capture_steps_recorded": null,
+    "chunk_diff": [
+      {
+        "action_absmax_A": 1.0,
+        "action_absmax_B": 1.0,
+        "frame_A": 0,
+        "frame_B": 0,
+        "n_actions_A": 10,
+        "n_actions_B": 10,
+        "noise_seed_A": 2022829660,
+        "noise_seed_B": 2022829660,
+        "pred_force_bit_equal": true,
+        "pred_force_max_abs_diff": 0.0
+      }
+    ],
+    "force_trajectory": {
+      "bit_equal": true,
+      "max_abs_diff": 0.0,
+      "shape": [
+        11,
+        6
+      ],
+      "shape_equal": true
+    },
+    "no_side_effect_bit_exact": true,
+    "record_diff": {
+      "cookies_in_target": {
+        "A": 0,
+        "B": 0,
+        "equal": true
+      },
+      "decision_chunks": {
+        "A": 1,
+        "B": 1,
+        "equal": true
+      },
+      "frames": {
+        "A": 11,
+        "B": 11,
+        "equal": true
+      },
+      "nan_abort_frame": {
+        "A": -1,
+        "B": -1,
+        "equal": true
+      },
+      "steps_executed": {
+        "A": 10,
+        "B": 10,
+        "equal": true
+      },
+      "success": {
+        "A": false,
+        "B": false,
+        "equal": true
+      },
+      "terminated": {
+        "A": false,
+        "B": false,
+        "equal": true
+      },
+      "truncated": {
+        "A": false,
+        "B": false,
+        "equal": true
+      }
+    },
+    "rng_post_equal": {
+      "numpy_equal": true,
+      "python_equal": true,
+      "torch_bit_equal": true
+    },
+    "rng_pre_equal": {
+      "numpy_equal": true,
+      "python_equal": true,
+      "torch_bit_equal": true
+    },
+    "tolerance_basis": "bit-exact equality required: the recorder is passive (reads bridge/adapter/env outputs, copies to CPU), the policy re-seeds its diffusion generators per chunk from (seed, call), and the env reset is seeded; any difference beyond 0 means the recorder changed execution and the run must stop. A is bare so raw/denorm/pm1/Adapter/opening are not A/B-compared directly; recorder faithfulness is proven by A==B on force trajectory, record, chunks, RNG and call counts, plus Capture's internal handed==adapter[row] assertions and the 15/15 CPU shape regression"
+  },
+  "comparison_basis": "Common fixed capture and state witness; only B enables forensics",
+  "driver_sha256": "b68274604eec9533368e786d9b13ec2940144595e3f7fd11b88e314826f1bc37",
+  "fw_import": {
+    "already_imported_submodules": 10,
+    "create_fasterwam_accepts_force": true,
+    "create_fasterwam_file": "/workspace/eval_restore_20261117/deploy/stage_40k/fw/src/fasterwam/runtime.py",
+    "fw_src": "/workspace/eval_restore_20261117/deploy/stage_40k/fw/src",
+    "package_file": "/workspace/eval_restore_20261117/deploy/stage_40k/fw/src/fasterwam/__init__.py",
+    "runtime_file": "/workspace/eval_restore_20261117/deploy/stage_40k/fw/src/fasterwam/runtime.py"
+  },
+  "max_steps": 10,
+  "original_stats_sha256": "UNKNOWN",
+  "pass": true,
+  "preflight": {
+    "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+    "artifact_hashes": {
+      "config": [
+        {
+          "bytes": 6364,
+          "path": "/workspace/eval_restore_20261117/step_040000/run_config.yaml",
+          "sha256": "4aa66c57cdfe2804ae56cf244a907be9e13fe232d4ede65ba7ef0695eb79abfd"
+        },
+        {
+          "bytes": 4175,
+          "path": "/workspace/eval_restore_20261117/reconstructed_normalizer/dataset_stats_14d_RECONSTRUCTED.json",
+          "sha256": "47fbe4c4e3a40eeb4f76c2a06857914351dc863da36d8b8d4d4794b1d1b56d6b"
+        },
+        {
+          "bytes": 1904,
+          "path": "/workspace/eval_restore_20261117/step_040000/force_calib_v1.json",
+          "sha256": "2e821a8a019f966d0d2418df7f587d9d469ccd5596abcc39e9f20f5f830d1bd5"
+        },
+        {
+          "bytes": 3500,
+          "path": "/workspace/eval_restore_20261117/deploy/a3_dual_arm_sim/configs/cookie_batch.yaml",
+          "sha256": "62f6c8638955c84761b8f3c6ef6198ecb448aafb839f72103844f4a154812df9"
+        },
+        {
+          "bytes": 1250,
+          "path": "/workspace/eval_restore_20261117/deploy/stage_40k/fw/configs/sim_libero.yaml",
+          "sha256": "29a5ffc130f5cb692340de26fb100dfe89f0ed458c878dc1008c4af0bf789311"
+        }
+      ],
+      "source": [
+        {
+          "bytes": 10865,
+          "path": "/workspace/eval_restore_20261117/deploy/stage_40k/dev/eval40k/policy40k.py",
+          "sha256": "f7d8ec3c9936aa34d8a7776781c539d4bd5312e0ee21135f117d5a4eee87a8d8"
+        },
+        {
+          "bytes": 4737,
+          "path": "/workspace/eval_restore_20261117/deploy/stage_40k/dev/eval40k/rollout40k.py",
+          "sha256": "70d9adc92ac0d7808d0fb56decb5a576b04cf33b32c8cd21eaeff913a201412d"
+        },
+        {
+          "bytes": 5437,
+          "path": "/workspace/eval_restore_20261117/deploy/stage_40k/dev/eval40k/force_stream.py",
+          "sha256": "49c22eb84f2a9d69093079deaa8cb4f1aeb2ad559a60c0afffd2db62597fe9bf"
+        },
+        {
+          "bytes": 11250,
+          "path": "/workspace/eval_restore_20261117/deploy/bridge/infer_a3_worker.py",
+          "sha256": "1e4738ba065eeb5450ba547d9a438dc85d3a5206deadb8680fd5642da7431ff3"
+        },
+        {
+          "bytes": 1972,
+          "path": "/workspace/eval_restore_20261117/deploy/bridge/action_adapter_v3.py",
+          "sha256": "75325f70b89e217d85cd8cf3227b7966444a766863f6b5d6c771fdbee4cf9650"
+        },
+        {
+          "bytes": 6649,
+          "path": "/workspace/eval_restore_20261117/deploy/bridge/_next/env_factory.py",
+          "sha256": "c6b49941cc52e0da44c97a7e81467fabe1bf39bc6e5344a296275cbdacc60c40"
+        },
+        {
+          "bytes": 4578,
+          "path": "/workspace/eval_restore_20261117/deploy/capture/evaluation_capture.py",
+          "sha256": "bf63a93358be21c30a3192ebe0907490f2fbc6627dfe7e4d10275fc00ac97ee3"
+        },
+        {
+          "bytes": 5850,
+          "path": "/workspace/eval_restore_20261117/deploy/capture/execution_chain_capture.py",
+          "sha256": "6e41095da4b54c9f8261f62203647532eba8c727f7d35a4b1977682630a1a80d"
+        }
+      ],
+      "weights": [
+        {
+          "bytes": 11126493579,
+          "path": "/workspace/eval_restore_20261117/step_040000_merged.pt",
+          "sha256": "d118eb2172b04165990c032e291057aaa9313b1d9fd0e6cd7a9ada3637c9cc20"
+        }
+      ]
+    },
+    "artifacts": {
+      "config": [
+        "/workspace/eval_restore_20261117/step_040000/run_config.yaml",
+        "/workspace/eval_restore_20261117/reconstructed_normalizer/dataset_stats_14d_RECONSTRUCTED.json",
+        "/workspace/eval_restore_20261117/step_040000/force_calib_v1.json",
+        "/workspace/eval_restore_20261117/deploy/a3_dual_arm_sim/configs/cookie_batch.yaml",
+        "/workspace/eval_restore_20261117/deploy/stage_40k/fw/configs/sim_libero.yaml"
+      ],
+      "source": [
+        "/workspace/eval_restore_20261117/deploy/stage_40k/dev/eval40k/policy40k.py",
+        "/workspace/eval_restore_20261117/deploy/stage_40k/dev/eval40k/rollout40k.py",
+        "/workspace/eval_restore_20261117/deploy/stage_40k/dev/eval40k/force_stream.py",
+        "/workspace/eval_restore_20261117/deploy/bridge/infer_a3_worker.py",
+        "/workspace/eval_restore_20261117/deploy/bridge/action_adapter_v3.py",
+        "/workspace/eval_restore_20261117/deploy/bridge/_next/env_factory.py",
+        "/workspace/eval_restore_20261117/deploy/capture/evaluation_capture.py",
+        "/workspace/eval_restore_20261117/deploy/capture/execution_chain_capture.py"
+      ],
+      "weights": [
+        "/workspace/eval_restore_20261117/step_040000_merged.pt"
+      ]
+    },
+    "errors": [],
+    "original_stats_sha256": "UNKNOWN",
+    "pass": true,
+    "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+    "scope": "REAL_ASSETS_CPU_PREFLIGHT",
+    "source_identity": {
+      "fixed": {
+        "bytes": 6364,
+        "path": "/workspace/eval_restore_20261117/reconstructed_normalizer/execution_chain_capture_fixed.py",
+        "sha256": "380ca4c24ca5858c22f5d6ad7bb72984320c85e0f057099c67f2b7e5e87d9641"
+      },
+      "launcher": {
+        "bytes": 8875,
+        "path": "/workspace/eval_restore_20261117/reconstructed_normalizer/strict_production_pair.py",
+        "sha256": "28b53a2f895b9c69612b8c074b0117e7443de78838d96ebca5a1098688702a67"
+      },
+      "original": {
+        "bytes": 5850,
+        "path": "/workspace/eval_restore_20261117/deploy/capture/execution_chain_capture.py",
+        "sha256": "6e41095da4b54c9f8261f62203647532eba8c727f7d35a4b1977682630a1a80d"
+      }
+    },
+    "status": "PASS"
+  },
+  "protocol": {
+    "action_horizon": 32,
+    "action_infer_mode": "one_pass_future_cache",
+    "conditioning": {
+      "determinism_bit_equal": true,
+      "determinism_max_abs_diff": 0.0,
+      "encoded_nan": false,
+      "encoded_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_all_true": true,
+      "mask_true_count": 128,
+      "reference": "REGENERATED_FROM_ORIGINAL_T5_NOT_ORIGINAL_CACHE",
+      "text_encoder_training": false
+    },
+    "device": "cuda",
+    "eval_settings": {
+      "deployment_action_infer_mode": "one_pass_future_cache",
+      "harness_calls": "model.infer_action",
+      "interpolated_from_run_config": {
+        "action_infer_mode": "default_action_infer_mode",
+        "num_inference_steps": "eval_num_inference_steps"
+      },
+      "source": "/workspace/eval_restore_20261117/deploy/stage_40k/fw/configs/sim_libero.yaml",
+      "values": {
+        "action_horizon": null,
+        "action_infer_mode": "one_pass_future_cache",
+        "binarize_gripper": true,
+        "negative_prompt": "",
+        "num_inference_steps": 10,
+        "rand_device": "cpu",
+        "sigma_shift": null,
+        "text_cfg_scale": 1.0,
+        "tiled": false
+      }
+    },
+    "gripper_mode": "pm1",
+    "num_inference_steps": 10,
+    "num_video_frames": 9,
+    "prompt": {
+      "DEFAULT_A3_TASK": "transfer 10 cookies into target box",
+      "DEFAULT_PROMPT": "A video recorded from a robot's point of view executing the following instruction: {task}",
+      "TEXT_CACHE_STATUS": "ORIGINAL_NOT_RECOVERED_INSTRUCTION_FROM_CODE_CONSTANTS: the training text-embedding cache and v1g arrays.npz were lost with the old container; inference encodes the prompt fresh with the original T5, instruction is DEFAULT_A3_TASK formatted by DEFAULT_PROMPT from the force-aware code",
+      "prompt": "A video recorded from a robot's point of view executing the following instruction: transfer 10 cookies into target box",
+      "prompt_sha256": "b6f1657eeb7e8f5a4e4310074fab14ad8d79ed3ef798f677be2c137817d0f7b6",
+      "task": "transfer 10 cookies into target box"
+    },
+    "stats": {
+      "bands": {
+        "default": {
+          "force_band_is_symmetric_std": true,
+          "force_halfwidth_equals_calib_std": true,
+          "half_width_force_columns": [
+            0.7338846325874329,
+            0.5887312889099121,
+            0.18089430034160614,
+            0.6814043521881104,
+            0.6854666471481323,
+            1.3969910144805908
+          ],
+          "max": [
+            0.13350403308868408,
+            0.3028571903705597,
+            0.919999361038208,
+            2.480116605758667,
+            1.233620047569275,
+            2.443288803100586,
+            0.04023492708802223,
+            -0.012251690961420536,
+            0.7338846325874329,
+            0.5887312889099121,
+            0.18089430034160614,
+            0.6814043521881104,
+            0.6854666471481323,
+            1.3969910144805908
+          ],
+          "min": [
+            0.05462999641895294,
+            0.09031549096107483,
+            0.7638311982154846,
+            -1.2248071432113647,
+            -2.4337832927703857,
+            -1.2333282232284546,
+            0.012251690961420536,
+            -0.04023492708802223,
+            -0.7338846325874329,
+            -0.5887312889099121,
+            -0.18089430034160614,
+            -0.6814043521881104,
+            -0.6854666471481323,
+            -1.3969910144805908
+          ]
+        }
+      },
+      "keys": [
+        "default"
+      ],
+      "source": "/workspace/eval_restore_20261117/reconstructed_normalizer/dataset_stats_14d_RECONSTRUCTED.json",
+      "widths": {
+        "default/global_max": 14,
+        "default/global_min": 14,
+        "default/global_std": 14
+      }
+    },
+    "text_encoder": {
+      "applied": true,
+      "deployment_value": true,
+      "keys_left_on_run_config": {
+        "action_dit_pretrained_path": "checkpoints/SparseActionDiT_cond_0_4_8_12_16_20_24_28_Wan22_alphascale_1024hdim.pt",
+        "model_id": "Wan-AI/Wan2.2-TI2V-5B",
+        "redirect_common_files": false,
+        "skip_dit_load_from_pretrain": true,
+        "tokenizer_max_len": 128,
+        "tokenizer_model_id": "Wan-AI/Wan2.1-T2V-1.3B"
+      },
+      "source": "/workspace/eval_restore_20261117/deploy/stage_40k/fw/configs/sim_libero.yaml",
+      "train_config_value": false
+    },
+    "weight_paths": {
+      "text_encoder": {
+        "exists": true,
+        "path": "/workspace/eval_restore_20261117/auxiliary/Wan-AI/Wan2.2-TI2V-5B/models_t5_umt5-xxl-enc-bf16.pth"
+      },
+      "tokenizer": {
+        "exists": true,
+        "path": "/workspace/eval_restore_20261117/auxiliary/Wan-AI/Wan2.1-T2V-1.3B/google/umt5-xxl/"
+      },
+      "vae": {
+        "exists": true,
+        "path": "/workspace/eval_restore_20261117/auxiliary/Wan-AI/Wan2.2-TI2V-5B/Wan2.2_VAE.pth"
+      }
+    }
+  },
+  "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+  "seed": 12,
+  "status": "PASS"
+}

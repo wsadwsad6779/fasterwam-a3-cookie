@@ -1,0 +1,38 @@
+127.0.0.1 - - [18/Nov/2026 11:11:37] "POST /?name=analysis_v6.json HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2026 11:11:37] code 400, message Bad Request
+127.0.0.1 - - [18/Nov/2026 11:11:37] "POST /?name=analysis_v6.txt HTTP/1.1" 400 -
+127.0.0.1 - - [18/Nov/2026 11:11:40] "POST /?name=probe.json HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2026 11:11:48] "POST /?name=probe20000.json HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2026 11:11:48] "POST /?name=probe60000.json HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2026 11:11:48] "POST /?name=probe116000.json HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 64097)
+Traceback (most recent call last):
+  File "D:\APP\Python313\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\APP\Python313\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\APP\Python313\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "D:\APP\Python313\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\APP\Python313\Lib\http\server.py", line 424, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\ASUS\Documents\Qoder\2026-10-31\b462d38d\_clone_default\restore_20261117\reconstructed_normalizer\receive_forensics.py", line 30, in do_POST
+    with target.open('xb') as stream:
+         ~~~~~~~~~~~^^^^^^
+  File "D:\APP\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileExistsError: [Errno 17] File exists: 'C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\restore_20261117\\reconstructed_normalizer\\forensics_download\\analysis_v6.json'
+----------------------------------------
+127.0.0.1 - - [18/Nov/2026 11:11:58] "POST /?name=probe_b.json HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2026 11:12:07] code 400, message Bad Request
+127.0.0.1 - - [18/Nov/2026 11:12:07] "POST /?name=analysis_v6_table.txt HTTP/1.1" 400 -
+127.0.0.1 - - [18/Nov/2026 11:12:12] "POST /?name=analysis_v6_table.log HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2026 11:12:38] "POST /?name=summary_v6.json HTTP/1.1" 200 -

@@ -1,0 +1,1141 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "original_stats_sha256": "UNKNOWN",
+  "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+  "complete": true,
+  "results": [
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 0,
+      "condition": "A0",
+      "noise_seed": 2022829660,
+      "wall_seconds": 1.6714227199554443,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      "flip_rows": [
+        5,
+        8
+      ],
+      "flip_count": 2,
+      "flip_signed_jumps": [
+        -1.3046875,
+        1.765625
+      ],
+      "motion6_absmax": [
+        0.3359375,
+        0.5,
+        1.03125,
+        0.5234375,
+        0.546875,
+        0.1650390625
+      ],
+      "existing_raw_available": true,
+      "existing_raw_exact": true,
+      "existing_raw_maxabsdiff": 0.0,
+      "baseline_raw7_maxabsdiff": 0.0,
+      "baseline_motion6_rmsdiff": 0.0,
+      "baseline_xyz_rmsdiff": 0.0,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 0,
+      "condition": "A0_repeat",
+      "noise_seed": 2022829660,
+      "wall_seconds": 1.4331464767456055,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      "flip_rows": [
+        5,
+        8
+      ],
+      "flip_count": 2,
+      "flip_signed_jumps": [
+        -1.3046875,
+        1.765625
+      ],
+      "motion6_absmax": [
+        0.3359375,
+        0.5,
+        1.03125,
+        0.5234375,
+        0.546875,
+        0.1650390625
+      ],
+      "baseline_raw7_maxabsdiff": 0.0,
+      "baseline_motion6_rmsdiff": 0.0,
+      "baseline_xyz_rmsdiff": 0.0,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 0,
+      "condition": "A1",
+      "noise_seed": 2022829660,
+      "wall_seconds": 1.7078135013580322,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      "flip_rows": [
+        5,
+        8
+      ],
+      "flip_count": 2,
+      "flip_signed_jumps": [
+        -1.31640625,
+        1.79296875
+      ],
+      "motion6_absmax": [
+        0.33203125,
+        0.5,
+        1.03125,
+        0.5234375,
+        0.546875,
+        0.1640625
+      ],
+      "baseline_raw7_maxabsdiff": 0.0234375,
+      "baseline_motion6_rmsdiff": 0.0021072602830827236,
+      "baseline_xyz_rmsdiff": 0.002160219242796302,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 0,
+      "condition": "A2",
+      "noise_seed": 2022829660,
+      "wall_seconds": 1.4357967376708984,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      "flip_rows": [
+        5,
+        8
+      ],
+      "flip_count": 2,
+      "flip_signed_jumps": [
+        -1.29296875,
+        1.7578125
+      ],
+      "motion6_absmax": [
+        0.3359375,
+        0.5,
+        1.0390625,
+        0.5234375,
+        0.55078125,
+        0.166015625
+      ],
+      "baseline_raw7_maxabsdiff": 0.015625,
+      "baseline_motion6_rmsdiff": 0.0016774492105469108,
+      "baseline_xyz_rmsdiff": 0.002007676288485527,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 0,
+      "condition": "A3",
+      "noise_seed": 2022829660,
+      "wall_seconds": 1.429276943206787,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      "flip_rows": [
+        5,
+        8
+      ],
+      "flip_count": 2,
+      "flip_signed_jumps": [
+        -1.3046875,
+        1.7734375
+      ],
+      "motion6_absmax": [
+        0.33203125,
+        0.5,
+        1.0390625,
+        0.5234375,
+        0.546875,
+        0.1640625
+      ],
+      "baseline_raw7_maxabsdiff": 0.0078125,
+      "baseline_motion6_rmsdiff": 0.0021992428228259087,
+      "baseline_xyz_rmsdiff": 0.0025195027701556683,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 0,
+      "condition": "N101",
+      "noise_seed": 101,
+      "wall_seconds": 1.4306137561798096,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        1
+      ],
+      "flip_rows": [
+        4,
+        6,
+        7,
+        9
+      ],
+      "flip_count": 4,
+      "flip_signed_jumps": [
+        -1.1494140625,
+        1.15625,
+        -1.0166015625,
+        1.7421875
+      ],
+      "motion6_absmax": [
+        0.296875,
+        0.515625,
+        0.97265625,
+        0.5234375,
+        0.58203125,
+        0.1455078125
+      ],
+      "baseline_raw7_maxabsdiff": 1.62109375,
+      "baseline_motion6_rmsdiff": 0.028565019369125366,
+      "baseline_xyz_rmsdiff": 0.03370481729507446,
+      "baseline_sign_disagreements_first10": 3
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 0,
+      "condition": "N202",
+      "noise_seed": 202,
+      "wall_seconds": 1.4290308952331543,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "flip_rows": [],
+      "flip_count": 0,
+      "flip_signed_jumps": [],
+      "motion6_absmax": [
+        0.24609375,
+        0.5,
+        1.0078125,
+        0.54296875,
+        0.57421875,
+        0.1318359375
+      ],
+      "baseline_raw7_maxabsdiff": 1.92578125,
+      "baseline_motion6_rmsdiff": 0.04092996194958687,
+      "baseline_xyz_rmsdiff": 0.04809768870472908,
+      "baseline_sign_disagreements_first10": 3
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 0,
+      "condition": "N303",
+      "noise_seed": 303,
+      "wall_seconds": 1.4115278720855713,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "flip_rows": [],
+      "flip_count": 0,
+      "flip_signed_jumps": [],
+      "motion6_absmax": [
+        0.2734375,
+        0.5,
+        0.890625,
+        0.546875,
+        0.57421875,
+        0.138671875
+      ],
+      "baseline_raw7_maxabsdiff": 1.9296875,
+      "baseline_motion6_rmsdiff": 0.05261043831706047,
+      "baseline_xyz_rmsdiff": 0.06685648113489151,
+      "baseline_sign_disagreements_first10": 3
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 10,
+      "condition": "A0",
+      "noise_seed": 1473465787,
+      "wall_seconds": 1.3635177612304688,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "flip_rows": [
+        3
+      ],
+      "flip_count": 1,
+      "flip_signed_jumps": [
+        -2.04296875
+      ],
+      "motion6_absmax": [
+        0.1689453125,
+        0.462890625,
+        0.48046875,
+        0.482421875,
+        0.5078125,
+        0.115234375
+      ],
+      "existing_raw_available": false,
+      "baseline_raw7_maxabsdiff": 0.0,
+      "baseline_motion6_rmsdiff": 0.0,
+      "baseline_xyz_rmsdiff": 0.0,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 10,
+      "condition": "A0_repeat",
+      "noise_seed": 1473465787,
+      "wall_seconds": 1.3601295948028564,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "flip_rows": [
+        3
+      ],
+      "flip_count": 1,
+      "flip_signed_jumps": [
+        -2.04296875
+      ],
+      "motion6_absmax": [
+        0.1689453125,
+        0.462890625,
+        0.48046875,
+        0.482421875,
+        0.5078125,
+        0.115234375
+      ],
+      "baseline_raw7_maxabsdiff": 0.0,
+      "baseline_motion6_rmsdiff": 0.0,
+      "baseline_xyz_rmsdiff": 0.0,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 10,
+      "condition": "A1",
+      "noise_seed": 1473465787,
+      "wall_seconds": 1.3594331741333008,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "flip_rows": [
+        3
+      ],
+      "flip_count": 1,
+      "flip_signed_jumps": [
+        -2.04296875
+      ],
+      "motion6_absmax": [
+        0.16796875,
+        0.462890625,
+        0.484375,
+        0.486328125,
+        0.5078125,
+        0.115234375
+      ],
+      "baseline_raw7_maxabsdiff": 0.2265625,
+      "baseline_motion6_rmsdiff": 0.002127785235643387,
+      "baseline_xyz_rmsdiff": 0.002256375504657626,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 10,
+      "condition": "A2",
+      "noise_seed": 1473465787,
+      "wall_seconds": 1.3618299961090088,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "flip_rows": [
+        3
+      ],
+      "flip_count": 1,
+      "flip_signed_jumps": [
+        -2.04296875
+      ],
+      "motion6_absmax": [
+        0.1669921875,
+        0.478515625,
+        0.51171875,
+        0.482421875,
+        0.50390625,
+        0.13671875
+      ],
+      "baseline_raw7_maxabsdiff": 0.67578125,
+      "baseline_motion6_rmsdiff": 0.007479401305317879,
+      "baseline_xyz_rmsdiff": 0.008412673138082027,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 12,
+      "frame": 10,
+      "condition": "A3",
+      "noise_seed": 1473465787,
+      "wall_seconds": 1.3607416152954102,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "flip_rows": [
+        3
+      ],
+      "flip_count": 1,
+      "flip_signed_jumps": [
+        -2.04296875
+      ],
+      "motion6_absmax": [
+        0.1669921875,
+        0.48046875,
+        0.515625,
+        0.484375,
+        0.50390625,
+        0.140625
+      ],
+      "baseline_raw7_maxabsdiff": 0.66015625,
+      "baseline_motion6_rmsdiff": 0.008154305629432201,
+      "baseline_xyz_rmsdiff": 0.009554033167660236,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 0,
+      "condition": "A0",
+      "noise_seed": 335444155,
+      "wall_seconds": 1.3616492748260498,
+      "signs_first10": [
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      "flip_rows": [
+        2,
+        3,
+        5,
+        8
+      ],
+      "flip_count": 4,
+      "flip_signed_jumps": [
+        -1.73828125,
+        0.7587890625,
+        -1.796875,
+        1.0703125
+      ],
+      "motion6_absmax": [
+        0.30078125,
+        0.5078125,
+        1.0,
+        0.486328125,
+        0.59375,
+        0.16796875
+      ],
+      "existing_raw_available": true,
+      "existing_raw_exact": true,
+      "existing_raw_maxabsdiff": 0.0,
+      "baseline_raw7_maxabsdiff": 0.0,
+      "baseline_motion6_rmsdiff": 0.0,
+      "baseline_xyz_rmsdiff": 0.0,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 0,
+      "condition": "A0_repeat",
+      "noise_seed": 335444155,
+      "wall_seconds": 1.3618583679199219,
+      "signs_first10": [
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      "flip_rows": [
+        2,
+        3,
+        5,
+        8
+      ],
+      "flip_count": 4,
+      "flip_signed_jumps": [
+        -1.73828125,
+        0.7587890625,
+        -1.796875,
+        1.0703125
+      ],
+      "motion6_absmax": [
+        0.30078125,
+        0.5078125,
+        1.0,
+        0.486328125,
+        0.59375,
+        0.16796875
+      ],
+      "baseline_raw7_maxabsdiff": 0.0,
+      "baseline_motion6_rmsdiff": 0.0,
+      "baseline_xyz_rmsdiff": 0.0,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 0,
+      "condition": "A1",
+      "noise_seed": 335444155,
+      "wall_seconds": 1.3628287315368652,
+      "signs_first10": [
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      "flip_rows": [
+        2,
+        3,
+        5,
+        8
+      ],
+      "flip_count": 4,
+      "flip_signed_jumps": [
+        -1.7578125,
+        0.761962890625,
+        -1.796875,
+        1.0859375
+      ],
+      "motion6_absmax": [
+        0.298828125,
+        0.50390625,
+        1.0,
+        0.48828125,
+        0.58984375,
+        0.16796875
+      ],
+      "baseline_raw7_maxabsdiff": 0.01171875,
+      "baseline_motion6_rmsdiff": 0.0017086210427805781,
+      "baseline_xyz_rmsdiff": 0.0019442036282271147,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 0,
+      "condition": "A2",
+      "noise_seed": 335444155,
+      "wall_seconds": 1.360898733139038,
+      "signs_first10": [
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      "flip_rows": [
+        2,
+        3,
+        5,
+        8
+      ],
+      "flip_count": 4,
+      "flip_signed_jumps": [
+        -1.734375,
+        0.7578125,
+        -1.7890625,
+        1.06640625
+      ],
+      "motion6_absmax": [
+        0.30078125,
+        0.5078125,
+        1.0078125,
+        0.484375,
+        0.58984375,
+        0.169921875
+      ],
+      "baseline_raw7_maxabsdiff": 0.009765625,
+      "baseline_motion6_rmsdiff": 0.0017302866326645017,
+      "baseline_xyz_rmsdiff": 0.001803035382181406,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 0,
+      "condition": "A3",
+      "noise_seed": 335444155,
+      "wall_seconds": 1.3601582050323486,
+      "signs_first10": [
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      "flip_rows": [
+        2,
+        3,
+        5,
+        8
+      ],
+      "flip_count": 4,
+      "flip_signed_jumps": [
+        -1.75390625,
+        0.751953125,
+        -1.796875,
+        1.1171875
+      ],
+      "motion6_absmax": [
+        0.298828125,
+        0.50390625,
+        1.0078125,
+        0.48828125,
+        0.59375,
+        0.169921875
+      ],
+      "baseline_raw7_maxabsdiff": 0.0390625,
+      "baseline_motion6_rmsdiff": 0.0018865030724555254,
+      "baseline_xyz_rmsdiff": 0.002063192892819643,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 0,
+      "condition": "N101",
+      "noise_seed": 101,
+      "wall_seconds": 1.3742566108703613,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        1
+      ],
+      "flip_rows": [
+        4,
+        6,
+        7,
+        9
+      ],
+      "flip_count": 4,
+      "flip_signed_jumps": [
+        -1.1494140625,
+        1.15625,
+        -1.0166015625,
+        1.7421875
+      ],
+      "motion6_absmax": [
+        0.296875,
+        0.515625,
+        0.97265625,
+        0.5234375,
+        0.58203125,
+        0.1455078125
+      ],
+      "baseline_raw7_maxabsdiff": 1.96875,
+      "baseline_motion6_rmsdiff": 0.03766292706131935,
+      "baseline_xyz_rmsdiff": 0.04401538893580437,
+      "baseline_sign_disagreements_first10": 4
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 0,
+      "condition": "N202",
+      "noise_seed": 202,
+      "wall_seconds": 1.361391544342041,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "flip_rows": [],
+      "flip_count": 0,
+      "flip_signed_jumps": [],
+      "motion6_absmax": [
+        0.24609375,
+        0.5,
+        1.0078125,
+        0.54296875,
+        0.57421875,
+        0.1318359375
+      ],
+      "baseline_raw7_maxabsdiff": 1.91796875,
+      "baseline_motion6_rmsdiff": 0.05267776921391487,
+      "baseline_xyz_rmsdiff": 0.0624779611825943,
+      "baseline_sign_disagreements_first10": 4
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 0,
+      "condition": "N303",
+      "noise_seed": 303,
+      "wall_seconds": 1.362149715423584,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "flip_rows": [],
+      "flip_count": 0,
+      "flip_signed_jumps": [],
+      "motion6_absmax": [
+        0.2734375,
+        0.5,
+        0.890625,
+        0.546875,
+        0.57421875,
+        0.138671875
+      ],
+      "baseline_raw7_maxabsdiff": 1.9296875,
+      "baseline_motion6_rmsdiff": 0.04850568249821663,
+      "baseline_xyz_rmsdiff": 0.06090494990348816,
+      "baseline_sign_disagreements_first10": 4
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 10,
+      "condition": "A0",
+      "noise_seed": 1730044255,
+      "wall_seconds": 1.3602626323699951,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1
+      ],
+      "flip_rows": [
+        5,
+        7,
+        8
+      ],
+      "flip_count": 3,
+      "flip_signed_jumps": [
+        -2.03125,
+        1.8046875,
+        -1.7734375
+      ],
+      "motion6_absmax": [
+        0.15625,
+        0.462890625,
+        0.5234375,
+        0.47265625,
+        0.515625,
+        0.1259765625
+      ],
+      "existing_raw_available": true,
+      "existing_raw_exact": true,
+      "existing_raw_maxabsdiff": 0.0,
+      "baseline_raw7_maxabsdiff": 0.0,
+      "baseline_motion6_rmsdiff": 0.0,
+      "baseline_xyz_rmsdiff": 0.0,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 10,
+      "condition": "A0_repeat",
+      "noise_seed": 1730044255,
+      "wall_seconds": 1.3598928451538086,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1
+      ],
+      "flip_rows": [
+        5,
+        7,
+        8
+      ],
+      "flip_count": 3,
+      "flip_signed_jumps": [
+        -2.03125,
+        1.8046875,
+        -1.7734375
+      ],
+      "motion6_absmax": [
+        0.15625,
+        0.462890625,
+        0.5234375,
+        0.47265625,
+        0.515625,
+        0.1259765625
+      ],
+      "baseline_raw7_maxabsdiff": 0.0,
+      "baseline_motion6_rmsdiff": 0.0,
+      "baseline_xyz_rmsdiff": 0.0,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 10,
+      "condition": "A1",
+      "noise_seed": 1730044255,
+      "wall_seconds": 1.3587846755981445,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1
+      ],
+      "flip_rows": [
+        5,
+        7,
+        8
+      ],
+      "flip_count": 3,
+      "flip_signed_jumps": [
+        -2.02734375,
+        1.83984375,
+        -1.81640625
+      ],
+      "motion6_absmax": [
+        0.1552734375,
+        0.462890625,
+        0.5234375,
+        0.47265625,
+        0.51171875,
+        0.126953125
+      ],
+      "baseline_raw7_maxabsdiff": 0.03515625,
+      "baseline_motion6_rmsdiff": 0.001927203731611371,
+      "baseline_xyz_rmsdiff": 0.002049909206107259,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 10,
+      "condition": "A2",
+      "noise_seed": 1730044255,
+      "wall_seconds": 1.3558392524719238,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1
+      ],
+      "flip_rows": [
+        5,
+        7,
+        8
+      ],
+      "flip_count": 3,
+      "flip_signed_jumps": [
+        -2.015625,
+        1.796875,
+        -1.7578125
+      ],
+      "motion6_absmax": [
+        0.1484375,
+        0.466796875,
+        0.5234375,
+        0.4765625,
+        0.51171875,
+        0.138671875
+      ],
+      "baseline_raw7_maxabsdiff": 0.0234375,
+      "baseline_motion6_rmsdiff": 0.006313033867627382,
+      "baseline_xyz_rmsdiff": 0.007034505717456341,
+      "baseline_sign_disagreements_first10": 0
+    },
+    {
+      "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+      "original_stats_sha256": "UNKNOWN",
+      "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+      "seed": 17,
+      "frame": 10,
+      "condition": "A3",
+      "noise_seed": 1730044255,
+      "wall_seconds": 1.3588500022888184,
+      "signs_first10": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1
+      ],
+      "flip_rows": [
+        5,
+        7,
+        8
+      ],
+      "flip_count": 3,
+      "flip_signed_jumps": [
+        -2.015625,
+        1.84375,
+        -1.8125
+      ],
+      "motion6_absmax": [
+        0.1494140625,
+        0.46875,
+        0.5234375,
+        0.4765625,
+        0.5078125,
+        0.13671875
+      ],
+      "baseline_raw7_maxabsdiff": 0.0390625,
+      "baseline_motion6_rmsdiff": 0.006888775620609522,
+      "baseline_xyz_rmsdiff": 0.007907449267804623,
+      "baseline_sign_disagreements_first10": 0
+    }
+  ],
+  "scope": "counterfactual output sensitivity, not task success or proof of failure cause"
+}

@@ -1,0 +1,1086 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "scope": "counterfactual old row10 is plan only, not executed",
+  "seeds": [
+    {
+      "seed": 11,
+      "boundaries": 59,
+      "same_time_plan_sign_rewrites": 4,
+      "executed_boundary_flips": 6,
+      "flips_new_against_old_plan": 3,
+      "rows": [
+        {
+          "control_step": 11,
+          "executed_previous": 0.984375,
+          "old_unexecuted_plan": 1.0078125,
+          "new_executed": -1.0078125,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 21,
+          "executed_previous": -1.0234375,
+          "old_unexecuted_plan": -1.015625,
+          "new_executed": -1.0234375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 31,
+          "executed_previous": -1.0078125,
+          "old_unexecuted_plan": -1.0078125,
+          "new_executed": -0.96484375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 41,
+          "executed_previous": -1.0,
+          "old_unexecuted_plan": -0.22265625,
+          "new_executed": 2.375,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 51,
+          "executed_previous": 3.375,
+          "old_unexecuted_plan": 3.40625,
+          "new_executed": 3.40625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 61,
+          "executed_previous": 1.9765625,
+          "old_unexecuted_plan": 3.234375,
+          "new_executed": -0.30078125,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 71,
+          "executed_previous": -0.5234375,
+          "old_unexecuted_plan": -0.115234375,
+          "new_executed": -0.625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 81,
+          "executed_previous": -0.412109375,
+          "old_unexecuted_plan": -0.6015625,
+          "new_executed": -0.2578125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 91,
+          "executed_previous": 0.36328125,
+          "old_unexecuted_plan": -0.390625,
+          "new_executed": -0.3515625,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": true,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 101,
+          "executed_previous": -0.5078125,
+          "old_unexecuted_plan": -0.515625,
+          "new_executed": -0.515625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 111,
+          "executed_previous": 0.0390625,
+          "old_unexecuted_plan": -0.2734375,
+          "new_executed": -0.08837890625,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": true,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 121,
+          "executed_previous": 0.296875,
+          "old_unexecuted_plan": -0.044921875,
+          "new_executed": -0.05078125,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": true,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 131,
+          "executed_previous": 0.5859375,
+          "old_unexecuted_plan": -0.1630859375,
+          "new_executed": 0.1875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": true,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 141,
+          "executed_previous": 0.328125,
+          "old_unexecuted_plan": 0.041015625,
+          "new_executed": 0.27734375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 151,
+          "executed_previous": 0.859375,
+          "old_unexecuted_plan": 0.5625,
+          "new_executed": 0.62890625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 161,
+          "executed_previous": 0.06640625,
+          "old_unexecuted_plan": 0.453125,
+          "new_executed": 0.9765625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 171,
+          "executed_previous": 0.78515625,
+          "old_unexecuted_plan": 0.47265625,
+          "new_executed": 0.765625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 181,
+          "executed_previous": 0.94140625,
+          "old_unexecuted_plan": 1.0703125,
+          "new_executed": 0.65625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 191,
+          "executed_previous": 0.3359375,
+          "old_unexecuted_plan": 0.8984375,
+          "new_executed": 1.1484375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 201,
+          "executed_previous": 1.5078125,
+          "old_unexecuted_plan": 2.125,
+          "new_executed": 1.40625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 211,
+          "executed_previous": 1.078125,
+          "old_unexecuted_plan": 0.875,
+          "new_executed": 1.125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 221,
+          "executed_previous": 1.34375,
+          "old_unexecuted_plan": 0.75390625,
+          "new_executed": 1.140625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 231,
+          "executed_previous": 1.8984375,
+          "old_unexecuted_plan": 1.25,
+          "new_executed": 1.1875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 241,
+          "executed_previous": 1.5859375,
+          "old_unexecuted_plan": 0.83203125,
+          "new_executed": 1.078125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 251,
+          "executed_previous": 0.6484375,
+          "old_unexecuted_plan": 0.8125,
+          "new_executed": 0.9609375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 261,
+          "executed_previous": 0.87890625,
+          "old_unexecuted_plan": 0.7109375,
+          "new_executed": 0.8125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 271,
+          "executed_previous": 0.6640625,
+          "old_unexecuted_plan": 0.65234375,
+          "new_executed": 0.921875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 281,
+          "executed_previous": 0.63671875,
+          "old_unexecuted_plan": 0.09765625,
+          "new_executed": 0.5390625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 291,
+          "executed_previous": 0.455078125,
+          "old_unexecuted_plan": 0.6171875,
+          "new_executed": 0.95703125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 301,
+          "executed_previous": 1.1171875,
+          "old_unexecuted_plan": 0.5390625,
+          "new_executed": 0.369140625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 311,
+          "executed_previous": 0.88671875,
+          "old_unexecuted_plan": 0.296875,
+          "new_executed": 1.390625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 321,
+          "executed_previous": 1.0390625,
+          "old_unexecuted_plan": 1.078125,
+          "new_executed": 0.7890625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 331,
+          "executed_previous": 1.2265625,
+          "old_unexecuted_plan": 1.40625,
+          "new_executed": 1.0859375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 341,
+          "executed_previous": 1.0625,
+          "old_unexecuted_plan": 0.35546875,
+          "new_executed": 1.125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 351,
+          "executed_previous": 1.140625,
+          "old_unexecuted_plan": 1.1953125,
+          "new_executed": 0.8359375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 361,
+          "executed_previous": 1.1640625,
+          "old_unexecuted_plan": 1.03125,
+          "new_executed": 0.84765625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 371,
+          "executed_previous": 1.0625,
+          "old_unexecuted_plan": 0.8828125,
+          "new_executed": 1.671875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 381,
+          "executed_previous": 0.9140625,
+          "old_unexecuted_plan": 0.9921875,
+          "new_executed": 0.458984375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 391,
+          "executed_previous": 0.98828125,
+          "old_unexecuted_plan": 0.71875,
+          "new_executed": 1.1796875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 401,
+          "executed_previous": 1.515625,
+          "old_unexecuted_plan": 0.84375,
+          "new_executed": 0.9609375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 411,
+          "executed_previous": 0.6484375,
+          "old_unexecuted_plan": 0.85546875,
+          "new_executed": 0.59375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 421,
+          "executed_previous": 1.5078125,
+          "old_unexecuted_plan": 1.453125,
+          "new_executed": 1.328125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 431,
+          "executed_previous": 1.2421875,
+          "old_unexecuted_plan": 0.80859375,
+          "new_executed": 0.87109375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 441,
+          "executed_previous": 1.46875,
+          "old_unexecuted_plan": 0.7265625,
+          "new_executed": 0.51953125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 451,
+          "executed_previous": 1.203125,
+          "old_unexecuted_plan": 1.0390625,
+          "new_executed": 0.48828125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 461,
+          "executed_previous": 0.8046875,
+          "old_unexecuted_plan": 1.5,
+          "new_executed": 1.0390625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 471,
+          "executed_previous": 0.55859375,
+          "old_unexecuted_plan": 0.62890625,
+          "new_executed": 1.1796875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 481,
+          "executed_previous": 0.625,
+          "old_unexecuted_plan": 0.86328125,
+          "new_executed": 0.5625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 491,
+          "executed_previous": 0.8359375,
+          "old_unexecuted_plan": 1.171875,
+          "new_executed": 0.5859375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 501,
+          "executed_previous": 0.0986328125,
+          "old_unexecuted_plan": 0.93359375,
+          "new_executed": 1.0078125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 511,
+          "executed_previous": 0.5625,
+          "old_unexecuted_plan": 1.2265625,
+          "new_executed": 0.703125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 521,
+          "executed_previous": 0.5,
+          "old_unexecuted_plan": 0.6953125,
+          "new_executed": 0.859375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 531,
+          "executed_previous": 1.484375,
+          "old_unexecuted_plan": 0.7109375,
+          "new_executed": 0.6796875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 541,
+          "executed_previous": 1.0,
+          "old_unexecuted_plan": 0.90625,
+          "new_executed": 0.55859375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 551,
+          "executed_previous": 1.140625,
+          "old_unexecuted_plan": 0.6484375,
+          "new_executed": 1.1953125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 561,
+          "executed_previous": 0.8671875,
+          "old_unexecuted_plan": 0.80859375,
+          "new_executed": 0.765625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 571,
+          "executed_previous": 0.9921875,
+          "old_unexecuted_plan": 0.458984375,
+          "new_executed": 0.8046875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 581,
+          "executed_previous": 0.96484375,
+          "old_unexecuted_plan": 0.90625,
+          "new_executed": 1.28125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 591,
+          "executed_previous": 1.2734375,
+          "old_unexecuted_plan": 0.318359375,
+          "new_executed": 1.1484375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "boundaries": 59,
+      "same_time_plan_sign_rewrites": 17,
+      "executed_boundary_flips": 21,
+      "flips_new_against_old_plan": 16,
+      "rows": [
+        {
+          "control_step": 11,
+          "executed_previous": 1.015625,
+          "old_unexecuted_plan": 0.99609375,
+          "new_executed": 1.015625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 21,
+          "executed_previous": -1.0234375,
+          "old_unexecuted_plan": -1.015625,
+          "new_executed": 1.046875,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 31,
+          "executed_previous": -1.0,
+          "old_unexecuted_plan": -1.0,
+          "new_executed": 1.0625,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 41,
+          "executed_previous": -1.0,
+          "old_unexecuted_plan": -1.0,
+          "new_executed": -1.03125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 51,
+          "executed_previous": -1.0,
+          "old_unexecuted_plan": -1.015625,
+          "new_executed": 1.0234375,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 61,
+          "executed_previous": -1.03125,
+          "old_unexecuted_plan": -1.046875,
+          "new_executed": -1.0703125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 71,
+          "executed_previous": -1.0234375,
+          "old_unexecuted_plan": -1.015625,
+          "new_executed": 0.69921875,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 81,
+          "executed_previous": 0.5078125,
+          "old_unexecuted_plan": 0.47265625,
+          "new_executed": -0.97265625,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 91,
+          "executed_previous": -0.9765625,
+          "old_unexecuted_plan": -1.03125,
+          "new_executed": -0.671875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 101,
+          "executed_previous": 1.109375,
+          "old_unexecuted_plan": 1.0703125,
+          "new_executed": -0.9921875,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 111,
+          "executed_previous": -1.0078125,
+          "old_unexecuted_plan": -0.9921875,
+          "new_executed": -0.3046875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 121,
+          "executed_previous": 1.0390625,
+          "old_unexecuted_plan": 1.046875,
+          "new_executed": -1.015625,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 131,
+          "executed_previous": -1.0,
+          "old_unexecuted_plan": -0.96875,
+          "new_executed": 3.375,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 141,
+          "executed_previous": 2.625,
+          "old_unexecuted_plan": 3.875,
+          "new_executed": 5.53125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 151,
+          "executed_previous": 5.84375,
+          "old_unexecuted_plan": 4.125,
+          "new_executed": 18.0,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 161,
+          "executed_previous": 20.0,
+          "old_unexecuted_plan": 17.25,
+          "new_executed": 25.75,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 171,
+          "executed_previous": 21.875,
+          "old_unexecuted_plan": 20.25,
+          "new_executed": 28.25,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 181,
+          "executed_previous": 28.625,
+          "old_unexecuted_plan": 16.125,
+          "new_executed": 10.75,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 191,
+          "executed_previous": 23.25,
+          "old_unexecuted_plan": 25.5,
+          "new_executed": 17.125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 201,
+          "executed_previous": 17.25,
+          "old_unexecuted_plan": 28.875,
+          "new_executed": 18.625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 211,
+          "executed_previous": 25.25,
+          "old_unexecuted_plan": 25.0,
+          "new_executed": 81.0,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 221,
+          "executed_previous": 82.5,
+          "old_unexecuted_plan": 75.5,
+          "new_executed": 82.0,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 231,
+          "executed_previous": 86.0,
+          "old_unexecuted_plan": 91.5,
+          "new_executed": 62.5,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 241,
+          "executed_previous": 66.5,
+          "old_unexecuted_plan": 66.5,
+          "new_executed": 70.0,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 251,
+          "executed_previous": 70.5,
+          "old_unexecuted_plan": 58.75,
+          "new_executed": 73.0,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 261,
+          "executed_previous": 68.0,
+          "old_unexecuted_plan": 71.5,
+          "new_executed": 60.75,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 271,
+          "executed_previous": 58.25,
+          "old_unexecuted_plan": 65.0,
+          "new_executed": 25.0,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 281,
+          "executed_previous": 27.25,
+          "old_unexecuted_plan": 31.0,
+          "new_executed": 39.0,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 291,
+          "executed_previous": 28.75,
+          "old_unexecuted_plan": 29.0,
+          "new_executed": 32.0,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 301,
+          "executed_previous": 11.8125,
+          "old_unexecuted_plan": 33.75,
+          "new_executed": 6.8125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 311,
+          "executed_previous": 4.125,
+          "old_unexecuted_plan": 11.375,
+          "new_executed": -3.625,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 321,
+          "executed_previous": -5.28125,
+          "old_unexecuted_plan": -1.6484375,
+          "new_executed": 1.6328125,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 331,
+          "executed_previous": -0.4921875,
+          "old_unexecuted_plan": -0.341796875,
+          "new_executed": 1.390625,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 341,
+          "executed_previous": 0.8125,
+          "old_unexecuted_plan": -2.78125,
+          "new_executed": 1.8671875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": true,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 351,
+          "executed_previous": 1.078125,
+          "old_unexecuted_plan": 1.2109375,
+          "new_executed": -14.125,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 361,
+          "executed_previous": 12.75,
+          "old_unexecuted_plan": 14.375,
+          "new_executed": 8.875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 371,
+          "executed_previous": 10.375,
+          "old_unexecuted_plan": -15.5,
+          "new_executed": -2.53125,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": true,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 381,
+          "executed_previous": -2.84375,
+          "old_unexecuted_plan": -2.96875,
+          "new_executed": -4.125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 391,
+          "executed_previous": -3.578125,
+          "old_unexecuted_plan": -2.0625,
+          "new_executed": -5.28125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 401,
+          "executed_previous": -5.5,
+          "old_unexecuted_plan": -4.71875,
+          "new_executed": 1.5625,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 411,
+          "executed_previous": -0.8828125,
+          "old_unexecuted_plan": 3.03125,
+          "new_executed": 0.46484375,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": true,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 421,
+          "executed_previous": 3.5625,
+          "old_unexecuted_plan": 4.375,
+          "new_executed": 0.06884765625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 431,
+          "executed_previous": 0.02734375,
+          "old_unexecuted_plan": 0.15234375,
+          "new_executed": -0.2890625,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 441,
+          "executed_previous": -0.4765625,
+          "old_unexecuted_plan": -0.03125,
+          "new_executed": 0.349609375,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 451,
+          "executed_previous": -0.40625,
+          "old_unexecuted_plan": 0.05859375,
+          "new_executed": 0.0068359375,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": true,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 461,
+          "executed_previous": -0.083984375,
+          "old_unexecuted_plan": 0.53125,
+          "new_executed": 0.21484375,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": true,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 471,
+          "executed_previous": 0.322265625,
+          "old_unexecuted_plan": 0.2060546875,
+          "new_executed": -0.044921875,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": true
+        },
+        {
+          "control_step": 481,
+          "executed_previous": 0.201171875,
+          "old_unexecuted_plan": -0.412109375,
+          "new_executed": -0.265625,
+          "executed_boundary_flip": true,
+          "old_plan_continuation_flip": true,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 491,
+          "executed_previous": 0.1279296875,
+          "old_unexecuted_plan": 0.041015625,
+          "new_executed": 0.349609375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 501,
+          "executed_previous": 0.380859375,
+          "old_unexecuted_plan": 0.5390625,
+          "new_executed": 0.828125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 511,
+          "executed_previous": 0.40625,
+          "old_unexecuted_plan": 1.2421875,
+          "new_executed": 1.484375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 521,
+          "executed_previous": 1.28125,
+          "old_unexecuted_plan": 1.109375,
+          "new_executed": 1.1171875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 531,
+          "executed_previous": 1.03125,
+          "old_unexecuted_plan": 1.3984375,
+          "new_executed": 0.9453125,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 541,
+          "executed_previous": 0.80859375,
+          "old_unexecuted_plan": 1.40625,
+          "new_executed": 1.4609375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 551,
+          "executed_previous": 1.4375,
+          "old_unexecuted_plan": 1.25,
+          "new_executed": 1.5546875,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 561,
+          "executed_previous": 1.2734375,
+          "old_unexecuted_plan": 1.375,
+          "new_executed": 1.234375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 571,
+          "executed_previous": 1.25,
+          "old_unexecuted_plan": 1.203125,
+          "new_executed": 1.015625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 581,
+          "executed_previous": 0.486328125,
+          "old_unexecuted_plan": 1.203125,
+          "new_executed": 1.0625,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        },
+        {
+          "control_step": 591,
+          "executed_previous": 0.6015625,
+          "old_unexecuted_plan": 1.703125,
+          "new_executed": 1.2734375,
+          "executed_boundary_flip": false,
+          "old_plan_continuation_flip": false,
+          "same_time_plan_rewrite": false
+        }
+      ]
+    }
+  ]
+}

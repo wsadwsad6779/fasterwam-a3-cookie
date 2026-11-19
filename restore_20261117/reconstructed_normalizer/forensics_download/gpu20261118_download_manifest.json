@@ -1,0 +1,312 @@
+[
+  {
+    "name": "gpu20261118_seed17_frame10_inputs.npz",
+    "sha256": "4ee6d418d02bfdf465112eee67f16ea6baaadaeed41dcfcc3552f598500c0aff",
+    "size": 118269
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_N303.npz",
+    "sha256": "bd819f59192fef06a296045e37c3194db5cda7ee3cecac06a0a86bc920920339",
+    "size": 3267
+  },
+  {
+    "name": "gpu20261118_seed17_frame10_A2.npz",
+    "sha256": "0ef6f889aa3bd82eaf3f1a3cebcebd24039fb79bfc12b116ef90e01c3b63518e",
+    "size": 3266
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_input_identity.json",
+    "sha256": "bfd0245037a0928d451bf23f905555688c5110e7c511fd0e746bb3bd414a3a03",
+    "size": 964
+  },
+  {
+    "name": "gpu20261118_seed12_frame10_A0.npz",
+    "sha256": "d8937e04e450dcb26e1528896e6fa909bb6623ee53f60691bc8a927c3aa5102f",
+    "size": 3424
+  },
+  {
+    "name": "gpu20261118_seed12_frame10_A2.json",
+    "sha256": "1d6c458b1d25f9721dcd88b53f04ffa173b03b5a0781bb2775b4cb897bc031f6",
+    "size": 855
+  },
+  {
+    "name": "gpu20261118_seed17_frame10_A3.json",
+    "sha256": "ea4972cfe1b3fc82cbd50bb97cea226b5c452c06ad718c4d53c63ea10fc5df9d",
+    "size": 881
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_N202.json",
+    "sha256": "dbc697d7eddd09f5dfc0e728886caf16063d8ab30f3d2ddef0bec516fa0f1c7d",
+    "size": 800
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_A0.json",
+    "sha256": "5d4909fade10598766b34c5f14a20e932ebc9dfff7dd710335de91e8afcdc8f1",
+    "size": 911
+  },
+  {
+    "name": "gpu20261118_seed17_frame10_A0.json",
+    "sha256": "4f6024907dab7962d8dba179b476a1fe38f623caad7630ff962f328df92e40c4",
+    "size": 944
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_N101.json",
+    "sha256": "ea92e5f75de84bd244003c6883584f5b9d8ca8dd72415212d6d25240fb654f63",
+    "size": 904
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_A0_repeat.npz",
+    "sha256": "4eb4d36cd01e2568bd7ae6a2271e9404c52ef826686255800eed76b449bb2a28",
+    "size": 3278
+  },
+  {
+    "name": "gpu20261118_seed17_frame10_A0_repeat.json",
+    "sha256": "58c5fdfd949d69ed60849c5a0dcb2bfecb5ce88359998360e0cba8b30a9c7c60",
+    "size": 853
+  },
+  {
+    "name": "gpu20261118_seed12_frame10_A0_repeat.json",
+    "sha256": "ea97cafad374be1f6c45796910a24e859e9d528febb47d014e3e19e553723d9e",
+    "size": 821
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_N202.json",
+    "sha256": "524149140931dbb7e1ce5d7d9e61eacaa2d3c5336ecb911dde62b25735856c5a",
+    "size": 802
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_N101.json",
+    "sha256": "c364faf0cece04d94488c0470d0087cddb3c15f6c8a81a833182775ecb4711c9",
+    "size": 908
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_A2.npz",
+    "sha256": "deff23a84214c2ff9d385a1553e2134765659377745b20fc1a0ce4b07372907e",
+    "size": 3291
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_A3.json",
+    "sha256": "e611cdb04b55b14fa27f23216b325c3e0966569ae503fc2478ae5e96dc500876",
+    "size": 855
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_A0.json",
+    "sha256": "c0ced9d016fc854fec10c13cb3dafd6b6c1c2f9061d5de14abc72b12f9b2535f",
+    "size": 962
+  },
+  {
+    "name": "gpu20261118_seed12_frame10_A3.npz",
+    "sha256": "c1874e4fba2e08c4d033c492b46f11fb4025425ed51690bc9a07eb8306d52bbb",
+    "size": 3232
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_A0.npz",
+    "sha256": "358728abf1b6a074af0bd9db10e67d085df1a5881ed25d98eebfdd016db829b7",
+    "size": 3296
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_A2.json",
+    "sha256": "ffce88c12fce0029ecc4adb8ec86b93bdeeb29ac9590995c7c61666e935e1675",
+    "size": 858
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_A2.json",
+    "sha256": "06e8aebd421062ca16d62e1cb72d6ad5cd5028ee22993aa4bfc1c77008de2543",
+    "size": 910
+  },
+  {
+    "name": "gpu20261118_seed12_frame10_A0.json",
+    "sha256": "9282c8d4a55c4bf130ea45c2219b4a04de5960d9ccd3ad70d53aec69f26dbd8a",
+    "size": 849
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_inputs.npz",
+    "sha256": "e69061aab648c291d3544a550b17029086927fb89ba047234650831ea964a0fe",
+    "size": 114291
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_input_identity.json",
+    "sha256": "d0a367c2ce00e153a179f40dda1d5d0a13506dd4fde08209d19e2c3f7e8b6dcb",
+    "size": 971
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_A0_repeat.json",
+    "sha256": "33a293c0559c6efc0a48a16e184f852c2b7b4835ef430f70f49b8b1d8e4a8a7f",
+    "size": 820
+  },
+  {
+    "name": "gpu20261118_seed12_frame10_A1.json",
+    "sha256": "09497f9e9f6cd0f56f3d0c8796d710a3779e71f7cc7a6860c8ad6bd3b02b9291",
+    "size": 850
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_A3.npz",
+    "sha256": "1c089527984e2c8a91323b2fca859bdf093373348d27c87ca30dcb7695fe4413",
+    "size": 3276
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_N303.json",
+    "sha256": "633bc1bda4365301fba277eba1d840e0666c0e4f9ceb9f9cc0607f0a9f079b7a",
+    "size": 796
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_N303.npz",
+    "sha256": "bd819f59192fef06a296045e37c3194db5cda7ee3cecac06a0a86bc920920339",
+    "size": 3267
+  },
+  {
+    "name": "gpu20261118_seed17_frame10_A0.npz",
+    "sha256": "d4afe6bc38892750e4ca589ec220291c24bcb1cfaf6b27565a372ad935913713",
+    "size": 3413
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_A1.json",
+    "sha256": "b4fe7fc7e0bc5cebe2290ae0b1aaee3550fca5d90d72cd838cf30a154a3df3aa",
+    "size": 855
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_A3.npz",
+    "sha256": "ebcb277f9af9d69590c6d2023476a4aff84031659698c3c000deffb1bc4bbbc5",
+    "size": 3270
+  },
+  {
+    "name": "gpu20261118_seed17_frame10_A0_repeat.npz",
+    "sha256": "d4afe6bc38892750e4ca589ec220291c24bcb1cfaf6b27565a372ad935913713",
+    "size": 3413
+  },
+  {
+    "name": "gpu20261118_seed12_frame10_A1.npz",
+    "sha256": "6c46755c5172e4d496c64c032547102694fca9abcede9a20bb8ca4c2946ab638",
+    "size": 3403
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_N303.json",
+    "sha256": "fcf34f217395ec6a6ca172ced32380f3a8c59d865f2d8a32b37726b8e203bd3c",
+    "size": 795
+  },
+  {
+    "name": "gpu20261118_identity.json",
+    "sha256": "c35653038774a1195e9559711342c3cdd30d76187611685c2a61c3d5d54f8cb0",
+    "size": 5741
+  },
+  {
+    "name": "gpu20261118_seed12_frame10_input_identity.json",
+    "sha256": "3dc6dc1f2e2556ae13ae40035cae640da998b2465b536b753b85c72e536bcd71",
+    "size": 965
+  },
+  {
+    "name": "gpu20261118_seed17_frame10_input_identity.json",
+    "sha256": "ac7bd6af7fa72dae302ab834d1730db17f1f1e419f03b0a46583cbd8f2e1cd43",
+    "size": 972
+  },
+  {
+    "name": "gpu20261118_seed12_frame10_inputs.npz",
+    "sha256": "1689a1dda0a4b48e0d7906064dc9920193950f9a3485089cb1f2b857a6ac0785",
+    "size": 118772
+  },
+  {
+    "name": "gpu20261118_seed12_frame10_A0_repeat.npz",
+    "sha256": "d8937e04e450dcb26e1528896e6fa909bb6623ee53f60691bc8a927c3aa5102f",
+    "size": 3424
+  },
+  {
+    "name": "gpu20261118_seed12_frame10_A2.npz",
+    "sha256": "f60ac3fbb4f9d925b6ba0025d4ea6aa2fce6dd8b73df76c7b325e8178e1dd67d",
+    "size": 3250
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_A1.npz",
+    "sha256": "17f2caa6637165d0fe7f7e0076a753bbbc0a73c49f15fb2566b62830ea6c0708",
+    "size": 3283
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_N202.npz",
+    "sha256": "ea9ae2ea7b21e22e03b8484a36b89be26c4ad59247010245bfbabe2faeebe584",
+    "size": 3291
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_A1.json",
+    "sha256": "f9da471faeb60026bb7a40c31ec23881b54ace1971a4dacc668b51298e72e245",
+    "size": 912
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_inputs.npz",
+    "sha256": "e69061aab648c291d3544a550b17029086927fb89ba047234650831ea964a0fe",
+    "size": 114291
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_N202.npz",
+    "sha256": "ea9ae2ea7b21e22e03b8484a36b89be26c4ad59247010245bfbabe2faeebe584",
+    "size": 3291
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_N101.npz",
+    "sha256": "787226848e3eecc67771dd6021a5cef27010fa4c8dba2b3b9f3d0d00822bbed5",
+    "size": 3275
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_A3.json",
+    "sha256": "1fa49c324cc3ead339db3c2b9bd128b672fa7d7a192a6c7b11aedc98b0746faa",
+    "size": 912
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_A0.npz",
+    "sha256": "4eb4d36cd01e2568bd7ae6a2271e9404c52ef826686255800eed76b449bb2a28",
+    "size": 3278
+  },
+  {
+    "name": "gpu20261118_seed17_frame10_A2.json",
+    "sha256": "f8e4ab091191954387796d49fd534dffe113a28f911b5d8f60862b28c162222b",
+    "size": 888
+  },
+  {
+    "name": "gpu20261118_seed17_frame10_A3.npz",
+    "sha256": "71bd758e3f6cb36a0093d5a70db566d665b2b73fed44a3fd893dbdc43f75fa2f",
+    "size": 3236
+  },
+  {
+    "name": "gpu20261118_seed12_frame0_A2.npz",
+    "sha256": "8bcb6a4a4c53c98a4f07c8a145fa3160cf7f82af6fa8a801a361865c28faca14",
+    "size": 3302
+  },
+  {
+    "name": "gpu20261118_seed12_frame10_A3.json",
+    "sha256": "2db9d689d049dd56e3b63d29cabf78470c1dc39891c24fbec81e011e76bcc6a1",
+    "size": 847
+  },
+  {
+    "name": "gpu20261118_seed17_frame10_A1.json",
+    "sha256": "e1f394d2cfed717062a60c143529786546fe96633f28a2ad026289a2219cf079",
+    "size": 898
+  },
+  {
+    "name": "gpu20261118_summary.json",
+    "sha256": "dd36b7acd59f75d5c7fa19cf07161bfb567f5a38146a23d0f30484cd2fc9c360",
+    "size": 27500
+  },
+  {
+    "name": "gpu20261118_seed17_frame10_A1.npz",
+    "sha256": "c18821ee65f8f81ba7c8542a16ece8ae2a9e0592294474c4b82a262267ed1de1",
+    "size": 3408
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_N101.npz",
+    "sha256": "787226848e3eecc67771dd6021a5cef27010fa4c8dba2b3b9f3d0d00822bbed5",
+    "size": 3275
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_A1.npz",
+    "sha256": "464eafaae236086f34500ddc357182aa62da89ea3f5a021625843f3bda094d47",
+    "size": 3267
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_A0_repeat.npz",
+    "sha256": "358728abf1b6a074af0bd9db10e67d085df1a5881ed25d98eebfdd016db829b7",
+    "size": 3296
+  },
+  {
+    "name": "gpu20261118_seed17_frame0_A0_repeat.json",
+    "sha256": "3d404d54699c884fe427074f66d9a430e0ca5844ba8085d5e6f2b389a57bda0f",
+    "size": 871
+  }
+]

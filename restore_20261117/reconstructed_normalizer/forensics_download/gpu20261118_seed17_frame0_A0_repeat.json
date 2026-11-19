@@ -1,0 +1,47 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "original_stats_sha256": "UNKNOWN",
+  "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+  "seed": 17,
+  "frame": 0,
+  "condition": "A0_repeat",
+  "noise_seed": 335444155,
+  "wall_seconds": 1.3618583679199219,
+  "signs_first10": [
+    1,
+    1,
+    -1,
+    1,
+    1,
+    -1,
+    -1,
+    -1,
+    1,
+    1
+  ],
+  "flip_rows": [
+    2,
+    3,
+    5,
+    8
+  ],
+  "flip_count": 4,
+  "flip_signed_jumps": [
+    -1.73828125,
+    0.7587890625,
+    -1.796875,
+    1.0703125
+  ],
+  "motion6_absmax": [
+    0.30078125,
+    0.5078125,
+    1.0,
+    0.486328125,
+    0.59375,
+    0.16796875
+  ],
+  "baseline_raw7_maxabsdiff": 0.0,
+  "baseline_motion6_rmsdiff": 0.0,
+  "baseline_xyz_rmsdiff": 0.0,
+  "baseline_sign_disagreements_first10": 0
+}

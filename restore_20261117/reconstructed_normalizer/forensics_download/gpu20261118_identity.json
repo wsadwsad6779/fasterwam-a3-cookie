@@ -1,0 +1,168 @@
+{
+  "NORMALIZER_IDENTITY": "RECONSTRUCTED_DETERMINISTIC_NOT_ORIGINAL",
+  "original_stats_sha256": "UNKNOWN",
+  "report_scope": "\u5728\u53ef\u8ffd\u6eaf\u91cd\u5efa normalizer \u6761\u4ef6\u4e0b\u7684 40k \u8bca\u65ad\u7ed3\u679c",
+  "protocol": {
+    "eval_settings": {
+      "source": "/workspace/eval_restore_20261117/deploy/stage_40k/fw/configs/sim_libero.yaml",
+      "values": {
+        "num_inference_steps": 10,
+        "negative_prompt": "",
+        "text_cfg_scale": 1.0,
+        "sigma_shift": null,
+        "rand_device": "cpu",
+        "tiled": false,
+        "action_horizon": null,
+        "action_infer_mode": "one_pass_future_cache",
+        "binarize_gripper": true
+      },
+      "interpolated_from_run_config": {
+        "num_inference_steps": "eval_num_inference_steps",
+        "action_infer_mode": "default_action_infer_mode"
+      },
+      "deployment_action_infer_mode": "one_pass_future_cache",
+      "harness_calls": "model.infer_action"
+    },
+    "text_encoder": {
+      "source": "/workspace/eval_restore_20261117/deploy/stage_40k/fw/configs/sim_libero.yaml",
+      "train_config_value": false,
+      "deployment_value": true,
+      "applied": true,
+      "keys_left_on_run_config": {
+        "model_id": "Wan-AI/Wan2.2-TI2V-5B",
+        "tokenizer_model_id": "Wan-AI/Wan2.1-T2V-1.3B",
+        "tokenizer_max_len": 128,
+        "redirect_common_files": false,
+        "skip_dit_load_from_pretrain": true,
+        "action_dit_pretrained_path": "checkpoints/SparseActionDiT_cond_0_4_8_12_16_20_24_28_Wan22_alphascale_1024hdim.pt"
+      }
+    },
+    "weight_paths": {
+      "text_encoder": {
+        "path": "/workspace/eval_restore_20261117/auxiliary/Wan-AI/Wan2.2-TI2V-5B/models_t5_umt5-xxl-enc-bf16.pth",
+        "exists": true
+      },
+      "vae": {
+        "path": "/workspace/eval_restore_20261117/auxiliary/Wan-AI/Wan2.2-TI2V-5B/Wan2.2_VAE.pth",
+        "exists": true
+      },
+      "tokenizer": {
+        "path": "/workspace/eval_restore_20261117/auxiliary/Wan-AI/Wan2.1-T2V-1.3B/google/umt5-xxl/",
+        "exists": true
+      }
+    },
+    "prompt": {
+      "task": "transfer 10 cookies into target box",
+      "prompt": "A video recorded from a robot's point of view executing the following instruction: transfer 10 cookies into target box",
+      "prompt_sha256": "b6f1657eeb7e8f5a4e4310074fab14ad8d79ed3ef798f677be2c137817d0f7b6",
+      "DEFAULT_A3_TASK": "transfer 10 cookies into target box",
+      "DEFAULT_PROMPT": "A video recorded from a robot's point of view executing the following instruction: {task}",
+      "TEXT_CACHE_STATUS": "ORIGINAL_NOT_RECOVERED_INSTRUCTION_FROM_CODE_CONSTANTS: the training text-embedding cache and v1g arrays.npz were lost with the old container; inference encodes the prompt fresh with the original T5, instruction is DEFAULT_A3_TASK formatted by DEFAULT_PROMPT from the force-aware code"
+    },
+    "stats": {
+      "source": "/workspace/eval_restore_20261117/reconstructed_normalizer/dataset_stats_14d_RECONSTRUCTED.json",
+      "keys": [
+        "default"
+      ],
+      "widths": {
+        "default/global_min": 14,
+        "default/global_max": 14,
+        "default/global_std": 14
+      },
+      "bands": {
+        "default": {
+          "min": [
+            0.05462999641895294,
+            0.09031549096107483,
+            0.7638311982154846,
+            -1.2248071432113647,
+            -2.4337832927703857,
+            -1.2333282232284546,
+            0.012251690961420536,
+            -0.04023492708802223,
+            -0.7338846325874329,
+            -0.5887312889099121,
+            -0.18089430034160614,
+            -0.6814043521881104,
+            -0.6854666471481323,
+            -1.3969910144805908
+          ],
+          "max": [
+            0.13350403308868408,
+            0.3028571903705597,
+            0.919999361038208,
+            2.480116605758667,
+            1.233620047569275,
+            2.443288803100586,
+            0.04023492708802223,
+            -0.012251690961420536,
+            0.7338846325874329,
+            0.5887312889099121,
+            0.18089430034160614,
+            0.6814043521881104,
+            0.6854666471481323,
+            1.3969910144805908
+          ],
+          "force_band_is_symmetric_std": true,
+          "half_width_force_columns": [
+            0.7338846325874329,
+            0.5887312889099121,
+            0.18089430034160614,
+            0.6814043521881104,
+            0.6854666471481323,
+            1.3969910144805908
+          ],
+          "force_halfwidth_equals_calib_std": true
+        }
+      }
+    },
+    "conditioning": {
+      "encoded_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_all_true": true,
+      "mask_true_count": 128,
+      "encoded_nan": false,
+      "determinism_max_abs_diff": 0.0,
+      "determinism_bit_equal": true,
+      "reference": "REGENERATED_FROM_ORIGINAL_T5_NOT_ORIGINAL_CACHE",
+      "text_encoder_training": false
+    },
+    "device": "cuda",
+    "action_horizon": 32,
+    "num_video_frames": 9,
+    "num_inference_steps": 10,
+    "action_infer_mode": "one_pass_future_cache",
+    "gripper_mode": "pm1"
+  },
+  "zero_load_reference_raw6": [
+    -0.000117704868898727,
+    -10.721150398254395,
+    -0.028226930648088455,
+    0.0,
+    0.0,
+    -0.018633414059877396
+  ],
+  "P1_neutral_residual6": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "P2_intervention": "replace valid rows with calibration zero_load_ref_median; invalid padded rows and mask unchanged",
+  "source_sha256": "e7d6c12be685fda4cd7bc14030e7db00f4f742c00d5cf8ca414f80e4d89f40cd",
+  "fixed_observation_frames": [
+    0,
+    10
+  ],
+  "additional_noise_seeds": [
+    101,
+    202,
+    303
+  ],
+  "scope": "input counterfactual inference only; actions never executed"
+}

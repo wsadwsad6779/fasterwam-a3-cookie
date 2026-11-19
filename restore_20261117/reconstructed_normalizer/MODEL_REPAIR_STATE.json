@@ -1,0 +1,70 @@
+{
+  "stage": "v3_12k_done_grasp_failure_localized_training_budget_exhausted",
+  "date": "2026-11-19",
+  "system_identity_split": "A=original 40k bare; B=diagnostic gates (privileged); C=independent checkpoint with deployable inputs only",
+  "completed": {
+    "step_000100_status": "VALID full-state checkpoint (4746 keys, step=100, sha256 71b3460c...); action_expert full local fine-tune (563,140,103 params, 602 tensors), NOT LoRA",
+    "step_000200_status": "CORRUPT (disk full during save); quarantined to /root/quarantine_lora300/",
+    "v1_c_class_seeds_29_30": "A force-abort 166.6/164.9 N, 0 cookies; C(v1 step100) seed29 600 steps 0 cookies 60.7 N, seed30 abort 163.2 N",
+    "teacher_data_defect_v1": "arrays.npz ep_start=[0,1,2,3] and proprio columns 8..13 hard zero (75% zero rows); fixed and accepted in teacher_replay_20261119",
+    "same_state_audit": "raw eef identical; cols 0..7 identical; cols 8..13 = raw6 - zero_load_ref_median; images differ ~1.9e-5; Adapter/label roundtrip 0 m",
+    "segmented_run_v2": "500->4000 steps on teacher_replay_20261119; early stop on total val loss (0.978/0.973/1.119/1.263); best step 1000",
+    "c_class_step_1000": "A: 0 cookies, force-abort f156/f140 (166.6/164.9 N). C: 600 steps, 0 cookies, force 21.1/31.9 N, no abort, eef path 2297/2273 mm vs A 405/287 mm; gripper open for first 232/228 frames, then flips, EEF reaches z=1.76 m; force fixed by avoidance, task not repaired",
+    "corpus_diversity_defect": "seed 41-44 poses/opening/action/force and frames 0,300,599 are bit-identical: the corpus is ONE trajectory copied 4 times. Root cause: env_factory.make_env(position_noise_m=0.0, yaw_noise_rad=0.0) makes randomize_cookies draw zero noise; the seeded reset does not change the scene (known protocol). Val episode 44 == train data, so the v2 val-based early stop compared duplicates",
+    "behavior_anatomy": "A v2 episodes: 157/141 frames, eef path 405/287 mm; C v2: 601 frames each, path 2297/2273 mm, opening<0.005 for 534/535 frames, z_final 1.76 m",
+    "expert_probe": "offset (0,0): 10 cookies, exact_fill true, path 1236.99 mm. offset (0,+8mm): 10 cookies, exact_fill true, source 70, path 1260.08 mm. offset (+20mm,0): exact_fill FALSE and source 50 (20 neighbouring cookies displaced) -> x range limited by the 50 mm column pitch",
+    "diverse_corpus_20261119": "15 kept episodes (11 train + 4 off-grid val), 17 candidates, 2 rejected (FAILED at (0,-8mm) and (-5,-8mm)); all kept: 600 frames, cookies_in_target=10, exact_fill=true, phase DONE; frames.dat 2709504000 B = 9000*301056 on /root/repair_runs/teacher_diverse_20261119, META+symlink in /workspace; anchor_gate force_bit_equal=true, action/opening max diff 0; accept_diverse_corpus pass=true (proprio_zero_rows=0, force6==channels, action_vs_pose_delta=0, image/eef pairwise diffs all nonzero, train/val layouts disjoint)"
+  },
+  "diversity_plan": {
+    "axis": "shared xy translation of the 80-cookie grid via env_factory.apply_batch_offset (per-pair per-cookie noise is unusable: 0.4/2.5 mm grid spacing)",
+    "safe_ranges_so_far": {"x_mm": [-10, 10], "y_mm": [-8, 8]},
+    "collection": "teacher_diverse_20261119: 13 train layouts + 4 off-grid val layouts, all must end with cookies_in_target=10 and exact_2x5_fill=true; anchor (0,0) must match the archived corpus force bit-for-bit and action <1e-9",
+    "storage": "frames.dat on /root (overlay, 1.5T free); arrays/poses/manifest stay small and are copied to /workspace; /workspace loop has only 6.4 GB free (model_repair_runs is 49 GB)"
+  },
+  "training_plan": {
+    "authorized_upper_bound_steps": 12000,
+    "segments": [500, 500, 1000, 2000, 4000, 4000],
+    "milestones": [100, 500, 1000, 2000, 4000, 8000, 12000],
+    "train_val_split": "from corpus manifest; val = off-grid layouts never trained on",
+    "early_stop": "two consecutive held-out-layout ACTION regressions >25% of best (force term is high-variance and is reported, not used for stopping)",
+    "development_eval_seeds": [29, 30],
+    "final_one_shot_test_seeds": [13, 16],
+    "final_eval_rule": "touch 13/16 only if dev evals show cookies_final>0 or exact_fill; otherwise the frozen set stays unused",
+    "checkpoint_policy": "delta + optimizer + RNG + step + data sha to /root/repair_runs/action_expert_v3; milestone weights on /root; only the selected delta is copied to /workspace model_repair_runs/action_expert_v3"
+  },
+  "next_task": "audit_gripper_label_stage_semantics_before_any_further_training (see v4_results and the suspected hold-open-as-close label defect in grip_labels())",
+  "v3_drive": "drive_diverse_20261119.sh PID 168414, DRIVE_START 2026-11-19T03:09:13Z, DRIVE_DONE 2026-11-19T05:27:04Z, no early stop, all 12000 authorized steps consumed",
+  "v3_results": {
+    "val_action_history": [[500, 0.01871], [1000, 0.01369], [2000, 0.02992], [4000, 0.006511], [8000, 0.0027621], [12000, 0.0028225]],
+    "val_action_best": "step 8000 = 0.0027621, 6.8x better than step 500 on genuinely off-grid val layouts",
+    "c_class_milestones_seeds_29_30": "step1000 force 12.6/12.9 N; step2000 14.2/14.4 N; step4000 13.57 N; step8000 13.59/13.83 N; all 600 steps, jam 0, cookies_final 0, source_final 80, grasps 0/0 - force/abort defect FIXED (A aborted at 166.6/164.9 N), task NOT repaired",
+    "step8000_behavior_anatomy": "stored action is 14-dim A3 (col6: -1=close); C closes gripper 95.8%/100% of frames (opening<0.005 for 91.7%/97.8%), close_events 1/0; EEF still reaches cookie grid (xy dist to batch_center min 1.4/0.6 mm, z 0.77-0.92) but with gripper already closed it never grasps; teacher labels are 97.5% close (+1) so always-close also scores low val action loss - dim-6 temporal structure (approach open -> close on cookie -> carry -> release) collapsed to the majority class",
+    "dev_progress": false,
+    "final_eval_13_16": "SKIPPED per rule (no dev progress); frozen seeds 13/16 never touched",
+    "videos": {
+      "c_class_eval_v3_step8000/episode_C_seed29.mp4": "1944459 B, 601 frames, cv2/mp4v 20fps",
+      "c_class_eval_v3_step8000/episode_C_seed30.mp4": "1804112 B, 601 frames, cv2/mp4v 20fps",
+      "note": "milestone evals at 1000/2000/4000 predate the video code (npz/json only); step8000 summary.json/paired_A_vs_C.json rebuilt offline 2026-11-19T07:19Z from C_summary.json + archived A_summary.json after .get() fix in c_class_eval_20261119.py paired()"
+    }
+  },
+  "v4_results": {
+    "purpose": "counteract dim-6 always-close collapse with gripper-window oversampling in the trainer only (no model-code change): windows whose label dim-6 contains an open frame or sign transition replicated GRIP_REPLICATE=8x",
+    "drive": "drive_v4_20261119.sh V4_START 2026-11-19T11:08:18Z, V4_DONE 2026-11-19T12:14:49Z, segments 12000->13000->14000->15000->16000, LR 5e-5 cosine to 16000, no early stop (degrade counter stayed 0), FINAL_EVAL_SKIPPED no_dev_progress",
+    "val_action_history": [[13000, 0.0018335793948457042], [14000, 0.0018014515595344467], [15000, 0.001807724309628611], [16000, "not in drive tail; segment log seg_v4_16000.log"]],
+    "grip_windows": "517/6248 train windows replicated 8x (pool 10384)",
+    "c_class_milestones_seeds_29_30": "13000: grasps 0/0 force 13.58/13.83 N; 14000: 0/0 and 0/3; 15000: 0/2 and 0/0; 16000: 0/1 and 0/0; all 600 steps, jam 0, cookies_final 0, source_final 80, exact False",
+    "videos": {
+      "c_class_eval_v4_step13000/episode_C_seed29.mp4": "601 frames 1.8MB",
+      "c_class_eval_v4_step13000/episode_C_seed30.mp4": "601 frames 1.9MB",
+      "c_class_eval_v4_step14000/episode_C_seed29.mp4": "601 frames 1.8MB",
+      "c_class_eval_v4_step14000/episode_C_seed30.mp4": "601 frames 1.8MB",
+      "c_class_eval_v4_step15000/episode_C_seed29.mp4": "601 frames 1.9MB",
+      "c_class_eval_v4_step15000/episode_C_seed30.mp4": "601 frames 1.8MB",
+      "c_class_eval_v4_step16000/episode_C_seed29.mp4": "601 frames 1.8MB",
+      "c_class_eval_v4_step16000/episode_C_seed30.mp4": "601 frames 1.8MB"
+    },
+    "verdict": "oversampling alone did not restore gripper timing by step 16000; force defect stays fixed (13.6-13.8 N, no abort); task not repaired. Next step is the gripper-label stage-semantic audit, not more training.",
+    "suspected_label_defect": "grip_labels() initializes prev=1.0 (close) and only flips to -1 on an active OPENING motion (d opening > +0.02). Frames that are physically open but static (initial approach / hold-open) keep the close label, so 'hold open' is inherited as +1 close; the 97.5% close majority then trains always-close as a low-loss solution."
+  },
+  "updated": "2026-11-19T07:30:00Z"
+}
