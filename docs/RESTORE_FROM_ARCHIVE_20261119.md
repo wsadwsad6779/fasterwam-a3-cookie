@@ -21,18 +21,21 @@ git checkout main
 
 ## 3. Hugging Face 拉取（私有仓需 token）
 
-仓库：`wsadwsad6779/fasterwam-a3-force-40k`
+仓库：私有 `wsadwsad6779/fasterwam-a3-force-40k` + 公开 `wsadwsad6779/fasterwam-a3-archive-public`（两仓合计为完整现场；私有配额满后其余内容转存公开仓）。
 
 | 远端路径 | 内容 |
 |---|---|
-| `v1_force_40k/nodes/step_005000 … step_040000/` | 40k 训练各节点（adapter/optimizer/scheduler/rng/trainer_state/manifest） |
-| `v1_force_40k/nodes/step_040000/adapter.pt` | 40k 合并所需 delta（配合公开基座） |
-| `v1_force_40k/code/` | 训练期代码快照（与 main 同源） |
-| `v2_repair_20261119/evidence/rn_text_bundle.tar.gz` | reconstructed_normalizer 全部文本/证据/录像 |
-| `v2_repair_20261119/evidence/archive_evidence.tar.gz` | 原始 100 条专家语料（arrays+joint_cmd） |
-| `v2_repair_20261119/corpus/teacher_diverse_20261119/` | 多布局语料（arrays/poses/force/manifest + `frames.dat` 2.71 GB） |
-| `v2_repair_20261119/checkpoints/action_expert_v3/` | `last.pt`（全状态）+ `delta_step_*`（纯权重）+ `segments.jsonl` |
-| `v2_repair_20261119/checkpoints/action_expert_v4/` | 同上（到 step 16000） |
+| `v1_force_40k/nodes/step_005000 … step_040000/`（私有） | 40k 训练各节点（adapter/optimizer/scheduler/rng/trainer_state/manifest） |
+| `v1_force_40k/nodes/step_040000/adapter.pt`（私有） | 40k 合并所需 delta（配合公开基座） |
+| `v1_force_40k/code/`（私有） | 训练期代码快照（与 main 同源） |
+| `v2_repair_20261119/evidence/rn_text_bundle.tar.gz`（私有） | reconstructed_normalizer 全部文本/证据/录像 |
+| `v2_repair_20261119/evidence/archive_evidence.tar.gz`（私有） | 原始 100 条专家语料（arrays+joint_cmd） |
+| `v2_repair_20261119/corpus/teacher_diverse_20261119/`（私有） | 多布局语料（arrays/poses/force/manifest + `frames.dat` 2.71 GB） |
+| `v2_repair_20261119/checkpoints/action_expert_v1|v2|v3|v4/`（私有） | `last.pt`（全状态）+ `delta_step_*`（纯权重）+ `segments.jsonl` |
+| `v2_repair_20261119/full/reconstructed_normalizer/`（私有） | rn 目录逐文件镜像（含 `model_repair_runs` 两个 23.9 GB 全状态） |
+| `eval_restore_20261117/`（公开） | 完整树：base/merged 权重、deploy、archive_evidence、step_040000、全部评估产物 |
+| `root_repair_runs/`、`root_quarantine_lora300/`、`a3_data/`（公开） | 训练产物镜像、损坏的 step_000200 全状态、文本嵌入缓存 |
+| `workspace_top_files.tar.gz`（公开） | 归档脚本与顶层文件 |
 
 示例（token 从文件读，不写进命令历史）：
 

@@ -88,12 +88,18 @@ tools/ docs/        归档工具与历史文档
 - **Hugging Face（私有）**：`wsadwsad6779/fasterwam-a3-force-40k`
   - `v1_force_40k/`：40k 训练节点 `nodes/step_005000 … step_040000`、code 快照、force 校准；
   - `v1_force_rehearsal/`：恢复演练节点；
-  - `v2_repair_20261119/`：本次修复线归档——
+  - `v2_repair_20261119/`：本次修复线精选归档——
     `evidence/`（rn 文本证据包、archive_evidence、model_repair_runs 小文件）、
     `corpus/teacher_diverse_20261119/`（arrays/poses/force/manifest + frames.dat）、
-    `checkpoints/action_expert_v3|v4/`（`last.pt` 全状态 ≈3.38 GB；`delta_step_*.pt` 纯权重 ≈1.13 GB）。
+    `checkpoints/action_expert_v1|v2|v3|v4/`（`last.pt` 全状态 ≈3.38 GB；`delta_step_*.pt` 纯权重 ≈1.13 GB）、
+    `full/reconstructed_normalizer/`（含 `model_repair_runs` 的逐文件镜像）。
+- **Hugging Face（公开）**：`wsadwsad6779/fasterwam-a3-archive-public`
+  - `eval_restore_20261117/`（完整树：base/merged 权重、deploy、archive_evidence、step_040000、全部评估产物）、
+  - `root_repair_runs/`、`root_quarantine_lora300/`（含损坏的 step_000200 全状态）、`a3_data/`,
+  - `workspace_top_files.tar.gz`（归档脚本等顶层文件）。
+  - 说明：私有仓配额已满（约 90 GB），其余内容改存公开仓，两仓合计即完整现场。
 - 40k 合并权重可用「公开基座 `hustvl/FasterWAM:libero/step_021700.pt` + `v1_force_40k/nodes/step_040000/adapter.pt`」
-  重新合并，因此 `step_040000_merged.pt`（11.1 GB）不单独上传。
+  重新合并；`eval_restore_20261117/step_040000_merged.pt` 已在公开仓完整备份。
 
 ## 7. 关键契约（冻结）
 
