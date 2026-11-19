@@ -1,0 +1,27 @@
+{
+ "ok": 2752,
+ "ok_bytes": 225427432953,
+ "missing": [],
+ "size_mismatch": [],
+ "covered_via_public": [
+  {
+   "path": "root_repair_runs/action_expert_v2/last.pt",
+   "bytes": 3379445345
+  },
+  {
+   "path": "root_repair_runs/action_expert_v2/segments.jsonl",
+   "bytes": 7282
+  }
+ ],
+ "repos": {
+  "private": {
+   "files": 1331,
+   "bytes": 116006149810
+  },
+  "public": {
+   "files": 1605,
+   "bytes": 139323201847
+  }
+ },
+ "verdict": "PASS"
+}
