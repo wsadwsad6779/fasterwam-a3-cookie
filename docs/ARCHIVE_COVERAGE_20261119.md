@@ -53,6 +53,12 @@ pod：`rgapi-one-click-24316-57b6b870`（j-56nys3hbuvqgogybu7knegv6wx）。
 
 ## 5. 校验方式
 
-- 每个上传项在 `upload.log` / `upload2.log` / `upload3.log` 有 `OK` 行与速率；
-- 结束后用 HF API 的 `list_repo_files` 生成远端清单（`FINAL_REMOTE_FILES.json`），与 pod 端 `du`/文件数对照；
-- 关键权重另记 sha256（`_archive_tmp/uploaded.json` 中 local 路径 + 大小），恢复后按 `docs/RESTORE_FROM_ARCHIVE_20261119.md` 第 6 节自检。
+- 每个上传项在 `upload.log` / `tail.log` / `public.log` / `public2.log` 有 `OK` 行与速率；
+- 结束后用 HF API 的 `list_repo_tree(recursive)` 取远端逐文件 size，与 pod 端 `getsize` 对账，
+  结果 `ARCHIVE_RECONCILIATION.json`（已提交 GitHub）：
+  - **verdict = PASS**
+  - 逐文件一致 **2752 个 / 225,427,432,953 B ≈ 225.43 GB**
+  - `missing = []`，`size_mismatch = []`
+  - 私有仓 1331 文件 / 116.01 GB；公开仓 1605 文件 / 139.32 GB
+  - `covered_via_public`：`root_repair_runs/action_expert_v2/{last.pt, segments.jsonl}`
+    （私有配额满后同内容改存公开仓，按“任一仓覆盖即算”计入）
