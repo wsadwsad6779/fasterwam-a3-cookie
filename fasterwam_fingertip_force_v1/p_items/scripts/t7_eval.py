@@ -29,6 +29,7 @@ HIST = 8
 T_VID = 9
 MAX_STEPS = int(os.environ.get('T7_MAX_STEPS', '600'))
 DENOISE = int(os.environ.get('T7_DENOISE', '5'))
+FORCE_ZERO = os.environ.get('T7_FORCE_ZERO', '0') == '1'
 ACTION_HORIZON = 32
 TRANS_SCALE = 0.025
 ROT_SCALE = 0.10
@@ -154,8 +155,10 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label)
         img = image_to_model(obs)
         prop_raw = np.asarray(obs['observation.state'], np.float64)[:8]
         prop, _, _ = stats.forward(prop_raw, stats.smin, stats.smax)
-        state['z'] = torch.tensor(np.clip((ring - stats.fmean) / stats.fstd * stats.factive, -5, 5)
-                                  .reshape(1, -1), dtype=torch.float32).cuda()
+        zfeat = np.clip((ring - stats.fmean) / stats.fstd * stats.factive, -5, 5).reshape(1, -1)
+        if FORCE_ZERO:
+            zfeat = np.zeros_like(zfeat)
+        state['z'] = torch.tensor(zfeat, dtype=torch.float32).cuda()
         with torch.no_grad():
             out = model.infer_action(prompt=None, context=ctx, context_mask=ctx_mask,
                                      input_image=img.cuda(), action_horizon=ACTION_HORIZON,
@@ -233,7 +236,8 @@ def main():
     else:
         man = json.load(open(SEEDS_MANIFEST))
         seeds = man['milestone_seeds'].get(str(step_label), [7100]) if step_label != 'base' else [7001]
-    out_root = os.path.join(ROOT, 'step_%06d' % (int(step_label) if step_label.isdigit() else 0))
+    sub = os.environ.get('T7_OUT_SUBDIR', 'step_%06d' % (int(step_label) if step_label.isdigit() else 0))
+    out_root = os.path.join(ROOT, sub)
     stats = Stats()
     cache = torch.load(os.path.join(CACHE_DIR, '%s.t5_len%d.wan22ti2v5b.pt' % (
         __import__('hashlib').sha256(PROMPT.encode()).hexdigest(), CONTEXT_LEN)), map_location='cpu')
@@ -259,7 +263,8 @@ def main():
                'safety_stop_count': sum(1 for r in results if r.get('safety_reason') is not None),
                'protocol': {'max_steps': MAX_STEPS, 'denoise_steps': DENOISE, 'action_horizon': ACTION_HORIZON,
                             'cameras': ['front', 'left_wrist']},
-               'video_manifest': os.path.join(out_root, 'VIDEO_MANIFEST_step_%s.json' % step_label)}
+               'video_manifest': os.path.join(out_root, 'VIDEO_MANIFEST_step_%s.json' % step_label),
+               'force_zero': FORCE_ZERO}
     os.makedirs(out_root, exist_ok=True)
     json.dump(summary, open(os.path.join(out_root, 'SUMMARY_step_%s.json' % step_label), 'w'), indent=1)
     vids = []
@@ -269,7 +274,7 @@ def main():
                          'left_wrist': r['videos']['left_wrist'],
                          'frames': r['steps'], 'exact_fill': r['exact_fill'],
                          'in_target': r.get('final_in_target')})
-    json.dump({'step_label': step_label, 'videos': vids, 'root': out_root},
+    json.dump({'step_label': step_label, 'videos': vids, 'root': out_root, 'force_zero': FORCE_ZERO},
               open(summary['video_manifest'], 'w'), indent=1)
     print(json.dumps({'step': step_label, 'exact_fill_rate': summary['exact_fill_rate'],
                       'avg_in_target': summary['avg_in_target']}))
