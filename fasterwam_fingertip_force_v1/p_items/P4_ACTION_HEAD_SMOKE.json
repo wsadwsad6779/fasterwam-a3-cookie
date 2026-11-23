@@ -1,0 +1,16 @@
+{
+  "attempt": "action_head_fwd_bwd_v3",
+  "checkpoint": "base_step_021700.pt",
+  "key_path": "sd['mot']['mixtures.action.head.weight'] (mot is an OrderedDict whose keys are literal dotted names)",
+  "head_weight_shape": [7, 1024],
+  "encoder_weight_shape": [1024, 7],
+  "force_keys_in_mot": 0,
+  "force_keys_head": [],
+  "out_shape": [2, 32, 7],
+  "loss": -0.041188228875398636,
+  "sec": 0.459,
+  "grad_ok": true,
+  "device": "cuda",
+  "vram_gb": 0.16,
+  "conclusion": "Official base's action head is 7-dim and contains zero force-related keys; GPU forward/backward with the checkpoint's own head weights works. Full-model instantiation remains blocked by the missing DiffSynth converted Wan repo (404)."
+}

@@ -1,9 +1,9 @@
 {
  "version": 1,
- "updated": "2026-11-23T12:10:44Z",
+ "updated": "2026-11-23T12:18:26Z",
  "ready": [
-  "P4_action_expert_only_smoke",
-  "P3_pad_channel_identity"
+  "P7_joint_to_7d_script",
+  "P9_training_plan(needs budget)"
  ],
  "blocked": {
   "P9": "需显式训练步数预算"
@@ -15,6 +15,7 @@
   "P3_contact_check",
   "P3_mujoco_force_observation",
   "P4",
+  "P4_action_head_smoke",
   "P4_module_smoke",
   "P5",
   "P5_replay_acceptance",

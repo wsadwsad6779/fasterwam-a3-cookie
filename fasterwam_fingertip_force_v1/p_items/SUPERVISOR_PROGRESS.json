@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T12:11:50Z",
- "stage": "P3 pad geometry: all touch sites share identical local pos (per-finger frames); L_in/out asymmetry is physical, not a channel bug",
- "evidence": "p_items/P3_PAD_GEOMETRY.json, p_items/P3_CONTACT_CHECK.json",
- "next": "P4 action_expert-only fwd/bwd; R-pad dataset-vs-live discrepancy still open",
- "gpu_steps": 2,
+ "ts": "2026-11-23T12:18:26Z",
+ "stage": "P4 action-head smoke PASS on GPU: (2,32,7), 0 force keys, grad ok; full-model blocked by DiffSynth 404",
+ "evidence": "p_items/P4_ACTION_HEAD_SMOKE.json",
+ "next": "resolve full-model video path or proceed to data freeze + bounded training plan",
+ "gpu_steps": 3,
  "mujoco_frames": 400
 }
