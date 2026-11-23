@@ -1,0 +1,15 @@
+{
+ "dev_seeds": [
+  29,
+  30
+ ],
+ "frozen_test_seeds": [
+  13,
+  16
+ ],
+ "max_steps": 600,
+ "replan": 10,
+ "gates": "none (bare); passive safety guard only",
+ "video": "front|left_wrist 20fps frame count == observations",
+ "success": "target_count==10 and exact_2x5_fill and source_count==70"
+}
