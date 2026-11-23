@@ -1,13 +1,13 @@
 {
  "started_at": "2026-11-23T14:37:53Z",
- "ts": "2026-11-23T14:38:15Z",
+ "ts": "2026-11-23T15:07:17Z",
  "pid": 148521,
- "stage": "wan_download_modelscope",
+ "stage": "wan_download",
  "log_path": "/workspace/fwv1/p_items/job_wan_ms.log",
+ "tmux_session": "fwv1",
  "status": "running",
  "expected_artifacts": [
   "/workspace/fwv1/wan_base"
  ],
- "next": "retry create_fasterwam with local model dir",
- "note": "old slow process 95555 terminated after recording; its .incomplete kept and seeded into the matching target file; 23 files downloading via ModelScope curl -C - with per-file size + LFS sha256 verification"
+ "next": "P4 full smoke (local Wan dir + official step_021700), then P7 verification"
 }
