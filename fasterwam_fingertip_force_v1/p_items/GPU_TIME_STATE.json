@@ -1,10 +1,10 @@
 {
- "checked_at": "2026-11-23T12:44:29Z",
+ "checked_at": "2026-11-23T13:38:37Z",
  "remaining_hours": 37,
  "credits": 37,
  "burn_rate_credits_per_hour": 1,
- "source": "console 10:50Z observation",
- "page_status": "unknown",
+ "source": "console 10:50Z observation; pod process alive at 13:38Z",
+ "page_status": "unknown (terminal API working)",
  "upload_status": "pending",
  "restore_manifest": "docs/RESTORE_FROM_ARCHIVE_20261119.md",
  "gpu_restore_ready": false

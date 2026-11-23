@@ -1,5 +1,5 @@
 {
- "ts": "2026-11-23T13:06:08Z",
+ "ts": "2026-11-23T13:38:37Z",
  "pid": 95555,
  "stage": "P4_wan_download_perfile",
  "log_path": "/workspace/fwv1/p_items/job_wan2.log",
@@ -8,5 +8,5 @@
   "/workspace/fwv1/wan_base"
  ],
  "next": "retry create_fasterwam with local model dir",
- "note": "per-file hf_hub_download of all 23 Wan-AI files; full tracebacks logged"
+ "note": "alive at 13:38Z; 4 small files done; a large file in progress: .incomplete=1,855,979,520 B; throughput ~1 MB/s so the 11GB set is slow but advancing; diag=/workspace/fwv1/p_items/wan_diag.txt"
 }

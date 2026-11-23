@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T13:06:25Z",
- "stage": "P4 Wan per-file download running in background (PID 95555); Supervisor should wake on completion/failure",
- "evidence": "p_items/POD_JOB_STATE.json, pod job_wan2.log",
- "next": "on completion: retry create_fasterwam local dir; P9 needs budget",
+ "ts": "2026-11-23T13:38:37Z",
+ "stage": "P4 Wan download verified ALIVE (PID 95555, 1.86GB partial, ~1MB/s); not stalled",
+ "evidence": "p_items/POD_JOB_STATE.json, pod wan_diag.txt",
+ "next": "Supervisor wakes on job done/fail; then local-dir create_fasterwam retry",
  "gpu_steps": 3,
  "mujoco_frames": 400
 }
