@@ -1,0 +1,19 @@
+{
+  "worker": "fasterwam-fingertip-force-v1",
+  "session_id": "b462d38d-2bab-475d-a8b3-0dbd231385f9",
+  "generation": 1,
+  "task_id": "P6",
+  "task_name": "800 条数据定位与审计",
+  "status": "IN_PROGRESS",
+  "active_processes": [],
+  "gpu_processes": [],
+  "active_files": ["p_items/DATASET_800_PROVENANCE.json", "p_items/hf_multi/collection_summary.json", "p_items/hf_multi/a3_episode_metadata.jsonl"],
+  "last_valid_progress": "定位到 Eter0109/a3-cookie-multi-tasks：845 episodes / 459,177 frames / 20fps；749 条 2x5（seed_start 70000）+ 96 条 2x10（seed_start 80000）；complete_demonstrations=true；训练臂 left；存储动作 joint_position（L_q1..q7+gripper，env_action_dim=16）；源动作 cartesian_delta",
+  "last_tool_call": "hf_hub_download 4/4 元数据成功（ATT1），解析 collection_summary + meta/info",
+  "artifacts_this_turn": ["DATASET_800_PROVENANCE.json", "DATASET800_GIT_SEARCH.txt", "HF_DATASET_PROBE.json", "WORKER_STATE.json", "PROJECT_TASKS.json(revised)", "EXPERIMENT_MATRIX.md(revised)", "BASE_FASTERWAM_IDENTITY.md(lockdown)"],
+  "next_authorized": "P6 下一子步：下载 meta/stats.json 与 data/chunk-000/*.parquet 的 schema，统计动作指纹/状态指纹/图像指纹/力覆盖，产出 DATASET_800_DEDUPLICATION.csv 与 FORCE_COVERAGE.json",
+  "blockers": ["HF 镜像 resolve 端点曾限流（已恢复，需控制频率）", "P9 需显式训练步数预算"],
+  "checkpoint_processes": [],
+  "last_progress_ts": "2026-11-23T10:48:00Z",
+  "handoff": "p_items/HANDOFF_FOR_SUPERVISOR.md"
+}
