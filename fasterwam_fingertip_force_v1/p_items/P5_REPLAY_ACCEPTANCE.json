@@ -1,0 +1,19 @@
+{
+  "dataset": "Eter0109/a3-cookie-multi-tasks",
+  "episodes": 845,
+  "frames": 459177,
+  "rule": "V2 hysteresis on dataset gripper command (normalized opening, 1.0=open): <=0.6 -> close(+1), >=0.8 -> open(-1), deadband hold, min-hold 5 frames",
+  "metrics": {
+    "approach_open_accuracy": 1.0,
+    "approach_open_frames": 8918,
+    "carry_close_rate": 1.0,
+    "carry_frames": 427199,
+    "release_events": 1037,
+    "release_confirm_rate": 1.0,
+    "flips_total": 2919,
+    "one_step_pulses": 0
+  },
+  "interpretation": "On real expert commands the V2 rule yields clean two-phase gripper semantics: open before the first grasp, closed through carry, open at every release (1037 releases over 845 episodes implies multi-release episodes, consistent with two batches per episode), and zero one-frame pulses. Raw joint actions are still not used as supervision; 7D will be built from eef_pose with the gripper mapped via this same hysteresis.",
+  "evidence": "pod /workspace/fwv1/p_items/P5_REPLAY_ACCEPTANCE.json and P5_REPLAY_PER_EPISODE.csv (log p5_acc.log)",
+  "limits": "This validates label semantics on recorded commands, not closed-loop control. pm1 mapping threshold must be frozen before training."
+}

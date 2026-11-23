@@ -1,8 +1,9 @@
 {
  "version": 1,
- "updated": "2026-11-23T11:17:02Z",
+ "updated": "2026-11-23T11:33:54Z",
  "ready": [
-  "P5_replay_acceptance_design"
+  "P3_mujoco_force_observation",
+  "P4_forward_backward_smoke"
  ],
  "blocked": {
   "P9": "需显式训练步数预算"
@@ -13,6 +14,7 @@
   "P3",
   "P4",
   "P5",
+  "P5_replay_acceptance",
   "P6",
   "P7_decision",
   "P7_eef_to_7d_check"

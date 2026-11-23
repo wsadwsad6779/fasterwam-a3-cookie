@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T11:17:02Z",
- "stage": "P7 DONE \u2014 eef continuity verified (dp<=14.95mm/step, frame_index contiguous); earlier 0.294m was a diff bug",
- "evidence": "p_items/EEF_CONTINUITY_CHECK.json, p_items/JOINT_TO_7D_CHECK.json",
- "next": "P5 real-control replay acceptance design (V2 labels on expert commands)",
+ "ts": "2026-11-23T11:33:54Z",
+ "stage": "P5 replay acceptance DONE on 845 eps: approach 1.0, carry 1.0, release 1037/1037, 0 pulses",
+ "evidence": "p_items/P5_REPLAY_ACCEPTANCE.json",
+ "next": "P3 real MuJoCo force observation + P4 model-level forward/backward smoke",
  "gpu_steps": null,
  "mujoco_frames": null
 }
