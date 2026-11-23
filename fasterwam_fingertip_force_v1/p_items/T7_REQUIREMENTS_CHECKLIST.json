@@ -1,0 +1,119 @@
+{
+ "worker": "task7",
+ "goal_version": 2,
+ "ts": "2026-11-23T19:03:38Z",
+ "objective": "\u5b8c\u6210\u539f\u59cbFasterWAM + \u6307\u5c16\u529bF2\u6a21\u578b\u7684\u5b8c\u6574\u6570\u636e\u9a8c\u6536\u3001\u5939\u722a\u76d1\u7763\u4fee\u590d\u300121,000\u6b65\u6709\u754c\u8bad\u7ec3\u3001\u6bcf3,000\u6b65\u768410-seed\u81ea\u4e3b\u5b9e\u9a8c\u53ca\u6700\u7ec8\u72ec\u7acb\u88f8\u6a21\u578b\u6d4b\u8bd5\uff0c\u671f\u95f4\u6301\u7eed\u4fdd\u5b58\u6a21\u578b\u3001\u89c6\u9891\u548c\u53ef\u6062\u590d\u72b6\u6001\u3002",
+ "requirements": [
+  {
+   "id": "R1",
+   "text": "\u5b8c\u6574\u6570\u636e\u9a8c\u6536 (845 eps, \u6765\u6e90/\u53bb\u91cd/\u5e03\u5c40/\u9694\u79bb/\u4efb\u52a1\u7c7b\u522b)",
+   "status": "done",
+   "evidence": [
+    "p_items/DATASET_845_ACCEPTED_MANIFEST.json",
+    "p_items/DATASET_845_FINAL_QUALITY_AUDIT.md",
+    "p_items/DATASET_845_PHYSICAL_DEDUP.csv",
+    "p_items/DATASET_845_LAYOUT_VISUAL_COVERAGE.json",
+    "p_items/DATASET_845_TRAIN_VAL_TEST_LEAKAGE.json",
+    "p_items/DATASET_845_SPLIT_MANIFEST_V2.json",
+    "p_items/DATASET_845_PROVENANCE_V2.json"
+   ]
+  },
+  {
+   "id": "R2",
+   "text": "\u5939\u722a\u76d1\u7763\u4fee\u590d + \u771f\u5b9e\u56de\u653e\u9a8c\u6536",
+   "status": "done",
+   "evidence": [
+    "p_items/GRIPPER_V2_FINAL_ACCEPTANCE.md",
+    "p_items/GRIPPER_PHASE_METRICS.json",
+    "p_items/P5_REPLAY_VIDEO.json",
+    "p_items/P5_REPLAY_EXTENDED.json",
+    "p_items/GRIPPER_FRAME_ERROR_ANALYSIS.json"
+   ]
+  },
+  {
+   "id": "R3",
+   "text": "\u6307\u5c16\u529b\u5206\u5e03/\u5f52\u4e00\u5316/OOD + F2 \u5c31\u7eea",
+   "status": "done",
+   "evidence": [
+    "p_items/FINGERTIP_FORCE_DISTRIBUTION_AUDIT.md",
+    "p_items/FINGERTIP_FORCE_NORMALIZATION_V2.json",
+    "p_items/FORCE_OOD_ACCEPTANCE.json",
+    "p_items/F2_TRAINING_READINESS.md",
+    "p_items/T7_G4_GATE.json"
+   ]
+  },
+  {
+   "id": "R4",
+   "text": "21,000 \u6b65\u6709\u754c\u8bad\u7ec3",
+   "status": "in_progress",
+   "progress": {
+    "budget_used_steps": 1200,
+    "budget_remaining_steps": 19800,
+    "last_known_alive": "2026-11-23T18:30:52Z",
+    "monitoring": "blocked: pod API 403 (user re-login required)"
+   },
+   "evidence": [
+    "p_items/T7_TRAINING_HEARTBEAT.json",
+    "p_items/CHECKPOINT_MANIFEST.json",
+    "p_items/CHECKPOINT_VERIFY_LATEST.json",
+    "fasterwam_fingertip_force_v1/TRAINING_RUN_STATE.json"
+   ]
+  },
+  {
+   "id": "R5",
+   "text": "\u6bcf 3,000 \u6b65 10-seed \u81ea\u4e3b\u5b9e\u9a8c + \u53cc\u89c6\u89d2\u89c6\u9891",
+   "status": "pending",
+   "progress": {
+    "milestones_done": [],
+    "chain": "armed on pod (last known)",
+    "seeds": "7100-7709 in EVAL_SEED_MANIFEST.json"
+   },
+   "evidence": [
+    "EVAL_SEED_MANIFEST.json",
+    "p_items/scripts/t7_eval.py",
+    "p_items/scripts/t7_chain.sh",
+    "p_items/SUMMARY_step_base.json"
+   ]
+  },
+  {
+   "id": "R6",
+   "text": "\u6700\u7ec8\u72ec\u7acb\u88f8\u6a21\u578b\u6d4b\u8bd5 (\u72ec\u7acb seeds 7900-7909 + \u529b\u6d88\u878d)",
+   "status": "pending",
+   "evidence": [
+    "p_items/scripts/t7_final_test.py",
+    "p_items/scripts/t7_finalizer.sh"
+   ]
+  },
+  {
+   "id": "R7",
+   "text": "\u6301\u7eed\u4fdd\u5b58\u6a21\u578b/\u89c6\u9891/\u53ef\u6062\u590d\u72b6\u6001",
+   "status": "partial",
+   "progress": {
+    "checkpoint_interval": 200,
+    "latest_verified_step": 400,
+    "latest_known_step": 1200,
+    "videos": "base anchor 20 MP4; milestone videos pending"
+   },
+   "evidence": [
+    "p_items/RESUME_FUNCTIONAL_TEST.json",
+    "p_items/RESUME_LOAD_VERIFY.json",
+    "VIDEO_MANIFEST.json",
+    "CHECKPOINT_MANIFEST.json"
+   ]
+  },
+  {
+   "id": "R8",
+   "text": "\u8bad\u7ec3\u524d\u786c\u95f8\u95e8 G4\uff08\u542b D2-D5\uff09",
+   "status": "done",
+   "evidence": [
+    "p_items/T7_G4_GATE.json (PASSED_V2)",
+    "p_items/T7_D2D5_ACK.json"
+   ]
+  }
+ ],
+ "artifact_audit": "p_items/T7_ARTIFACT_AUDIT.json",
+ "blocker": {
+  "pod_access": "403 nginx, cookies cleared; user re-login required",
+  "large_upload": "blocked; checkpoints kept on persistent volume"
+ }
+}
