@@ -1,31 +1,92 @@
 {
-  "identity_version": "2026-11-20.phase1",
-  "status": "PARTIAL",
-  "verified": {
-    "config_original": "stage_40k/fw/configs/data/a3_2cam.yaml",
-    "proprio_original_dim": 8,
-    "proprio_old_force_dim": 14,
-    "action_dim": 7,
-    "action_delta_mask": [true, true, true, true, true, true, false],
-    "gripper_semantics": "LIBERO +1=close -1=open; A3 adapter col6=-sign",
-    "num_frames": 33,
-    "action_horizon": 32,
-    "action_video_freq_ratio": 4,
-    "num_video_frames": 9,
-    "video_size": [224, 448],
-    "normalizer": "min/max; a3_fw/dataset_stats.json",
-    "control_hz": 20
-  },
-  "weights": {
-    "upstream_base": {"ref": "hustvl/FasterWAM libero/step_021700.pt", "bytes": 11117679929},
-    "a3_40k_node": {"ref": "HF v1_force_40k/nodes/step_040000", "bytes": 211090223, "verified_force_free": "UNKNOWN"},
-    "merged_40k": {"ref": "HF fasterwam-a3-archive-public eval_restore_20261117/step_040000_merged.pt", "bytes": 11126493579}
-  },
-  "unknowns": [
-    "40k checkpoint force-conditioner/proprio width",
-    "original normalizer identity",
-    "fingertip sensor channel semantics",
-    "source of 4372.9 N anomaly"
+ "identity_version": "2026-11-20.phase1",
+ "status": "PARTIAL",
+ "verified": {
+  "config_original": "stage_40k/fw/configs/data/a3_2cam.yaml",
+  "proprio_original_dim": 8,
+  "proprio_old_force_dim": 14,
+  "action_dim": 7,
+  "action_delta_mask": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   false
   ],
-  "blockers": ["no GPU instance (pool full)", "private HF quota full; 40k manifest needs token or public copy"]
+  "gripper_semantics": "LIBERO +1=close -1=open; A3 adapter col6=-sign",
+  "num_frames": 33,
+  "action_horizon": 32,
+  "action_video_freq_ratio": 4,
+  "num_video_frames": 9,
+  "video_size": [
+   224,
+   448
+  ],
+  "normalizer": "min/max; a3_fw/dataset_stats.json",
+  "control_hz": 20
+ },
+ "weights": {
+  "upstream_base": {
+   "ref": "hustvl/FasterWAM libero/step_021700.pt",
+   "bytes": 11117679929
+  },
+  "a3_40k_node": {
+   "ref": "HF v1_force_40k/nodes/step_040000",
+   "bytes": 211090223,
+   "verified_force_free": "NO — run_config.yaml 显示 proprio_dim=14、force_hist_len=16、force_horizon=32、lambda_force=1.0；该 40k 是加力版，不是原始无力模型",
+   "evidence": "restore_20261117/step_040000/run_config.yaml"
+  },
+  "merged_40k": {
+   "ref": "HF fasterwam-a3-archive-public eval_restore_20261117/step_040000_merged.pt",
+   "bytes": 11126493579
+  },
+  "original_protocol_stats": {
+   "file": "archive_evidence/data/a3_fw/dataset_stats.json",
+   "episodes": 100,
+   "transitions": 42681,
+   "state_dim": 8,
+   "action_dim": 7
+  }
+ },
+ "unknowns": [
+  "40k checkpoint force-conditioner/proprio width",
+  "original normalizer identity",
+  "fingertip sensor channel semantics",
+  "source of 4372.9 N anomaly"
+ ],
+ "blockers": [
+  "no GPU instance (pool full)",
+  "private HF quota full; 40k manifest needs token or public copy"
+ ],
+ "sensor_channels": {
+  "L_wrist_force": [
+   0,
+   1,
+   2
+  ],
+  "L_wrist_torque": [
+   3,
+   4,
+   5
+  ],
+  "R_wrist_force": [
+   6,
+   7,
+   8
+  ],
+  "R_wrist_torque": [
+   9,
+   10,
+   11
+  ],
+  "L_pad_inner": 12,
+  "L_pad_outer": 13,
+  "R_pad_inner": 14,
+  "R_pad_outer": 15,
+  "L_actuator_force": 16,
+  "R_actuator_force": 17,
+  "note": "verified from a3_dual_arm_sim@08ebe8c env.py + XML; ch16/17 are actuator forces, not fingertip contact"
+ }
 }
