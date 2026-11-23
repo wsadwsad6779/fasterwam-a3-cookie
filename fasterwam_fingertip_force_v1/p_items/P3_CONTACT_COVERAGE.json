@@ -1,0 +1,17 @@
+{
+  "episodes": 845,
+  "episodes_with_contact": 845,
+  "contact_frac": {"min": 0.4483, "median": 0.4947, "mean": 0.5044894674556213, "max": 0.6022},
+  "L_in_max": {"min": 1.312, "median": 1.442, "mean": 1.441437869822485, "max": 2.0},
+  "L_out_max": {"min": 1.328, "median": 1.447, "mean": 1.4467029585798818, "max": 2.156},
+  "R_in_max": {"min": 0.0, "median": 0.0, "mean": 0.0, "max": 0.0},
+  "R_out_max": {"min": 0.0, "median": 0.0, "mean": 0.0, "max": 0.0},
+  "episodes_R_pads_all_zero": 845,
+  "source": "FORCE_PER_EPISODE.csv (derived from observation.force ch12-15 of all 845 episodes)",
+  "findings": [
+    "Every episode contains genuine pad contact (contact_frac 0.45-0.60 of frames).",
+    "L_in and L_out maxima are nearly identical per episode (medians 1.442 vs 1.447 N), so both left pads are live in the recordings - the earlier live-run L_in=0 result was run-specific, not a dead channel.",
+    "Right pads are exactly 0 in all 845 episodes (task executes with the left arm), confirming the dataset's force coverage is left-only."
+  ],
+  "evidence": "pod /workspace/fwv1/p_items/p3_cov.log, FORCE_PER_EPISODE.csv"
+}

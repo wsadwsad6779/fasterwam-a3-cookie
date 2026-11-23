@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-23T12:27:06Z",
+ "updated": "2026-11-23T12:31:25Z",
  "ready": [
   "P9_training(needs budget)"
  ],
@@ -12,6 +12,7 @@
   "P2",
   "P3",
   "P3_contact_check",
+  "P3_dataset_contact_coverage",
   "P3_mujoco_force_observation",
   "P4",
   "P4_action_head_smoke",

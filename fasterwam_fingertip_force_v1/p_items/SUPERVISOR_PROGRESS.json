@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-23T12:27:06Z",
- "stage": "POD_JOB protocol active; P8 layout/force audit done (seed 845 unique, randomization 845 unique; success field single value)",
- "evidence": "p_items/POD_JOB_STATE.json, p_items/FROZEN_DATA_MANIFEST.json",
+ "ts": "2026-11-23T12:31:25Z",
+ "stage": "P3 dataset contact coverage done: all 845 eps contact (median 49.5% frames), L pads both live ~1.44N, R pads exactly 0",
+ "evidence": "p_items/P3_CONTACT_COVERAGE.json",
  "next": "P9 training needs budget; P4 full model blocked DiffSynth 404",
  "gpu_steps": 3,
  "mujoco_frames": 400
