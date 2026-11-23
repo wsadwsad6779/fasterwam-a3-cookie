@@ -1,20 +1,17 @@
 {
+  "base_model_policy": "唯一基座 = hustvl/FasterWAM 官方 step_021700.pt（proprio 8 / action 7 / 无 force conditioner）。禁止寻找、下载、修复、加载、评估或继续训练任何旧 A3 无力微调 checkpoint；禁止从旧 Force40k 或 C 类权重续训。",
   "tasks": [
-    {"id": "P1", "name": "原始 FasterWAM 身份确认", "status": "in_progress", "outputs": ["BASE_FASTERWAM_IDENTITY.json", "BASE_FASTERWAM_IDENTITY.md"], "blocked_by": []},
-    {"id": "P2", "name": "论文与源码审计（ForceVLA/TacFiLM/ImplicitRDP/MimicGen）", "status": "pending", "outputs": ["PAPER_REVIEW.md", "FORCE_MODULE_PORTABILITY_MATRIX.json", "FUSION_DESIGN_DECISION.md"], "blocked_by": []},
-    {"id": "P3", "name": "指尖力传感器定义与 FingertipForceProcessor", "status": "pending", "outputs": ["FINGERTIP_SENSOR_AUDIT.md", "FINGERTIP_FORCE_PROCESSOR_TEST.json"], "blocked_by": ["GPU/MuJoCo 现场（XML/sensor 声明）"]},
-    {"id": "P4", "name": "最小融合架构 F1/F2 实现与恒等性测试", "status": "pending", "outputs": ["FINGERTIP_FUSION_ARCHITECTURE.md"], "blocked_by": ["P2", "GPU smoke"]},
-    {"id": "P5", "name": "夹爪标签 V2（阶段语义重建与验收）", "status": "pending", "outputs": ["GRIPPER_LABEL_V2_AUDIT.md", "GRIPPER_EVENTS_PER_EPISODE.csv", "GRIPPER_LABEL_V2_MANIFEST.json"], "blocked_by": []},
-    {"id": "P6", "name": "约800条数据来源与多样性审计", "status": "pending", "outputs": ["DATASET_800_PROVENANCE_AUDIT.json", "DATASET_800_DIVERSITY_REPORT.md", "DATASET_800_DUPLICATES.csv", "DATASET_800_LAYOUT_COVERAGE.csv", "DATASET_800_VISUAL_COVERAGE.csv", "DATASET_800_CONTACT_COVERAGE.csv", "DATASET_800_SPLIT_LEAKAGE.json"], "blocked_by": []},
-    {"id": "P7", "name": "补采决策与（如需）专家示范补采", "status": "pending", "outputs": ["DATA_AUGMENTATION_DECISION.md", "NEW_EXPERT_DATASET_MANIFEST.json"], "blocked_by": ["P6", "GPU 实例"]},
-    {"id": "P8", "name": "实验矩阵与评估协议冻结", "status": "pending", "outputs": ["EXPERIMENT_MATRIX.md", "FROZEN_EVAL_PROTOCOL.json"], "blocked_by": ["P5", "P6"]},
-    {"id": "P9", "name": "有界训练", "status": "pending", "outputs": [], "blocked_by": ["P8", "用户明确训练预算"]},
-    {"id": "P10", "name": "力模态消融（反事实配对）", "status": "pending", "outputs": [], "blocked_by": ["P9"]},
-    {"id": "P11", "name": "裸模型闭环验收（双视角MP4+NPZ）", "status": "pending", "outputs": [], "blocked_by": ["P9", "GPU 实例"]},
-    {"id": "P12", "name": "失败归因与下一项修复", "status": "pending", "outputs": [], "blocked_by": ["P11"]}
-  ],
-  "blockers": [
-    {"id": "B1", "what": "无 GPU 实例（旧实例已销毁，资源池已满）", "affects": ["P1 GPU 复核", "P3", "P4 smoke", "P7", "P11"], "owner": "user/platform"},
-    {"id": "B2", "what": "私有 HF 仓配额已满；原始 40k 节点 manifest 需 token 读取", "affects": ["P1 checkpoint 身份"], "owner": "user (token/配额)"}
+    {"id": "P1", "name": "官方原始 FasterWAM 身份确认（已完成：proprio_encoder in=8、action head out=7、step 021700、无 force 键）", "status": "done"},
+    {"id": "P2", "name": "论文与源码审计（ForceVLA/TacFiLM/ImplicitRDP/MimicGen，源码级）", "status": "done_source_level"},
+    {"id": "P3", "name": "指尖力处理器（模块级完成；待真实 MuJoCo 状态验收）", "status": "partial"},
+    {"id": "P4", "name": "零初始化 FiLM 模块（恒等性测试通过）；待整模集成", "status": "partial"},
+    {"id": "P5", "name": "夹爪标签 V2（事件级审计完成；待真实控制回放验收）", "status": "partial"},
+    {"id": "P6", "name": "800 条数据定位与审计", "status": "in_progress", "leads": ["HF dataset Eter0109/a3-cookie-multi-tasks（LeRobot: 8 front + 8 left_wrist 视频分片、collection_summary.json、a3_episode_metadata.jsonl）", "HF Eter0109/a3-cookie-multi-left8-40k-v1", "HF Eter0109/a3-front-close-left-100"], "outputs": ["DATASET_800_SOURCE_LOCATION.md","DATASET_800_PROVENANCE.json","DATASET_800_DIVERSITY_REPORT.md","DATASET_800_DEDUPLICATION.csv","DATASET_800_FORCE_COVERAGE.json"]},
+    {"id": "P7", "name": "补采决策（依赖 P6）", "status": "pending"},
+    {"id": "P8", "name": "F0/F1/F2 矩阵冻结（已冻结，基座统一为官方 step_021700）", "status": "done"},
+    {"id": "P9", "name": "有界训练", "status": "blocked", "reason": "需用户显式步数预算"},
+    {"id": "P10", "name": "力模态消融", "status": "blocked", "reason": "依赖 P9"},
+    {"id": "P11", "name": "裸模型带视频评估", "status": "blocked", "reason": "依赖 P9"},
+    {"id": "P12", "name": "失败归因与改进", "status": "blocked", "reason": "依赖 P11"}
   ]
 }
