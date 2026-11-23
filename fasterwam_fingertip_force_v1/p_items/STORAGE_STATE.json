@@ -1,25 +1,76 @@
 {
-  "worker": "task7",
-  "checked_at": "2026-11-23T15:24:57Z",
-  "disk_total_gb": 98,
-  "disk_used_gb": 53,
-  "disk_free_gb": 41,
-  "storage_min_free_gb": 30,
-  "status": "ok",
-  "hotspots": [
-    {"path": "/workspace/fwv1/wan_base", "gb": 33, "kind": "wan assets (re-downloadable; verify sha before any deletion)", "in_use": true},
-    {"path": "/workspace/fwv1/p_items", "gb": 0.227, "kind": "artifacts/evidence", "in_use": true},
-    {"path": "/workspace/fwv1/repo", "gb": 0.099, "kind": "code", "in_use": true}
-  ],
-  "upload": {
-    "status": "not_triggered",
-    "target": "HF/GitHub per key",
-    "manifest": null,
-    "verified_before_delete": true
+ "checked_at": "2026-11-23T15:55:56Z",
+ "disk_free_gb": 74.5,
+ "status": "ok",
+ "upload": {
+  "status": "verified",
+  "target": "wsadwsad6779/fasterwam-a3-cookie (branch fingertip-force-v1)",
+  "commit": "442ac5e",
+  "path": "fasterwam_fingertip_force_v1/p_items/evidence_bundles/t7_s1s2_evidence.tar.gz",
+  "bytes": 10470972,
+  "sha256": "c1e7d60f3f89d753822724d9b819ba8328ed6bc1885388220b3500a3a23f8885",
+  "verified_by": "byte-identical local download + sha256 match; file committed to GitHub"
+ },
+ "pruned_regenerable": [
+  {
+   "path": "/workspace/fwv1/wan_base/diffusion_pytorch_model-00001-of-00003.safetensors",
+   "bytes": 9825014472
   },
-  "policy": {
-    "trigger_free_gb": 30,
-    "never_delete": ["unique checkpoints", "raw datasets", "official base"],
-    "delete_only_after": "upload + sha256 verify"
+  {
+   "path": "/workspace/fwv1/wan_base/diffusion_pytorch_model-00002-of-00003.safetensors",
+   "bytes": 9995661736
+  },
+  {
+   "path": "/workspace/fwv1/wan_base/diffusion_pytorch_model-00003-of-00003.safetensors",
+   "bytes": 178558176
+  },
+  {
+   "path": "/workspace/fwv1/wan_base/models_t5_umt5-xxl-enc-bf16.pth",
+   "bytes": 11361920418
+  },
+  {
+   "path": "/workspace/fwv1/wan_base/diffusion_pytorch_model.safetensors.index.json",
+   "bytes": 72865
+  },
+  {
+   "path": "/workspace/fwv1/wan_base/examples/i2v_input.JPG",
+   "bytes": 250628
+  },
+  {
+   "path": "/workspace/fwv1/wan_base/assets/moe_arch.png",
+   "bytes": 74900
+  },
+  {
+   "path": "/workspace/fwv1/wan_base/assets/logo.png",
+   "bytes": 56322
+  },
+  {
+   "path": "/workspace/fwv1/wan_base/assets/vae.png",
+   "bytes": 165486
+  },
+  {
+   "path": "/workspace/fwv1/wan_base/assets/moe_2.png",
+   "bytes": 527914
+  },
+  {
+   "path": "/workspace/fwv1/wan_base/assets/performance.png",
+   "bytes": 306535
+  },
+  {
+   "path": "/workspace/fwv1/wan_base/assets/comp_effic.png",
+   "bytes": 202156
   }
+ ],
+ "freed_gb": 31.36,
+ "wan_base_kept": [
+  "Wan2.2_VAE.pth",
+  "config.json",
+  "configuration.json",
+  ".msc",
+  ".mv"
+ ],
+ "redownload": {
+  "method": "ModelScope per-file curl -C - (see p_items/P4_WAN_FASTDL.json)",
+  "note": "VAE kept because training/inference needs it; DiT shards and T5 text encoder are unused in the official-base protocol (video weights come from step_021700.pt; context is precomputed)"
+ }
 }
