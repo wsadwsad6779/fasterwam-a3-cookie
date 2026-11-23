@@ -1,39 +1,31 @@
 {
   "worker": "task7",
   "gate": "G4_pre_train",
-  "ts": "2026-11-23T16:21:40Z",
-  "verdict": "not_passed_yet",
+  "ts": "2026-11-23T16:34:40Z",
+  "verdict": "pending_eval_harness_only",
   "passed_items": {
-    "official_checkpoint_verified": {"evidence": "p_items/T7_BASE_IDENTITY.json sha256 01be4efc..; proprio8/action7/horizon32/no-force", "ok": true},
-    "data_audit_and_isolation": {"evidence": "G1 artifacts: source/dedup/diversity + split 675/85/85 disjoint+complete + metadata reconciliation", "ok": true},
-    "gripper_v2_real_replay": {"evidence": "P5_REPLAY_VIDEO.json + P5_REPLAY_EXTENDED.json (8 episodes) + GRIPPER_FRAME_ERROR_ANALYSIS.json (97.66% true accuracy, all errors transitional)", "ok": true},
-    "fingertip_channels_normalization": {"evidence": "FINGERTIP_FORCE_MUJOCO_ACCEPTANCE.json (ch12-15, causal, train-split stats, invalid handling)", "ok": true},
-    "f2_fusion_integration": {"evidence": "F2_FUSION_FWD_BWD_TEST.json (identity 0, grads) + REAL_BATCH_F2_SMOKE.json (real video/action/proprio/force/T5-context, 4 phases, 2 steps, resume exact)", "ok": true},
-    "batch_contains_phases": {"evidence": "REAL_BATCH_F2_SMOKE.json phase_labels: approach_open, carry_close, release_open, post_release", "ok": true},
-    "forward_backward_ok": {"evidence": "REAL_BATCH_F2_SMOKE.json steps loss 3.206/3.878 finite; VRAM 14.0GB", "ok": true},
-    "no_future_or_oracle_leak": {"evidence": "fingertip processor causality prefix diff 0; force history uses past+current only; no external controller in policy path", "ok": true},
-    "video_recording_pipeline": {"evidence": "P5_REPLAY_VIDEO.json 6 MP4 dual-view; VIDEO_MANIFEST.json layout", "ok": true}
+    "official_checkpoint_verified": "T7_BASE_IDENTITY.json sha256 01be4efc..",
+    "data_audit_and_isolation": "G1 artifacts + split 675/85/85 disjoint+complete + metadata reconciliation",
+    "gripper_v2_real_replay": "P5_REPLAY_VIDEO.json + P5_REPLAY_EXTENDED.json (8 episodes) + GRIPPER_FRAME_ERROR_ANALYSIS.json (97.66%)",
+    "fingertip_channels_normalization": "FINGERTIP_FORCE_MUJOCO_ACCEPTANCE.json + DATASET_845_NORM_STATS.json",
+    "f2_fusion_integration": "F2_FUSION_FWD_BWD_TEST.json + REAL_BATCH_F2_SMOKE.json",
+    "batch_contains_phases": "REAL_BATCH_F2_SMOKE.json phase_labels",
+    "forward_backward_ok": "T7_TRAIN_PROBE.json: B=8 fwd 2.11-2.81s, bwd+step 0.15-0.46s, VRAM 22.85GB, trainable 559.45M",
+    "full_dataset_loader": "t7_data.py: sequential AV1 decode 0.5-0.75s/batch for 8 windows, real video/action/proprio/force/context",
+    "train_split_normalizer_stats": "DATASET_845_NORM_STATS.json: action/state min-max on 675 train episodes only",
+    "functional_resume_test": "RESUME_FUNCTIONAL_TEST.json: checkpoint (weights+optimizer+scheduler+RNG, 3.36GB) restored; steps 4-6 losses identical to uninterrupted run (max abs diff 0.0)",
+    "no_future_or_oracle_leak": "causal force processor prefix diff 0; no external controller",
+    "video_recording_pipeline": "P5 dual-view MP4 + VIDEO_MANIFEST.json",
+    "checkpoint_storage_plan": "T7_PARAM_BUDGET.json: 5.59GB per milestone, 39.1GB for 7; 52GB free now; oldest checkpoints upload+prune during training"
   },
   "pending_items": {
-    "full_dataset_loader": "build training Dataset for 845-ep HF data: window sampling, 32-step actions, 9 video frames stride 4, force history, context cache, split enforcement",
-    "train_split_normalizer_stats": "compute min/max action(7D)+proprio(8D)+force stats on train split only; save dataset_stats.json in expected format",
-    "functional_resume_test": "load checkpoint with optimizer+scheduler+RNG and continue steps; compare with uninterrupted run",
-    "eval_harness_10_seeds": "checkpoint -> bare model MuJoCo 600-step rollouts, 10 fixed seeds per milestone, dual-view MP4 + strict exact_fill metrics",
-    "checkpoint_storage_plan": "trainable-only checkpoints + frozen base reference; estimate 5.59GB per ckpt, 7 checkpoints ~39.13GB vs 66GB free; oldest upload to cloud as training progresses"
+    "eval_harness_10_seeds": "checkpoint -> bare-model MuJoCo 600-step rollouts with 10 fixed seeds per milestone, dual-view MP4, exact_fill metrics"
   },
   "param_budget": {
     "artifact": "p_items/T7_PARAM_BUDGET.json",
-    "trainable_action_plus_proprio": 558918663,
-    "adamw_fp32_two_states_gb": 4.47,
-    "weights_trainable_bf16_gb": 1.12,
+    "trainable": 558918663,
     "checkpoint_trainable_est_gb": 5.59,
     "seven_checkpoint_est_gb": 39.13
   },
-  "storage_plan": {
-    "free_gb_now": 66,
-    "keep_frozen_video_expert_out_of_callback": true,
-    "checkpoint_contents": ["trainable weights (action expert + F2 + proprio)", "optimizer", "scheduler", "RNG", "manifest with base sha256"],
-    "eval_weights": "merge frozen base + trainable state on demand; do not store duplicated 11GB merged copies per milestone"
-  },
-  "next_before_training": ["full dataset loader + norm stats", "functional resume", "eval harness", "re-run this gate with all items true"]
+  "next": "build eval harness; once the single pending item is green, G4 = passed and S4 21k training can start (budget still 0 used)"
 }

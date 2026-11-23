@@ -1,0 +1,90 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-23T16:31:21Z",
+ "continuous": {
+  "worker": "task7",
+  "ts": "2026-11-23T16:31:21Z",
+  "batch_size": 8,
+  "steps": 6,
+  "save_at": 3,
+  "mode": "full",
+  "losses": [
+   {
+    "step": 1,
+    "loss": 1.635987401008606,
+    "lr": 9.755282581475769e-05
+   },
+   {
+    "step": 2,
+    "loss": 0.6040007472038269,
+    "lr": 9.045084971874737e-05
+   },
+   {
+    "step": 3,
+    "loss": 1.1646991968154907,
+    "lr": 7.938926261462366e-05
+   },
+   {
+    "step": 4,
+    "loss": 3.1733312606811523,
+    "lr": 6.545084971874737e-05
+   },
+   {
+    "step": 5,
+    "loss": 1.068154215812683,
+    "lr": 4.9999999999999996e-05
+   },
+   {
+    "step": 6,
+    "loss": 0.8050000667572021,
+    "lr": 3.454915028125263e-05
+   }
+  ],
+  "checkpoint": {
+   "path": "/workspace/fwv1/train_runs/t7_resume_test/state.pt",
+   "bytes": 3360527869
+  }
+ },
+ "checkpoint_sha256": "80179e8c4c1e26d71acf2bec85dc335e8b22dab053ec9efa2bf5e3f619d6d1e8",
+ "restored": {
+  "worker": "task7",
+  "ts": "2026-11-23T16:32:41Z",
+  "batch_size": 8,
+  "steps": 6,
+  "save_at": 3,
+  "mode": "restore",
+  "losses": [
+   {
+    "step": 4,
+    "loss": 3.1733312606811523,
+    "lr": 6.545084971874737e-05
+   },
+   {
+    "step": 5,
+    "loss": 1.068154215812683,
+    "lr": 4.9999999999999996e-05
+   },
+   {
+    "step": 6,
+    "loss": 0.8050000667572021,
+    "lr": 3.454915028125263e-05
+   }
+  ],
+  "checkpoint": {
+   "path": "/workspace/fwv1/train_runs/t7_resume_test/state.pt",
+   "bytes": 3360527869
+  }
+ },
+ "loss_abs_diff": {
+  "4": 0.0,
+  "5": 0.0,
+  "6": 0.0
+ },
+ "max_abs_diff": 0.0,
+ "checks": {
+  "resume_ran": true,
+  "loss_match_lt_1e6": true,
+  "optimizer_scheduler_rng_saved": true
+ },
+ "verdict": "pass"
+}

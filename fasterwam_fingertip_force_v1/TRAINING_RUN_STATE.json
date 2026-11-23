@@ -3,7 +3,7 @@
   "worker": "task7",
   "ts": "2026-11-23T15:25:00Z",
   "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
-  "phase": "S4_setup_data_loader",
+  "phase": "S4_setup_eval_harness",
   "budget": {
     "max_optimizer_steps_total": 21000,
     "used_steps": 0,
@@ -16,7 +16,7 @@
     "G1_data_audit": "pending",
     "G2_gripper_v2": "pending",
     "G3_force_fusion": "passed (p_items/F2_FUSION_FWD_BWD_TEST.json + REAL_BATCH_F2_SMOKE.json)",
-    "G4_pre_train": "partial (p_items/T7_G4_GATE.json: 9 passed, 5 setup items pending; no training before all true)",
+    "G4_pre_train": "pending_eval_harness_only (p_items/T7_G4_GATE.json: all items green except 10-seed eval harness; no training before it passes)",
     "G5_milestone_loop": "pending"
   },
   "base": {
