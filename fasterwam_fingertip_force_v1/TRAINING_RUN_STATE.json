@@ -3,7 +3,7 @@
   "worker": "task7",
   "ts": "2026-11-23T15:25:00Z",
   "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
-  "phase": "S4_setup_eval_harness",
+  "phase": "S4_training_segment_0_3000",
   "budget": {
     "max_optimizer_steps_total": 21000,
     "used_steps": 0,
@@ -16,7 +16,7 @@
     "G1_data_audit": "pending",
     "G2_gripper_v2": "pending",
     "G3_force_fusion": "passed (p_items/F2_FUSION_FWD_BWD_TEST.json + REAL_BATCH_F2_SMOKE.json)",
-    "G4_pre_train": "pending_eval_harness_only (p_items/T7_G4_GATE.json: all items green except 10-seed eval harness; no training before it passes)",
+    "G4_pre_train": "passed (p_items/T7_G4_GATE.json)",
     "G5_milestone_loop": "pending"
   },
   "base": {
@@ -25,7 +25,8 @@
     "identity_artifact": "p_items/T7_BASE_IDENTITY.json"
   },
   "training": {
-    "status": "setup (G4 not fully passed; budget used 0)",
+    "status": "running segment 0->3000 (started 2026-11-23T16:50:19Z, tmux fwv1:train1, pid 284794)",
+    "baseline_anchor": "base 10 seeds x 600 steps: exact_fill 0/10, avg_in_target 0.0, 0 safety stops (p_items/SUMMARY_step_base.json)",
     "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k",
     "checkpoint_plan": "trainable-only (action expert + F2 + proprio, 558.9M) + frozen base reference; ~5.59GB per milestone, ~39.1GB for 7",
     "param_budget_artifact": "p_items/T7_PARAM_BUDGET.json",

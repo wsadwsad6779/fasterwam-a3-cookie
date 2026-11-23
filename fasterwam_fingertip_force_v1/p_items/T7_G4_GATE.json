@@ -1,31 +1,28 @@
 {
   "worker": "task7",
   "gate": "G4_pre_train",
-  "ts": "2026-11-23T16:34:40Z",
-  "verdict": "pending_eval_harness_only",
+  "ts": "2026-11-23T16:58:10Z",
+  "verdict": "passed",
   "passed_items": {
     "official_checkpoint_verified": "T7_BASE_IDENTITY.json sha256 01be4efc..",
     "data_audit_and_isolation": "G1 artifacts + split 675/85/85 disjoint+complete + metadata reconciliation",
     "gripper_v2_real_replay": "P5_REPLAY_VIDEO.json + P5_REPLAY_EXTENDED.json (8 episodes) + GRIPPER_FRAME_ERROR_ANALYSIS.json (97.66%)",
     "fingertip_channels_normalization": "FINGERTIP_FORCE_MUJOCO_ACCEPTANCE.json + DATASET_845_NORM_STATS.json",
     "f2_fusion_integration": "F2_FUSION_FWD_BWD_TEST.json + REAL_BATCH_F2_SMOKE.json",
-    "batch_contains_phases": "REAL_BATCH_F2_SMOKE.json phase_labels",
-    "forward_backward_ok": "T7_TRAIN_PROBE.json: B=8 fwd 2.11-2.81s, bwd+step 0.15-0.46s, VRAM 22.85GB, trainable 559.45M",
-    "full_dataset_loader": "t7_data.py: sequential AV1 decode 0.5-0.75s/batch for 8 windows, real video/action/proprio/force/context",
-    "train_split_normalizer_stats": "DATASET_845_NORM_STATS.json: action/state min-max on 675 train episodes only",
-    "functional_resume_test": "RESUME_FUNCTIONAL_TEST.json: checkpoint (weights+optimizer+scheduler+RNG, 3.36GB) restored; steps 4-6 losses identical to uninterrupted run (max abs diff 0.0)",
-    "no_future_or_oracle_leak": "causal force processor prefix diff 0; no external controller",
+    "batch_contains_phases": "REAL_BATCH_F2_SMOKE.json phase_labels (approach/carry/release/post-release)",
+    "forward_backward_ok": "T7_TRAIN_PROBE.json (B=8, fwd 2.1-2.8s, bwd 0.15-0.46s, VRAM 22.85GB)",
+    "full_dataset_loader": "t7_data.py (sequential AV1 decode 0.5-0.75s/batch, real video/action/proprio/force/context)",
+    "train_split_normalizer_stats": "DATASET_845_NORM_STATS.json (675 train episodes only)",
+    "functional_resume_test": "RESUME_FUNCTIONAL_TEST.json (checkpoint restore, step 4-6 losses identical, diff 0.0)",
+    "no_future_or_oracle_leak": "causal force processor prefix diff 0; no external controller in policy path",
     "video_recording_pipeline": "P5 dual-view MP4 + VIDEO_MANIFEST.json",
-    "checkpoint_storage_plan": "T7_PARAM_BUDGET.json: 5.59GB per milestone, 39.1GB for 7; 52GB free now; oldest checkpoints upload+prune during training"
+    "checkpoint_storage_plan": "T7_PARAM_BUDGET.json (5.59GB/ckpt, 7 ckpt ~39.1GB; oldest upload+prune during training)",
+    "eval_harness_10_seeds": {
+      "evidence": ["p_items/SUMMARY_step_base.json", "p_items/VIDEO_MANIFEST_step_base.json"],
+      "result": "base anchor 10/10 seeds x 600 steps, 20 dual-view MP4, no safety stops, exact_fill 0 (untrained anchor)",
+      "harness": "p_items/scripts/t7_eval.py (infer_action 32x7 -> cartesian_delta 14D, 5 denoise steps)"
+    }
   },
-  "pending_items": {
-    "eval_harness_10_seeds": "checkpoint -> bare-model MuJoCo 600-step rollouts with 10 fixed seeds per milestone, dual-view MP4, exact_fill metrics"
-  },
-  "param_budget": {
-    "artifact": "p_items/T7_PARAM_BUDGET.json",
-    "trainable": 558918663,
-    "checkpoint_trainable_est_gb": 5.59,
-    "seven_checkpoint_est_gb": 39.13
-  },
-  "next": "build eval harness; once the single pending item is green, G4 = passed and S4 21k training can start (budget still 0 used)"
+  "pending_items": {},
+  "next": "training started 2026-11-23T16:50Z (segment 0->3000); milestone protocol: save -> 10 new seeds (7100-7109 etc) -> dual-view videos -> analysis -> resume"
 }

@@ -1,0 +1,86 @@
+{
+ "step_label": "base",
+ "videos": [
+  {
+   "seed": 7001,
+   "front": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07001/front.mp4",
+   "left_wrist": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07001/left_wrist.mp4",
+   "frames": 600,
+   "exact_fill": false,
+   "in_target": 0
+  },
+  {
+   "seed": 7002,
+   "front": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07002/front.mp4",
+   "left_wrist": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07002/left_wrist.mp4",
+   "frames": 600,
+   "exact_fill": false,
+   "in_target": 0
+  },
+  {
+   "seed": 7003,
+   "front": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07003/front.mp4",
+   "left_wrist": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07003/left_wrist.mp4",
+   "frames": 600,
+   "exact_fill": false,
+   "in_target": 0
+  },
+  {
+   "seed": 7004,
+   "front": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07004/front.mp4",
+   "left_wrist": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07004/left_wrist.mp4",
+   "frames": 600,
+   "exact_fill": false,
+   "in_target": 0
+  },
+  {
+   "seed": 7005,
+   "front": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07005/front.mp4",
+   "left_wrist": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07005/left_wrist.mp4",
+   "frames": 600,
+   "exact_fill": false,
+   "in_target": 0
+  },
+  {
+   "seed": 7006,
+   "front": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07006/front.mp4",
+   "left_wrist": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07006/left_wrist.mp4",
+   "frames": 600,
+   "exact_fill": false,
+   "in_target": 0
+  },
+  {
+   "seed": 7007,
+   "front": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07007/front.mp4",
+   "left_wrist": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07007/left_wrist.mp4",
+   "frames": 600,
+   "exact_fill": false,
+   "in_target": 0
+  },
+  {
+   "seed": 7008,
+   "front": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07008/front.mp4",
+   "left_wrist": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07008/left_wrist.mp4",
+   "frames": 600,
+   "exact_fill": false,
+   "in_target": 0
+  },
+  {
+   "seed": 7009,
+   "front": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07009/front.mp4",
+   "left_wrist": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07009/left_wrist.mp4",
+   "frames": 600,
+   "exact_fill": false,
+   "in_target": 0
+  },
+  {
+   "seed": 7010,
+   "front": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07010/front.mp4",
+   "left_wrist": "/workspace/fwv1/eval_fingertip_v1/step_000000/seed_07010/left_wrist.mp4",
+   "frames": 600,
+   "exact_fill": false,
+   "in_target": 0
+  }
+ ],
+ "root": "/workspace/fwv1/eval_fingertip_v1/step_000000"
+}
