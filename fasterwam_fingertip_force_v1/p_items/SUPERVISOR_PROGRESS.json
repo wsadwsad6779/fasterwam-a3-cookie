@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T11:55:36Z",
- "stage": "P4 deps: diffusers/hydra/omegaconf installed; transformers broken and termcolor missing; runtime import still blocked",
- "evidence": "p_items/P4_DEPS.json",
- "next": "reinstall pinned transformers==4.57.6 safetensors==0.7.0 termcolor, retry runtime; then full model fwd/bwd",
+ "ts": "2026-11-23T11:59:47Z",
+ "stage": "P4 deps: runtime import OK after termcolor (create_fasterwam available); transformers import still missing due to diffusers/transformers pin conflict",
+ "evidence": "p_items/P4_DEPS.json (round 3), pip_p4c.log",
+ "next": "install transformers==4.57.6 alone; then full model fwd/bwd",
  "gpu_steps": 1,
  "mujoco_frames": 1
 }

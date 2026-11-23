@@ -1,8 +1,60 @@
 {
   "rounds": [
-    {"round": 1, "state": {"transformers": "4.57.6", "diffusers": "MISSING", "hydra": "MISSING", "omegaconf": "MISSING", "einops": "0.8.2", "safetensors": "0.7.0"}, "runtime_error": "ModuleNotFoundError: hydra"},
-    {"round": 2, "action": "pip install hydra-core omegaconf diffusers", "state": {"transformers": "MISSING", "diffusers": "0.43.0", "hydra": "1.3.8", "omegaconf": "2.3.1", "einops": "0.8.2", "safetensors": "0.8.0"}, "runtime_error": "ModuleNotFoundError: termcolor", "side_effect": "transformers import now broken and safetensors upgraded 0.7.0->0.8.0 after diffusers install"}
+    {
+      "round": 1,
+      "state": {
+        "transformers": "4.57.6",
+        "diffusers": "MISSING",
+        "hydra": "MISSING",
+        "omegaconf": "MISSING",
+        "einops": "0.8.2",
+        "safetensors": "0.7.0"
+      },
+      "runtime_error": "ModuleNotFoundError: hydra"
+    },
+    {
+      "round": 2,
+      "action": "pip install hydra-core omegaconf diffusers",
+      "state": {
+        "transformers": "MISSING",
+        "diffusers": "0.43.0",
+        "hydra": "1.3.8",
+        "omegaconf": "2.3.1",
+        "einops": "0.8.2",
+        "safetensors": "0.8.0"
+      },
+      "runtime_error": "ModuleNotFoundError: termcolor",
+      "side_effect": "transformers import now broken and safetensors upgraded 0.7.0->0.8.0 after diffusers install"
+    },
+    {
+      "round": 3,
+      "action": "pip install termcolor (diffusers==0.43.0 + transformers==4.57.6 pin was ResolutionImpossible)",
+      "state": {
+        "transformers": "MISSING",
+        "diffusers": "0.43.0",
+        "hydra": "1.3.8",
+        "omegaconf": "2.3.1",
+        "einops": "0.8.2",
+        "safetensors": "0.8.0"
+      },
+      "runtime": "ok",
+      "runtime_api": [
+        "Wan22Trainer",
+        "build_datasets",
+        "create_fasterwam",
+        "create_fastwam",
+        "create_jointwam",
+        "create_wan22_model"
+      ],
+      "create_fasterwam_sig": "(model_id, tokenizer_model_id, video_dit_config, tokenizer_max_len=512, load_text_encoder=True, proprio_dim=None, action_dit_config=None, action_dit_pretrained_path=None, skip_dit_load_from_pretrain...)"
+    }
   ],
-  "next": "pin and reinstall transformers==4.57.6 safetensors==0.7.0 termcolor (and keep diffusers/hydra), then retry fasterwam.runtime import; then instantiate full model with official step_021700.pt and run one forward/backward",
-  "notes": "fasterwam.models.wan22.fastwam imports FastWAM/ActionDiT/MoT classes even when runtime fails; the runtime helper needs hydra/termcolor"
+  "next": "pip install transformers==4.57.6 alone (no diffusers pin in the same command), verify import, then instantiate create_fasterwam(proprio_dim=8, action_dit_config=...) with official step_021700.pt and run one forward/backward",
+  "notes": "fasterwam.models.wan22.fastwam imports FastWAM/ActionDiT/MoT classes even when runtime fails; the runtime helper needs hydra/termcolor",
+  "blocker": {
+    "type": "dependency_conflict",
+    "error": "ERROR: Cannot install diffusers==0.43.0 and transformers==4.57.6 because these package versions have conflicting dependencies. ResolutionImpossible",
+    "evidence": "pod /workspace/fwv1/p_items/pip_p4c.log",
+    "attempts": 3
+  }
 }
