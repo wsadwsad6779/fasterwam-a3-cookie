@@ -1,0 +1,40 @@
+{
+  "worker": "task7",
+  "sequence": "S3",
+  "ts": "2026-11-23T16:02:00Z",
+  "status": "module_level_pass__training_integration_pending",
+  "gates": {
+    "G1_data_audit": "passed: source/dedup/diversity artifacts + frozen file sha256 match + 675/85/85 disjoint split + 845-vs-749 metadata reconciliation",
+    "G2_gripper_v2": "passed: 8 independent expert replays under real MuJoCo control, 11/11 + 15/15 transitions confirmed on the video-recorded set, 0 pulses; frame-level analysis 97.66% true accuracy, all 36 errors within 5 steps of transitions, steady-state 0",
+    "G3_force_fusion": "module_level_pass: fingertip processor real-MuJoCo acceptance + F2 zero-init Force-gated FiLM fwd/bwd/resume; training-loop integration (real video batches + force history pipeline) pending"
+  },
+  "f2": {
+    "variant": "F2 zero-init Force-gated FiLM on action tokens (ForceEncoder 32->256->2x1024)",
+    "params": 534784,
+    "identity_at_init_abs_diff": 0.0,
+    "step1_note": "zero-init output layer blocks encoder gradient at step 1 by design; encoder grad nonzero at step 2 (21.70)",
+    "film_head_grad_step1": 3.37,
+    "gamma_absmax_after_2_steps": 0.5455,
+    "loss_change_after_steps": true,
+    "backward_s": 0.05,
+    "vram_peak_gb": 12.76,
+    "batch": "episode 0 real 7D action labels + real 8D proprio + real ch12-15 force history; video/context synthetic for smoke",
+    "checkpoint": {
+      "path": "/workspace/fwv1/train_runs/t7_f2_smoke/f2_film_state.pt",
+      "bytes": 6429181,
+      "sha256": "97d49d216951b461bd8576b4f16800c05c0ad6eae1ff4e585b59fb70e3ff94fb"
+    },
+    "artifacts": {
+      "F2_FUSION_FWD_BWD_TEST.json": "031698a253b7e5bac0e66a975b7da68f72f994f2a10c89f6c5bbd05f6875c3b7",
+      "F2_RESUME_TEST.json": "aadbf5d57ce598a28e06f7ec73f13e549ddee832f4a7f1186fb268e079a8b204"
+    }
+  },
+  "remaining_for_G4": [
+    "download real video shards of Eter0109/a3-cookie-multi-tasks (hf_multi currently has parquet+meta only, 106MB)",
+    "wire F2 FiLM + fingertip processor into the training loop (real video batch, force history, normalizer)",
+    "full resume test with optimizer + scheduler + RNG at a mid-training step",
+    "batch coverage audit (open/close/carry/release) on the actual loader",
+    "checkpoint storage plan (74.5GB free, 21k run estimate)"
+  ],
+  "next": "start video shard download, then build real-batch training smoke"
+}

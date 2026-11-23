@@ -1,0 +1,90 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-23T15:59:33Z",
+ "variant": "F2 zero-init Force-gated FiLM on action tokens",
+ "batch": {
+  "episode": 0,
+  "action": "real 7D labels (A3_845_7D_LABELS_V2)",
+  "proprio": "real observation.state (8D)",
+  "force": "real ch12-15 history (8 steps)",
+  "video": "synthetic (1,3,5,64,64); context synthetic (1,16,4096)",
+  "honesty_note": "video/context synthetic for smoke only; actions/proprio/force are real episode data"
+ },
+ "official_base": "/workspace/fwv1/hf_public/eval_restore_20261117/base_step_021700.pt",
+ "load": {
+  "create_s": 46.1,
+  "mot_missing": 0,
+  "mot_unexpected": 0,
+  "proprio_missing": 0,
+  "proprio_unexpected": 0
+ },
+ "identity": {
+  "base_loss": 2.9503817558288574,
+  "film_loss_zero_init": 2.9503817558288574,
+  "abs_diff": 0.0,
+  "identity_ok": true,
+  "base_dict": {
+   "loss_video": 1.3711603879928589,
+   "loss_action": 1.579221248626709
+  },
+  "film_dict": {
+   "loss_video": 1.3711603879928589,
+   "loss_action": 1.579221248626709
+  }
+ },
+ "film_params": 534784,
+ "bwd_s": 0.05,
+ "film_grad_norms": {
+  "net.0.weight": 0.0,
+  "net.0.bias": 0.0,
+  "net.2.weight": 3.3714072704315186,
+  "net.2.bias": 0.958063006401062
+ },
+ "force_encoder_grad_nonzero": true,
+ "film_head_grad_nonzero": true,
+ "after_step": {
+  "gamma_absmax": 0.4292694330215454,
+  "beta_absmax": 0.4292687177658081,
+  "nonzero": true
+ },
+ "step1_note": "zero-init FiLM output layer blocks gradient to the force encoder at step 1 (dL/dW_encoder = W_out^T * ... = 0); this is expected, encoder learns from step 2",
+ "step2_grad_norms": {
+  "net.0.weight": 21.698335647583008,
+  "net.0.bias": 5.539181709289551,
+  "net.2.weight": 8.81771469116211,
+  "net.2.bias": 2.5060408115386963
+ },
+ "after_step2": {
+  "gamma_absmax": 0.5454959273338318,
+  "beta_absmax": 0.5454009175300598
+ },
+ "post_step_loss": 1.8157774209976196,
+ "post_step_loss_changed": true,
+ "vram_peak_gb": 12.76,
+ "checkpoint": {
+  "path": "/workspace/fwv1/train_runs/t7_f2_smoke/f2_film_state.pt",
+  "bytes": 6429181,
+  "sha256": "97d49d216951b461bd8576b4f16800c05c0ad6eae1ff4e585b59fb70e3ff94fb"
+ },
+ "resume": {
+  "worker": "task7",
+  "ts": "2026-11-23T15:59:33Z",
+  "checkpoint": {
+   "path": "/workspace/fwv1/train_runs/t7_f2_smoke/f2_film_state.pt",
+   "bytes": 6429181,
+   "sha256": "97d49d216951b461bd8576b4f16800c05c0ad6eae1ff4e585b59fb70e3ff94fb"
+  },
+  "gamma_max_diff": 0.0,
+  "beta_max_diff": 0.0,
+  "pass": true
+ },
+ "checks": {
+  "identity_at_init": true,
+  "force_encoder_grad_nonzero_step2": true,
+  "film_head_grad_nonzero": true,
+  "film_nonzero_after_step": true,
+  "loss_changed_after_step": true,
+  "resume_exact": true
+ },
+ "verdict": "pass"
+}
