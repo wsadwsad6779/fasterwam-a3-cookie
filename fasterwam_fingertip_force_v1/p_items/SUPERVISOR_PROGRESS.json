@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T12:18:26Z",
- "stage": "P4 action-head smoke PASS on GPU: (2,32,7), 0 force keys, grad ok; full-model blocked by DiffSynth 404",
- "evidence": "p_items/P4_ACTION_HEAD_SMOKE.json",
- "next": "resolve full-model video path or proceed to data freeze + bounded training plan",
+ "ts": "2026-11-23T12:19:45Z",
+ "stage": "P7 7D labels built for 845 eps (458,332x7; close frac 0.935); dp_absmax 0.3066 outlier flagged",
+ "evidence": "p_items/P7_JOINT_TO_7D_SCRIPT.json",
+ "next": "localize dp outlier episodes; then data freeze",
  "gpu_steps": 3,
  "mujoco_frames": 400
 }

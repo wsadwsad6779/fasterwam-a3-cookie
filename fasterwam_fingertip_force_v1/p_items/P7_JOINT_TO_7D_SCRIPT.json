@@ -1,0 +1,9 @@
+{
+  "script": "pod /workspace/_p7_build.py",
+  "input": "Eter0109/a3-cookie-multi-tasks data/chunk-000/file-000.parquet + file-001.parquet",
+  "mapping": "7D[t] = [diff(L_eef_pos)/0.05 clipped, rotvec(q_t,q_t+1)/0.5 clipped, pm1(gripper_t)] with pm1 hysteresis (<=0.6 close, >=0.8 open, deadband hold, min-hold 5)",
+  "outputs": {"labels_npz": "/workspace/fwv1/p_items/A3_845_7D_LABELS.npz", "shape": [458332, 7], "episodes": 845},
+  "stats": {"frames": 458332, "grip_close_frames": 428716, "grip_open_frames": 29616, "grip_close_frac": 0.93538, "dp_absmax": 0.3065614402294159, "rv_absmax": 0.04291247004206418, "per_dim_mean": [0.00086, -0.00544, -0.00266, 0.0, -0.0, 0.0, 0.87077], "per_dim_std": [0.01047, 0.06208, 0.04664, 0.0011, 0.00119, 0.00164, 0.4917]},
+  "open_issue": "dp_absmax 0.3066 m/step contradicts the 0.01495 m/step measured on episodes 0-2; must localize the outlier episodes/frames (likely 2x10 subset or a reset) before training. Do not train on unlocalized outliers.",
+  "evidence": "pod /workspace/fwv1/p_items/p7_build.log"
+}
