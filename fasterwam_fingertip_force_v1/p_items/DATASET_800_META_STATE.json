@@ -1,0 +1,58 @@
+{
+ "ts": "2026-11-23T16:05:49Z",
+ "ok": true,
+ "files": [
+  {
+   "path": "meta/info.json",
+   "bytes": 4877
+  },
+  {
+   "path": "meta/tasks.parquet",
+   "bytes": 2812
+  },
+  {
+   "path": "meta/stats.json",
+   "bytes": 25072
+  },
+  {
+   "path": "meta/episodes/chunk-000/file-000.parquet",
+   "bytes": 3609022
+  },
+  {
+   "path": ".cache/huggingface/.gitignore",
+   "bytes": 1
+  },
+  {
+   "path": ".cache/huggingface/download/meta/tasks.parquet.metadata",
+   "bytes": 125
+  },
+  {
+   "path": ".cache/huggingface/download/meta/stats.json.metadata",
+   "bytes": 100
+  },
+  {
+   "path": ".cache/huggingface/download/meta/stats.json.lock",
+   "bytes": 0
+  },
+  {
+   "path": ".cache/huggingface/download/meta/info.json.metadata",
+   "bytes": 101
+  },
+  {
+   "path": ".cache/huggingface/download/meta/tasks.parquet.lock",
+   "bytes": 0
+  },
+  {
+   "path": ".cache/huggingface/download/meta/info.json.lock",
+   "bytes": 0
+  },
+  {
+   "path": ".cache/huggingface/download/meta/episodes/chunk-000/file-000.parquet.lock",
+   "bytes": 0
+  },
+  {
+   "path": ".cache/huggingface/download/meta/episodes/chunk-000/file-000.parquet.metadata",
+   "bytes": 125
+  }
+ ]
+}
