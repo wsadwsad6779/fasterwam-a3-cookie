@@ -1,0 +1,267 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-23T15:48:13Z",
+ "parquet": {
+  "episodes": 845,
+  "frames": 459177,
+  "id_range": [
+   0,
+   844
+  ]
+ },
+ "metadata": {
+  "lines": 845,
+  "unique_ids": 749,
+  "duplicate_ids": 96,
+  "ids_with_2plus_entries": 96,
+  "duplicate_groups_identical_except_seed": 0,
+  "duplicate_groups_with_conflicts": 96,
+  "duplicate_groups_sample": [
+   {
+    "episode": 0,
+    "n_entries": 2,
+    "identical_except_seed": false,
+    "field_value_counts": {
+     "frames": 2,
+     "success": 1,
+     "source_dataset": 2,
+     "source_shard": 1,
+     "controller_type": 2
+    }
+   },
+   {
+    "episode": 1,
+    "n_entries": 2,
+    "identical_except_seed": false,
+    "field_value_counts": {
+     "frames": 2,
+     "success": 1,
+     "source_dataset": 2,
+     "source_shard": 1,
+     "controller_type": 2
+    }
+   },
+   {
+    "episode": 2,
+    "n_entries": 2,
+    "identical_except_seed": false,
+    "field_value_counts": {
+     "frames": 2,
+     "success": 1,
+     "source_dataset": 2,
+     "source_shard": 1,
+     "controller_type": 2
+    }
+   },
+   {
+    "episode": 3,
+    "n_entries": 2,
+    "identical_except_seed": false,
+    "field_value_counts": {
+     "frames": 2,
+     "success": 1,
+     "source_dataset": 2,
+     "source_shard": 1,
+     "controller_type": 2
+    }
+   },
+   {
+    "episode": 4,
+    "n_entries": 2,
+    "identical_except_seed": false,
+    "field_value_counts": {
+     "frames": 2,
+     "success": 1,
+     "source_dataset": 2,
+     "source_shard": 1,
+     "controller_type": 2
+    }
+   },
+   {
+    "episode": 5,
+    "n_entries": 2,
+    "identical_except_seed": false,
+    "field_value_counts": {
+     "frames": 2,
+     "success": 1,
+     "source_dataset": 2,
+     "source_shard": 1,
+     "controller_type": 2
+    }
+   },
+   {
+    "episode": 6,
+    "n_entries": 2,
+    "identical_except_seed": false,
+    "field_value_counts": {
+     "frames": 2,
+     "success": 1,
+     "source_dataset": 2,
+     "source_shard": 1,
+     "controller_type": 2
+    }
+   },
+   {
+    "episode": 7,
+    "n_entries": 2,
+    "identical_except_seed": false,
+    "field_value_counts": {
+     "frames": 2,
+     "success": 1,
+     "source_dataset": 2,
+     "source_shard": 1,
+     "controller_type": 2
+    }
+   },
+   {
+    "episode": 8,
+    "n_entries": 2,
+    "identical_except_seed": false,
+    "field_value_counts": {
+     "frames": 2,
+     "success": 1,
+     "source_dataset": 2,
+     "source_shard": 1,
+     "controller_type": 2
+    }
+   },
+   {
+    "episode": 9,
+    "n_entries": 2,
+    "identical_except_seed": false,
+    "field_value_counts": {
+     "frames": 2,
+     "success": 1,
+     "source_dataset": 2,
+     "source_shard": 1,
+     "controller_type": 2
+    }
+   }
+  ]
+ },
+ "missing": {
+  "count": 96,
+  "ranges": [
+   [
+    749,
+    844
+   ]
+  ],
+  "sample": [
+   749,
+   750,
+   751,
+   752,
+   753,
+   754,
+   755,
+   756,
+   757,
+   758,
+   759,
+   760,
+   761,
+   762,
+   763,
+   764,
+   765,
+   766,
+   767,
+   768
+  ],
+  "extra_metadata_ids_not_in_parquet": []
+ },
+ "source_distribution": {
+  "local/cookie-2x10-complete-canonical-v4+local/cookie-2x5-complete-canonical-v4": 96,
+  "local/cookie-2x5-complete-canonical-v4": 653,
+  "MISSING_METADATA": 96
+ },
+ "stable_mapping": {
+  "rule": "per episode id: sorted unique source_dataset tags joined with +; missing -> MISSING_METADATA",
+  "mapping_sha256": "90e34c24aab159742cbbdd5475467ddf0bc2e555babcae1f151a3a8045af7cb9",
+  "mapping_size": 845
+ },
+ "frames_check": {
+  "mismatch_count": 96,
+  "sample": [
+   {
+    "episode": 0,
+    "metadata_frames": 1076,
+    "parquet_frames": 466,
+    "source_dataset": "local/cookie-2x10-complete-canonical-v4"
+   },
+   {
+    "episode": 1,
+    "metadata_frames": 1079,
+    "parquet_frames": 475,
+    "source_dataset": "local/cookie-2x10-complete-canonical-v4"
+   },
+   {
+    "episode": 2,
+    "metadata_frames": 1078,
+    "parquet_frames": 476,
+    "source_dataset": "local/cookie-2x10-complete-canonical-v4"
+   },
+   {
+    "episode": 3,
+    "metadata_frames": 1087,
+    "parquet_frames": 467,
+    "source_dataset": "local/cookie-2x10-complete-canonical-v4"
+   },
+   {
+    "episode": 4,
+    "metadata_frames": 1098,
+    "parquet_frames": 480,
+    "source_dataset": "local/cookie-2x10-complete-canonical-v4"
+   },
+   {
+    "episode": 5,
+    "metadata_frames": 1079,
+    "parquet_frames": 478,
+    "source_dataset": "local/cookie-2x10-complete-canonical-v4"
+   },
+   {
+    "episode": 6,
+    "metadata_frames": 1065,
+    "parquet_frames": 475,
+    "source_dataset": "local/cookie-2x10-complete-canonical-v4"
+   },
+   {
+    "episode": 7,
+    "metadata_frames": 1070,
+    "parquet_frames": 478,
+    "source_dataset": "local/cookie-2x10-complete-canonical-v4"
+   },
+   {
+    "episode": 8,
+    "metadata_frames": 1068,
+    "parquet_frames": 467,
+    "source_dataset": "local/cookie-2x10-complete-canonical-v4"
+   },
+   {
+    "episode": 9,
+    "metadata_frames": 1078,
+    "parquet_frames": 472,
+    "source_dataset": "local/cookie-2x10-complete-canonical-v4"
+   }
+  ]
+ },
+ "split_coverage": {
+  "train": {
+   "n": 675,
+   "with_metadata": 599,
+   "missing": 76
+  },
+  "val": {
+   "n": 85,
+   "with_metadata": 75,
+   "missing": 10
+  },
+  "test": {
+   "n": 85,
+   "with_metadata": 75,
+   "missing": 10
+  }
+ },
+ "verdict": "pass"
+}

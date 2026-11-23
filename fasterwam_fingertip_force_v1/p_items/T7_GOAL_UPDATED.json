@@ -1,0 +1,8 @@
+{
+  "worker": "task7",
+  "updated_at": "2026-11-23T15:46:00Z",
+  "objective": "完成 FasterWAM 饼干夹取任务7 主计划 S1-S5：S1 基座/文件/身份；S2 800 数据审计+夹爪 V2 真实回放+元数据对账；S3 指尖力验收+F0/F1/F2（首选零初始化 Force-gated FiLM）端到端前反向与恢复测试；S4 闸门通过后 21k 分段训练（3k checkpoint+10 独立 seed+双视角视频）；S5 最佳 checkpoint 独立裸模型测试。每步 commit/push 并写证据；训练预算不超过 21000 步。",
+  "budget_max_optimizer_steps": 21000,
+  "gates": ["G0 passed", "G1 partial", "G2 partial", "G3 partial", "G4 pending", "G5 pending"],
+  "next": "D1 metadata reconciliation -> P5 frame error analysis + extra replays -> storage upload/prune -> F2 integration -> G4 gate"
+}

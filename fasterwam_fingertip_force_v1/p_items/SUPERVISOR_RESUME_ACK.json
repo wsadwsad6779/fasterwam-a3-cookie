@@ -1,6 +1,25 @@
 {
- "resume_id": "R-FASTDL-20261123T1438Z",
- "ack_at": "2026-11-23T14:38:15Z",
- "worker": "\u997c\u5e72\u5939\u53d6\u4efb\u52a16",
- "session_id": "b462d38d-2bab-475d-a8b3-0dbd231385f9"
+  "resume_id": "R-20261123-154532-c6562c",
+  "ack_at": "2026-11-23T15:46:00Z",
+  "worker": "task7",
+  "session_id": "607221b3-ba4c-5063-ac4f-494f15aea661",
+  "state": {
+    "head_commit": "f6bac9f",
+    "S1": "complete: Wan 34.2GB sha256-verified; P4 full smoke pass; P7 verification pass; base identity pass (sha256 01be4efc, proprio8/action7/horizon32/no-force)",
+    "S2": "partial: split 675/85/85 + contact coverage done; gripper V2 open-loop replay 3 episodes pass; metadata reconciliation and frame-level error analysis pending",
+    "S3": "partial: fingertip force processor real-MuJoCo acceptance pass; F0/F1/F2 integration pending"
+  },
+  "ready_queue": ["P5", "D1"],
+  "plan_this_turn": [
+    "D1: DATASET_800_METADATA_RECONCILIATION.json (845 parquet vs 749 metadata unique ids; duplicates/missing/stable mapping/frame checks/isolation)",
+    "P5: frame-level error analysis of 85.4% accuracy + 5 more independent replay episodes (metrics-only)",
+    "storage: upload evidence/videos to cloud with sha256, then prune regenerable Wan files (keep VAE) to restore free space above 50GB",
+    "then F2 zero-init ForceFiLM end-to-end fwd/bwd + resume test"
+  ],
+  "constraints": {
+    "base": "official step_021700 only (read-only), no Force40k/A3 force-free/C weights",
+    "training_budget": "<=21000 total; no training before gates",
+    "tokens": "never written to repo/logs/reports",
+    "bare_model_eval": "no G3/M5/oracle/external gripper controller; safety guard kept"
+  }
 }

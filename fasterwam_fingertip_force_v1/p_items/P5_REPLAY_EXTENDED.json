@@ -1,0 +1,104 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-23T15:50:42Z",
+ "episodes": [
+  {
+   "episode": 10,
+   "dataset_frames": 476,
+   "steps": 476,
+   "best": {
+    "lag": 0,
+    "acc": 0.8488789237668162,
+    "close_ok": 0.9977578475336323,
+    "open_ok": 0.7
+   },
+   "transitions": 3,
+   "transitions_confirmed": 3,
+   "label_pulses": 0,
+   "final_info": {
+    "cookies_in_target": 0,
+    "cookies_in_source": 80
+   },
+   "ok": true
+  },
+  {
+   "episode": 100,
+   "dataset_frames": 472,
+   "steps": 472,
+   "best": {
+    "lag": 0,
+    "acc": 0.8537049228293467,
+    "close_ok": 0.9977324263038548,
+    "open_ok": 0.7096774193548387
+   },
+   "transitions": 3,
+   "transitions_confirmed": 3,
+   "label_pulses": 0,
+   "final_info": {
+    "cookies_in_target": 0,
+    "cookies_in_source": 80
+   },
+   "ok": true
+  },
+  {
+   "episode": 300,
+   "dataset_frames": 471,
+   "steps": 471,
+   "best": {
+    "lag": 0,
+    "acc": 0.8537023460410558,
+    "close_ok": 0.9977272727272727,
+    "open_ok": 0.7096774193548387
+   },
+   "transitions": 3,
+   "transitions_confirmed": 3,
+   "label_pulses": 0,
+   "final_info": {
+    "cookies_in_target": 0,
+    "cookies_in_source": 80
+   },
+   "ok": true
+  },
+  {
+   "episode": 500,
+   "dataset_frames": 480,
+   "steps": 480,
+   "best": {
+    "lag": 0,
+    "acc": 0.8537251239313169,
+    "close_ok": 0.9977728285077951,
+    "open_ok": 0.7096774193548387
+   },
+   "transitions": 3,
+   "transitions_confirmed": 3,
+   "label_pulses": 0,
+   "final_info": {
+    "cookies_in_target": 0,
+    "cookies_in_source": 80
+   },
+   "ok": true
+  },
+  {
+   "episode": 700,
+   "dataset_frames": 475,
+   "steps": 475,
+   "best": {
+    "lag": 0,
+    "acc": 0.8537125835512933,
+    "close_ok": 0.9977477477477478,
+    "open_ok": 0.7096774193548387
+   },
+   "transitions": 3,
+   "transitions_confirmed": 3,
+   "label_pulses": 0,
+   "final_info": {
+    "cookies_in_target": 0,
+    "cookies_in_source": 80
+   },
+   "ok": true
+  }
+ ],
+ "n_ok": 5,
+ "verdict": "pass",
+ "note": "metrics-only independent replays (no camera rendering); same action mapping and thresholds as P5_REPLAY_VIDEO.json"
+}
