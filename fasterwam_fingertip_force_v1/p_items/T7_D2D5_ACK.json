@@ -2,7 +2,19 @@
   "objective": "完成原始FasterWAM + 指尖力F2模型的完整数据验收、夹爪监督修复、21,000步有界训练、每3,000步的10-seed自主实验及最终独立裸模型测试，期间持续保存模型、视频和可恢复状态。",
   "goal_version": 2,
   "updated_at": "2026-11-23T17:00:10Z",
-  "d2_status": "started",
+  "d2_status": "completed",
+  "d2_result": {
+    "dataset_accepted": true,
+    "accepted_known": 749,
+    "quarantined_unknown_identity": 96,
+    "rejected": 0,
+    "task_class_resolution": {"metadata_single": 653, "metadata_frame_match": 96, "unknown": 96},
+    "byte_level_action_duplicate_pairs": 0,
+    "physical_groups": 845,
+    "group_leakage_after": 0,
+    "split_v2": {"train": 589, "val": 85, "test": 171},
+    "artifacts": ["DATASET_845_ACCEPTED_MANIFEST.json", "DATASET_845_FINAL_QUALITY_AUDIT.md", "DATASET_845_PROVENANCE.json", "DATASET_845_PHYSICAL_DEDUP.csv", "DATASET_845_LAYOUT_VISUAL_COVERAGE.json", "DATASET_845_TRAIN_VAL_TEST_LEAKAGE.json", "DATASET_845_SPLIT_MANIFEST_V2.json"]
+  },
   "gate_state": {
     "D2": "started (P0 845-episode quality audit)",
     "D3": "ready_parallel (fingertip force distribution/normalization/OOD)",

@@ -1,0 +1,85 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-23T17:01:19Z",
+ "hf_repo": "Eter0109/a3-cookie-multi-tasks",
+ "hf_files_frozen": {
+  "data/chunk-000/file-000.parquet": {
+   "bytes": 36213212,
+   "sha256": "669b2eca42f4c5d4052dede0fc0cd98379edfc5f2441c7fd81f72bdd8e5005eb"
+  },
+  "data/chunk-000/file-001.parquet": {
+   "bytes": 59320765,
+   "sha256": "717e444226e61821b23972b34b811d57a564808e54f139398ffe840be95d89cf"
+  },
+  "meta/info.json": {
+   "bytes": 4877,
+   "sha256": "9c5230d30a42b2f3ae993dfb170403f6535584acf55f3ff186e7ee751469dd28"
+  },
+  "meta/stats.json": {
+   "bytes": 25072,
+   "sha256": "143335d2a89f2234b081bd64077ad68294795e2c5138c949c4a661878d908325"
+  },
+  "collection_summary.json": {
+   "bytes": 1404,
+   "sha256": "48e2dc8d552cd643105ba7dfe05de4924cbaf79bec4b88bcf7f2126d1b1faf15"
+  },
+  "a3_episode_metadata.jsonl": {
+   "bytes": 14814340,
+   "sha256": "7d2fb566697dead9c8472d52d9b4c7813f922864401c10b9ce06eb81f66e67fa"
+  }
+ },
+ "sim_repo": {
+  "repo": "Eter0109/a3_dual_arm_sim",
+  "commit": "08ebe8cb370856051d0b32b07e691cc9b056716b"
+ },
+ "collection_summary": {
+  "schema_version": 2,
+  "repo_id": "Eter0109/a3-cookie-multi-tasks",
+  "task": "cookie_transfer",
+  "target_layout": "multi",
+  "policy": "multi",
+  "prompt_style": "training",
+  "task_instruction": "transfer 10 cookies into target box",
+  "source_action_mode": "cartesian_delta",
+  "stored_action_mode": "joint_position",
+  "use_videos": true,
+  "first_grasp_mode": 5,
+  "seed_start": 70000,
+  "components": [
+   {
+    "repo_id": "local/cookie-2x5-complete-canonical-v4",
+    "root": "/home/eter/\u684c\u9762/workspace/a3_dual_arm_sim/datasets/cookie_2x5_complete_canonical_v4",
+    "target_layout": "2x5",
+    "episodes": 749,
+    "seed_start": 70000,
+    "randomization_profile": "basic",
+    "source_column": "1"
+   },
+   {
+    "repo_id": "local/cookie-2x10-complete-canonical-v4",
+    "root": "/home/eter/\u684c\u9762/workspace/a3_dual_arm_sim/datasets/cookie_2x10_complete_canonical_v4",
+    "target_layout": "2x10",
+    "episodes": 96,
+    "seed_start": 80000,
+    "randomization_profile": "basic",
+    "source_column": "1",
+    "first_grasp_mode": 5
+   }
+  ],
+  "placement_order": "canonical",
+  "complete_demonstrations": true,
+  "training_arm_mode": "left",
+  "source_dataset": "/home/eter/\u684c\u9762/workspace/a3_dual_arm_sim/datasets/cookie_multi_complete_canonical_v4",
+  "training_joint_order": "L_q1..L_q7,L_gripper",
+  "environment_action_dim": 16
+ },
+ "episode_metadata_lines": 845,
+ "unique_ids": 749,
+ "task_class_resolution": {
+  "metadata_single": 653,
+  "metadata_frame_match": 96,
+  "unknown": 96
+ },
+ "byte_level_action_duplicate_pairs": 0,
+ "physical_groups": 845
+}

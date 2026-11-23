@@ -31,6 +31,7 @@
     "checkpoint_plan": "trainable-only (action expert + F2 + proprio, 558.9M) + frozen base reference; ~5.59GB per milestone, ~39.1GB for 7",
     "param_budget_artifact": "p_items/T7_PARAM_BUDGET.json",
     "dataset_plan": "on-the-fly AV1 video decode (28 shards, 4.5GB) + parquet action/proprio/force; frames.dat memmap (69GB) is not feasible",
+    "dataset_split_approved": "DATASET_845_SPLIT_MANIFEST_V2.json (589 train / 85 val / 171 frozen test; quarantine 96 unknown-identity; group leakage 0) — training must use this split",
     "latest_checkpoint": null,
     "optimizer_state": null,
     "scheduler_state": null,
