@@ -1,9 +1,8 @@
 {
  "version": 1,
- "updated": "2026-11-23T11:37:39Z",
+ "updated": "2026-11-23T11:40:18Z",
  "ready": [
-  "P4_forward_backward_smoke",
-  "resolve_state16_to_state8"
+  "P4_forward_backward_smoke"
  ],
  "blocked": {
   "P9": "需显式训练步数预算"
@@ -18,6 +17,7 @@
   "P5_replay_acceptance",
   "P6",
   "P7_decision",
-  "P7_eef_to_7d_check"
+  "P7_eef_to_7d_check",
+  "state16_to_8_mapping"
  ]
 }

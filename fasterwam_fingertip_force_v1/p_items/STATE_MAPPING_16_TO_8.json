@@ -1,0 +1,8 @@
+{
+  "env_state_dim": 16,
+  "env_state_order_evidence": "sim_repo/src/a3_dual_arm_sim/sim/env.py:363-392 builds state as [*left_qpos(7), left_grip, *right_qpos(7), right_grip] = 16",
+  "dataset_state_dim": 8,
+  "dataset_order_evidence": "collection_summary.json: training_joint_order='L_q1..L_q7,L_gripper', training_arm_mode='left'",
+  "mapping": "dataset state[0:8] == env state[0:8] (left arm 7 joints + left gripper); right-arm half (8:16) is not stored in the 845-episode dataset",
+  "implication": "For FasterWAM 8-dim proprio, use dataset state directly (it is already the left-arm 8 order). Do not feed env's 16-dim state. The 8-dim proprio semantics (joint angles vs eef pose) must still be mapped to the model's expected 8-dim: dataset state is joint positions, whereas the A3 FasterWAM config's 8-dim state is eef pos/rot+gripper in earlier pipelines - this discrepancy remains to be resolved before training."
+}

@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T11:37:39Z",
- "stage": "P3 live env verified: force18 reset vector matches dataset (L/R wrist bias +-10.834, pads 0); env state=16 vs dataset state=8 must be mapped",
- "evidence": "p_items/P3_ENV_RESET.json, p_items/P3_SIM_IMPORT.json",
- "next": "P4 model forward/backward smoke on official base; resolve state16->state8",
+ "ts": "2026-11-23T11:40:18Z",
+ "stage": "state16->8 resolved: dataset state[0:8] = left arm joints+gripper (env.py:392 order, collection_summary training_joint_order)",
+ "evidence": "p_items/STATE_MAPPING_16_TO_8.json, p_items/state_mapping_grep.txt",
+ "next": "P4 forward/backward smoke on official base; decide 8-dim proprio representation (joint vs eef) before training",
  "gpu_steps": null,
  "mujoco_frames": 1
 }
