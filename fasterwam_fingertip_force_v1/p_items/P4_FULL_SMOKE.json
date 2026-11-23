@@ -1,0 +1,9 @@
+{
+  "attempts": [
+    {"n": 1, "result": "ValueError: `action_scheduler` is required (runtime.py:350)"},
+    {"n": 2, "action": "passed video_scheduler/action_scheduler/loss from model config; skip_dit_load_from_pretrain=True; load_text_encoder=False", "result": "HTTP 404 from hf-mirror while resolving model_id='Wan-AI/Wan2.2-TI2V-5B'", "error": "requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://hf-mirror.com/api/models/DiffSynth-Studio/Wan-Series-Converted-Safetensors/revision/main", "meaning": "create_fasterwam resolves Wan video weights via a converted-safetensors repo that is unavailable on the mirror; the local official step_021700.pt is a FasterWAM-format checkpoint, not that repo"}
+  ],
+  "config_resolution": {"num_frames": 33, "proprio_dim": 8, "action_dim": 7, "model_keys": ["_target_","model_id","tokenizer_model_id","tokenizer_max_len","load_text_encoder","proprio_dim","redirect_common_files","mot_checkpoint_mixed_attn","condition_layers","video_kv_fusion","video_kv_fusion_init","action_dit_pretrained_path","skip_dit_load_from_pretrain","video_dit_config","action_dit_config","video_scheduler","action_scheduler","loss"]},
+  "blocker": {"type": "external_asset_missing", "asset": "DiffSynth-Studio/Wan-Series-Converted-Safetensors", "evidence": "pod /workspace/fwv1/p_items/p4_full2.log and P4_FULL_SMOKE.json", "attempts": 2},
+  "next": "instantiate without the remote converted repo: build video DiT from a local Wan2.2 config/weights or set redirect_common_files/model_id to a local path; alternatively validate action_expert-only forward/backward (action_dit_config + official step_021700.pt action subtree) which does not need the video weights"
+}

@@ -1,8 +1,9 @@
 {
  "version": 1,
- "updated": "2026-11-23T11:51:54Z",
+ "updated": "2026-11-23T12:07:35Z",
  "ready": [
-  "P4_full_model_forward_backward"
+  "P4_action_expert_only_smoke",
+  "P3_env_force_contact_check"
  ],
  "blocked": {
   "P9": "需显式训练步数预算"
@@ -21,5 +22,8 @@
   "P7_eef_to_7d_check",
   "P8_proprio_representation_freeze",
   "state16_to_8_mapping"
+ ],
+ "blocked_external": [
+  "P4_full_model: DiffSynth-Studio/Wan-Series-Converted-Safetensors 404 on hf-mirror (2 attempts)"
  ]
 }
