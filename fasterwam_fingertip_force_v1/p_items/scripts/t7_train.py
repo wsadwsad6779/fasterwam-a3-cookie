@@ -126,27 +126,28 @@ def main():
     model, film, state = build()
     params = [p for p in model.parameters() if p.requires_grad] + list(film.parameters())
     opt = torch.optim.AdamW(params, lr=LR, betas=(0.9, 0.95), weight_decay=0.01)
-    sched = torch.optim.lr_scheduler.LambdaLR(
-        opt, lambda s: min(1.0, (START + s + 1) / 500.0) *
-        (0.5 * (1 + np.cos(np.pi * min(1.0, (START + s) / TOTAL)))))
     resume = os.environ.get('T7_RESUME', '')
+    start_step = int(os.environ.get('T7_START_STEP', '0'))
     losses = []
+    ck = None
     if resume and os.path.exists(resume):
         ck = torch.load(resume, map_location='cpu', weights_only=False)
         model.action_expert.load_state_dict(ck['action_expert'])
         model.proprio_encoder.load_state_dict(ck['proprio'])
         film.load_state_dict(ck['film'])
+        start_step = int(ck['step'])
+        losses = ck.get('losses', [])
+        log('RESUMED from %s at step %d' % (resume, start_step))
+    sched = torch.optim.lr_scheduler.LambdaLR(
+        opt, lambda s: min(1.0, (start_step + s + 1) / 500.0) *
+        (0.5 * (1 + np.cos(np.pi * min(1.0, (start_step + s) / TOTAL)))))
+    if ck is not None:
         opt.load_state_dict(ck['optimizer'])
         sched.load_state_dict(ck['scheduler'])
         torch.set_rng_state(ck['rng_torch'])
         torch.cuda.set_rng_state_all(ck['rng_cuda'])
-        START = int(ck['step'])
-        losses = ck.get('losses', [])
-        log('RESUMED from %s at step %d' % (resume, START))
-    else:
-        START = int(os.environ.get('T7_START_STEP', '0'))
-    src = A3BatchSource(split='train', batch_size=B, seed=START)
-    step = START
+    src = A3BatchSource(split='train', batch_size=B, seed=start_step)
+    step = start_step
     while step < END:
         bb = src.next_batch()
         state['z'] = bb['force_history'].reshape(B, -1).cuda()
