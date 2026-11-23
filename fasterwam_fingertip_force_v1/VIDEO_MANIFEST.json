@@ -1,0 +1,27 @@
+{
+  "project": "fasterwam_fingertip_force_v1",
+  "ts": "2026-11-23T15:25:00Z",
+  "layout": "/workspace/fwv1/eval_fingertip_v1/step_{STEP:06d}/seed_{SEED:05d}/",
+  "files_per_seed": {
+    "front": "front.mp4",
+    "left_wrist": "left_wrist.mp4",
+    "events": "events.json",
+    "trace": "trace.json"
+  },
+  "recording": {
+    "fps": 20,
+    "cameras": ["front", "left_wrist"],
+    "fields": ["frame_actions", "gripper_opening", "fingertip_force", "eef_trajectory", "cookie_positions", "grasp_release_events", "source_target", "safety_events"],
+    "partial_video_on_abort": true
+  },
+  "milestones": {
+    "3000": {"status": "pending", "videos": []},
+    "6000": {"status": "pending", "videos": []},
+    "9000": {"status": "pending", "videos": []},
+    "12000": {"status": "pending", "videos": []},
+    "15000": {"status": "pending", "videos": []},
+    "18000": {"status": "pending", "videos": []},
+    "21000": {"status": "pending", "videos": []}
+  },
+  "note": "every milestone gets its own VIDEO_MANIFEST_step_XXXXXX.json with absolute MP4 paths, checkpoint, seed, layout id, frames, decodable flag, grasps, in-bin count, exact_fill, safety events"
+}

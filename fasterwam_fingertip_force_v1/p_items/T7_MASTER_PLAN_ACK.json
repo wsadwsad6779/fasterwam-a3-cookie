@@ -1,0 +1,57 @@
+{
+  "worker": "task7",
+  "ack_at": "2026-11-23T15:24:30Z",
+  "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
+  "decision": "旧执行序列作废；按主计划 S1-S5 执行，训练前硬闸门未过不得开训",
+  "budget": {
+    "max_optimizer_steps_total": 21000,
+    "not_per_variant": true,
+    "checkpoint_every_steps": 3000,
+    "milestones": [3000, 6000, 9000, 12000, 15000, 18000, 21000],
+    "extra_budget_must_be_recorded": true,
+    "hidden_63k_forbidden": true
+  },
+  "base": {
+    "unique_checkpoint": "hustvl/FasterWAM official step_021700.pt",
+    "forbidden": ["old A3 force-free finetune", "Force40k", "C@1000/C@8000/C@12000", "V3/V4", "G3/M5/oracle as final policy"],
+    "f0_f1_f2_init": "same official checkpoint, base weights read-only"
+  },
+  "sequences": {
+    "S1": {"goal": "pod/files/identity: Wan dependency verify + official base identity (8D proprio, 7D action, 32-step horizon, pm1)", "status": "in_progress", "done": ["Wan ModelScope 34.2GB sha256-verified", "P4 full-model fwd/bwd smoke PASS", "P7 joint->7D verification PASS"]},
+    "S2": {"goal": "800 data audit (source/dedup/diversity) + gripper V2 repair + real replay video + auto re-collection decision", "status": "pending_gate"},
+    "S3": {"goal": "fingertip force real MuJoCo acceptance + ForceVLA/TacFiLM/ImplicitRDP portability + F0/F1/F2 selection (prefer F2) + fwd/bwd/resume tests", "status": "pending_gate"},
+    "S4": {"goal": "21k segmented training 3k/6k/.../21k, full resumable checkpoints, 10 distinct eval seeds per milestone, dual-view videos", "status": "blocked_by_gates"},
+    "S5": {"goal": "best checkpoint selection + independent final bare-model test (exact_fill 10 blocks, safety, video)", "status": "blocked_by_S4"}
+  },
+  "gates": {
+    "G0_base_identity": "official checkpoint hash/shape/proprio8/action7/32/pm1 verified",
+    "G1_data_audit": "800 source/dedup/diversity + train/val/test isolation",
+    "G2_gripper": "V2 semantics + real-control replay + video; no always-closed/jitter",
+    "G3_force": "ch12-15 verification + processor causal/normalized + F1/F2 integration fwd/bwd",
+    "G4_pre_train": "all above + batch contains open/close/carry/release + resume test + video recording",
+    "G5_milestones": "3k save->10-seed eval->videos->analysis->resume, 12k degradation review"
+  },
+  "storage_policy": {
+    "storage_min_free_gb": 30,
+    "on_low_free": "pack results/code/checkpoints -> upload HF/GitHub with sha256 -> verify -> delete only regenerable files",
+    "never_delete": ["unique checkpoints", "raw datasets", "official base"],
+    "state_file": "p_items/STORAGE_STATE.json"
+  },
+  "gpu_policy": {
+    "gpu_time_low_hours": 5,
+    "on_low": "save+upload all -> GPU_UPLOAD_MANIFEST.json + gpu_restore.py -> verify next instance",
+    "state_file": "p_items/GPU_TIME_STATE.json"
+  },
+  "operating_rules": {
+    "tmux": "all long jobs in named tmux session (fwv1), logs under /workspace/fwv1/logs",
+    "commit": "every turn at least one new commit or substantive artifact",
+    "tokens": "never write tokens to files/logs/git",
+    "bare_model_eval": "bare model only; safety guard allowed; G3/M5/oracle/external gripper gating forbidden"
+  },
+  "next_actions": [
+    "finish S1 identity report + state files",
+    "S2 data audit + gripper repair with real replay video",
+    "S3 force acceptance + F2 selection",
+    "then gates -> S4 segmented training"
+  ]
+}

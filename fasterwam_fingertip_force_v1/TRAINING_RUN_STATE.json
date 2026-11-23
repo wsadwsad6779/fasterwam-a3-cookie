@@ -1,0 +1,54 @@
+{
+  "project": "fasterwam_fingertip_force_v1",
+  "worker": "task7",
+  "ts": "2026-11-23T15:25:00Z",
+  "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
+  "phase": "S1_base_identity",
+  "budget": {
+    "max_optimizer_steps_total": 21000,
+    "used_steps": 0,
+    "remaining_steps": 21000,
+    "not_per_variant": true,
+    "extra_budget_recorded": []
+  },
+  "gates": {
+    "G0_base_identity": "passed (p_items/T7_BASE_IDENTITY.json verdict=pass; sha256 01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d; proprio8/action7/horizon32/no-force)",
+    "G1_data_audit": "pending",
+    "G2_gripper_v2": "pending",
+    "G3_force_fusion": "pending",
+    "G4_pre_train": "pending",
+    "G5_milestone_loop": "pending"
+  },
+  "base": {
+    "path_pod": "/workspace/fwv1/hf_public/eval_restore_20261117/base_step_021700.pt",
+    "read_only": true,
+    "identity_artifact": "p_items/T7_BASE_IDENTITY.json"
+  },
+  "training": {
+    "status": "not_started",
+    "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k",
+    "latest_checkpoint": null,
+    "optimizer_state": null,
+    "scheduler_state": null,
+    "rng_state": null,
+    "milestones": [3000, 6000, 9000, 12000, 15000, 18000, 21000]
+  },
+  "evaluation": {
+    "protocol": "bare model, MuJoCo, max 600 steps, safety guard kept, exact_fill 10 blocks, 20-step hold",
+    "seeds_manifest": "p_items/EVAL_SEED_MANIFEST.json",
+    "video_manifest": "p_items/VIDEO_MANIFEST.json",
+    "last_milestone_evaluated": null
+  },
+  "resume_protocol": [
+    "read CHECKPOINT_MANIFEST latest step",
+    "verify checkpoint sha256",
+    "load model + optimizer + scheduler + RNG",
+    "resume from recorded step, never restart from base unless explicitly diagnosed"
+  ],
+  "runtime": {
+    "pod_url": "https://jupyter.anruicloud.com/instances/rgapi-one-click-24316-57b6b870/lab",
+    "tmux_session": "fwv1",
+    "logs_dir": "/workspace/fwv1/logs"
+  },
+  "next": "finish S1 identity report; then S2 data audit + gripper V2 real replay; no training before G4"
+}

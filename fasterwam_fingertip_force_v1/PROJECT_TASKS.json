@@ -1,89 +1,47 @@
 {
-  "base_model_policy": "唯一基座 = hustvl/FasterWAM 官方 step_021700.pt（proprio 8 / action 7 / 无 force conditioner）。禁止寻找、下载、修复、加载、评估或继续训练任何旧 A3 无力微调 checkpoint；禁止从旧 Force40k 或 C 类权重续训。",
+  "base_model_policy": "唯一基座 = hustvl/FasterWAM 官方 step_021700.pt（proprio 8 / action 7 / 无 force conditioner，只读）。禁止旧 A3 无力微调 checkpoint、Force40k、C@1000/C@8000/C@12000、V3/V4、step_040000_merged、G3/M5/oracle 作为最终策略；F0/F1/F2 必须从同一官方 checkpoint 初始化。",
+  "master_plan": {
+    "file": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
+    "ack": "p_items/T7_MASTER_PLAN_ACK.json",
+    "ack_at": "2026-11-23T15:24:30Z",
+    "budget_max_optimizer_steps": 21000,
+    "budget_is_total_not_per_variant": true,
+    "checkpoint_interval": 3000,
+    "milestones": [3000, 6000, 9000, 12000, 15000, 18000, 21000],
+    "seeds_per_milestone": 10,
+    "seed_reuse_forbidden": true,
+    "storage_min_free_gb": 30,
+    "gpu_time_low_hours": 5
+  },
+  "sequences": [
+    {"id": "S1", "name": "pod + Wan dependency + official base identity (8D/7D/32/pm1)", "status": "in_progress", "gate": "G0", "evidence": ["p_items/P4_WAN_FASTDL.json", "p_items/P4_FULL_SMOKE.json", "p_items/JOINT_TO_7D_VERIFICATION.json", "p_items/T7_BASE_IDENTITY.json"]},
+    {"id": "S2", "name": "800 data audit + gripper V2 repair + real-control replay video + re-collection decision", "status": "pending", "gate": "G1+G2", "outputs": ["DATASET_800_SOURCE_LOCATION.md", "DATASET_800_DIVERSITY_REPORT.md", "DATASET_800_DEDUPLICATION.csv", "DATASET_800_CONTACT_COVERAGE.json", "DATASET_800_SPLIT_MANIFEST.json", "GRIPPER_LABEL_V2_FINAL_AUDIT.md", "GRIPPER_EVENT_VALIDATION.json", "GRIPPER_REPLAY_VIDEO_MANIFEST.json"]},
+    {"id": "S3", "name": "fingertip force real MuJoCo acceptance + paper module portability + F0/F1/F2 (prefer F2)", "status": "pending", "gate": "G3", "outputs": ["FINGERTIP_FORCE_MUJOCO_ACCEPTANCE.json", "FORCE_MODULE_DECISION_T7.md", "FUSION_FWD_BWD_TEST.json", "RESUME_TEST.json"]},
+    {"id": "S4", "name": "21k segmented training with full checkpoints + 10-seed eval + dual-view videos per milestone", "status": "blocked", "blocked_by": ["G0", "G1", "G2", "G3", "G4"], "outputs": ["TRAINING_RUN_STATE.json", "CHECKPOINT_MANIFEST.json", "EVAL_SEED_MANIFEST.json", "VIDEO_MANIFEST.json"]},
+    {"id": "S5", "name": "best checkpoint selection + independent final bare-model test + force/gripper gain quantification", "status": "blocked", "blocked_by": ["S4"], "outputs": ["FINAL_TEST_REPORT.md", "VIDEO_MANIFEST_final.json"]}
+  ],
+  "gates": {
+    "G0_base_identity": {"status": "passed", "evidence": "p_items/T7_BASE_IDENTITY.json (verdict=pass); p_items/JOINT_TO_7D_VERIFICATION.json (pm1 pass)", "requirements": ["official sha256", "proprio in=8", "action out=7", "horizon 32", "pm1 verified", "no force keys"]},
+    "G1_data_audit": {"status": "pending", "requirements": ["800 source/dedup/diversity", "train/val/test isolation", "no leakage"]},
+    "G2_gripper_v2": {"status": "pending", "requirements": ["event semantics", "real-control replay+video", "no always-closed/jitter"]},
+    "G3_force_fusion": {"status": "pending", "requirements": ["ch12-15 verified in current MuJoCo XML", "causal processor", "normalization stats", "F1/F2 grad flow"]},
+    "G4_pre_train": {"status": "pending", "requirements": ["G0-G3", "batch has open/close/carry/release", "fwd/bwd ok", "resume test", "checkpoint space", "video record ok"]},
+    "G5_milestones": {"status": "pending", "requirements": ["save->10 new seeds->videos->analysis->resume every 3k", "12k degradation review"]}
+  },
   "tasks": [
-    {
-      "id": "P1",
-      "name": "官方原始 FasterWAM 身份确认（已完成：proprio_encoder in=8、action head out=7、step 021700、无 force 键）",
-      "status": "done"
-    },
-    {
-      "id": "P2",
-      "name": "论文与源码审计（ForceVLA/TacFiLM/ImplicitRDP/MimicGen，源码级）",
-      "status": "done_source_level"
-    },
-    {
-      "id": "P3",
-      "name": "指尖力处理器（模块级完成；待真实 MuJoCo 状态验收）",
-      "status": "partial"
-    },
-    {
-      "id": "P4",
-      "name": "零初始化 FiLM 模块（恒等性测试通过）；待整模集成",
-      "status": "partial"
-    },
-    {
-      "id": "P5",
-      "name": "夹爪标签 V2（事件级审计完成；待真实控制回放验收）",
-      "status": "partial"
-    },
-    {
-      "id": "P6",
-      "name": "800 条数据定位与审计",
-      "status": "done",
-      "leads": [
-        "HF dataset Eter0109/a3-cookie-multi-tasks（LeRobot: 8 front + 8 left_wrist 视频分片、collection_summary.json、a3_episode_metadata.jsonl）",
-        "HF Eter0109/a3-cookie-multi-left8-40k-v1",
-        "HF Eter0109/a3-front-close-left-100"
-      ],
-      "outputs": [
-        "DATASET_800_SOURCE_LOCATION.md",
-        "DATASET_800_PROVENANCE.json",
-        "DATASET_800_DIVERSITY_REPORT.md",
-        "DATASET_800_DEDUPLICATION.csv",
-        "DATASET_800_FORCE_COVERAGE.json"
-      ],
-      "evidence": [
-        "DATASET_800_SOURCE_LOCATION.md",
-        "DATASET_800_PROVENANCE.json",
-        "DATASET_800_DIVERSITY_REPORT.md",
-        "DATASET_800_DEDUPLICATION.csv",
-        "DATASET_800_FORCE_COVERAGE.json"
-      ],
-      "result": "845 episodes / 459,177 frames; 749 2x5 + 96 2x10; 0 exact action-duplicate groups; action 8D joint_position, state 8D, force 18D; L pad contact ~50.9%, R pad 0%"
-    },
-    {
-      "id": "P7",
-      "name": "补采决策（依赖 P6）",
-      "status": "pending"
-    },
-    {
-      "id": "P8",
-      "name": "F0/F1/F2 矩阵冻结（已冻结，基座统一为官方 step_021700）",
-      "status": "done"
-    },
-    {
-      "id": "P9",
-      "name": "有界训练",
-      "status": "blocked",
-      "reason": "需用户显式步数预算"
-    },
-    {
-      "id": "P10",
-      "name": "力模态消融",
-      "status": "blocked",
-      "reason": "依赖 P9"
-    },
-    {
-      "id": "P11",
-      "name": "裸模型带视频评估",
-      "status": "blocked",
-      "reason": "依赖 P9"
-    },
-    {
-      "id": "P12",
-      "name": "失败归因与改进",
-      "status": "blocked",
-      "reason": "依赖 P11"
-    }
-  ]
+    {"id": "P1", "name": "官方原始 FasterWAM 身份确认", "status": "done", "sequence": "S1", "evidence": "p_items/T7_BASE_IDENTITY.json verdict=pass; sha256 01be4efc..; proprio [4096,8]; action head [7,1024]; horizon 32; force keys 0"},
+    {"id": "P2", "name": "论文与源码审计 (ForceVLA/TacFiLM/ImplicitRDP/MimicGen)", "status": "done_source_level", "sequence": "S3"},
+    {"id": "P3", "name": "指尖力处理器真实 MuJoCo 验收", "status": "pending", "sequence": "S3", "gate": "G3"},
+    {"id": "P4", "name": "整模集成 smoke", "status": "done", "sequence": "S1", "evidence": "p_items/P4_FULL_SMOKE.json (official mot 1393 keys 0/0, fwd/bwd ok, loss 4.824, VRAM 24.28GB)"},
+    {"id": "P5", "name": "夹爪 V2 真实控制回放验收", "status": "pending", "sequence": "S2", "gate": "G2"},
+    {"id": "P6", "name": "800 条数据定位与审计", "status": "done", "sequence": "S2", "note": "S2 must re-verify full-branch/HF trail and produce missing diversity/split artifacts", "outputs": ["DATASET_800_SOURCE_LOCATION.md", "DATASET_800_PROVENANCE.json", "DATASET_800_DIVERSITY_REPORT.md", "DATASET_800_DEDUPLICATION.csv", "DATASET_800_FORCE_COVERAGE.json"]},
+    {"id": "P7", "name": "joint→7D 转换与补采决策", "status": "done", "sequence": "S1", "evidence": "p_items/JOINT_TO_7D_VERIFICATION.json verdict=pass; V2 label offsets fixed"},
+    {"id": "P8", "name": "F0/F1/F2 矩阵冻结", "status": "done", "sequence": "S3", "note": "matrix frozen; actual module choice decided in S3 with evidence (prefer F2)"},
+    {"id": "P9", "name": "21k 分段主模型训练", "status": "blocked", "sequence": "S4", "budget_max_steps": 21000, "blocked_by": ["G0", "G1", "G2", "G3", "G4"]},
+    {"id": "P10", "name": "力模态消融（预算内）", "status": "blocked", "sequence": "S4", "blocked_by": ["P9"]},
+    {"id": "P11", "name": "裸模型 10-seed 评估 + 视频", "status": "blocked", "sequence": "S4", "blocked_by": ["P9"]},
+    {"id": "P12", "name": "12k 后退化专项 + 失败归因", "status": "blocked", "sequence": "S4", "blocked_by": ["P9"]}
+  ],
+  "state_files": ["PROJECT_STATE.json", "PROJECT_TASKS.json", "TRAINING_RUN_STATE.json", "CHECKPOINT_MANIFEST.json", "EVAL_SEED_MANIFEST.json", "VIDEO_MANIFEST.json", "p_items/STORAGE_STATE.json", "p_items/GPU_TIME_STATE.json", "p_items/GPU_UPLOAD_MANIFEST.json"],
+  "updated_at": "2026-11-23T15:25:30Z"
 }

@@ -1,0 +1,30 @@
+{
+  "worker": "task7",
+  "ts": "2026-11-23T15:25:30Z",
+  "question": "Is Wan2.2-TI2V-5B a necessary dependency of the official FasterWAM configuration, and is it a full checkpoint?",
+  "answer": {
+    "is_dependency": true,
+    "component_role": "visual backbone assets: WanVideoDiT (video expert weights) + Wan2.2 VAE; text encoder optional",
+    "is_full_checkpoint": false,
+    "explanation": "Wan-AI/Wan2.2-TI2V-5B provides Wan components. The FasterWAM policy weights come from the official base_step_021700.pt (mot video+action experts + proprio encoder). Loader evidence: fasterwam/models/wan22/helpers/loader.py requires Wan2.2_VAE.pth from model_id; video DiT can be taken from the official mot (skip_dit_load_from_pretrain=true); text encoder is skipped with load_text_encoder=false because context is precomputed."
+  },
+  "verified_files": {
+    "dir": "/workspace/fwv1/wan_base",
+    "bytes_total": 34203124147,
+    "files_ok": 20,
+    "essential_bad": 0,
+    "sha256_verified": "all weights match HF LFS sha256 (3 diffusion shards, Wan2.2_VAE.pth, text encoder, config/index)",
+    "vae_sha256": "20eb789667fa5e60e7516bf509512f6cb61f01b0aa0695eadaea930c13892b36",
+    "artifact": "p_items/P4_WAN_FASTDL.json"
+  },
+  "load_proof": {
+    "artifact": "p_items/P4_FULL_SMOKE.json",
+    "model_paths": {"vae": "/workspace/fwv1/wan_base/Wan2.2_VAE.pth", "video_dit": "SKIPPED_PRETRAIN (weights from official mot)"},
+    "ok": true,
+    "vram_peak_gb": 24.28
+  },
+  "deduplication": {
+    "redownloaded": false,
+    "note": "ModelScope download resumed existing .incomplete; all files verified before reuse"
+  }
+}

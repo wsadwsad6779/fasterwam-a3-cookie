@@ -1,0 +1,20 @@
+{
+  "worker": "task7",
+  "ts": "2026-11-23T15:26:00Z",
+  "status": "not_triggered",
+  "trigger": "GPU remaining <= 5h or storage free < 30GB",
+  "targets": [
+    {"name": "HF checkpoint/artifact repo", "kind": "hf", "repo": "Eter0109/fasterwam-a3-archive-public (or private per token policy)", "auth": "token never written to files/logs/git"},
+    {"name": "GitHub code/evidence repo", "kind": "github", "repo": "wsadwsad6779/fasterwam-a3-cookie", "branch": "fingertip-force-v1"}
+  ],
+  "contents_priority": [
+    "checkpoints (model+optimizer+scheduler+rng+manifest)",
+    "training logs / metrics",
+    "eval videos + VIDEO_MANIFEST_step_*.json",
+    "code + configs + seeds + state files",
+    "p_items artifacts"
+  ],
+  "verification": "sha256 compare before any deletion",
+  "restore_script": "p_items/scripts/gpu_restore.py",
+  "uploads": []
+}

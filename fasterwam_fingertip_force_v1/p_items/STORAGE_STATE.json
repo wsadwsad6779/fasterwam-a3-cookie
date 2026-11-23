@@ -1,0 +1,25 @@
+{
+  "worker": "task7",
+  "checked_at": "2026-11-23T15:24:57Z",
+  "disk_total_gb": 98,
+  "disk_used_gb": 53,
+  "disk_free_gb": 41,
+  "storage_min_free_gb": 30,
+  "status": "ok",
+  "hotspots": [
+    {"path": "/workspace/fwv1/wan_base", "gb": 33, "kind": "wan assets (re-downloadable; verify sha before any deletion)", "in_use": true},
+    {"path": "/workspace/fwv1/p_items", "gb": 0.227, "kind": "artifacts/evidence", "in_use": true},
+    {"path": "/workspace/fwv1/repo", "gb": 0.099, "kind": "code", "in_use": true}
+  ],
+  "upload": {
+    "status": "not_triggered",
+    "target": "HF/GitHub per key",
+    "manifest": null,
+    "verified_before_delete": true
+  },
+  "policy": {
+    "trigger_free_gb": 30,
+    "never_delete": ["unique checkpoints", "raw datasets", "official base"],
+    "delete_only_after": "upload + sha256 verify"
+  }
+}
