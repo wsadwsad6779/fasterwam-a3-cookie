@@ -1,0 +1,8 @@
+{
+ "ts": "2026-11-23T10:57:51Z",
+ "stage": "P6 deliverables generating (parquet hashing over 845 episodes, both chunk files present)",
+ "evidence": "hf_multi metadata 4/4; data/chunk-000/file-000.parquet + file-001.parquet downloaded; 845 eps / 459,177 frames",
+ "next": "write DATASET_800_* five files; if process died, rerun /workspace/_p6_deliver.py (idempotent)",
+ "gpu_steps": null,
+ "mujoco_frames": null
+}
