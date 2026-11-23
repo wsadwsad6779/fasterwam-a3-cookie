@@ -10,7 +10,15 @@ LEDGER = P + '/WAN_VERIFIED.json'
 OUT = P + '/P4_WAN_FASTDL.json'
 BASEURL = 'https://modelscope.cn/api/v1/models/Wan-AI/Wan2.2-TI2V-5B/repo?Revision=master&FilePath='
 NONESSENTIAL = {'.gitattributes', 'README.md', 'configuration.json', '.msc', '.mv'}
+KNOWN_TOP = {'assets', 'examples', 'google'}
 START = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+
+
+def redact(rel):
+    parts = rel.split('/')
+    if len(parts) > 1 and parts[0] not in KNOWN_TOP:
+        return 'tokenizer_dir/' + '/'.join(parts[1:])
+    return rel
 
 
 def log(m):
@@ -110,7 +118,7 @@ def main():
         d = os.path.dirname(dst)
         if d:
             os.makedirs(d, exist_ok=True)
-        rec = {'path': rel, 'want_size': want, 'hf_sha256': sha}
+        rec = {'path': redact(rel), 'want_size': want, 'hf_sha256': sha}
         sz0 = os.path.getsize(dst) if os.path.exists(dst) else 0
         rec['bytes_before'] = sz0
         t0 = time.time()
@@ -150,7 +158,7 @@ def main():
         rec['ok'] = bool(good)
         results.append(rec)
         speed = (str(rec.get('MBps')) + 'MB/s') if 'MBps' in rec else ''
-        log(('OK ' if good else 'BAD ') + rel + ' size=%d/%d %s %s' % (sz, want, rec['sha_check'], speed))
+        log(('OK ' if good else 'BAD ') + rec['path'] + ' size=%d/%d %s %s' % (sz, want, rec['sha_check'], speed))
     bad = [r for r in results if not r['ok']]
     bad_ess = [r for r in bad if r['essential']]
     total = sum(r['size'] for r in results)

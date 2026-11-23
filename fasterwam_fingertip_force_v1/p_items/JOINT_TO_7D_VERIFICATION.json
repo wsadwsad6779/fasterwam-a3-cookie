@@ -1,0 +1,107 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-23T15:20:37Z",
+ "file": "/workspace/fwv1/p_items/A3_845_7D_LABELS.npz",
+ "shape": [
+  458332,
+  7
+ ],
+ "episodes": 845,
+ "frames_sum": 458332,
+ "checks": {
+  "shape_rows_match_ep_len": true,
+  "no_nan_inf": true,
+  "ep_start_contiguous": true,
+  "frame_offsets_start_zero": true,
+  "label_offsets_contiguous": true,
+  "dp_step_under_50mm": true,
+  "rv_step_under_pi_rad": true,
+  "gripper_pm1_only": true,
+  "parquet_episode_count_845": true,
+  "frame_boundaries_match_parquet": true,
+  "global_dp_matches_lt_1e6": true,
+  "global_gripper_matches": true,
+  "recompute_matches_lt_1e5": true,
+  "episode_count_845": true,
+  "frames_458332": true
+ },
+ "defect_found": {
+  "field": "ep_start",
+  "issue": "ep_start stores cumulative FRAME offsets, but each episode contributes len-1 label rows; using ep_start directly as a label row offset misaligns every episode k>0 by k rows and overruns the array at the tail (ep844: 458114+1062 > 458332)",
+  "fix": "label row offset = ep_start - episode_index (saved as ep_start_label in V2 npz)"
+ },
+ "dp_absmax_label": 0.3065614402294159,
+ "dp_max_mm_per_step": 15.328,
+ "rv_absmax_label": 0.04291246831417084,
+ "rv_absmax_rad_per_step": 0.02146,
+ "gripper_unique": [
+  -1.0,
+  1.0
+ ],
+ "gripper_close_frac": 0.93538,
+ "top5_episodes_by_dp": [
+  [
+   0.3065614402294159,
+   828,
+   1072
+  ],
+  [
+   0.30643612146377563,
+   835,
+   1082
+  ],
+  [
+   0.3063450753688812,
+   836,
+   1071
+  ],
+  [
+   0.3062678873538971,
+   833,
+   1079
+  ],
+  [
+   0.3061951696872711,
+   765,
+   1074
+  ]
+ ],
+ "parquet_episodes": 845,
+ "global_dp_max_abs_diff": 0.0,
+ "global_gripper_mismatch": 0,
+ "recompute_picks": [
+  {
+   "episode": 0,
+   "frames": 466,
+   "labels": 465,
+   "ref_rows": 465,
+   "max_abs_diff": 7.674302512916675e-10,
+   "gripper_mismatch": 0
+  },
+  {
+   "episode": 422,
+   "frames": 475,
+   "labels": 474,
+   "ref_rows": 474,
+   "max_abs_diff": 3.9249200591007227e-10,
+   "gripper_mismatch": 0
+  },
+  {
+   "episode": 844,
+   "frames": 1063,
+   "labels": 1062,
+   "ref_rows": 1062,
+   "max_abs_diff": 4.435088338250459e-10,
+   "gripper_mismatch": 0
+  }
+ ],
+ "recompute_max_abs_diff": 7.674302512916675e-10,
+ "v2_npz": "/workspace/fwv1/p_items/A3_845_7D_LABELS_V2.npz",
+ "v2_fields": [
+  "label",
+  "ep_start_label",
+  "ep_start_frame",
+  "ep_len"
+ ],
+ "verdict": "pass"
+}
