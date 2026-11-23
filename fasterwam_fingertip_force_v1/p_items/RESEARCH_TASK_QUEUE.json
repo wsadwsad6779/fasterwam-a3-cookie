@@ -1,9 +1,9 @@
 {
  "version": 1,
- "updated": "2026-11-23T11:33:54Z",
+ "updated": "2026-11-23T11:37:39Z",
  "ready": [
-  "P3_mujoco_force_observation",
-  "P4_forward_backward_smoke"
+  "P4_forward_backward_smoke",
+  "resolve_state16_to_state8"
  ],
  "blocked": {
   "P9": "需显式训练步数预算"
@@ -12,6 +12,7 @@
   "P1",
   "P2",
   "P3",
+  "P3_mujoco_force_observation",
   "P4",
   "P5",
   "P5_replay_acceptance",

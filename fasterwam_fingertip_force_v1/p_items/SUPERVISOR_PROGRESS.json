@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T11:33:54Z",
- "stage": "P5 replay acceptance DONE on 845 eps: approach 1.0, carry 1.0, release 1037/1037, 0 pulses",
- "evidence": "p_items/P5_REPLAY_ACCEPTANCE.json",
- "next": "P3 real MuJoCo force observation + P4 model-level forward/backward smoke",
+ "ts": "2026-11-23T11:37:39Z",
+ "stage": "P3 live env verified: force18 reset vector matches dataset (L/R wrist bias +-10.834, pads 0); env state=16 vs dataset state=8 must be mapped",
+ "evidence": "p_items/P3_ENV_RESET.json, p_items/P3_SIM_IMPORT.json",
+ "next": "P4 model forward/backward smoke on official base; resolve state16->state8",
  "gpu_steps": null,
- "mujoco_frames": null
+ "mujoco_frames": 1
 }
