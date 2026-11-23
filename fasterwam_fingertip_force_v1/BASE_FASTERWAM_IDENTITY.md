@@ -39,3 +39,8 @@
 - **B1 无 GPU 实例**：旧实例已销毁，Radeon Cloud 资源池已满。短推理复现、MuJoCo 基线、传感器 XML 核验待实例可用。
 - **B2 HF 私有仓配额满**：读 40k 节点 manifest 需 token；或改用公开仓同内容。
 - 不依赖 GPU 的下一步：论文与源码审计（ForceVLA/TacFiLM/ImplicitRDP/MimicGen）、原始语料 arrays 与 dataset_stats 身份核对、夹爪标签 V2 规则设计与事件统计。
+## 6. 基座锁定（2026-11-23 修订，覆盖此前安排）
+- **唯一基座**：`hustvl/FasterWAM` 官方 `libero/step_021700.pt`（sha256 `01be4efc…`，11,117,679,929 B）。
+- 直接证据：`proprio_encoder.weight=[4096,8]`、`mot.mixtures.action.head.weight=[7,1024]`，顶层键仅 `mot/step/torch_dtype/proprio_encoder`，无 force conditioner/head。
+- **禁止**：寻找/下载/修复/加载/评估任何旧 A3 无力微调 checkpoint；禁止从旧 Force40k 或 C 类权重继续训练；原始权重只读。
+- 官方权重只具备 LIBERO 预训练能力，不具备 A3 任务能力；F0/F1/F2 均从同一官方基座出发，同数据、同预算、同评估协议。
