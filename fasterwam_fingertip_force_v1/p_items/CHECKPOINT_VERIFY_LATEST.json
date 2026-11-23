@@ -1,0 +1,40 @@
+{
+ "files": [
+  {
+   "path": "/workspace/fwv1/train_runs/t7_21k/latest.pt",
+   "bytes": 3360623869
+  }
+ ],
+ "checks": {
+  "step_positive": true,
+  "action_expert_loaded": true,
+  "optimizer_nonempty": true,
+  "scheduler_present": true,
+  "rng_present": true,
+  "base_sha_matches": true
+ },
+ "latest": {
+  "bytes": 3360623869,
+  "sha256": "d71cf24d100c8bfe0a7fb04ba7ef0a748027bfa0492145d4d8b2738dc938a289",
+  "step": 400,
+  "keys": [
+   "action_expert",
+   "base_sha256",
+   "film",
+   "losses",
+   "optimizer",
+   "proprio",
+   "rng_cuda",
+   "rng_torch",
+   "scheduler",
+   "step"
+  ],
+  "action_expert_tensors": 560,
+  "proprio_tensors": 2,
+  "film_tensors": 4,
+  "optimizer_state_groups": 566,
+  "scheduler_present": true,
+  "rng_present": true,
+  "base_sha256": "01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d"
+ }
+}

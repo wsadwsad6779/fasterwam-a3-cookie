@@ -1,32 +1,123 @@
 {
-  "project": "fasterwam_fingertip_force_v1",
-  "ts": "2026-11-23T15:25:00Z",
-  "storage_policy": {
-    "never_overwrite": true,
-    "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k",
-    "contents_per_checkpoint": ["model", "optimizer", "scheduler", "rng", "manifest", "sha256"],
-    "resumable": true
-  },
-  "base": {
-    "role": "official original FasterWAM base (read-only)",
-    "path_pod": "/workspace/fwv1/hf_public/eval_restore_20261117/base_step_021700.pt",
-    "bytes": 11117679929,
-    "sha256": "01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d",
-    "identity_artifact": "p_items/T7_BASE_IDENTITY.json",
-    "step": 21700,
-    "proprio_dim": 8,
-    "action_dim": 7,
-    "force_keys": 0
-  },
-  "milestones": [
-    {"step": 3000, "status": "pending", "path": null, "sha256": null, "eval_seeds": "pending", "videos": "pending"},
-    {"step": 6000, "status": "pending", "path": null, "sha256": null, "eval_seeds": "pending", "videos": "pending"},
-    {"step": 9000, "status": "pending", "path": null, "sha256": null, "eval_seeds": "pending", "videos": "pending"},
-    {"step": 12000, "status": "pending", "path": null, "sha256": null, "eval_seeds": "pending", "videos": "pending"},
-    {"step": 15000, "status": "pending", "path": null, "sha256": null, "eval_seeds": "pending", "videos": "pending"},
-    {"step": 18000, "status": "pending", "path": null, "sha256": null, "eval_seeds": "pending", "videos": "pending"},
-    {"step": 21000, "status": "pending", "path": null, "sha256": null, "eval_seeds": "pending", "videos": "pending"}
+ "project": "fasterwam_fingertip_force_v1",
+ "ts": "2026-11-23T15:25:00Z",
+ "storage_policy": {
+  "never_overwrite": true,
+  "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k",
+  "contents_per_checkpoint": [
+   "model",
+   "optimizer",
+   "scheduler",
+   "rng",
+   "manifest",
+   "sha256"
   ],
-  "forbidden_checkpoints": ["Force40k", "C@1000", "C@8000", "C@12000", "V3", "V4", "step_040000_merged", "old A3 force-free finetune"],
-  "last_updated": "2026-11-23T15:25:00Z"
+  "resumable": true
+ },
+ "base": {
+  "role": "official original FasterWAM base (read-only)",
+  "path_pod": "/workspace/fwv1/hf_public/eval_restore_20261117/base_step_021700.pt",
+  "bytes": 11117679929,
+  "sha256": "01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d",
+  "identity_artifact": "p_items/T7_BASE_IDENTITY.json",
+  "step": 21700,
+  "proprio_dim": 8,
+  "action_dim": 7,
+  "force_keys": 0
+ },
+ "milestones": [
+  {
+   "step": 3000,
+   "status": "pending",
+   "path": null,
+   "sha256": null,
+   "eval_seeds": "pending",
+   "videos": "pending"
+  },
+  {
+   "step": 6000,
+   "status": "pending",
+   "path": null,
+   "sha256": null,
+   "eval_seeds": "pending",
+   "videos": "pending"
+  },
+  {
+   "step": 9000,
+   "status": "pending",
+   "path": null,
+   "sha256": null,
+   "eval_seeds": "pending",
+   "videos": "pending"
+  },
+  {
+   "step": 12000,
+   "status": "pending",
+   "path": null,
+   "sha256": null,
+   "eval_seeds": "pending",
+   "videos": "pending"
+  },
+  {
+   "step": 15000,
+   "status": "pending",
+   "path": null,
+   "sha256": null,
+   "eval_seeds": "pending",
+   "videos": "pending"
+  },
+  {
+   "step": 18000,
+   "status": "pending",
+   "path": null,
+   "sha256": null,
+   "eval_seeds": "pending",
+   "videos": "pending"
+  },
+  {
+   "step": 21000,
+   "status": "pending",
+   "path": null,
+   "sha256": null,
+   "eval_seeds": "pending",
+   "videos": "pending"
+  }
+ ],
+ "forbidden_checkpoints": [
+  "Force40k",
+  "C@1000",
+  "C@8000",
+  "C@12000",
+  "V3",
+  "V4",
+  "step_040000_merged",
+  "old A3 force-free finetune"
+ ],
+ "last_updated": "2026-11-23T17:48:55Z",
+ "latest_trainable": {
+  "path": "/workspace/fwv1/train_runs/t7_21k/latest.pt",
+  "step": 400,
+  "bytes": 3360623869,
+  "sha256": "d71cf24d100c8bfe0a7fb04ba7ef0a748027bfa0492145d4d8b2738dc938a289",
+  "contents": [
+   "action_expert",
+   "base_sha256",
+   "film",
+   "losses",
+   "optimizer",
+   "proprio",
+   "rng_cuda",
+   "rng_torch",
+   "scheduler",
+   "step"
+  ],
+  "action_expert_tensors": 560,
+  "proprio_tensors": 2,
+  "film_tensors": 4,
+  "optimizer_state_groups": 566,
+  "scheduler": true,
+  "rng": true,
+  "base_sha256": "01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d",
+  "verified_at": "2026-11-23T17:48:55Z"
+ }
 }
