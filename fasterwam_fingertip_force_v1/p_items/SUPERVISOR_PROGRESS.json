@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T11:59:47Z",
- "stage": "P4 deps: runtime import OK after termcolor (create_fasterwam available); transformers import still missing due to diffusers/transformers pin conflict",
- "evidence": "p_items/P4_DEPS.json (round 3), pip_p4c.log",
- "next": "install transformers==4.57.6 alone; then full model fwd/bwd",
+ "ts": "2026-11-23T12:01:59Z",
+ "stage": "P4 dependencies complete: transformers 4.57.6 + runtime ok + create_fasterwam available",
+ "evidence": "p_items/P4_T5_CHECK.json",
+ "next": "full model fwd/bwd with official base (proprio 8, action 7)",
  "gpu_steps": 1,
  "mujoco_frames": 1
 }

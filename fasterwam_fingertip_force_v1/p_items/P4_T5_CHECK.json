@@ -1,0 +1,8 @@
+{
+  "action": "pip install transformers==4.57.6 alone (after diffusers pin conflict)",
+  "transformers": "4.57.6",
+  "runtime": "ok",
+  "has_create_fasterwam": true,
+  "resolution": "installing transformers separately avoids the diffusers==0.43.0 vs transformers==4.57.6 ResolutionImpossible conflict recorded in P4_DEPS.json",
+  "next": "instantiate create_fasterwam(proprio_dim=8, ...) with official step_021700.pt and run one forward/backward"
+}
