@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T12:24:05Z",
- "stage": "P7 outlier resolved: unit mismatch (m/s vs m/step); max 15.39 mm/step, 0 outliers, labels usable",
- "evidence": "p_items/P7_DP_OUTLIERS.json, p_items/P7_LABEL_VERIFY.json",
- "next": "data freeze (train/val split + labels manifest); P9 needs budget",
+ "ts": "2026-11-23T12:25:25Z",
+ "stage": "P8 data freeze manifest written: 6 source files + label npz sha256, split 760/85 (provisional, layout leakage UNKNOWN)",
+ "evidence": "p_items/FROZEN_DATA_MANIFEST.json",
+ "next": "P9 bounded training (needs explicit step budget); P4 full model blocked DiffSynth 404",
  "gpu_steps": 3,
  "mujoco_frames": 400
 }

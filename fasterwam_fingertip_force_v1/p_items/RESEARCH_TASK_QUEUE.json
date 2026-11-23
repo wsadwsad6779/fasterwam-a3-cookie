@@ -1,8 +1,8 @@
 {
  "version": 1,
- "updated": "2026-11-23T12:24:05Z",
+ "updated": "2026-11-23T12:25:25Z",
  "ready": [
-  "P8_data_freeze_manifest"
+  "P9_training(needs budget)"
  ],
  "blocked": {
   "P9": "需显式训练步数预算"
@@ -23,6 +23,7 @@
   "P7_dp_outlier_localization",
   "P7_eef_to_7d_check",
   "P7_joint_to_7d_script",
+  "P8_data_freeze_manifest",
   "P8_proprio_representation_freeze",
   "state16_to_8_mapping"
  ],
