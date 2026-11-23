@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T12:19:45Z",
- "stage": "P7 7D labels built for 845 eps (458,332x7; close frac 0.935); dp_absmax 0.3066 outlier flagged",
- "evidence": "p_items/P7_JOINT_TO_7D_SCRIPT.json",
- "next": "localize dp outlier episodes; then data freeze",
+ "ts": "2026-11-23T12:24:05Z",
+ "stage": "P7 outlier resolved: unit mismatch (m/s vs m/step); max 15.39 mm/step, 0 outliers, labels usable",
+ "evidence": "p_items/P7_DP_OUTLIERS.json, p_items/P7_LABEL_VERIFY.json",
+ "next": "data freeze (train/val split + labels manifest); P9 needs budget",
  "gpu_steps": 3,
  "mujoco_frames": 400
 }
