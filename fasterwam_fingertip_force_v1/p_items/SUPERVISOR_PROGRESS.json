@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T12:44:29Z",
- "stage": "P4 asset audit: no local Wan2.2 weights, HF cache empty; full-model blocked on external asset (404); workaround=download Wan-AI/Wan2.2-TI2V-5B",
- "evidence": "p_items/P4_WAN_ASSET_AUDIT.json",
- "next": "probe mirror for Wan-AI model files; P9 needs budget",
+ "ts": "2026-11-23T12:48:40Z",
+ "stage": "P4 mirror probe: Wan-AI/Wan2.2-TI2V-5B EXISTS (23 files incl. VAE/config); DiffSynth repo 404 confirmed; workaround viable",
+ "evidence": "p_items/P4_WAN_MIRROR_PROBE.json",
+ "next": "POD_JOB download Wan-AI model then full-model smoke",
  "gpu_steps": 3,
  "mujoco_frames": 400
 }
