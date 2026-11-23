@@ -1,0 +1,14 @@
+{
+  "episodes_matched": 749,
+  "by_group": {
+    "2x10_1081f": {"episodes": 96, "releases": 288, "mean_releases_per_ep": 3.0, "mean_frames": 1081.6, "mean_first_close_frame": 12.0, "task_text": "Transfer 20 cookies ... 2x10 target box ... grasp 5 then 5 ..."},
+    "2x5_474f": {"episodes": 653, "releases": 653, "mean_releases_per_ep": 1.0, "mean_frames": 474.6, "mean_first_close_frame": 13.7, "task_text": "transfer 10 cookies into target box"}
+  },
+  "unmatched_note": "96 episodes (1081-frame group) have episode_index values that do not appear in a3_episode_metadata.jsonl (its episode_index field has only 749 unique values); they are attributed by frame length and release count, and must be index-mapped before any metadata-based split",
+  "findings": [
+    "Gripper V2 events scale with the task: single-cycle 2x5 episodes average 1 release and ~475 frames; the 2x10 episodes average 3 releases and ~1082 frames.",
+    "First close occurs ~12-14 frames into every episode, consistent with the open->approach->close sequence in the instructions.",
+    "Metadata episode_index space does not cover all 845 episodes; a metadata-based train/val split must first resolve this mapping."
+  ],
+  "evidence": "pod /workspace/fwv1/p_items/p5_task.log, P5_REPLAY_PER_EPISODE.csv"
+}

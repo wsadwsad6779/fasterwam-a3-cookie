@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T12:31:25Z",
- "stage": "P3 dataset contact coverage done: all 845 eps contact (median 49.5% frames), L pads both live ~1.44N, R pads exactly 0",
- "evidence": "p_items/P3_CONTACT_COVERAGE.json",
- "next": "P9 training needs budget; P4 full model blocked DiffSynth 404",
+ "ts": "2026-11-23T12:35:49Z",
+ "stage": "P5 events by task: 2x5 ~1 release/475f; 2x10 ~3 releases/1082f; 96 eps lack metadata episode_index mapping",
+ "evidence": "p_items/P5_EVENTS_BY_TASK.json",
+ "next": "resolve metadata episode_index space before metadata-based split; P9 needs budget",
  "gpu_steps": 3,
  "mujoco_frames": 400
 }
