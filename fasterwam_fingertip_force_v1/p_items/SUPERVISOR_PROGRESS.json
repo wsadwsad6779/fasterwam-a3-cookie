@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T12:35:49Z",
- "stage": "P5 events by task: 2x5 ~1 release/475f; 2x10 ~3 releases/1082f; 96 eps lack metadata episode_index mapping",
- "evidence": "p_items/P5_EVENTS_BY_TASK.json",
- "next": "resolve metadata episode_index space before metadata-based split; P9 needs budget",
+ "ts": "2026-11-23T12:40:26Z",
+ "stage": "P8 metadata index mapping resolved (frames match 845/845); split leakage notes updated",
+ "evidence": "p_items/P8_METADATA_INDEX_MAPPING.json",
+ "next": "P9 training needs budget; P4 full model blocked DiffSynth 404",
  "gpu_steps": 3,
  "mujoco_frames": 400
 }
