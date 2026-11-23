@@ -1,0 +1,32 @@
+{
+ "touch_sensors": {
+  "L_finger_inner_touch_sensor": {
+   "site": "L_finger_inner_touch",
+   "site_pos": "0 -0.0245203 0.03242"
+  },
+  "L_finger_outer_touch_sensor": {
+   "site": "L_finger_outer_touch",
+   "site_pos": "0 -0.0245203 0.03242"
+  },
+  "R_finger_inner_touch_sensor": {
+   "site": "R_finger_inner_touch",
+   "site_pos": "0 -0.0245203 0.03242"
+  },
+  "R_finger_outer_touch_sensor": {
+   "site": "R_finger_outer_touch",
+   "site_pos": "0 -0.0245203 0.03242"
+  }
+ },
+ "pad_geoms": [
+  [
+   "L_finger_inner_pad_visual",
+   "0 -0.0245203 0.03242"
+  ],
+  [
+   "L_finger_outer_pad_visual",
+   "0 -0.0245203 0.03242"
+  ]
+ ],
+ "interpretation": "All four touch sites declare the same local pos in the XML, so their parent bodies/frames differ (inner/outer are per-finger sites, not per-surface offsets). The sensor names therefore encode finger membership, not a verified contact-surface orientation.",
+ "implication": "The L_in=0 / L_out=27.9N asymmetry is a physical contact difference between the two left fingers (or one site unused), NOT evidence that ch12 is broken. Channel identity must be validated by forcing contact on each finger in sim, or by the known left-finger ordering in env._sensor()."
+}

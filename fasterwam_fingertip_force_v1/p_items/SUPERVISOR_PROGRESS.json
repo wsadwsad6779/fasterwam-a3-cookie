@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T12:10:44Z",
- "stage": "P3 real contact observed: first pad contact step 255; L_out 27.9N, L_in 0; R pads 8.9N (vs 0 in dataset) - channel asymmetry flagged",
- "evidence": "p_items/P3_CONTACT_CHECK.json",
- "next": "resolve L_in/out and R-pad discrepancy; then P4 action_expert-only smoke",
+ "ts": "2026-11-23T12:11:50Z",
+ "stage": "P3 pad geometry: all touch sites share identical local pos (per-finger frames); L_in/out asymmetry is physical, not a channel bug",
+ "evidence": "p_items/P3_PAD_GEOMETRY.json, p_items/P3_CONTACT_CHECK.json",
+ "next": "P4 action_expert-only fwd/bwd; R-pad dataset-vs-live discrepancy still open",
  "gpu_steps": 2,
  "mujoco_frames": 400
 }
