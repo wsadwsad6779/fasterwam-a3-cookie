@@ -1,17 +1,89 @@
 {
   "base_model_policy": "唯一基座 = hustvl/FasterWAM 官方 step_021700.pt（proprio 8 / action 7 / 无 force conditioner）。禁止寻找、下载、修复、加载、评估或继续训练任何旧 A3 无力微调 checkpoint；禁止从旧 Force40k 或 C 类权重续训。",
   "tasks": [
-    {"id": "P1", "name": "官方原始 FasterWAM 身份确认（已完成：proprio_encoder in=8、action head out=7、step 021700、无 force 键）", "status": "done"},
-    {"id": "P2", "name": "论文与源码审计（ForceVLA/TacFiLM/ImplicitRDP/MimicGen，源码级）", "status": "done_source_level"},
-    {"id": "P3", "name": "指尖力处理器（模块级完成；待真实 MuJoCo 状态验收）", "status": "partial"},
-    {"id": "P4", "name": "零初始化 FiLM 模块（恒等性测试通过）；待整模集成", "status": "partial"},
-    {"id": "P5", "name": "夹爪标签 V2（事件级审计完成；待真实控制回放验收）", "status": "partial"},
-    {"id": "P6", "name": "800 条数据定位与审计", "status": "in_progress", "leads": ["HF dataset Eter0109/a3-cookie-multi-tasks（LeRobot: 8 front + 8 left_wrist 视频分片、collection_summary.json、a3_episode_metadata.jsonl）", "HF Eter0109/a3-cookie-multi-left8-40k-v1", "HF Eter0109/a3-front-close-left-100"], "outputs": ["DATASET_800_SOURCE_LOCATION.md","DATASET_800_PROVENANCE.json","DATASET_800_DIVERSITY_REPORT.md","DATASET_800_DEDUPLICATION.csv","DATASET_800_FORCE_COVERAGE.json"]},
-    {"id": "P7", "name": "补采决策（依赖 P6）", "status": "pending"},
-    {"id": "P8", "name": "F0/F1/F2 矩阵冻结（已冻结，基座统一为官方 step_021700）", "status": "done"},
-    {"id": "P9", "name": "有界训练", "status": "blocked", "reason": "需用户显式步数预算"},
-    {"id": "P10", "name": "力模态消融", "status": "blocked", "reason": "依赖 P9"},
-    {"id": "P11", "name": "裸模型带视频评估", "status": "blocked", "reason": "依赖 P9"},
-    {"id": "P12", "name": "失败归因与改进", "status": "blocked", "reason": "依赖 P11"}
+    {
+      "id": "P1",
+      "name": "官方原始 FasterWAM 身份确认（已完成：proprio_encoder in=8、action head out=7、step 021700、无 force 键）",
+      "status": "done"
+    },
+    {
+      "id": "P2",
+      "name": "论文与源码审计（ForceVLA/TacFiLM/ImplicitRDP/MimicGen，源码级）",
+      "status": "done_source_level"
+    },
+    {
+      "id": "P3",
+      "name": "指尖力处理器（模块级完成；待真实 MuJoCo 状态验收）",
+      "status": "partial"
+    },
+    {
+      "id": "P4",
+      "name": "零初始化 FiLM 模块（恒等性测试通过）；待整模集成",
+      "status": "partial"
+    },
+    {
+      "id": "P5",
+      "name": "夹爪标签 V2（事件级审计完成；待真实控制回放验收）",
+      "status": "partial"
+    },
+    {
+      "id": "P6",
+      "name": "800 条数据定位与审计",
+      "status": "done",
+      "leads": [
+        "HF dataset Eter0109/a3-cookie-multi-tasks（LeRobot: 8 front + 8 left_wrist 视频分片、collection_summary.json、a3_episode_metadata.jsonl）",
+        "HF Eter0109/a3-cookie-multi-left8-40k-v1",
+        "HF Eter0109/a3-front-close-left-100"
+      ],
+      "outputs": [
+        "DATASET_800_SOURCE_LOCATION.md",
+        "DATASET_800_PROVENANCE.json",
+        "DATASET_800_DIVERSITY_REPORT.md",
+        "DATASET_800_DEDUPLICATION.csv",
+        "DATASET_800_FORCE_COVERAGE.json"
+      ],
+      "evidence": [
+        "DATASET_800_SOURCE_LOCATION.md",
+        "DATASET_800_PROVENANCE.json",
+        "DATASET_800_DIVERSITY_REPORT.md",
+        "DATASET_800_DEDUPLICATION.csv",
+        "DATASET_800_FORCE_COVERAGE.json"
+      ],
+      "result": "845 episodes / 459,177 frames; 749 2x5 + 96 2x10; 0 exact action-duplicate groups; action 8D joint_position, state 8D, force 18D; L pad contact ~50.9%, R pad 0%"
+    },
+    {
+      "id": "P7",
+      "name": "补采决策（依赖 P6）",
+      "status": "pending"
+    },
+    {
+      "id": "P8",
+      "name": "F0/F1/F2 矩阵冻结（已冻结，基座统一为官方 step_021700）",
+      "status": "done"
+    },
+    {
+      "id": "P9",
+      "name": "有界训练",
+      "status": "blocked",
+      "reason": "需用户显式步数预算"
+    },
+    {
+      "id": "P10",
+      "name": "力模态消融",
+      "status": "blocked",
+      "reason": "依赖 P9"
+    },
+    {
+      "id": "P11",
+      "name": "裸模型带视频评估",
+      "status": "blocked",
+      "reason": "依赖 P9"
+    },
+    {
+      "id": "P12",
+      "name": "失败归因与改进",
+      "status": "blocked",
+      "reason": "依赖 P11"
+    }
   ]
 }
