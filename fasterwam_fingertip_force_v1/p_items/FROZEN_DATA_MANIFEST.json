@@ -122,7 +122,7 @@
    840
   ],
   "rule": "val = episodes with (ep*2654435761 mod 10)==0",
-  "leakage": "UNKNOWN: per-episode seed/layout fields not parsed from metadata; provisional split until layout grouping available",
+  "leakage": "episode-level: seed-disjoint (845 unique seeds); layout-level: UNKNOWN (no layout id field)",
   "frozen": true
  },
  "labels_schema": {
@@ -140,5 +140,35 @@
    "grip_pm1"
   ],
   "units": "dims0-5 per-step velocity (m/s, rad/s) at 20Hz; grip +1=close -1=open"
+ },
+ "metadata_evidence": {
+  "episodes": 845,
+  "fields": {
+   "seed": {
+    "n_unique": 845
+   },
+   "randomization": {
+    "n_unique": 845
+   },
+   "task": {
+    "n_unique": 2
+   },
+   "controller_type": {
+    "n_unique": 2
+   },
+   "success": {
+    "n_unique": 1
+   },
+   "source_shard": {
+    "n_unique": 16
+   },
+   "source_dataset": {
+    "n_unique": 2
+   },
+   "frames": {
+    "n_unique": 67
+   }
+  },
+  "implication": "every episode has a distinct seed and randomization value, so any episode-level split is seed-disjoint; layout-level duplication remains UNKNOWN because no layout id field exists"
  }
 }

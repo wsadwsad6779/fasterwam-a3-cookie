@@ -1,0 +1,13 @@
+{
+ "ts": "2026-11-23T12:26:41Z",
+ "pid": 79898,
+ "stage": "P8_layout_and_force_audit",
+ "log_path": "/workspace/fwv1/p_items/job_meta.log",
+ "status": "done",
+ "expected_artifacts": [
+  "/workspace/fwv1/p_items/METADATA_FIELDS.json",
+  "/workspace/fwv1/p_items/FORCE_PER_EPISODE.csv"
+ ],
+ "next": "fold seed/layout evidence into FROZEN_DATA_MANIFEST split",
+ "note": "finished in under 10s; episode metadata has 845 unique seeds"
+}

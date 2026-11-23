@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T12:25:25Z",
- "stage": "P8 data freeze manifest written: 6 source files + label npz sha256, split 760/85 (provisional, layout leakage UNKNOWN)",
- "evidence": "p_items/FROZEN_DATA_MANIFEST.json",
- "next": "P9 bounded training (needs explicit step budget); P4 full model blocked DiffSynth 404",
+ "ts": "2026-11-23T12:27:06Z",
+ "stage": "POD_JOB protocol active; P8 layout/force audit done (seed 845 unique, randomization 845 unique; success field single value)",
+ "evidence": "p_items/POD_JOB_STATE.json, p_items/FROZEN_DATA_MANIFEST.json",
+ "next": "P9 training needs budget; P4 full model blocked DiffSynth 404",
  "gpu_steps": 3,
  "mujoco_frames": 400
 }

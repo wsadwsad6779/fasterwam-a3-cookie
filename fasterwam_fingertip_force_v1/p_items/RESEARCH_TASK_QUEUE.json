@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-23T12:25:25Z",
+ "updated": "2026-11-23T12:27:06Z",
  "ready": [
   "P9_training(needs budget)"
  ],
@@ -24,6 +24,7 @@
   "P7_eef_to_7d_check",
   "P7_joint_to_7d_script",
   "P8_data_freeze_manifest",
+  "P8_layout_force_audit",
   "P8_proprio_representation_freeze",
   "state16_to_8_mapping"
  ],
