@@ -1,0 +1,18 @@
+{
+  "episode": 0,
+  "frames": 466,
+  "eef_pose_dim": 14,
+  "eef_pose_layout_evidence": "sim_repo/src/a3_dual_arm_sim/data/recording.py:84 names eef_pose_0..13; policies consume pose[:3]; layout read as [L_pos3, L_quat4, R_pos3, R_quat4] (L first) - verified by field count and naming, not by a schema doc line stating both arms",
+  "action_dim": 8,
+  "computed_7d_assumption": "dp = diff(L_pos)/0.05, rotvec = log(R(t+1) R(t)^T)/0.5 (quat wxyz), gripper = action[7]",
+  "dp_absmax_m_per_step": 0.29404550790786743,
+  "rotvec_absmax_rad_per_step": 0.039467826584515746,
+  "gripper_range": {"min": 0.28, "max": 1.0, "unique_rounded_1e-5": 97, "head": [1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]},
+  "gripper_semantics": "normalized opening (1.0 = open at episode start); mapping to LIBERO pm1 (+1=close/-1=open) needs sign+threshold, NOT a direct copy",
+  "open_issues": [
+    "dp_absmax 0.294 m/step is too large for a 0.05 s step; either a reset/discontinuity inside the episode slice or the first 3 columns are not metric position - must be resolved before training (per-frame continuity check)",
+    "gripper normalization to pm1 not yet established",
+    "right-arm pose columns present but task executes with left arm"
+  ],
+  "conclusion": "Do NOT train on raw joint actions. 7D supervision must be rebuilt from eef_pose after resolving the continuity check and pm1 mapping."
+}

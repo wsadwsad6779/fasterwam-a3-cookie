@@ -1,0 +1,19 @@
+{
+ "version": 1,
+ "updated": "2026-11-23T11:11:06Z",
+ "ready": [
+  "P7_eef_to_7d_check"
+ ],
+ "blocked": {
+  "P9": "\u9700\u663e\u5f0f\u8bad\u7ec3\u6b65\u6570\u9884\u7b97"
+ },
+ "done": [
+  "P1",
+  "P2",
+  "P3",
+  "P4",
+  "P5",
+  "P6",
+  "P7_decision"
+ ]
+}

@@ -1,0 +1,9 @@
+{
+ "ts": "2026-11-23T11:11:06Z",
+ "source": "Radeon console last observed 2026-11-23 ~10:50Z: 37 credits left, 1 credit/hour, 3-day auto-destroy",
+ "credits_at_last_observation": 37,
+ "burn_rate_credits_per_hour": 1,
+ "estimated_gpu_hours_left": 37,
+ "gpu_restore_ready": false,
+ "note": "\u65e0\u9700\u6062\u590d\uff1a\u5b9e\u4f8b\u8fd0\u884c\u4e2d"
+}

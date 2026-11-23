@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T11:06:38Z",
- "stage": "P7 decision written: no need to augment for count; joint->7D via recorded eef_pose",
- "evidence": "p_items/DATA_AUGMENTATION_DECISION.md",
- "next": "implement joint/eef->7D conversion check on one episode; then P5 real-control replay design",
+ "ts": "2026-11-23T11:12:13Z",
+ "stage": "P7 conversion check run: eef_pose_dim=14 (L first assumed), gripper 0.28-1.0 (1.0=open), dp_absmax 0.294 m/step flagged for continuity check",
+ "evidence": "p_items/JOINT_TO_7D_CHECK.json, p_items/eef_layout_grep.txt",
+ "next": "resolve dp discontinuity / pose metric check on 2-3 episodes; then P5 replay design",
  "gpu_steps": null,
  "mujoco_frames": null
 }
