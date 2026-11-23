@@ -1,0 +1,198 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-23T15:32:06Z",
+ "protocol": {
+  "max_steps": 600,
+  "fps": 20,
+  "cameras": [
+   "front",
+   "left_wrist"
+  ],
+  "action_map": "dataset 8D [L arm 7, L grip] -> env 16D [L 7, L grip, R home 7, R grip home]",
+  "reset": "seed=10000+episode, randomize_cookies=False, randomize_boxes=False",
+  "thresholds": "actual closed<=0.4, actual open>=0.6, lag 0..15 steps"
+ },
+ "episodes": [
+  {
+   "episode": 0,
+   "dataset_frames": 466,
+   "replay_steps": 466,
+   "terminated": false,
+   "truncated": false,
+   "safety_reason": null,
+   "final_info": {
+    "cookies_in_target": 0,
+    "cookies_in_source": 80
+   },
+   "label_close_frac": 0.9334763948497854,
+   "actual_open_mean_close": 0.37149051413924766,
+   "actual_open_mean_open": 0.9077054540740475,
+   "actual_open_median_close": 0.3745922253609202,
+   "actual_open_median_open": 0.9990822681056243,
+   "actual_opening_min": 0.26438271797464563,
+   "actual_opening_max": 1.0057480614293541,
+   "pad_force_max_close": [
+    26.40262794494629,
+    10.668743133544922
+   ],
+   "pad_force_max_all": [
+    26.40262794494629,
+    10.668743133544922
+   ],
+   "label_vs_actual_best_lag": {
+    "lag": 0,
+    "acc": 0.853689284390063,
+    "close_actual_closed_frac": 0.9977011494252873,
+    "open_actual_open_frac": 0.7096774193548387
+   },
+   "label_transitions": 3,
+   "transitions_confirmed_within16": 3,
+   "transition_lag_mean": 1.6666666666666667,
+   "label_pulses": 0,
+   "trace": "/workspace/fwv1/p_items/videos/trace_ep0000.npz",
+   "videos": [
+    "/workspace/fwv1/p_items/videos/P5_replay_ep0000_front.mp4",
+    "/workspace/fwv1/p_items/videos/P5_replay_ep0000_left_wrist.mp4"
+   ],
+   "ok": true
+  },
+  {
+   "episode": 422,
+   "dataset_frames": 475,
+   "replay_steps": 475,
+   "terminated": false,
+   "truncated": false,
+   "safety_reason": null,
+   "final_info": {
+    "cookies_in_target": 0,
+    "cookies_in_source": 80
+   },
+   "label_close_frac": 0.9347368421052632,
+   "actual_open_mean_close": 0.38686980764743023,
+   "actual_open_mean_open": 0.9077783074063366,
+   "actual_open_median_close": 0.42644559206594135,
+   "actual_open_median_open": 0.9991161116357392,
+   "actual_opening_min": 0.2755589595058794,
+   "actual_opening_max": 1.0058297312304907,
+   "pad_force_max_close": [
+    23.652847290039062,
+    35.41891098022461
+   ],
+   "pad_force_max_all": [
+    23.652847290039062,
+    35.41891098022461
+   ],
+   "label_vs_actual_best_lag": {
+    "lag": 0,
+    "acc": 0.8537125835512933,
+    "close_actual_closed_frac": 0.9977477477477478,
+    "open_actual_open_frac": 0.7096774193548387
+   },
+   "label_transitions": 3,
+   "transitions_confirmed_within16": 3,
+   "transition_lag_mean": 1.6666666666666667,
+   "label_pulses": 0,
+   "trace": "/workspace/fwv1/p_items/videos/trace_ep0422.npz",
+   "videos": [
+    "/workspace/fwv1/p_items/videos/P5_replay_ep0422_front.mp4",
+    "/workspace/fwv1/p_items/videos/P5_replay_ep0422_left_wrist.mp4"
+   ],
+   "ok": true
+  },
+  {
+   "episode": 844,
+   "dataset_frames": 1063,
+   "replay_steps": 600,
+   "terminated": false,
+   "truncated": false,
+   "safety_reason": null,
+   "final_info": {
+    "cookies_in_target": 0,
+    "cookies_in_source": 78
+   },
+   "label_close_frac": 0.9266666666666666,
+   "actual_open_mean_close": 0.3735177789031471,
+   "actual_open_mean_open": 0.9046848984016175,
+   "actual_open_median_close": 0.3797150547205218,
+   "actual_open_median_open": 0.9982722512747895,
+   "actual_opening_min": 0.2802766006469076,
+   "actual_opening_max": 1.0103593290620672,
+   "pad_force_max_close": [
+    21.29750633239746,
+    30.381895065307617
+   ],
+   "pad_force_max_all": [
+    21.29750633239746,
+    30.381895065307617
+   ],
+   "label_vs_actual_best_lag": {
+    "lag": 0,
+    "acc": 0.8600392413342054,
+    "close_actual_closed_frac": 0.9928057553956835,
+    "open_actual_open_frac": 0.7272727272727273
+   },
+   "label_transitions": 5,
+   "transitions_confirmed_within16": 5,
+   "transition_lag_mean": 1.4,
+   "label_pulses": 0,
+   "trace": "/workspace/fwv1/p_items/videos/trace_ep0844.npz",
+   "videos": [
+    "/workspace/fwv1/p_items/videos/P5_replay_ep0844_front.mp4",
+    "/workspace/fwv1/p_items/videos/P5_replay_ep0844_left_wrist.mp4"
+   ],
+   "ok": true
+  }
+ ],
+ "videos": [
+  {
+   "episode": 0,
+   "camera": "front",
+   "path": "/workspace/fwv1/p_items/videos/P5_replay_ep0000_front.mp4",
+   "frames": 466,
+   "decodable": true,
+   "sha256": "aa9423e4c0a947590a41baa343676dceadc4c7a17c0ae600163c11d8c72975bd"
+  },
+  {
+   "episode": 0,
+   "camera": "left_wrist",
+   "path": "/workspace/fwv1/p_items/videos/P5_replay_ep0000_left_wrist.mp4",
+   "frames": 466,
+   "decodable": true,
+   "sha256": "15c6f38f9833eb3fae6773fff2b36642c8187179c03a7155f575b4c9424f357c"
+  },
+  {
+   "episode": 422,
+   "camera": "front",
+   "path": "/workspace/fwv1/p_items/videos/P5_replay_ep0422_front.mp4",
+   "frames": 475,
+   "decodable": true,
+   "sha256": "df54209f60c8775afbe5a5901a72fd479d8b7b1b3b53aeef2723754cfe10ee81"
+  },
+  {
+   "episode": 422,
+   "camera": "left_wrist",
+   "path": "/workspace/fwv1/p_items/videos/P5_replay_ep0422_left_wrist.mp4",
+   "frames": 475,
+   "decodable": true,
+   "sha256": "996cf4fd10dd4fcf11c591428ba54de5a9043174e890abf6d6ef5b27e62b31cf"
+  },
+  {
+   "episode": 844,
+   "camera": "front",
+   "path": "/workspace/fwv1/p_items/videos/P5_replay_ep0844_front.mp4",
+   "frames": 600,
+   "decodable": true,
+   "sha256": "b172f669286c5cb2c66b86c3ad70ea224746f28ea8084936abc063966f29790b"
+  },
+  {
+   "episode": 844,
+   "camera": "left_wrist",
+   "path": "/workspace/fwv1/p_items/videos/P5_replay_ep0844_left_wrist.mp4",
+   "frames": 600,
+   "decodable": true,
+   "sha256": "567d21b11f6d97b3a9426c25951370f555239a7992584af673a86e4d3dace709"
+  }
+ ],
+ "verdict": "pass",
+ "elapsed_s": 92.5
+}

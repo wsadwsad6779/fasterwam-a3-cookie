@@ -1,0 +1,29 @@
+{
+ "worker": "task7",
+ "episodes": [
+  {
+   "episode": 0,
+   "label_close_frac": 0.9334763948497854,
+   "label_transitions": 3,
+   "transitions_confirmed_within16": 3,
+   "label_pulses": 0,
+   "ok": true
+  },
+  {
+   "episode": 422,
+   "label_close_frac": 0.9347368421052632,
+   "label_transitions": 3,
+   "transitions_confirmed_within16": 3,
+   "label_pulses": 0,
+   "ok": true
+  },
+  {
+   "episode": 844,
+   "label_close_frac": 0.9266666666666666,
+   "label_transitions": 5,
+   "transitions_confirmed_within16": 5,
+   "label_pulses": 0,
+   "ok": true
+  }
+ ]
+}

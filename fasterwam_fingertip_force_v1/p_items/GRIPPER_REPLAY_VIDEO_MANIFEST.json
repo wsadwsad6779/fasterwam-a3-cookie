@@ -1,0 +1,55 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-23T15:32:06Z",
+ "videos": [
+  {
+   "episode": 0,
+   "camera": "front",
+   "path": "/workspace/fwv1/p_items/videos/P5_replay_ep0000_front.mp4",
+   "frames": 466,
+   "decodable": true,
+   "sha256": "aa9423e4c0a947590a41baa343676dceadc4c7a17c0ae600163c11d8c72975bd"
+  },
+  {
+   "episode": 0,
+   "camera": "left_wrist",
+   "path": "/workspace/fwv1/p_items/videos/P5_replay_ep0000_left_wrist.mp4",
+   "frames": 466,
+   "decodable": true,
+   "sha256": "15c6f38f9833eb3fae6773fff2b36642c8187179c03a7155f575b4c9424f357c"
+  },
+  {
+   "episode": 422,
+   "camera": "front",
+   "path": "/workspace/fwv1/p_items/videos/P5_replay_ep0422_front.mp4",
+   "frames": 475,
+   "decodable": true,
+   "sha256": "df54209f60c8775afbe5a5901a72fd479d8b7b1b3b53aeef2723754cfe10ee81"
+  },
+  {
+   "episode": 422,
+   "camera": "left_wrist",
+   "path": "/workspace/fwv1/p_items/videos/P5_replay_ep0422_left_wrist.mp4",
+   "frames": 475,
+   "decodable": true,
+   "sha256": "996cf4fd10dd4fcf11c591428ba54de5a9043174e890abf6d6ef5b27e62b31cf"
+  },
+  {
+   "episode": 844,
+   "camera": "front",
+   "path": "/workspace/fwv1/p_items/videos/P5_replay_ep0844_front.mp4",
+   "frames": 600,
+   "decodable": true,
+   "sha256": "b172f669286c5cb2c66b86c3ad70ea224746f28ea8084936abc063966f29790b"
+  },
+  {
+   "episode": 844,
+   "camera": "left_wrist",
+   "path": "/workspace/fwv1/p_items/videos/P5_replay_ep0844_left_wrist.mp4",
+   "frames": 600,
+   "decodable": true,
+   "sha256": "567d21b11f6d97b3a9426c25951370f555239a7992584af673a86e4d3dace709"
+  }
+ ],
+ "layout": "/workspace/fwv1/p_items/videos"
+}

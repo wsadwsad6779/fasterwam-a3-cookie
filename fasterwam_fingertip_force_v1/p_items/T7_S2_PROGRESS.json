@@ -1,0 +1,49 @@
+{
+  "worker": "task7",
+  "sequence": "S2",
+  "ts": "2026-11-23T15:37:10Z",
+  "status": "in_progress",
+  "gates": {
+    "G1_data_audit": "partial: file hashes match frozen manifest; split 675/85/85 disjoint+complete; metadata covers 749 unique ids (96 parquet ids missing metadata -> tagged unknown); source/dedup/diversity re-verification pending",
+    "G2_gripper_v2": "partial: 3 expert episodes replayed open-loop under real MuJoCo control; all label transitions confirmed (3/3, 3/3, 5/5), zero pulses, close-closed frac >=0.99; closed-loop policy behavior deferred to trained-model eval"
+  },
+  "artifacts": {
+    "DATASET_800_SPLIT_MANIFEST.json": {"sha256": "7df523191f1e972c8348618a7ed4cef632cd85ad02978155c42fce44c10b7958", "bytes": 6598},
+    "DATASET_800_CONTACT_COVERAGE.json": {"sha256": "05942d3698a0d4e52f10155d27e2de2b75046b4a3088b1dab852279be7c6d984", "bytes": 4530},
+    "DATASET_800_SOURCE_AUDIT_T7.md": {"sha256": "ec4321d50490560cc0bb4f41bc3194b4d1a3d1188dcbdef503ce19b0a499948b", "bytes": 1272},
+    "P5_REPLAY_VIDEO.json": {"sha256": "767aad58584c4b48753d49ffdbb68a4c1971a832772826aa9f44652d35324e85", "bytes": 5757, "verdict": "pass"},
+    "GRIPPER_REPLAY_VIDEO_MANIFEST.json": {"sha256": "6c19d061375f31a2ba7f5fe8aebb844439cb2f2a4ccd9cd16012ab7aa0da66c8", "bytes": 1592},
+    "GRIPPER_EVENT_VALIDATION.json": {"sha256": "59df35f9cdfa7543e65107a2d0698e4b7702ba080a024017b59e43e60ffbdeed", "bytes": 560},
+    "GRIPPER_LABEL_V2_FINAL_AUDIT.md": {"sha256": "59ed51b14b199153568ce2b1598901efacc25bf735d851eca1bb4d46696ea124", "bytes": 1794}
+  },
+  "videos": {
+    "dir": "/workspace/fwv1/p_items/videos",
+    "front_left_wrist_pairs": [
+      "/workspace/fwv1/p_items/videos/P5_replay_ep0000_front.mp4",
+      "/workspace/fwv1/p_items/videos/P5_replay_ep0000_left_wrist.mp4",
+      "/workspace/fwv1/p_items/videos/P5_replay_ep0422_front.mp4",
+      "/workspace/fwv1/p_items/videos/P5_replay_ep0422_left_wrist.mp4",
+      "/workspace/fwv1/p_items/videos/P5_replay_ep0844_front.mp4",
+      "/workspace/fwv1/p_items/videos/P5_replay_ep0844_left_wrist.mp4"
+    ],
+    "traces": [
+      "/workspace/fwv1/p_items/videos/trace_ep0000.npz",
+      "/workspace/fwv1/p_items/videos/trace_ep0422.npz",
+      "/workspace/fwv1/p_items/videos/trace_ep0844.npz"
+    ],
+    "fps": 20,
+    "decodable": true
+  },
+  "replay_metrics": {
+    "ep0": {"steps": 466, "best_lag": 0, "acc": 0.8537, "close_closed_frac": 0.9977, "open_open_frac": 0.7097, "transitions": "3/3", "pulses": 0, "ok": true},
+    "ep422": {"steps": 475, "best_lag": 0, "acc": 0.8537, "close_closed_frac": 0.9977, "open_open_frac": 0.7097, "transitions": "3/3", "pulses": 0, "ok": true},
+    "ep844": {"steps": 600, "best_lag": 0, "acc": 0.8600, "close_closed_frac": 0.9928, "open_open_frac": 0.7273, "transitions": "5/5", "pulses": 0, "ok": true},
+    "thresholds": {"closed": "actual opening <= 0.7", "open": "actual opening >= 0.85", "transition": "opening change >= 0.1 within 16 steps"},
+    "limitation": "label-open frames are 'fully open' (>=0.85) only 71-73% of the time; opening settles around 0.8 after release. Direction of every transition is still confirmed."
+  },
+  "next": [
+    "finish 800 source/dedup/diversity re-verification (S2)",
+    "S3 fingertip force processor acceptance in live MuJoCo + F0/F1/F2 module integration and fwd/bwd",
+    "G4 pre-train gate review before any training"
+  ]
+}
