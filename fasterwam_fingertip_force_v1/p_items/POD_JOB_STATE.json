@@ -1,5 +1,6 @@
 {
- "ts": "2026-11-23T13:38:37Z",
+ "started_at": "2026-11-23T13:06:08Z",
+ "ts": "2026-11-23T14:10:19Z",
  "pid": 95555,
  "stage": "P4_wan_download_perfile",
  "log_path": "/workspace/fwv1/p_items/job_wan2.log",
@@ -8,5 +9,6 @@
   "/workspace/fwv1/wan_base"
  ],
  "next": "retry create_fasterwam with local model dir",
- "note": "alive at 13:38Z; 4 small files done; a large file in progress: .incomplete=1,855,979,520 B; throughput ~1 MB/s so the 11GB set is slow but advancing; diag=/workspace/fwv1/p_items/wan_diag.txt"
+ "note": "heartbeat at 14:09Z: process alive; wan_base=2.6G; current .incomplete=2,726,297,600 B (grew from 1.856GB at 13:38Z, ~0.47 MB/s); 4 small files done",
+ "evidence": "pod /workspace/fwv1/p_items/wan_diag2.txt"
 }

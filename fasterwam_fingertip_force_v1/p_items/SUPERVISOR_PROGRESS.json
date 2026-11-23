@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T13:38:37Z",
- "stage": "P4 Wan download verified ALIVE (PID 95555, 1.86GB partial, ~1MB/s); not stalled",
- "evidence": "p_items/POD_JOB_STATE.json, pod wan_diag.txt",
- "next": "Supervisor wakes on job done/fail; then local-dir create_fasterwam retry",
+ "ts": "2026-11-23T14:10:19Z",
+ "stage": "P4 Wan download heartbeat: alive, 2.6G on disk, current file 2.73GB partial (~0.47MB/s)",
+ "evidence": "p_items/POD_JOB_STATE.json, wan_diag2.txt",
+ "next": "Supervisor wakes on done/fail; then local-dir create_fasterwam retry",
  "gpu_steps": 3,
  "mujoco_frames": 400
 }
