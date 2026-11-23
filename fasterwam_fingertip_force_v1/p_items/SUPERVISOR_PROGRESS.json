@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T11:06:21Z",
- "stage": "P6 DONE: 845 eps, 0 dup, force18, jpos8",
- "evidence": "p_items/DATASET_800_*",
- "next": "P7 augmentation decision + joint->7D conversion check",
+ "ts": "2026-11-23T11:06:38Z",
+ "stage": "P7 decision written: no need to augment for count; joint->7D via recorded eef_pose",
+ "evidence": "p_items/DATA_AUGMENTATION_DECISION.md",
+ "next": "implement joint/eef->7D conversion check on one episode; then P5 real-control replay design",
  "gpu_steps": null,
  "mujoco_frames": null
 }
