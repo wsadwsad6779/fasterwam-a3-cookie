@@ -3,7 +3,7 @@
   "worker": "task7",
   "ts": "2026-11-23T15:25:00Z",
   "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
-  "phase": "S1_base_identity",
+  "phase": "S4_setup_data_loader",
   "budget": {
     "max_optimizer_steps_total": 21000,
     "used_steps": 0,
@@ -15,8 +15,8 @@
     "G0_base_identity": "passed (p_items/T7_BASE_IDENTITY.json verdict=pass; sha256 01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d; proprio8/action7/horizon32/no-force)",
     "G1_data_audit": "pending",
     "G2_gripper_v2": "pending",
-    "G3_force_fusion": "pending",
-    "G4_pre_train": "pending",
+    "G3_force_fusion": "passed (p_items/F2_FUSION_FWD_BWD_TEST.json + REAL_BATCH_F2_SMOKE.json)",
+    "G4_pre_train": "partial (p_items/T7_G4_GATE.json: 9 passed, 5 setup items pending; no training before all true)",
     "G5_milestone_loop": "pending"
   },
   "base": {
@@ -25,8 +25,11 @@
     "identity_artifact": "p_items/T7_BASE_IDENTITY.json"
   },
   "training": {
-    "status": "not_started",
+    "status": "setup (G4 not fully passed; budget used 0)",
     "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k",
+    "checkpoint_plan": "trainable-only (action expert + F2 + proprio, 558.9M) + frozen base reference; ~5.59GB per milestone, ~39.1GB for 7",
+    "param_budget_artifact": "p_items/T7_PARAM_BUDGET.json",
+    "dataset_plan": "on-the-fly AV1 video decode (28 shards, 4.5GB) + parquet action/proprio/force; frames.dat memmap (69GB) is not feasible",
     "latest_checkpoint": null,
     "optimizer_state": null,
     "scheduler_state": null,
