@@ -1,13 +1,15 @@
 {
   "project": "fasterwam_fingertip_force_v1",
-  "ts": "2026-11-23T15:25:00Z",
+  "ts": "2026-11-23T17:15:40Z",
   "protocol": {
-    "env": "A3CookieTransferEnv + task config, bare model policy",
+    "env": "A3CookieTransferEnv, cartesian_delta 14D, bare model policy",
     "max_steps": 600,
-    "safety_guard": "kept (no external task gating, no oracle, no manual gripper/descend/release)",
-    "strict_task": "10-block exact_fill, source/target counts, 20-step stable hold",
+    "denoise_steps": 5,
+    "action_horizon": 32,
+    "safety_guard": "kept; no oracle/expert/external gripper gating",
+    "strict_task": "10-block exact_fill, 20-step stable hold",
     "cameras": ["front", "left_wrist"],
-    "videos": "MP4 per seed per camera, absolute paths in VIDEO_MANIFEST.json",
+    "videos": "MP4 per seed per camera under /workspace/fwv1/eval_fingertip_v1/step_XXXXXX/seed_XXXXX/",
     "seeds_per_milestone": 10,
     "seed_reuse_across_milestones": false
   },
@@ -20,13 +22,22 @@
     "18000": [7600, 7601, 7602, 7603, 7604, 7605, 7606, 7607, 7608, 7609],
     "21000": [7700, 7701, 7702, 7703, 7704, 7705, 7706, 7707, 7708, 7709]
   },
+  "base_anchor": {
+    "used": true,
+    "seeds": [7001, 7002, 7003, 7004, 7005, 7006, 7007, 7008, 7009, 7010],
+    "result": "exact_fill 0/10, avg_in_target 0.0, safety stops 0",
+    "artifact": "p_items/SUMMARY_step_base.json"
+  },
   "independent_test": {
-    "status": "pending",
-    "seeds": "reserved, never used in training or model selection",
-    "note": "single final bare-model evaluation after model selection"
+    "status": "reserved_not_used",
+    "seeds": [7900, 7901, 7902, 7903, 7904, 7905, 7906, 7907, 7908, 7909],
+    "note": "single final bare-model evaluation on the selected best checkpoint; never used for training or model selection"
   },
   "anchor_eval": {
-    "status": "to_freeze_in_S2",
-    "note": "fixed layout/observation/noise/execution/force-history/normalizer for longitudinal comparison 3k..21k"
+    "status": "frozen",
+    "note": "same env config, 600 steps, 5 denoise steps, fixed per-milestone seeds; dataset test scenarios frozen by DATASET_845_SPLIT_MANIFEST_V2"
+  },
+  "consumed": {
+    "base": [7001, 7002, 7003, 7004, 7005, 7006, 7007, 7008, 7009, 7010]
   }
 }
