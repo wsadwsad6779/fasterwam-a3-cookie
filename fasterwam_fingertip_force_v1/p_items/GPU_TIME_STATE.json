@@ -1,11 +1,11 @@
 {
- "checked_at": "2026-11-23T10:50:00Z",
+ "checked_at": "2026-11-23T11:51:54Z",
  "remaining_hours": 37,
  "credits": 37,
  "burn_rate_credits_per_hour": 1,
- "source": "Radeon console observation at 10:50Z (37 credits, 1 credit/hour, 3-day auto-destroy)",
- "page_status": "unknown (last JupyterLab page confirmed running at 11:39Z)",
- "upload_status": "pending (nothing new needs upload; HF artifacts already archived)",
+ "source": "Radeon console observation 2026-11-23T10:50Z (37 credits, 1/hour, 3-day auto-destroy); JupyterLab reachable 11:39Z; derived from last console read, not re-polled this round",
+ "page_status": "unknown (last confirmed 11:39Z)",
+ "upload_status": "pending (nothing new to upload; HF archive complete)",
  "restore_manifest": "docs/RESTORE_FROM_ARCHIVE_20261119.md + p_items/HANDOFF_FOR_SUPERVISOR.md",
  "gpu_restore_ready": false
 }

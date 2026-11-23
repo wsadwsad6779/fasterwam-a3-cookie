@@ -1,9 +1,8 @@
 {
  "version": 1,
- "updated": "2026-11-23T11:47:34Z",
+ "updated": "2026-11-23T11:51:54Z",
  "ready": [
-  "P4_full_model_forward_backward",
-  "P8_proprio_representation_freeze"
+  "P4_full_model_forward_backward"
  ],
  "blocked": {
   "P9": "需显式训练步数预算"
@@ -20,6 +19,7 @@
   "P6",
   "P7_decision",
   "P7_eef_to_7d_check",
+  "P8_proprio_representation_freeze",
   "state16_to_8_mapping"
  ]
 }

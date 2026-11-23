@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T11:47:34Z",
- "stage": "P4 module smoke PASS on GPU (identity True, fwd/bwd grads 0.123, 527616 params, fasterwam import ok)",
- "evidence": "p_items/P4_SMOKE.json",
- "next": "full model forward/backward with official base; then P8 freeze proprio representation",
+ "ts": "2026-11-23T11:51:54Z",
+ "stage": "P8 proprio representation frozen: eef pos3+quat4(L)+gripper1 = 8, from eef_pose/action; dataset 8-dim joint state not used",
+ "evidence": "p_items/P8_PROPRIO_DECISION.md",
+ "next": "P4 full model forward/backward with official base; verify quaternion vs rotvec input expectation",
  "gpu_steps": 1,
  "mujoco_frames": 1
 }
