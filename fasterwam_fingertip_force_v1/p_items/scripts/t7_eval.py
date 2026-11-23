@@ -19,7 +19,7 @@ CFG = '/workspace/fwv1/repo/stage_40k/fw/configs'
 WAN = '/workspace/fwv1/wan_base'
 BASE = '/workspace/fwv1/hf_public/eval_restore_20261117/base_step_021700.pt'
 STATS = '/workspace/fwv1/data/a3_fw_845/dataset_stats.json'
-FSTATS = '/workspace/fwv1/p_items/FINGERTIP_TRAIN_NORM_STATS.json'
+FSTATS = '/workspace/fwv1/p_items/FINGERTIP_FORCE_NORMALIZATION_V2.json'
 CACHE_DIR = '/workspace/fwv1/data/text_embeds_cache'
 SEEDS_MANIFEST = '/workspace/fwv1/p_items/EVAL_SEED_MANIFEST.json'
 ROOT = '/workspace/fwv1/eval_fingertip_v1'
@@ -64,8 +64,8 @@ class Stats:
         self.smax = np.asarray(s['global_max'], np.float32)
         fs = json.load(open(FSTATS))
         self.fmean = np.asarray(fs['mean'], np.float32)
-        self.fstd = np.maximum(np.asarray(fs['std'], np.float32), 1e-3)
-        self.factive = (np.asarray(fs['std']) > 1e-6).astype(np.float32)
+        self.fstd = np.maximum(np.asarray(fs['std'], np.float32), float(fs.get('std_floor', 0.05)))
+        self.factive = np.asarray(fs.get('active', (np.asarray(fs['std']) > 1e-6)), np.float32)
 
     @staticmethod
     def forward(x, lo, hi):

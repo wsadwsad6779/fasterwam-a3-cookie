@@ -19,9 +19,9 @@ EPMETA = '/workspace/fwv1/data/hf_meta/meta/episodes/chunk-000/file-000.parquet'
 PARQ = ['/workspace/fwv1/p_items/hf_multi/data/chunk-000/file-000.parquet',
         '/workspace/fwv1/p_items/hf_multi/data/chunk-000/file-001.parquet']
 LABELS = '/workspace/fwv1/p_items/A3_845_7D_LABELS_V2.npz'
-SPLIT = '/workspace/fwv1/p_items/DATASET_800_SPLIT_MANIFEST.json'
+SPLIT = '/workspace/fwv1/p_items/DATASET_845_SPLIT_MANIFEST_V2.json'
 STATS = '/workspace/fwv1/data/a3_fw_845/dataset_stats.json'
-FSTATS = '/workspace/fwv1/p_items/FINGERTIP_TRAIN_NORM_STATS.json'
+FSTATS = '/workspace/fwv1/p_items/FINGERTIP_FORCE_NORMALIZATION_V2.json'
 CTX = None
 PROMPT = "A video recorded from a robot's point of view executing the following instruction: transfer 10 cookies into target box"
 
@@ -77,8 +77,8 @@ class A3BatchSource:
         self.amin, self.amax, self.smin, self.smax = _norm_stats()
         fs = json.load(open(FSTATS))
         self.fmean = np.asarray(fs['mean'], np.float32)
-        self.fstd = np.maximum(np.asarray(fs['std'], np.float32), 1e-3)
-        self.factive = (np.asarray(fs['std']) > 1e-6).astype(np.float32)
+        self.fstd = np.maximum(np.asarray(fs['std'], np.float32), float(fs.get('std_floor', 0.05)))
+        self.factive = np.asarray(fs.get('active', (np.asarray(fs['std']) > 1e-6)), np.float32)
         ctx = torch.load(os.path.join('/workspace/fwv1/data/text_embeds_cache',
                                       _ctx_name()), map_location='cpu')
         self.context = ctx['context'].float()

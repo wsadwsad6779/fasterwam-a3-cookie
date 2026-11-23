@@ -16,7 +16,11 @@
     "G1_data_audit": "pending",
     "G2_gripper_v2": "pending",
     "G3_force_fusion": "passed (p_items/F2_FUSION_FWD_BWD_TEST.json + REAL_BATCH_F2_SMOKE.json)",
-    "G4_pre_train": "REOPENED/BLOCKED_UNTIL_D2_D5_PASS per goal V2 (previous pass superseded)",
+    "G4_pre_train": "PASSED_V2 (D2-D5 all green; see p_items/T7_G4_GATE.json)",
+    "D2_dataset_acceptance": "passed (DATASET_ACCEPTED=true; 749 accepted, 96 quarantine, split V2 589/85/171)",
+    "D3_force_normalization": "passed (accept_with_ood_flag; train-only V2 norm)",
+    "D4_gripper_final": "passed",
+    "D5_f2_readiness": "passed (F2_TRAINING_READY=true)",
     "G5_milestone_loop": "pending"
   },
   "base": {
@@ -32,6 +36,7 @@
     "param_budget_artifact": "p_items/T7_PARAM_BUDGET.json",
     "dataset_plan": "on-the-fly AV1 video decode (28 shards, 4.5GB) + parquet action/proprio/force; frames.dat memmap (69GB) is not feasible",
     "dataset_split_approved": "DATASET_845_SPLIT_MANIFEST_V2.json (589 train / 85 val / 171 frozen test; quarantine 96 unknown-identity; group leakage 0) — training must use this split",
+    "force_norm_approved": "FINGERTIP_FORCE_NORMALIZATION_V2.json (train-only; OOD flag policy)",
     "latest_checkpoint": null,
     "optimizer_state": null,
     "scheduler_state": null,

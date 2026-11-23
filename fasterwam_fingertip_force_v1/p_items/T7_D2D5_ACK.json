@@ -17,11 +17,11 @@
   },
   "gate_state": {
     "D2": "started (P0 845-episode quality audit)",
-    "D3": "ready_parallel (fingertip force distribution/normalization/OOD)",
+    "D3": "completed (accept_training_data_with_ood_flag: dataset max 1.83N vs current-sim replay 35.4N = 15-19x; 25.2% OOD frames / 11.9% saturation reported, never silently clipped; normalization V2 uses V2 train split only)",
     "D4": "completed (verdict pass: 11/11 transitions confirmed, opening delay median 0 / max 1 step, 4 complete open-close cycles, action[7]->pm1 agreement 1.0)",
-    "D5": "ready_parallel (F2 trainable params/effectiveness/readiness)",
-    "G4": "BLOCKED_UNTIL_D2_D5_PASS",
-    "P9_21k_training": "FORBIDDEN until G4 re-passes"
+    "D5": "completed (F2_TRAINING_READY=true: trainable 559.45M, video frozen, gripper-dim grad 0.7245, zero-init identity 0, non-zero FiLM force L2 1.572 / gripper sign flips 9.4%)",
+    "G4": "PASSED_V2 (D2-D5 all green; see T7_G4_GATE.json)",
+    "P9_21k_training": "allowed to resume; budget used 130 / 21000, remaining 20870"
   },
   "training_stop": {
     "reason": "V2 gate: 21k training must not run before D2-D5 + G4",
