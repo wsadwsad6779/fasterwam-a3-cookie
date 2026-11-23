@@ -1,0 +1,21 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-23T17:35:40Z",
+ "source_log": "/workspace/fwv1/logs/t7_train.log",
+ "segment": "130->3000",
+ "step": 360,
+ "loss_total": 0.8097658753395081,
+ "loss_video": 0.7862310409545898,
+ "loss_action": 0.023534826934337616,
+ "grad_norm": 1.3394602537155151,
+ "lr": 7.21476594369543e-05,
+ "sec_per_step": 3.11,
+ "tmux": "fwv1:train2",
+ "chain": "fwv1:chain2",
+ "finalizer": "fwv1:finalizer",
+ "budget": {
+  "used": 360,
+  "remaining": 20640,
+  "max": 21000
+ }
+}
