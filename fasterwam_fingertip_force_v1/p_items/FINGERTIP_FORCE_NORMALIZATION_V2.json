@@ -1,0 +1,64 @@
+{
+ "version": 2,
+ "ts": "2026-11-23T17:07:55Z",
+ "source": "V2 train split only (589 episodes, accepted manifest)",
+ "split_manifest": "/workspace/fwv1/p_items/DATASET_845_SPLIT_MANIFEST_V2.json",
+ "manifest": "/workspace/fwv1/p_items/DATASET_845_ACCEPTED_MANIFEST.json",
+ "channels": [
+  12,
+  13,
+  14,
+  15
+ ],
+ "channel_names": [
+  "L_inner",
+  "L_outer",
+  "R_inner",
+  "R_outer"
+ ],
+ "mean": [
+  0.6354362087822812,
+  0.6384018191124576,
+  0.0,
+  0.0
+ ],
+ "std": [
+  0.6797685608221427,
+  0.6830744444532411,
+  0.0,
+  0.0
+ ],
+ "std_floor": 0.05,
+ "active": [
+  true,
+  true,
+  false,
+  false
+ ],
+ "q01": [
+  0.0,
+  0.0,
+  0.0,
+  0.0
+ ],
+ "q99": [
+  1.4633296632766724,
+  1.4704503059387206,
+  0.0,
+  0.0
+ ],
+ "max_abs_train": [
+  1.7583813667297363,
+  1.8323848247528076,
+  0.0,
+  0.0
+ ],
+ "clip": 5.0,
+ "formula": "z = clip((x - mean) / max(std, std_floor) * active, -clip, +clip); active=0 channels stay 0",
+ "contact_gate": {
+  "threshold_n": 0.05,
+  "rule": "raw |x|<=0.05 -> contact=0 and features reported as no-contact; features are not amplified"
+ },
+ "ood_rule": "flag frames where raw |x| > train max_abs per channel; also report saturation fraction |z|>=clip-1e-3; never rescale training targets",
+ "no_blind_amplification": true
+}

@@ -1,6 +1,6 @@
 {
  "worker": "task7",
- "ts": "2026-11-23T15:32:06Z",
+ "ts": "2026-11-23T17:07:55Z",
  "videos": [
   {
    "episode": 0,
@@ -51,5 +51,8 @@
    "sha256": "567d21b11f6d97b3a9426c25951370f555239a7992584af673a86e4d3dace709"
   }
  ],
- "layout": "/workspace/fwv1/p_items/videos"
+ "metrics_only_episodes": [],
+ "phase_metrics": "/workspace/fwv1/p_items/GRIPPER_PHASE_METRICS.json",
+ "layout": "/workspace/fwv1/p_items/videos",
+ "note": "video-recorded episodes were produced by P5 replay; additional episodes are metrics-only (no rendering)"
 }

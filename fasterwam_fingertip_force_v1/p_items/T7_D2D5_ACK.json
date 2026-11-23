@@ -18,7 +18,7 @@
   "gate_state": {
     "D2": "started (P0 845-episode quality audit)",
     "D3": "ready_parallel (fingertip force distribution/normalization/OOD)",
-    "D4": "ready_parallel (gripper V2 final acceptance)",
+    "D4": "completed (verdict pass: 11/11 transitions confirmed, opening delay median 0 / max 1 step, 4 complete open-close cycles, action[7]->pm1 agreement 1.0)",
     "D5": "ready_parallel (F2 trainable params/effectiveness/readiness)",
     "G4": "BLOCKED_UNTIL_D2_D5_PASS",
     "P9_21k_training": "FORBIDDEN until G4 re-passes"
