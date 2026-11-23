@@ -1,0 +1,30 @@
+{
+  "objective": "完成原始FasterWAM + 指尖力F2模型的完整数据验收、夹爪监督修复、21,000步有界训练、每3,000步的10-seed自主实验及最终独立裸模型测试，期间持续保存模型、视频和可恢复状态。",
+  "goal_version": 2,
+  "updated_at": "2026-11-23T17:00:10Z",
+  "d2_status": "started",
+  "gate_state": {
+    "D2": "started (P0 845-episode quality audit)",
+    "D3": "ready_parallel (fingertip force distribution/normalization/OOD)",
+    "D4": "ready_parallel (gripper V2 final acceptance)",
+    "D5": "ready_parallel (F2 trainable params/effectiveness/readiness)",
+    "G4": "BLOCKED_UNTIL_D2_D5_PASS",
+    "P9_21k_training": "FORBIDDEN until G4 re-passes"
+  },
+  "training_stop": {
+    "reason": "V2 gate: 21k training must not run before D2-D5 + G4",
+    "stopped_at": "2026-11-23T17:00:00Z",
+    "last_logged_step": 130,
+    "checkpoints_written": "none (first save scheduled at step 500)",
+    "budget_used_steps": 130,
+    "budget_remaining_steps": 20870,
+    "chain": "t7_chain.sh stopped before any milestone"
+  },
+  "constraints": {
+    "base": "official step_021700 only, read-only",
+    "budget": "<=21000 total, F0/F1/F2 not each 21k",
+    "no_training_before_G4": true,
+    "tokens_never_in_repo_logs_git": true,
+    "bare_model_final_eval": true
+  }
+}

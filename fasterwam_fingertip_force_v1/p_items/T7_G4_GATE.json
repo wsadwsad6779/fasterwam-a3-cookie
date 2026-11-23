@@ -1,28 +1,10 @@
 {
   "worker": "task7",
   "gate": "G4_pre_train",
-  "ts": "2026-11-23T16:58:10Z",
-  "verdict": "passed",
-  "passed_items": {
-    "official_checkpoint_verified": "T7_BASE_IDENTITY.json sha256 01be4efc..",
-    "data_audit_and_isolation": "G1 artifacts + split 675/85/85 disjoint+complete + metadata reconciliation",
-    "gripper_v2_real_replay": "P5_REPLAY_VIDEO.json + P5_REPLAY_EXTENDED.json (8 episodes) + GRIPPER_FRAME_ERROR_ANALYSIS.json (97.66%)",
-    "fingertip_channels_normalization": "FINGERTIP_FORCE_MUJOCO_ACCEPTANCE.json + DATASET_845_NORM_STATS.json",
-    "f2_fusion_integration": "F2_FUSION_FWD_BWD_TEST.json + REAL_BATCH_F2_SMOKE.json",
-    "batch_contains_phases": "REAL_BATCH_F2_SMOKE.json phase_labels (approach/carry/release/post-release)",
-    "forward_backward_ok": "T7_TRAIN_PROBE.json (B=8, fwd 2.1-2.8s, bwd 0.15-0.46s, VRAM 22.85GB)",
-    "full_dataset_loader": "t7_data.py (sequential AV1 decode 0.5-0.75s/batch, real video/action/proprio/force/context)",
-    "train_split_normalizer_stats": "DATASET_845_NORM_STATS.json (675 train episodes only)",
-    "functional_resume_test": "RESUME_FUNCTIONAL_TEST.json (checkpoint restore, step 4-6 losses identical, diff 0.0)",
-    "no_future_or_oracle_leak": "causal force processor prefix diff 0; no external controller in policy path",
-    "video_recording_pipeline": "P5 dual-view MP4 + VIDEO_MANIFEST.json",
-    "checkpoint_storage_plan": "T7_PARAM_BUDGET.json (5.59GB/ckpt, 7 ckpt ~39.1GB; oldest upload+prune during training)",
-    "eval_harness_10_seeds": {
-      "evidence": ["p_items/SUMMARY_step_base.json", "p_items/VIDEO_MANIFEST_step_base.json"],
-      "result": "base anchor 10/10 seeds x 600 steps, 20 dual-view MP4, no safety stops, exact_fill 0 (untrained anchor)",
-      "harness": "p_items/scripts/t7_eval.py (infer_action 32x7 -> cartesian_delta 14D, 5 denoise steps)"
-    }
-  },
-  "pending_items": {},
-  "next": "training started 2026-11-23T16:50Z (segment 0->3000); milestone protocol: save -> 10 new seeds (7100-7109 etc) -> dual-view videos -> analysis -> resume"
+  "ts": "2026-11-23T17:00:10Z",
+  "verdict": "BLOCKED_UNTIL_D2_D5_PASS",
+  "reason": "Goal V2 requires D2 (845-episode acceptance), D3 (force distribution + normalization V2 + OOD), D4 (gripper V2 final acceptance incl. full 10-block cycle), D5 (F2 trainable/effectiveness/readiness) to pass before G4 can be re-evaluated; 21k training is forbidden in the meantime.",
+  "previous_pass_evidence": "p_items/T7_G4_GATE.json history: eval harness validated, functional resume exact, real-batch F2 smoke — kept as supporting evidence only, not sufficient under V2.",
+  "training_state": {"stopped_at_step": 130, "budget_used": 130, "budget_remaining": 20870},
+  "reopen_conditions": ["DATASET_ACCEPTED=true or documented isolation", "D3 force normalizer train-only + OOD acceptance", "D4 gripper cycle acceptance", "D5 F2_TRAINING_READY=true", "then G4 checklist re-run"]
 }

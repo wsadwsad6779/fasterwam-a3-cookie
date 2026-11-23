@@ -6,8 +6,8 @@
   "phase": "S4_training_segment_0_3000",
   "budget": {
     "max_optimizer_steps_total": 21000,
-    "used_steps": 0,
-    "remaining_steps": 21000,
+    "used_steps": 130,
+    "remaining_steps": 20870,
     "not_per_variant": true,
     "extra_budget_recorded": []
   },
@@ -16,7 +16,7 @@
     "G1_data_audit": "pending",
     "G2_gripper_v2": "pending",
     "G3_force_fusion": "passed (p_items/F2_FUSION_FWD_BWD_TEST.json + REAL_BATCH_F2_SMOKE.json)",
-    "G4_pre_train": "passed (p_items/T7_G4_GATE.json)",
+    "G4_pre_train": "REOPENED/BLOCKED_UNTIL_D2_D5_PASS per goal V2 (previous pass superseded)",
     "G5_milestone_loop": "pending"
   },
   "base": {
@@ -25,7 +25,7 @@
     "identity_artifact": "p_items/T7_BASE_IDENTITY.json"
   },
   "training": {
-    "status": "running segment 0->3000 (started 2026-11-23T16:50:19Z, tmux fwv1:train1, pid 284794)",
+    "status": "PAUSED by V2 gate (D2-D5 + G4 must pass; no training allowed). Ran 130 optimizer steps on 2026-11-23T16:50-17:00Z, no milestone checkpoint written",
     "baseline_anchor": "base 10 seeds x 600 steps: exact_fill 0/10, avg_in_target 0.0, 0 safety stops (p_items/SUMMARY_step_base.json)",
     "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k",
     "checkpoint_plan": "trainable-only (action expert + F2 + proprio, 558.9M) + frozen base reference; ~5.59GB per milestone, ~39.1GB for 7",

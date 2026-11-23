@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-23T17:00:20Z",
+  "status": "PENDING_FULL_MAPPING",
+  "dataset_accepted": null,
+  "source": "Eter0109/a3-cookie-multi-tasks (HF, LeRobot v3)",
+  "acceptance_rule": "episode accepted only if identity/source/task-class is known or explicitly quarantined, frames>=33, actions/state/force finite with declared dims, video files exist, and the episode is not in a physical-duplicate leakage across train/val; 2x5 and 2x10 never mixed without a task-class tag; unknown-identity episodes are frozen into the test-only quarantine bucket",
+  "episodes_total_expected": 845,
+  "episodes": [],
+  "counts": {
+    "accepted_known": null,
+    "accepted_inferred_task_class": null,
+    "quarantined_unknown_identity": null,
+    "rejected": null
+  },
+  "split_v2": null,
+  "artifacts": {
+    "final_quality_audit": "p_items/DATASET_845_FINAL_QUALITY_AUDIT.md",
+    "provenance": "p_items/DATASET_845_PROVENANCE.json",
+    "physical_dedup": "p_items/DATASET_845_PHYSICAL_DEDUP.csv",
+    "layout_visual_coverage": "p_items/DATASET_845_LAYOUT_VISUAL_COVERAGE.json",
+    "leakage": "p_items/DATASET_845_TRAIN_VAL_TEST_LEAKAGE.json"
+  }
+}
