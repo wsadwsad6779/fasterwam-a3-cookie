@@ -1,0 +1,34 @@
+{
+ "source": "parquet force channels 12-15 over train split only",
+ "split_manifest": "/workspace/fwv1/p_items/DATASET_800_SPLIT_MANIFEST.json",
+ "n_train_episodes": 675,
+ "n_train_frames": 366449,
+ "mean": [
+  0.6678605819394556,
+  0.6708660737024394,
+  0.0,
+  0.0
+ ],
+ "std": [
+  0.6819122489470657,
+  0.6850960415165787,
+  0.0,
+  0.0
+ ],
+ "max_abs": [
+  2.000274658203125,
+  2.156242847442627,
+  0.0,
+  0.0
+ ],
+ "frac_contact": [
+  0.5088075011802461,
+  0.5092850574022579,
+  0.0,
+  0.0
+ ],
+ "inactive_channels": [
+  2,
+  3
+ ]
+}
