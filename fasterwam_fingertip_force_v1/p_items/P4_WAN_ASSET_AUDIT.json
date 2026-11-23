@@ -1,0 +1,17 @@
+{
+  "search_roots": ["/workspace", "/root/.cache/huggingface"],
+  "large_wan_like_files": [],
+  "hf_cache_repos": [],
+  "conclusion": "No local Wan2.2 weights or configs exist on this instance; the HF cache is empty.",
+  "blocker_recap": {
+    "error": "HTTP 404 from hf-mirror for /api/models/DiffSynth-Studio/Wan-Series-Converted-Safetensors/revision/main",
+    "attempts": 2,
+    "evidence": "/workspace/fwv1/p_items/P4_FULL_SMOKE.json, p4_full2.log"
+  },
+  "workarounds_in_priority_order": [
+    "1) Point create_fasterwam at a local Wan2.2 directory: download Wan-AI/Wan2.2-TI2V-5B from hf-mirror (config + diffusion weights, ~11 GB) and pass that local path / adjust redirect_common_files.",
+    "2) If the mirror also lacks Wan-AI weights, use the already-verified action-head path (P4_ACTION_HEAD_SMOKE) and defer full-model smoke until the asset is available.",
+    "3) Do not substitute old Force40k/A3 force-free checkpoints for the video trunk."
+  ],
+  "next": "probe hf-mirror for Wan-AI/Wan2.2-TI2V-5B file list; if present, download config+weights and retry create_fasterwam with a local model_id"
+}

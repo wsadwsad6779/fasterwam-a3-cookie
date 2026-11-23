@@ -1,8 +1,8 @@
 {
  "version": 1,
- "updated": "2026-11-23T12:40:26Z",
+ "updated": "2026-11-23T12:44:29Z",
  "ready": [
-  "P9_training(needs budget)"
+  "P4_wan_mirror_probe"
  ],
  "blocked": {
   "P9": "需显式训练步数预算"
@@ -17,6 +17,7 @@
   "P4",
   "P4_action_head_smoke",
   "P4_module_smoke",
+  "P4_wan_asset_audit",
   "P5",
   "P5_events_by_task",
   "P5_replay_acceptance",
