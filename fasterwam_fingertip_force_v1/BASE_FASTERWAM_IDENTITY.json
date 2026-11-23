@@ -1,0 +1,31 @@
+{
+  "identity_version": "2026-11-20.phase1",
+  "status": "PARTIAL",
+  "verified": {
+    "config_original": "stage_40k/fw/configs/data/a3_2cam.yaml",
+    "proprio_original_dim": 8,
+    "proprio_old_force_dim": 14,
+    "action_dim": 7,
+    "action_delta_mask": [true, true, true, true, true, true, false],
+    "gripper_semantics": "LIBERO +1=close -1=open; A3 adapter col6=-sign",
+    "num_frames": 33,
+    "action_horizon": 32,
+    "action_video_freq_ratio": 4,
+    "num_video_frames": 9,
+    "video_size": [224, 448],
+    "normalizer": "min/max; a3_fw/dataset_stats.json",
+    "control_hz": 20
+  },
+  "weights": {
+    "upstream_base": {"ref": "hustvl/FasterWAM libero/step_021700.pt", "bytes": 11117679929},
+    "a3_40k_node": {"ref": "HF v1_force_40k/nodes/step_040000", "bytes": 211090223, "verified_force_free": "UNKNOWN"},
+    "merged_40k": {"ref": "HF fasterwam-a3-archive-public eval_restore_20261117/step_040000_merged.pt", "bytes": 11126493579}
+  },
+  "unknowns": [
+    "40k checkpoint force-conditioner/proprio width",
+    "original normalizer identity",
+    "fingertip sensor channel semantics",
+    "source of 4372.9 N anomaly"
+  ],
+  "blockers": ["no GPU instance (pool full)", "private HF quota full; 40k manifest needs token or public copy"]
+}

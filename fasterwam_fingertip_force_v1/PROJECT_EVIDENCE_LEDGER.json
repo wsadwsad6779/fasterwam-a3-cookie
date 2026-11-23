@@ -1,0 +1,7 @@
+{
+  "entries": [
+    {"date": "2026-11-20", "claim": "原始 A3 协议 proprio=8、action=7、33 帧/32 步、两路 224x448、min/max 归一化", "evidence": ["stage_40k/fw/configs/data/a3_2cam.yaml", "stage_40k/build_v1_dataset.py", "stage_40k/fw/src/fasterwam/datasets/lerobot/a3_video_dataset.py"], "strength": "code"},
+    {"date": "2026-11-20", "claim": "旧实例已销毁、当前无 GPU Pod（资源池满），持久卷 /workspace 保留", "evidence": ["Radeon Cloud 控制台快照 2026-11-20"], "strength": "console"},
+    {"date": "2026-11-20", "claim": "v2/v3/v4 修复线已外部归档并对账 PASS（2752 文件/225.43 GB）", "evidence": ["restore_20261117/reconstructed_normalizer/ARCHIVE_RECONCILIATION.json", "docs/ARCHIVE_COVERAGE_20261119.md"], "strength": "reconciled"}
+  ]
+}
