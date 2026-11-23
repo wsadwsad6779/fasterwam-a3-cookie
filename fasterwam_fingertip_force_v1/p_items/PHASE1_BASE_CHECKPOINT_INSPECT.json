@@ -1,0 +1,145 @@
+{
+ "base": "/workspace/fwv1/hf_public/eval_restore_20261117/base_step_021700.pt",
+ "top_keys": [
+  "mot",
+  "step",
+  "torch_dtype",
+  "proprio_encoder"
+ ],
+ "n_flat": 1397,
+ "proprio_layers": {
+  "proprio_encoder.weight": [
+   4096,
+   8
+  ],
+  "proprio_encoder.bias": [
+   4096
+  ]
+ },
+ "out_dim7": [
+  [
+   "mot.mixtures.action.head.weight",
+   [
+    7,
+    1024
+   ]
+  ]
+ ],
+ "in_dim8": [
+  [
+   "proprio_encoder.weight",
+   [
+    4096,
+    8
+   ]
+  ]
+ ],
+ "action_layers": {
+  "mot.mixtures.action.action_encoder.weight": [
+   1024,
+   7
+  ],
+  "mot.mixtures.action.action_encoder.bias": [
+   1024
+  ],
+  "mot.mixtures.action.text_embedding.0.weight": [
+   1024,
+   4096
+  ],
+  "mot.mixtures.action.text_embedding.0.bias": [
+   1024
+  ],
+  "mot.mixtures.action.text_embedding.2.weight": [
+   1024,
+   1024
+  ],
+  "mot.mixtures.action.text_embedding.2.bias": [
+   1024
+  ],
+  "mot.mixtures.action.time_embedding.0.weight": [
+   1024,
+   256
+  ],
+  "mot.mixtures.action.time_embedding.0.bias": [
+   1024
+  ],
+  "mot.mixtures.action.time_embedding.2.weight": [
+   1024,
+   1024
+  ],
+  "mot.mixtures.action.time_embedding.2.bias": [
+   1024
+  ],
+  "mot.mixtures.action.time_projection.1.weight": [
+   6144,
+   1024
+  ],
+  "mot.mixtures.action.time_projection.1.bias": [
+   6144
+  ],
+  "mot.mixtures.action.blocks.0.modulation": [
+   1,
+   6,
+   1024
+  ],
+  "mot.mixtures.action.blocks.0.self_attn.q.weight": [
+   3072,
+   1024
+  ],
+  "mot.mixtures.action.blocks.0.self_attn.q.bias": [
+   3072
+  ],
+  "mot.mixtures.action.blocks.0.self_attn.k.weight": [
+   3072,
+   1024
+  ],
+  "mot.mixtures.action.blocks.0.self_attn.k.bias": [
+   3072
+  ],
+  "mot.mixtures.action.blocks.0.self_attn.v.weight": [
+   3072,
+   1024
+  ],
+  "mot.mixtures.action.blocks.0.self_attn.v.bias": [
+   3072
+  ],
+  "mot.mixtures.action.blocks.0.self_attn.o.weight": [
+   1024,
+   3072
+  ],
+  "mot.mixtures.action.blocks.0.self_attn.o.bias": [
+   1024
+  ],
+  "mot.mixtures.action.blocks.0.self_attn.norm_q.weight": [
+   3072
+  ],
+  "mot.mixtures.action.blocks.0.self_attn.norm_k.weight": [
+   3072
+  ],
+  "mot.mixtures.action.blocks.0.cross_attn.q.weight": [
+   3072,
+   1024
+  ],
+  "mot.mixtures.action.blocks.0.cross_attn.q.bias": [
+   3072
+  ],
+  "mot.mixtures.action.blocks.0.cross_attn.k.weight": [
+   3072,
+   1024
+  ],
+  "mot.mixtures.action.blocks.0.cross_attn.k.bias": [
+   3072
+  ],
+  "mot.mixtures.action.blocks.0.cross_attn.v.weight": [
+   3072,
+   1024
+  ],
+  "mot.mixtures.action.blocks.0.cross_attn.v.bias": [
+   3072
+  ],
+  "mot.mixtures.action.blocks.0.cross_attn.o.weight": [
+   1024,
+   3072
+  ]
+ }
+}
