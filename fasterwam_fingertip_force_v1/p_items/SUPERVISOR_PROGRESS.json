@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T11:12:13Z",
- "stage": "P7 conversion check run: eef_pose_dim=14 (L first assumed), gripper 0.28-1.0 (1.0=open), dp_absmax 0.294 m/step flagged for continuity check",
- "evidence": "p_items/JOINT_TO_7D_CHECK.json, p_items/eef_layout_grep.txt",
- "next": "resolve dp discontinuity / pose metric check on 2-3 episodes; then P5 replay design",
+ "ts": "2026-11-23T11:17:02Z",
+ "stage": "P7 DONE \u2014 eef continuity verified (dp<=14.95mm/step, frame_index contiguous); earlier 0.294m was a diff bug",
+ "evidence": "p_items/EEF_CONTINUITY_CHECK.json, p_items/JOINT_TO_7D_CHECK.json",
+ "next": "P5 real-control replay acceptance design (V2 labels on expert commands)",
  "gpu_steps": null,
  "mujoco_frames": null
 }

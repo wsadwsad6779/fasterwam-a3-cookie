@@ -1,11 +1,11 @@
 {
  "version": 1,
- "updated": "2026-11-23T11:11:06Z",
+ "updated": "2026-11-23T11:17:02Z",
  "ready": [
-  "P7_eef_to_7d_check"
+  "P5_replay_acceptance_design"
  ],
  "blocked": {
-  "P9": "\u9700\u663e\u5f0f\u8bad\u7ec3\u6b65\u6570\u9884\u7b97"
+  "P9": "需显式训练步数预算"
  },
  "done": [
   "P1",
@@ -14,6 +14,7 @@
   "P4",
   "P5",
   "P6",
-  "P7_decision"
+  "P7_decision",
+  "P7_eef_to_7d_check"
  ]
 }
