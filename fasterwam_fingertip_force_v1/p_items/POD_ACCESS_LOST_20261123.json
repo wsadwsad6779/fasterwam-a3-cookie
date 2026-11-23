@@ -1,0 +1,28 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-23T19:01:25Z",
+ "kind": "pod_api_403_cookies_lost",
+ "evidence": {
+  "page_title": "403 Forbidden",
+  "body": "403 Forbidden nginx",
+  "cookie_len": 0,
+  "api_status": 403,
+  "api_terminals_post": 403,
+  "contents_metrics": 403,
+  "last_successful_monitor": "2026-11-23T18:30:52Z step 1200 latest.pt 3360623869B"
+ },
+ "attempts": [
+  "navigate to /instances/rgapi-one-click-24316-57b6b870/lab (200 page but 403 body)",
+  "POST /api/terminals -> 403 HTML",
+  "GET /api/terminals -> 403",
+  "GET /api/status -> 403",
+  "GET /api/contents/fwv1/train_runs/t7_21k/metrics.jsonl -> 403"
+ ],
+ "training_state": "unknown while access lost; tmux jobs were alive at 18:30Z (train pid 509643, chain 509720, watchdog 513435)",
+ "action_required": "user must sign in again to jupyter.anruicloud.com in the Qoder browser; then task7 resumes monitoring from step 1200+",
+ "local_artifacts_safe": [
+  "training runs on persistent /workspace",
+  "checkpoint latest.pt step 1200",
+  "all p_items evidence committed"
+ ]
+}
