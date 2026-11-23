@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T11:51:54Z",
- "stage": "P8 proprio representation frozen: eef pos3+quat4(L)+gripper1 = 8, from eef_pose/action; dataset 8-dim joint state not used",
- "evidence": "p_items/P8_PROPRIO_DECISION.md",
- "next": "P4 full model forward/backward with official base; verify quaternion vs rotvec input expectation",
+ "ts": "2026-11-23T11:55:36Z",
+ "stage": "P4 deps: diffusers/hydra/omegaconf installed; transformers broken and termcolor missing; runtime import still blocked",
+ "evidence": "p_items/P4_DEPS.json",
+ "next": "reinstall pinned transformers==4.57.6 safetensors==0.7.0 termcolor, retry runtime; then full model fwd/bwd",
  "gpu_steps": 1,
  "mujoco_frames": 1
 }
