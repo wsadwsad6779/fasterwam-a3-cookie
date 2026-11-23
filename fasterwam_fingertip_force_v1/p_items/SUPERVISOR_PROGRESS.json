@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T14:10:19Z",
- "stage": "P4 Wan download heartbeat: alive, 2.6G on disk, current file 2.73GB partial (~0.47MB/s)",
- "evidence": "p_items/POD_JOB_STATE.json, wan_diag2.txt",
- "next": "Supervisor wakes on done/fail; then local-dir create_fasterwam retry",
+ "ts": "2026-11-23T14:38:15Z",
+ "stage": "switched Wan download to ModelScope (PID 148521); old .incomplete preserved/seeded; per-file size+sha256 verification enabled",
+ "evidence": "p_items/POD_JOB_STATE.json, pod job_wan_ms.log",
+ "next": "on done: local-dir create_fasterwam retry",
  "gpu_steps": 3,
  "mujoco_frames": 400
 }

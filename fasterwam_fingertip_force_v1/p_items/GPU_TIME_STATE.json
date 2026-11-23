@@ -1,9 +1,9 @@
 {
- "checked_at": "2026-11-23T14:10:19Z",
+ "checked_at": "2026-11-23T14:38:15Z",
  "remaining_hours": 37,
  "credits": 37,
  "burn_rate_credits_per_hour": 1,
- "source": "console 10:50Z observation; pod terminal API alive at 14:09Z",
+ "source": "console 10:50Z; ModelScope job launched 14:37Z",
  "page_status": "unknown (terminal API working)",
  "upload_status": "pending",
  "restore_manifest": "docs/RESTORE_FROM_ARCHIVE_20261119.md",
