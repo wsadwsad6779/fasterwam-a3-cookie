@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T12:48:40Z",
- "stage": "P4 mirror probe: Wan-AI/Wan2.2-TI2V-5B EXISTS (23 files incl. VAE/config); DiffSynth repo 404 confirmed; workaround viable",
- "evidence": "p_items/P4_WAN_MIRROR_PROBE.json",
- "next": "POD_JOB download Wan-AI model then full-model smoke",
+ "ts": "2026-11-23T13:02:43Z",
+ "stage": "P4 Wan download attempt 1 failed at 0/23 (transfer call, repo access OK); next=per-file hf_hub_download with full traceback",
+ "evidence": "p_items/P4_WAN_DOWNLOAD_ATTEMPT.json",
+ "next": "retry per-file download; P9 needs budget",
  "gpu_steps": 3,
  "mujoco_frames": 400
 }
