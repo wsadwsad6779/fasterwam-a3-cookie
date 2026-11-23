@@ -1,8 +1,16 @@
 {
   "worker": "task7",
-  "updated_at": "2026-11-23T15:46:00Z",
-  "objective": "完成 FasterWAM 饼干夹取任务7 主计划 S1-S5：S1 基座/文件/身份；S2 800 数据审计+夹爪 V2 真实回放+元数据对账；S3 指尖力验收+F0/F1/F2（首选零初始化 Force-gated FiLM）端到端前反向与恢复测试；S4 闸门通过后 21k 分段训练（3k checkpoint+10 独立 seed+双视角视频）；S5 最佳 checkpoint 独立裸模型测试。每步 commit/push 并写证据；训练预算不超过 21000 步。",
-  "budget_max_optimizer_steps": 21000,
-  "gates": ["G0 passed", "G1 partial", "G2 partial", "G3 partial", "G4 pending", "G5 pending"],
-  "next": "D1 metadata reconciliation -> P5 frame error analysis + extra replays -> storage upload/prune -> F2 integration -> G4 gate"
+  "goal_version": 2,
+  "updated_at": "2026-11-23T17:04:25Z",
+  "objective": "完成原始FasterWAM + 指尖力F2模型的完整数据验收、夹爪监督修复、21,000步有界训练、每3,000步的10-seed自主实验及最终独立裸模型测试，期间持续保存模型、视频和可恢复状态。",
+  "note": "The UpdateGoal tool in this runtime accepts only a status field (no objective), so the V2 objective is recorded here and in p_items/T7_D2D5_ACK.json; the supervisor reads these files as authoritative.",
+  "gates": {
+    "D2": "passed (DATASET_ACCEPTED=true; 749 accepted, 96 quarantine, 0 duplicates, leakage 0; split V2 589/85/171)",
+    "D3": "pending",
+    "D4": "pending",
+    "D5": "pending",
+    "G4": "BLOCKED_UNTIL_D2_D5_PASS",
+    "P9_21k": "forbidden; used 130 / 21000 steps so far"
+  },
+  "next": "D3 force distribution/normalization/OOD, D4 gripper final acceptance, D5 F2 readiness; then G4 re-pass"
 }
