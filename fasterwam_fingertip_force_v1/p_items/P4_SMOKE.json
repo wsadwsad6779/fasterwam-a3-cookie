@@ -1,0 +1,15 @@
+{
+  "torch": "2.9.1+gitff65f5b",
+  "cuda_available": true,
+  "device": "AMD Radeon Graphics",
+  "fasterwam_import": "ok (vendored stage_40k/fw/src on sys.path)",
+  "film_module": {
+    "identity_at_init": true,
+    "loss_one_step": -0.0067542968317866325,
+    "grad_norm_sum": 0.12257185428461526,
+    "params": 527616,
+    "vram_gb": 0.16
+  },
+  "scope": "module-level forward/backward on GPU with zero-init gamma/beta perturbed; NOT yet the full 5B model forward/backward",
+  "next": "instantiate the full FasterWAM from config with official step_021700.pt and run one forward/backward under no_grad/with grad on action expert"
+}

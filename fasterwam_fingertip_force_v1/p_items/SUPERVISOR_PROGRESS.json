@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T11:40:18Z",
- "stage": "state16->8 resolved: dataset state[0:8] = left arm joints+gripper (env.py:392 order, collection_summary training_joint_order)",
- "evidence": "p_items/STATE_MAPPING_16_TO_8.json, p_items/state_mapping_grep.txt",
- "next": "P4 forward/backward smoke on official base; decide 8-dim proprio representation (joint vs eef) before training",
- "gpu_steps": null,
+ "ts": "2026-11-23T11:47:34Z",
+ "stage": "P4 module smoke PASS on GPU (identity True, fwd/bwd grads 0.123, 527616 params, fasterwam import ok)",
+ "evidence": "p_items/P4_SMOKE.json",
+ "next": "full model forward/backward with official base; then P8 freeze proprio representation",
+ "gpu_steps": 1,
  "mujoco_frames": 1
 }
