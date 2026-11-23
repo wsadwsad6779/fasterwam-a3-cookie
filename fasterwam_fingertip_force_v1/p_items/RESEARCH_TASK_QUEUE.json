@@ -1,9 +1,9 @@
 {
  "version": 1,
- "updated": "2026-11-23T12:07:35Z",
+ "updated": "2026-11-23T12:10:44Z",
  "ready": [
   "P4_action_expert_only_smoke",
-  "P3_env_force_contact_check"
+  "P3_pad_channel_identity"
  ],
  "blocked": {
   "P9": "需显式训练步数预算"
@@ -12,6 +12,7 @@
   "P1",
   "P2",
   "P3",
+  "P3_contact_check",
   "P3_mujoco_force_observation",
   "P4",
   "P4_module_smoke",

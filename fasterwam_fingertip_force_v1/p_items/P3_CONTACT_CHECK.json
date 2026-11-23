@@ -1,0 +1,15 @@
+{
+  "env": "A3CookieTransferEnv + A3CookieTransferExpert(action_mode=joint_position), reset(context=None)",
+  "steps": 400,
+  "first_pad_contact_step": 255,
+  "pad_max": {"L_in(ch12)": 0.0, "L_out(ch13)": 27.90580940246582, "R_in(ch14)": 8.90146255493164, "R_out(ch15)": 8.935649871826172},
+  "wrist_max_first6": [1.96, 17.284, 14.589, 2.138, 0.376, 0.676],
+  "cookies_in_target_after_400_steps": 0,
+  "findings": [
+    "Real MuJoCo contact produces strong pad signals (L_out 27.9 N) — the force pipeline is live, not simulated offline.",
+    "L_in(ch12) stayed exactly 0 through contact while L_out(ch13) reached 27.9 N: the two left pads are NOT symmetric; channel identity/geometry needs a dedicated check before deciding which pad is 'the' fingertip.",
+    "R pads (ch14/15) reached ~8.9 N in this direct expert run, whereas the 845-episode dataset shows R pads identically 0. The difference must be explained (different recording config/arm usage) before using R pads as features.",
+    "400 steps is not enough to finish the task (cookies_in_target=0); this run measures contact physics only."
+  ],
+  "evidence": "pod /workspace/fwv1/p_items/p3_contact2.log"
+}
