@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "kind": "task7_gripper_supervision_gate",
- "ts": "2026-11-24T04:43:51Z",
+ "ts": "2026-11-24T05:24:06Z",
  "roles": {
   "worker": "task7 (owns the gripper fix, implementation and experiments)",
   "supervisor": "this session (independent verification, gate verdicts, written corrections, stop authority)",
@@ -18,7 +18,7 @@
    "pid": 306531,
    "run_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
    "stage": "train",
-   "step": 760,
+   "step": 1460,
    "gpu_used_bytes": 24718245888,
    "chain_pid": 454332,
    "watchdog_pid": 454338,
@@ -26,7 +26,7 @@
    "latest_checkpoint": "/workspace/fwv1/train_runs/t7_21k_v3run/latest.pt",
    "metrics": "/workspace/fwv1/train_runs/t7_21k_v3run/metrics.jsonl",
    "log": "/workspace/fwv1/logs/t7_train_v3run.log",
-   "checked_at": "2026-11-24T04:39:23Z"
+   "checked_at": "2026-11-24T05:22:25Z"
   },
   "previous": {
    "status": "stopped",
@@ -587,10 +587,10 @@
   "pod_hash_delta": "p_items/C01_POD_HASH_DELTA.json"
  },
  "gpu": {
-  "checked_at": "2026-11-24T04:39:23Z",
+  "checked_at": "2026-11-24T05:22:25Z",
   "vram_used_mb": 24178,
   "gpu_idle": false,
-  "note": "training running: fresh V3 run 0->21000, PID 306531, run dir t7_21k_v3run, step 760"
+  "note": "training running: fresh V3 run 0->21000, PID 306531, run dir t7_21k_v3run, step 1460 (obs 05:22:25Z)"
  },
  "storage_policy": {
   "status": "warning_plan_archive",

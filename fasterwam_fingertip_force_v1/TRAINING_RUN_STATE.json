@@ -1,21 +1,21 @@
 {
  "project": "fasterwam_fingertip_force_v1",
  "worker": "task7",
- "ts": "2026-11-24T04:43:51Z",
+ "ts": "2026-11-24T05:24:06Z",
  "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
  "phase": "S4_v3_new_run_0_3000",
  "budget": {
   "max_optimizer_steps_total": 21000,
-  "used_steps": 760,
-  "remaining_steps": 20240,
+  "used_steps": 1460,
+  "remaining_steps": 19540,
   "new_run": true,
   "not_per_variant": true,
   "approved_by_user_at": "2026-11-24T03:35:00Z",
   "approval": "fresh 21000 for the V3 run; old V2 6140 and V3 diagnostic 200 recorded separately; total consumed ~27340",
   "old_v2_steps": 6140,
   "v3_diagnostic_steps": 200,
-  "used_steps_current_run": 760,
-  "remaining_current_run": 20240,
+  "used_steps_current_run": 1460,
+  "remaining_current_run": 19540,
   "total_executed_approx": 27340,
   "total_executed_all_runs_recorded": 27340,
   "expansion_allowed": false,
@@ -28,7 +28,7 @@
     "policy": "diagnostic only; not counted in the new run"
    }
   ],
-  "accounting_snapshot_at": "2026-11-24T04:39:23Z",
+  "accounting_snapshot_at": "2026-11-24T05:22:25Z",
   "old_v2_steps_note": "ledger uses 6140; the earlier verbal 6142 was a typo; total_executed_approx 27340 = 6140+200+21000"
  },
  "gates": {
@@ -55,7 +55,7 @@
   "identity_artifact": "p_items/T7_BASE_IDENTITY.json"
  },
  "training": {
-  "status": "running: fresh V3 run 0->3000; pid 306531; step 760; run dir t7_21k_v3run",
+  "status": "running: fresh V3 run 0->3000; pid 306531; step 1460 (obs 05:22:25Z); run dir t7_21k_v3run",
   "baseline_anchor": "base 10 seeds x 600 steps: exact_fill 0/10, avg_in_target 0.0, 0 safety stops (p_items/SUMMARY_step_base.json)",
   "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
   "checkpoint_plan": "trainable-only (action expert + F2 + proprio, 558.9M) + frozen base reference; ~5.59GB per milestone, ~39.1GB for 7",
@@ -67,7 +67,7 @@
   "optimizer_state": null,
   "scheduler_state": null,
   "rng_state": null,
-  "last_logged_step": 760,
+  "last_logged_step": 1460,
   "milestones": [
    3000,
    6000,
@@ -79,7 +79,7 @@
   ],
   "pid": 306531,
   "log_path": "/workspace/fwv1/logs/t7_train_v3run.log",
-  "checkpoint": "new run latest.pt step 600 (sha cb129fea…); old diagnostic step_003000/006000 retained read-only in t7_21k",
+  "checkpoint": "new run latest.pt step 1400 (sha e1b6fe5f…); old diagnostic step_003000/006000 retained read-only in t7_21k",
   "new_run_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
   "launched_at": "2026-11-24T03:51:50Z",
   "first_metrics": {
@@ -93,10 +93,10 @@
    "close_neq_open": true
   },
   "checkpoint_dir_note": "old diagnostic /workspace/fwv1/train_runs/t7_21k retained read-only (step_003000/006000 diagnostic only)",
-  "current_step": 760,
+  "current_step": 1460,
   "eval_status": "not_evaluated (new run; 3k pending)",
-  "latest_checkpoint_sha256": "cb129fea28aecd010b1f8dd26dc1b0004885e037bb7fd9fb1ea0e2e3dd988440",
-  "latest_checkpoint_step": 600
+  "latest_checkpoint_sha256": "e1b6fe5fe9541398c20419d86c8d12eac7368b959c67870fe07dfcf9195e1d8f",
+  "latest_checkpoint_step": 1400
  },
  "evaluation": {
   "protocol": "bare model, MuJoCo, max 600 steps, safety guard, exact_fill 10, 20-step hold; eval g=2a-1, rot x5, replan 10, src==70; 10 fixed seeds per 3k from the frozen manifest",
@@ -181,10 +181,10 @@
     "evidence": "p_items/POD_ACCESS_LOST_20261123.json; p_items/POD_JOB_STATE.json (stopped/step200/pid null); T7_GRIPPER_GATE.json training_state"
    }
   },
-  "last_checked": "2026-11-24T04:39:23Z",
-  "last_checked_state": "pid 306531 running step 760; GPU ~24.7GB; run dir t7_21k_v3run",
-  "observed_last_step": 760,
-  "observed_last_step_note": "new run accounting: fresh 21000 approved 2026-11-24T03:35Z; used≈760, remaining≈20240 (snapshot 04:39:23Z); old V2 6140 + V3 diagnostic 200 separate; no 14860 cap"
+  "last_checked": "2026-11-24T05:22:25Z",
+  "last_checked_state": "pid 306531 running step 1460; GPU ~24.7GB; run dir t7_21k_v3run; checkpoint latest=step1400",
+  "observed_last_step": 1460,
+  "observed_last_step_note": "new run accounting: fresh 21000 approved 2026-11-24T03:35Z; used≈1460, remaining≈19540 (snapshot 05:22:25Z); old V2 6140 + V3 diagnostic 200 separate; no 14860 cap"
  },
  "labels": {
   "path": "/workspace/fwv1/p_items/A3_845_7D_LABELS_V3.npz",

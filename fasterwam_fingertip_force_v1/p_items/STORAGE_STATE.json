@@ -1,11 +1,11 @@
 {
  "worker": "task7",
- "checked_at": "2026-11-24T04:25:11Z",
+ "checked_at": "2026-11-24T05:22:25Z",
  "disk_total_gb": 98.0,
  "disk_used_gb": 54.0,
  "disk_free_gb": 38.8,
  "storage_min_free_gb": 50,
- "status": "warning_plan_archive",
+ "status": "STORAGE_LOW",
  "hotspots": [
   {
    "path": "/workspace/fwv1/wan_base",
@@ -22,7 +22,7 @@
   {
    "path": "/workspace/fwv1/train_runs/t7_21k_v3run",
    "gb": 3.36,
-   "kind": "new run latest.pt step400 + metrics",
+   "kind": "new run latest.pt step1400 + metrics",
    "in_use": true
   },
   {
@@ -79,7 +79,7 @@
   "external_rule": "checkpoint without an external sha256-verified copy => external=no_external_backup; per-milestone upload attempt is mandatory; record failure reasons (e.g. HF 401) instead of silently skipping"
  },
  "disk_total_bytes": 105089261568,
- "disk_used_bytes": 58042331136,
- "disk_free_bytes": 41661444096,
+ "disk_used_bytes": 58042507264,
+ "disk_free_bytes": 41661267968,
  "hard_floor_gb": 30
 }

@@ -15,8 +15,8 @@
  },
  "latest": {
   "bytes": 3363807509,
-  "sha256": "cb129fea28aecd010b1f8dd26dc1b0004885e037bb7fd9fb1ea0e2e3dd988440",
-  "step": 600,
+  "sha256": "e1b6fe5fe9541398c20419d86c8d12eac7368b959c67870fe07dfcf9195e1d8f",
+  "step": 1400,
   "keys": [
    "action_expert",
    "base_sha256",
