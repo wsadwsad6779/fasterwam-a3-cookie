@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "kind": "task7_gripper_supervision_gate",
- "ts": "2026-11-24T04:10:21Z",
+ "ts": "2026-11-24T04:15:15Z",
  "roles": {
   "worker": "task7 (owns the gripper fix, implementation and experiments)",
   "supervisor": "this session (independent verification, gate verdicts, written corrections, stop authority)",
@@ -12,20 +12,38 @@
   ]
  },
  "training_state": {
-  "status": "stopped",
+  "status": "running",
+  "updated_at": "2026-11-24T04:14:39Z",
   "evidence": {
-   "gpu_used_bytes": 28004352,
-   "t7_processes": 0,
-   "tmux_windows_closed": [
-    "train_v3",
-    "chain_v3",
-    "watchdog_v3",
-    "finalizer_v3"
-   ],
-   "pod_time_utc": "2026-11-24T01:02:39Z",
-   "v3_run_last_step": 200,
-   "latest_checkpoint": "/workspace/fwv1/train_runs/t7_21k/latest.pt",
-   "log_tail": "/workspace/fwv1/logs/t7_train.log"
+   "pid": 306531,
+   "run_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
+   "stage": "train",
+   "step": 360,
+   "gpu_used_bytes": 24718245888,
+   "chain_pid": 454332,
+   "watchdog_pid": 454338,
+   "started_at": "2026-11-24T03:51:50Z",
+   "latest_checkpoint": "/workspace/fwv1/train_runs/t7_21k_v3run/latest.pt",
+   "metrics": "/workspace/fwv1/train_runs/t7_21k_v3run/metrics.jsonl",
+   "log": "/workspace/fwv1/logs/t7_train_v3run.log",
+   "checked_at": "2026-11-24T04:14:47Z"
+  },
+  "previous": {
+   "status": "stopped",
+   "evidence": {
+    "gpu_used_bytes": 28004352,
+    "t7_processes": 0,
+    "tmux_windows_closed": [
+     "train_v3",
+     "chain_v3",
+     "watchdog_v3",
+     "finalizer_v3"
+    ],
+    "pod_time_utc": "2026-11-24T01:02:39Z",
+    "v3_run_last_step": 200,
+    "latest_checkpoint": "/workspace/fwv1/train_runs/t7_21k/latest.pt",
+    "log_tail": "/workspace/fwv1/logs/t7_train.log"
+   }
   }
  },
  "label_semantics": {
@@ -425,7 +443,8 @@
   "pretrain_items": {
    "eval_scene_integration": "pass",
    "p3b_probe": "feasible",
-   "training_allowed": false
+   "training_allowed": true,
+   "training_allowed_scope": "V3 new run only; superseded by gate_ledger.training_allowed=true at 2026-11-24T03:35Z"
   },
   "training_allowed_scope": "V3 new run only: 0->21000, fresh 21000 steps, approved 2026-11-24T03:35Z",
   "authorized_run": {
@@ -516,7 +535,7 @@
  "three_k_gate": {
   "status": "armed",
   "script": "p_items/scripts/t7_milestone_report.py",
-  "script_sha256": "e40e22a5534b701a5b5729a32b620919a571a3ba2a321485613638ecb260dd8d",
+  "script_sha256": "6deedeed6bfff638a13845d45b8cc60de99d5263d095380c35194699447aae64",
   "chain_sha256": "93315d32390351f476a586d21eb1e686ee8a6530942addb0600119f747fa0e88",
   "watchdog_sha256": "3ede8f9b4cac045247ee75e43d59d96d920eeb5dbdeb5824f365ca16e9a7eb18",
   "stop_flag": "/workspace/fwv1/STOP_TRAINING",

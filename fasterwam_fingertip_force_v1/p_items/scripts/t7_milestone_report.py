@@ -175,7 +175,8 @@ def main():
             ck = torch.load(ckpt, map_location='cpu', weights_only=False)
             ck_info.update({'keys': sorted(ck.keys()), 'step': ck.get('step'),
                             'force_head': 'force_head' in ck,
-                            'base_sha_ok': ck.get('base_sha256') == BASE_SHA})
+                            'base_sha_ok': ck.get('base_sha256') == BASE_SHA,
+                            'sha256': sha256(ckpt), 'run_dir': RUN})
             del ck
         except Exception as exc:
             ck_info['error'] = str(exc)[:300]

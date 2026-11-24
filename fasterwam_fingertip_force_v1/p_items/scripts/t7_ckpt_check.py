@@ -5,7 +5,7 @@ import os
 
 import torch
 
-RUN = '/workspace/fwv1/train_runs/t7_21k'
+RUN = os.environ.get('T7_RUN_DIR', '/workspace/fwv1/train_runs/t7_21k_v3run')
 OUT = '/workspace/fwv1/p_items/CHECKPOINT_VERIFY_LATEST.json'
 files = sorted(glob.glob(RUN + '/*.pt'))
 res = {'files': [], 'checks': {}}

@@ -1,7 +1,7 @@
 {
  "project": "fasterwam_fingertip_force_v1",
  "worker": "task7",
- "ts": "2026-11-24T04:10:21Z",
+ "ts": "2026-11-24T04:15:15Z",
  "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
  "phase": "S4_v3_new_run_0_3000",
  "budget": {
@@ -53,9 +53,9 @@
   "identity_artifact": "p_items/T7_BASE_IDENTITY.json"
  },
  "training": {
-  "status": "running: fresh V3 run 0->3000; pid 306531; step 280; 3k gate armed",
+  "status": "running: fresh V3 run 0->3000; pid 306531; step 340; run dir t7_21k_v3run",
   "baseline_anchor": "base 10 seeds x 600 steps: exact_fill 0/10, avg_in_target 0.0, 0 safety stops (p_items/SUMMARY_step_base.json)",
-  "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k",
+  "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
   "checkpoint_plan": "trainable-only (action expert + F2 + proprio, 558.9M) + frozen base reference; ~5.59GB per milestone, ~39.1GB for 7",
   "param_budget_artifact": "p_items/T7_PARAM_BUDGET.json",
   "dataset_plan": "on-the-fly AV1 video decode (28 shards, 4.5GB) + parquet action/proprio/force; frames.dat memmap (69GB) is not feasible",
@@ -65,7 +65,7 @@
   "optimizer_state": null,
   "scheduler_state": null,
   "rng_state": null,
-  "last_logged_step": 280,
+  "last_logged_step": 360,
   "milestones": [
    3000,
    6000,
@@ -89,7 +89,8 @@
    "feat_dim": 1024,
    "force_drop_frac": 0.125,
    "close_neq_open": true
-  }
+  },
+  "checkpoint_dir_note": "old diagnostic /workspace/fwv1/train_runs/t7_21k retained read-only (step_003000/006000 diagnostic only)"
  },
  "evaluation": {
   "protocol": "bare model, MuJoCo, max 600 steps, safety guard, exact_fill 10, 20-step hold; eval g=2a-1, rot x5, replan 10, src==70; 10 fixed seeds per 3k from the frozen manifest",
@@ -151,18 +152,24 @@
   "status": "RUNNING",
   "since": "2026-11-24T03:56:22Z",
   "last_known_alive": "2026-11-23T18:30:52Z step 1200 latest.pt 3360623869B; train pid 509643, chain 509720, watchdog 513435",
-  "evidence": "p_items/POD_ACCESS_LOST_20261123.json; p_items/POD_JOB_STATE.json (stopped/step200/pid null); T7_GRIPPER_GATE.json training_state",
-  "note": "fresh V3 run in progress; milestone chain and watchdog active",
+  "evidence": "p_items/POD_JOB_STATE.json running step 340 pid 306531; /workspace/fwv1/train_runs/t7_21k_v3run/latest.pt 3364MB; chain 454332 + watchdog 454338",
+  "note": "fresh V3 run in progress; 3k gate armed",
   "previous": {
    "status": "BLOCKED_POD_AUTH_403",
    "since": "2026-11-23T19:01:25Z",
    "last_known_alive": "2026-11-23T18:30:52Z step 1200 latest.pt 3360623869B; train pid 509643, chain 509720, watchdog 513435",
-   "note": "browser cookies cleared; all Jupyter API calls 403 nginx; user must sign in again. Training/chain/watchdog were designed to continue autonomously on the persistent pod; state unknown until access returns."
+   "note": "browser cookies cleared; all Jupyter API calls 403 nginx; user must sign in again. Training/chain/watchdog were designed to continue autonomously on the persistent pod; state unknown until access returns.",
+   "pre_authorization": {
+    "ts": "2026-11-24T04:10:21Z",
+    "observed_last_step": 200,
+    "observed_last_step_note": "recorded new-run budget charge remains 70 per supervisor instruction; pod log/checkpoint last observed step=200; discrepancy noted, not charged",
+    "evidence": "p_items/POD_ACCESS_LOST_20261123.json; p_items/POD_JOB_STATE.json (stopped/step200/pid null); T7_GRIPPER_GATE.json training_state"
+   }
   },
-  "last_checked": "2026-11-24T04:10:21Z",
-  "last_checked_state": "pid 306531 running; step 280; GPU ~24.7GB; chain/watchdog restarted 04:08:30 with 3k gate",
-  "observed_last_step": 200,
-  "observed_last_step_note": "recorded new-run budget charge remains 70 per supervisor instruction; pod log/checkpoint last observed step=200; discrepancy noted, not charged"
+  "last_checked": "2026-11-24T04:15:15Z",
+  "last_checked_state": "pid 306531 running step 340; GPU ~24.7GB; run dir t7_21k_v3run",
+  "observed_last_step": 360,
+  "observed_last_step_note": "new run accounting: fresh 21000 approved 2026-11-24T03:35Z; used≈360, remaining≈20640; old V2 6140 + V3 diagnostic 200 recorded separately; no 14860 cap"
  },
  "labels": {
   "path": "/workspace/fwv1/p_items/A3_845_7D_LABELS_V3.npz",

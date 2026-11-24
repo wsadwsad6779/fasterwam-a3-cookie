@@ -8,7 +8,7 @@ import time
 
 P = '/workspace/fwv1/p_items'
 ROOT = '/workspace/fwv1/eval_fingertip_v1'
-RUN = '/workspace/fwv1/train_runs/t7_21k'
+RUN = os.environ.get('T7_RUN_DIR', '/workspace/fwv1/train_runs/t7_21k_v3run')
 EVAL = '/workspace/_t7_eval.py'
 OUT_SEL = P + '/BEST_CHECKPOINT_SELECTION.json'
 OUT_FORCE = P + '/FORCE_CONTRIBUTION.json'
