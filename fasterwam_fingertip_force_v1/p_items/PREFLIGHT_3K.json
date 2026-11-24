@@ -1,0 +1,70 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-24T04:19:59Z",
+ "kind": "3k_preflight",
+ "run_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
+ "metrics_path": "/workspace/fwv1/train_runs/t7_21k_v3run/metrics.jsonl",
+ "checks": [
+  {
+   "name": "labels_v3_sha",
+   "ok": true,
+   "detail": "c4090dd2cb994a8b3524b4c2614b869035acb89dccb7c8eed0e9dbe63e4affff"
+  },
+  {
+   "name": "sampler_v3_no_pm1",
+   "ok": true,
+   "detail": "/workspace/t7_data.py"
+  },
+  {
+   "name": "force_head_train",
+   "ok": true,
+   "detail": "/workspace/t7_train.py"
+  },
+  {
+   "name": "eval_mapping_frozen",
+   "ok": true,
+   "detail": "/workspace/_t7_eval.py"
+  },
+  {
+   "name": "scene_manifest_freeze",
+   "ok": true,
+   "detail": "9919429851cc157b59cd09676ff098b6676242a66c6c85e954a7847c8adee9bf"
+  },
+  {
+   "name": "train_metrics_finite",
+   "ok": true,
+   "detail": {
+    "records": 44,
+    "last_step": 440
+   }
+  },
+  {
+   "name": "train_sampler_balanced",
+   "ok": true,
+   "detail": {
+    "mean_open": 0.07173295454545454,
+    "mean_close": 0.9058061079545454,
+    "close_neq_open_frac": 0.9090909090909091
+   }
+  }
+ ],
+ "files": {
+  "/workspace/t7_data.py": {
+   "sha256": "76dfdbf4c3a30661356d42a0cac0a74b2887a9472a8efca5b17dd328f09b59ab",
+   "bytes": 10714
+  },
+  "/workspace/t7_train.py": {
+   "sha256": "bf4484718db5a46be853737da62ebc171dbb2690c12f0b2d0462743719cf62ae",
+   "bytes": 10229
+  },
+  "/workspace/_t7_eval.py": {
+   "sha256": "cd3516352f7f1c16364e4a772ebcbc950191a6dbd2b93566de4eade2d8bcf535",
+   "bytes": 20792
+  },
+  "/workspace/t7_milestone_report.py": {
+   "sha256": "ef503dc451fe9729ed243e284f7a7944134cb32a97b7ed823efa1c466ed4bdd0",
+   "bytes": 20357
+  }
+ },
+ "all_ok": true
+}

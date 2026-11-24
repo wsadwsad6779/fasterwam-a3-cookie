@@ -1,22 +1,21 @@
 {
- "checked_at": "2026-11-24T00:50:37Z",
- "remaining_hours": 36,
- "remaining_hours_basis": "user read the Radeon console (developer.amd.com.cn/radeon) on 2026-11-24: 2 days 6 hours remaining; the earlier 17.55h worker text was a misread",
+ "checked_at": "2026-11-24T04:20:42Z",
+ "remaining_hours": 50.2,
+ "remaining_hours_basis": "estimate: 51.2h at 03:15Z minus ~1.05h; refresh from Radeon console",
  "credits": 39,
  "burn_rate_credits_per_hour": null,
  "gpu": {
   "vendor": "AMD",
   "vram_total_gb": 51.5,
-  "vram_used_mb": null,
-  "gpu_idle": null,
-  "checked_at": "2026-11-24T00:28:30Z"
+  "vram_used_mb": 24178,
+  "gpu_idle": false,
+  "checked_at": "2026-11-24T04:20:42Z"
  },
  "time_low_hours": 5,
- "page_status": "jupyter api 200 (session restored in sidebar browser)",
+ "page_status": "jupyter api 200 (sidebar session)",
  "upload_status": "not_triggered",
  "restore_manifest": "docs/RESTORE_FROM_ARCHIVE_20261119.md",
  "gpu_restore_ready": false,
- "note": "54h is enough for the remaining 21k segment and milestone evals; still back up checkpoints at 12k/18k and keep gpu_restore ready",
- "auto_destroy": "not stated by user beyond the 2d6h window",
- "source": "AMD Radeon console 2026-11-24T00:29Z: instance running, 18 credits used, 39 remaining, auto-destroy 2026-11-26 14:55"
+ "note": "training running: fresh V3 run 0->21000 (approved 2026-11-24T03:35Z), PID 306531, run dir t7_21k_v3run, step 440; credits burn; refresh from the Radeon console; 5h upload threshold roughly 2026-11-26T01:30Z at the estimated rate",
+ "source": "worker check 2026-11-24T04:19Z: GPU 24.7GB used, training pid 306531 running"
 }

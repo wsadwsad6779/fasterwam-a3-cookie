@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "kind": "task7_gripper_supervision_gate",
- "ts": "2026-11-24T04:15:15Z",
+ "ts": "2026-11-24T04:21:05Z",
  "roles": {
   "worker": "task7 (owns the gripper fix, implementation and experiments)",
   "supervisor": "this session (independent verification, gate verdicts, written corrections, stop authority)",
@@ -18,7 +18,7 @@
    "pid": 306531,
    "run_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
    "stage": "train",
-   "step": 360,
+   "step": 450,
    "gpu_used_bytes": 24718245888,
    "chain_pid": 454332,
    "watchdog_pid": 454338,
@@ -26,7 +26,7 @@
    "latest_checkpoint": "/workspace/fwv1/train_runs/t7_21k_v3run/latest.pt",
    "metrics": "/workspace/fwv1/train_runs/t7_21k_v3run/metrics.jsonl",
    "log": "/workspace/fwv1/logs/t7_train_v3run.log",
-   "checked_at": "2026-11-24T04:14:47Z"
+   "checked_at": "2026-11-24T04:20:23Z"
   },
   "previous": {
    "status": "stopped",
@@ -535,7 +535,7 @@
  "three_k_gate": {
   "status": "armed",
   "script": "p_items/scripts/t7_milestone_report.py",
-  "script_sha256": "6deedeed6bfff638a13845d45b8cc60de99d5263d095380c35194699447aae64",
+  "script_sha256": "ef503dc451fe9729ed243e284f7a7944134cb32a97b7ed823efa1c466ed4bdd0",
   "chain_sha256": "93315d32390351f476a586d21eb1e686ee8a6530942addb0600119f747fa0e88",
   "watchdog_sha256": "3ede8f9b4cac045247ee75e43d59d96d920eeb5dbdeb5824f365ca16e9a7eb18",
   "stop_flag": "/workspace/fwv1/STOP_TRAINING",
@@ -558,6 +558,28 @@
    "checkpoint step/force_head/base sha",
    "20 videos present"
   ],
-  "dry_run": "aborted_v2_step_003000: parsed, 20 videos zipped, verdict failed as expected (old schema)"
+  "dry_run": "aborted_v2_step_003000: parsed, 20 videos zipped, verdict failed as expected (old schema)",
+  "preflight": {
+   "status": "pass",
+   "ts": "2026-11-24T04:20:42Z",
+   "checks": 7,
+   "artifact": "p_items/PREFLIGHT_3K.json",
+   "sha256": "8da5edde3c2c999886a05589449e531bd27a611b3d9d652698fa77cbff478c19",
+   "pod_files": {
+    "/workspace/t7_milestone_report.py": "ef503dc451fe9729ed243e284f7a7944134cb32a97b7ed823efa1c466ed4bdd0",
+    "/workspace/t7_data.py": "76dfdbf4c3a30661356d42a0cac0a74b2887a9472a8efca5b17dd328f09b59ab",
+    "/workspace/t7_train.py": "bf4484718db5a46be853737da62ebc171dbb2690c12f0b2d0462743719cf62ae",
+    "/workspace/_t7_eval.py": "cd3516352f7f1c16364e4a772ebcbc950191a6dbd2b93566de4eade2d8bcf535"
+   },
+   "metrics_last_step": 440,
+   "close_neq_open_frac": 0.9091,
+   "mean_open": 0.0717
+  }
+ },
+ "gpu": {
+  "checked_at": "2026-11-24T04:20:42Z",
+  "vram_used_mb": 24178,
+  "gpu_idle": false,
+  "note": "training running: fresh V3 run 0->21000 (approved 2026-11-24T03:35Z), PID 306531, run dir t7_21k_v3run, step 440"
  }
 }

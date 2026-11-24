@@ -27,6 +27,8 @@ SUM = os.path.join(EVAL_DIR, 'SUMMARY_step_%s.json' % LABEL)
 VM = os.path.join(EVAL_DIR, 'VIDEO_MANIFEST_step_%s.json' % LABEL)
 POD = os.environ.get('T7_POD_URL', 'https://jupyter.anruicloud.com/instances/rgapi-one-click-24316-57b6b870')
 DRY = os.environ.get('T7_REPORT_DRY', '0') == '1'
+PREFLIGHT = os.environ.get('T7_REPORT_PREFLIGHT', '0') == '1'
+PRE_OUT = '/workspace/fwv1/p_items/PREFLIGHT_3K.json'
 OUTDIR = '/tmp' if DRY else '/workspace/fwv1/p_items'
 TAG = ('DRY_' if DRY else '') + ('G_D_3K' if STEP == 3000 else 'REPORT_step_%d' % STEP)
 OUT = os.path.join(OUTDIR, TAG + '.json')
@@ -50,7 +52,73 @@ def url_of(rel):
     return POD + '/api/contents/' + quote(rel, safe='/') + '?download=1'
 
 
+def preflight():
+    """Static fail-closed checks against the real pod files (no 3k artifacts needed)."""
+    ts = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+    fund = []
+
+    def fadd(name, ok, detail):
+        fund.append({'name': name, 'ok': bool(ok), 'detail': detail})
+
+    labels_sha = sha256(LABELS) if os.path.exists(LABELS) else None
+    fadd('labels_v3_sha', labels_sha == 'c4090dd2cb994a8b3524b4c2614b869035acb89dccb7c8eed0e9dbe63e4affff', labels_sha)
+    files = {}
+    for p in ('/workspace/t7_data.py', '/workspace/t7_train.py', '/workspace/_t7_eval.py',
+              '/workspace/t7_milestone_report.py'):
+        files[p] = {'sha256': sha256(p) if os.path.exists(p) else None,
+                    'bytes': os.path.getsize(p) if os.path.exists(p) else None}
+    data_src = open('/workspace/t7_data.py', encoding='utf-8').read() if os.path.exists('/workspace/t7_data.py') else ''
+    fadd('sampler_v3_no_pm1', ('g >= 0.8' in data_src) and ('g <= -0.8' not in data_src)
+         and ('release_rise' in data_src) and ('T7_FORCE_DROPOUT' in data_src), '/workspace/t7_data.py')
+    train_src = open('/workspace/t7_train.py', encoding='utf-8').read() if os.path.exists('/workspace/t7_train.py') else ''
+    fadd('force_head_train', ('force_head' in train_src) and ('loss_force' in train_src)
+         and ("bb['grip_raw']" in train_src), '/workspace/t7_train.py')
+    ev_src = open('/workspace/_t7_eval.py', encoding='utf-8').read() if os.path.exists('/workspace/_t7_eval.py') else ''
+    fadd('eval_mapping_frozen', all(x in ev_src for x in [
+        '2.0 * a[6] - 1.0', 'REPLAN = 10', 'LABEL_ROT_SCALE = 0.5', 'ROT_SCALE = 0.10',
+        "info.get('cookies_in_target') == 10 and src == 70"]), '/workspace/_t7_eval.py')
+    try:
+        m = json.load(open(MANIFEST))
+        canonical = hashlib.sha256(json.dumps(
+            {'base_options': m['base_options'],
+             'scenes': [{'seed': x['seed'], 'hash': x['hash']} for x in m['scenes']]},
+            sort_keys=True).encode()).hexdigest()
+        fadd('scene_manifest_freeze', canonical == m.get('freeze_sha256')
+             and len(m['scenes']) == 80 and len({x['hash'] for x in m['scenes']}) == 80, canonical)
+    except Exception as exc:
+        fadd('scene_manifest_freeze', False, str(exc))
+    metrics = []
+    mp = os.path.join(RUN, 'metrics.jsonl')
+    if os.path.exists(mp):
+        try:
+            for line in open(mp, encoding='utf-8').read().strip().split('\n')[-100:]:
+                if line.strip():
+                    metrics.append(json.loads(line))
+        except Exception:
+            metrics = []
+    finite = bool(metrics) and all(
+        math.isfinite(float(r.get('loss', 0.0))) and math.isfinite(float(r.get('loss_force') or 0.0))
+        for r in metrics)
+    mean_train_open = (sum(r.get('open_frac', 0) for r in metrics) / len(metrics)) if metrics else None
+    mean_train_close = (sum(r.get('close_frac', 0) for r in metrics) / len(metrics)) if metrics else None
+    diff_frac = (sum(1 for r in metrics if abs(r.get('close_frac', 0) - r.get('open_frac', 0)) > 0.05)
+                 / len(metrics)) if metrics else None
+    fadd('train_metrics_finite', finite, {'records': len(metrics),
+                                          'last_step': metrics[-1].get('step') if metrics else None})
+    fadd('train_sampler_balanced', (mean_train_open is not None and mean_train_open >= 0.03
+                                    and diff_frac is not None and diff_frac >= 0.5),
+         {'mean_open': mean_train_open, 'mean_close': mean_train_close, 'close_neq_open_frac': diff_frac})
+    out = {'worker': 'task7', 'ts': ts, 'kind': '3k_preflight', 'run_dir': RUN,
+           'metrics_path': mp, 'checks': fund, 'files': files,
+           'all_ok': all(x['ok'] for x in fund)}
+    json.dump(out, open(PRE_OUT, 'w'), indent=1)
+    print(json.dumps(out, indent=1))
+    return 0 if out['all_ok'] else 1
+
+
 def main():
+    if PREFLIGHT:
+        return preflight()
     ts = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
     checks = []
     per_seed = []
