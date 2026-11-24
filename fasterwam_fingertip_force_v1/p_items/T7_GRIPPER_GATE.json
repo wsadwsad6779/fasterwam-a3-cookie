@@ -29,6 +29,8 @@
   "pm1_used": false
  },
  "physical_levels": {
+  "role": "descriptive anatomy of THIS dataset only; not an acceptance rule, not a runtime rule, and never to be hardcoded in the policy or eval",
+  "generalization_warning": "cookie geometry and count will change; 0.28/0.49/1.0 must not be treated as invariants; grasp/release decisions must be learned from force + vision by the model",
   "source": "749 accepted episodes; observation.state[7] measured jaw; observation.force[12:14] left pads (N)",
   "geometry": {"jaw_travel_m": 0.085, "cookie_grip_axis_m": 0.0215, "free_gap_at_cmd_0.28_m": 0.024},
   "grasp": {"cmd_max": 0.35, "measured_opening_median": 0.3105802093400714, "pad_force_median_N": 1.3708487749099731, "pad_frac_gt_0.2N": 0.9821239127949468, "meaning": "real clamp on the cookie"},
@@ -77,6 +79,7 @@
   "G-C_physics_replay": {"status": "pass", "evidence": ["GRIPPER_V3_ACCEPTANCE.json sha256 1a29c6d4b710320ba6ab41a359783f485f0b7c3aca33594ca04f33b89cbef082"], "tracking": {"lag": 0, "rmse": 0.003875976739371812, "corr": 0.9997261039333067}},
   "G-D_training_balance": {"status": "blocked_deployment_drift", "fail_conditions": ["close_frac>0.95 at 3k", "open_cmd_frac<0.05 at 3k", "reopen_events==0 at 3k"], "correction": "C-20261124-01", "verified_probe": {"artifact": "SAMPLER_BALANCE_CHECK.json", "ts": "2026-11-24T00:45:29Z", "mean_open_frac_ge0.8_unbalanced": 0.04765625, "mean_open_frac_ge0.8_balanced": 0.2083984375, "improvement_x": 4.372950819672131, "note": "probe passed with the HEAD version; pod copies were reverted to pm1 after the probe"}},
   "G-E_behavior_milestones": {"status": "pending", "requirements": ["3k: >=1 reopen and exact_fill>0", "6k: no >20% relative degradation vs 3k", "10 fixed seeds"]},
+  "G-G_force_grounded_generalization": {"status": "pending", "requirements": ["acceptance uses measured contact force and task outcome, never aperture thresholds", "carry segments: left pad force sustained >0.5N; release segments: force back to ~0; no cookie drop during carry", "with-force vs zero-force ablation reported at every milestone (F2 must not be cosmetic)", "held-out 2x10 (96 episodes) evaluated with no aperture rules", "new cookie count/thickness enters as a new dataset version with explicit approval; never silently mixed into the frozen split"], "forbidden": "runtime force-threshold gripper controller (external controller in final decisions) is not allowed"},
   "G-F_ledger": {"status": "pending", "files": ["TRAINING_RUN_STATE.json", "EVAL_SEED_MANIFEST.json", "CHECKPOINT_MANIFEST.json", "GPU_UPLOAD_MANIFEST.json"]}
  },
  "hold": {"training_forbidden": true, "release_condition": "G-A..G-F all pass and supervisor verdict recorded"},
