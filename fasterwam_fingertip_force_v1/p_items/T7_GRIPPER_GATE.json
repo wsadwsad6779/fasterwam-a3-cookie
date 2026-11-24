@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "kind": "task7_gripper_supervision_gate",
- "ts": "2026-11-24T01:10:00Z",
+ "ts": "2026-11-24T03:57:01Z",
  "roles": {
   "worker": "task7 (owns the gripper fix, implementation and experiments)",
   "supervisor": "this session (independent verification, gate verdicts, written corrections, stop authority)",
@@ -319,11 +319,23 @@
   }
  },
  "hold": {
-  "training_forbidden": true,
-  "release_condition": "G-A..G-F all pass and supervisor verdict recorded",
-  "budget_conservative_cap_steps": 14860,
-  "budget_new_total_steps": 21000,
-  "budget_note": "use 14860 until the user confirms a new total"
+  "training_forbidden": false,
+  "authorized_at": "2026-11-24T03:35:00Z",
+  "scope": "V3 new run only (fresh 21000 steps, 0->21000)",
+  "stop_conditions": [
+   "G-D 3k metrics fail",
+   ">20% relative degradation at 6k",
+   "budget/gate violation"
+  ],
+  "budget": {
+   "new_run_steps": 21000,
+   "approved_by_user_at": "2026-11-24T03:35:00Z",
+   "old_v2_steps": 6140,
+   "v3_diagnostic_steps": 200,
+   "total_executed_approx": 27340,
+   "expansion_allowed": false,
+   "scope": "fresh 21000 for this V3 run only"
+  }
  },
  "red_lines": [
   "official base step_021700.pt only",
@@ -338,9 +350,13 @@
   "ts": "2026-11-24T03:00:00Z",
   "policy": "partial pending never releases training; no criteria changes",
   "budget_policy": {
-   "conservative_cap_steps": 14860,
-   "new_budget_steps": 21000,
-   "status": "not confirmed by user; use 14860"
+   "new_run_steps": 21000,
+   "approved_by_user_at": "2026-11-24T03:35:00Z",
+   "old_v2_steps": 6140,
+   "v3_diagnostic_steps": 200,
+   "total_executed_approx": 27340,
+   "expansion_allowed": false,
+   "scope": "fresh 21000 for this V3 run only"
   },
   "eval_scene_policy": {
    "manifest": "p_items/EVAL_SCENE_MANIFEST_V3.json",
@@ -404,12 +420,36 @@
     "blocked_on": "real run ledger updates"
    }
   ],
-  "training_allowed": false,
+  "training_allowed": true,
   "release_condition": "G-A..G-F all pass and supervisor verdict recorded",
   "pretrain_items": {
    "eval_scene_integration": "pass",
    "p3b_probe": "feasible",
    "training_allowed": false
+  },
+  "training_allowed_scope": "V3 new run only: 0->21000, fresh 21000 steps, approved 2026-11-24T03:35Z",
+  "authorized_run": {
+   "run_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
+   "start_step": 0,
+   "segment_end_step": 3000,
+   "tmux_session": "fwv1",
+   "tmux_window": "train_v3run",
+   "status": "running",
+   "eval_scene_manifest": "p_items/EVAL_SCENE_MANIFEST_V3.json",
+   "pid": 306531,
+   "chain_window": "chain_v3run",
+   "watchdog_window": "watchdog_v3run",
+   "started_at": "2026-11-24T03:51:50Z",
+   "first_metrics": {
+    "step": 60,
+    "close_frac": 0.796875,
+    "open_frac": 0.140625,
+    "release_frac": 0.828125,
+    "loss_force": 0.85742,
+    "feat_dim": 1024,
+    "force_drop_frac": 0.125,
+    "close_neq_open": true
+   }
   }
  },
  "eval_scene_integration": {

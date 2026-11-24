@@ -1,0 +1,21 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-24T03:57:01Z",
+ "reason": "/workspace free 27G < 30G storage floor before launch",
+ "moved": [
+  {
+   "from": "/workspace/fwv1/train_runs/t7_smoke_force",
+   "to": "/root/fwv1_quarantine_20261124/t7_smoke_force",
+   "size": "9.4G"
+  },
+  {
+   "from": "/workspace/fwv1/train_runs/t7_smoke_force500",
+   "to": "/root/fwv1_quarantine_20261124/t7_smoke_force500",
+   "size": "6.3G"
+  }
+ ],
+ "action": "move, not delete; artifacts preserved; reproducible with 2-step smoke",
+ "free_before_gb": 27,
+ "free_after_gb": 42,
+ "note": "old t7_21k diagnostic and t7_21k_ABORTED_V2 untouched"
+}

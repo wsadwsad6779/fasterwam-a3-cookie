@@ -265,6 +265,8 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label,
         'strong_contact_frac': float((pads > 0.5).mean()) if len(pads) else None,
         'contact_force_median': float(np.median(pads[pads > 0.2])) if (pads > 0.2).any() else None,
         'close_cmd_force_median': float(np.median(pads[cmd_close])) if cmd_close.any() else None,
+        'carry_force_frac_gt_0p5': float((pads[cmd_close] > 0.5).mean()) if cmd_close.any() else None,
+        'carry_force_frac_gt_0p2': float((pads[cmd_close] > 0.2).mean()) if cmd_close.any() else None,
         'release_cmd_force_median': float(np.median(pads[rel_mask])) if rel_mask.any() else None,
         'force_max': float(pads.max()) if len(pads) else None,
     }
@@ -341,7 +343,8 @@ def main():
                    'reopen_events_mean': float(np.mean([r['action_stats']['reopen_events'] for r in results if r.get('action_stats')])) if any(r.get('action_stats') for r in results) else None},
                'force_stats_mean': {
                    'contact_frac': float(np.mean([r['force_stats']['contact_frac'] for r in results if r.get('force_stats') and r['force_stats']['contact_frac'] is not None])) if any(r.get('force_stats') and r['force_stats']['contact_frac'] is not None for r in results) else None,
-                   'strong_contact_frac': float(np.mean([r['force_stats']['strong_contact_frac'] for r in results if r.get('force_stats') and r['force_stats']['strong_contact_frac'] is not None])) if any(r.get('force_stats') and r['force_stats']['strong_contact_frac'] is not None for r in results) else None},
+                   'strong_contact_frac': float(np.mean([r['force_stats']['strong_contact_frac'] for r in results if r.get('force_stats') and r['force_stats']['strong_contact_frac'] is not None])) if any(r.get('force_stats') and r['force_stats']['strong_contact_frac'] is not None for r in results) else None,
+                   'carry_force_frac_gt_0p5': float(np.mean([r['force_stats']['carry_force_frac_gt_0p5'] for r in results if r.get('force_stats') and r['force_stats']['carry_force_frac_gt_0p5'] is not None])) if any(r.get('force_stats') and r['force_stats']['carry_force_frac_gt_0p5'] is not None for r in results) else None},
                'exact_fill_count': sum(1 for r in results if r.get('exact_fill')),
                'exact_fill_rate': sum(1 for r in results if r.get('exact_fill')) / max(1, len(results)),
                'avg_in_target': float(np.mean([r.get('final_in_target') or 0 for r in results])),
