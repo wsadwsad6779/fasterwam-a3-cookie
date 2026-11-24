@@ -36,6 +36,7 @@ START = int(os.environ.get('T7_START_STEP', '0'))
 END = int(os.environ.get('T7_END_STEP', '3000'))
 CKPT_EVERY = int(os.environ.get('T7_CKPT_EVERY', '500'))
 AUX_W = float(os.environ.get('T7_AUX_FORCE_W', '0.05'))
+_STARTED_AT = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
 
 
 def log(m, fh=None):
@@ -48,11 +49,14 @@ def log(m, fh=None):
 
 
 def st(status, step, note=''):
-    d = {'started_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+    d = {'started_at': _STARTED_AT,
          'ts': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'pid': os.getpid(),
          'stage': 'train', 'log_path': LOG, 'status': status, 'step': step,
          'expected_artifacts': [RUN_DIR], 'next': 'milestone eval at 3k boundary', 'note': note}
-    json.dump(d, open(STATE, 'w'), indent=1)
+    tmp = STATE + '.tmp'
+    with open(tmp, 'w') as f:
+        json.dump(d, f, indent=1)
+    os.replace(tmp, STATE)
 
 
 def sha256_file(p):

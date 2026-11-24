@@ -1,12 +1,12 @@
 {
  "worker": "task7",
- "ts": "2026-11-24T04:28:57Z",
+ "ts": "2026-11-24T04:40:12Z",
  "kind": "checkpoint_backup_manifest",
  "checked_at": "2026-11-24T04:25:11Z",
  "free_gb": 38.8,
  "free_bytes": 41661444096,
  "status": "no_external_backup",
- "status_detail": "0/1 current-run checkpoints have an external sha256-verified copy; milestone upload attempts are mandatory",
+ "status_detail": "0/1 current-run checkpoints have an external sha256-verified copy (latest step600); milestone upload attempts are mandatory",
  "milestone_upload_status": "pending (per-milestone HF attempt + sha256 verify)",
  "g_f_rule": "checkpoint without external sha256-verified copy is recorded as external=no_external_backup; historical verified bundles do not count",
  "v3run": {
@@ -18,6 +18,16 @@
     "path": "/workspace/fwv1/train_runs/t7_21k_v3run/latest.pt",
     "bytes": 3363807509,
     "sha256": "bc6f0f9480d72f16a04764993822511244c2a632b1e594df1b47fc1eba3b128f",
+    "status": "superseded",
+    "location": "workspace",
+    "external": "no_external_backup",
+    "external_upload_attempt": "not_attempted"
+   },
+   {
+    "step": 600,
+    "path": "/workspace/fwv1/train_runs/t7_21k_v3run/latest.pt",
+    "bytes": 3363807509,
+    "sha256": "cb129fea28aecd010b1f8dd26dc1b0004885e037bb7fd9fb1ea0e2e3dd988440",
     "force_head": true,
     "base_sha_ok": true,
     "location": "workspace",

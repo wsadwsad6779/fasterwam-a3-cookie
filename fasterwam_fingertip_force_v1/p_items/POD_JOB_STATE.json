@@ -1,11 +1,11 @@
 {
- "started_at": "2026-11-24T04:20:23Z",
- "ts": "2026-11-24T04:20:23Z",
+ "started_at": "2026-11-24T04:40:00Z",
+ "ts": "2026-11-24T04:40:00Z",
  "pid": 306531,
  "stage": "train",
  "log_path": "/workspace/fwv1/logs/t7_train_v3run.log",
  "status": "running",
- "step": 450,
+ "step": 770,
  "expected_artifacts": [
   "/workspace/fwv1/train_runs/t7_21k_v3run"
  ],
