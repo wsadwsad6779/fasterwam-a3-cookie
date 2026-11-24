@@ -1,0 +1,84 @@
+{
+ "schema": 1,
+ "kind": "task7_gripper_supervision_gate",
+ "ts": "2026-11-24T01:10:00Z",
+ "roles": {
+  "worker": "task7 (owns the gripper fix, implementation and experiments)",
+  "supervisor": "this session (independent verification, gate verdicts, written corrections, stop authority)",
+  "supervisor_must_not": ["edit labels", "start training", "edit worker code"]
+ },
+ "training_state": {
+  "status": "stopped",
+  "evidence": {
+   "gpu_used_bytes": 28004352,
+   "t7_processes": 0,
+   "tmux_windows_closed": ["train_v3", "chain_v3", "watchdog_v3", "finalizer_v3"],
+   "pod_time_utc": "2026-11-24T01:02:39Z",
+   "v3_run_last_step": 200,
+   "latest_checkpoint": "/workspace/fwv1/train_runs/t7_21k/latest.pt",
+   "log_tail": "/workspace/fwv1/logs/t7_train.log"
+  }
+ },
+ "label_semantics": {
+  "definition": "column 6 = raw expert action[7] commanded opening, continuous, 1=open",
+  "artifact": "p_items/A3_845_7D_LABELS_V3.npz",
+  "sha256": "c4090dd2cb994a8b3524b4c2614b869035acb89dccb7c8eed0e9dbe63e4affff",
+  "shape": [458332, 7],
+  "episodes": 845,
+  "thresholds_used": false,
+  "pm1_used": false
+ },
+ "physical_levels": {
+  "source": "749 accepted episodes; observation.state[7] measured jaw; observation.force[12:14] left pads (N)",
+  "geometry": {"jaw_travel_m": 0.085, "cookie_grip_axis_m": 0.0215, "free_gap_at_cmd_0.28_m": 0.024},
+  "grasp": {"cmd_max": 0.35, "measured_opening_median": 0.3105802093400714, "pad_force_median_N": 1.3708487749099731, "pad_frac_gt_0.2N": 0.9821239127949468, "meaning": "real clamp on the cookie"},
+  "release": {"cmd_range": [0.35, 0.7], "measured_opening_median": 0.4615495996832565, "pad_force_median_N": 0.0, "pad_frac_gt_0.2N": 1.3186386413737232e-05, "meaning": "released, no contact"},
+  "open": {"cmd_min": 0.8, "measured_opening_median": 0.9731855553078961, "pad_force_median_N": 0.0, "meaning": "free-space open/approach"},
+  "correction": "0.28 is NOT full closure; binary 'closed' naming collapsed the approach/release bands in V2",
+  "right_pads_nonzero_fraction": 0.0
+ },
+ "terminal_state": {
+  "episodes_ending_released": 749,
+  "episodes": 749,
+  "release_events_total": 2996,
+  "release_events_per_episode_median": 4.0,
+  "final_command_median": 0.49,
+  "final_measured_opening_median": 0.49,
+  "old_audit": {"file": "p_items/GRIPPER_V3_TERMINAL_STATE_AUDIT.json", "sha256": "5df52e0c9061e7d4529fb1584338ce8c1c7d0b716d038bfdd1e4a4dbde442eaf", "verdict": "incomplete_terminal_release", "status": "superseded_threshold_artifact_kept_for_history"}
+ },
+ "deployment_drift": {
+  "severity": "high",
+  "correction": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\PENDING_CORRECTIONS\\C-20261124-01-sampler-deployment-drift.md",
+  "pod_current": {
+   "/workspace/t7_data.py": "phase_open uses g <= -0.8 (pm1 semantics; V3 continuous labels make this empty)",
+   "/workspace/_t7_data.py": "same pm1 line",
+   "/workspace/t7_train.py": "close_frac computed as action>=0.8, identical to open_frac",
+   "/workspace/_t7_train.py": "same inverted metric"
+  },
+  "head_v3_correct": {
+   "scripts/t7_data.py": "phase_open uses g >= 0.8",
+   "scripts/t7_train.py": "close_frac uses <=0.6 and open_frac uses >=0.8"
+  },
+  "why_the_v3_run_used_the_correct_version": [
+   "training log has close_frac != open_frac per step (e.g. 0.648 vs 0.301), impossible with the inverted metric",
+   "the 00:45Z sampler probe passed with 4.37x open oversampling, so the HEAD version was live then"
+  ],
+  "required_fix": "deploy HEAD scripts to /workspace/t7_data.py and /workspace/t7_train.py, overwrite or remove the _t7_* old copies, rerun the sampler probe, and prove close_frac != open_frac on one real step"
+ },
+ "flip_history": {
+  "v1_old_labels": {"flips": 1892, "one_step_pulses": 318, "approach_open_labeled_close_rate": 0.4797},
+  "v2_deadband_minhold": {"flips": 300, "one_step_pulses": 0, "approach_open_accuracy": 0.0, "label_close_frac": 0.935, "consequence": "policy closes and never opens"},
+  "v3_continuous": {"rapid_flip_episodes": 0, "big_jump_episodes": 0, "starts_open": 749, "reopen_after_first_close": 749, "verdict": "pass"},
+  "evidence": {"file": "p_items/GRIPPER_LABEL_V2_EVENT_METRICS.json", "sha256": "4c5a2cec0ecfe48a0530e675b12bc9e8be170da7ee1b58681299343eae21829c"}
+ },
+ "gates": {
+  "G-A_label_semantics": {"status": "pass", "evidence": ["GRIPPER_V3_LABEL_AUDIT.json sha256 2147901bb5ba5e66db9f2a8913fbbbae44d5d3669dd75b1fb47905824e55f867", "GRIPPER_SEMANTICS_VERIFICATION.json"]},
+  "G-B_eval_mapping_regression": {"status": "pending", "fix_commit": "e74e1ea", "checks": ["g=2a-1", "trans x2", "rot x5", "replan=10", "exact_fill src==70"]},
+  "G-C_physics_replay": {"status": "pass", "evidence": ["GRIPPER_V3_ACCEPTANCE.json sha256 1a29c6d4b710320ba6ab41a359783f485f0b7c3aca33594ca04f33b89cbef082"], "tracking": {"lag": 0, "rmse": 0.003875976739371812, "corr": 0.9997261039333067}},
+  "G-D_training_balance": {"status": "blocked_deployment_drift", "fail_conditions": ["close_frac>0.95 at 3k", "open_cmd_frac<0.05 at 3k", "reopen_events==0 at 3k"], "correction": "C-20261124-01", "verified_probe": {"artifact": "SAMPLER_BALANCE_CHECK.json", "ts": "2026-11-24T00:45:29Z", "mean_open_frac_ge0.8_unbalanced": 0.04765625, "mean_open_frac_ge0.8_balanced": 0.2083984375, "improvement_x": 4.372950819672131, "note": "probe passed with the HEAD version; pod copies were reverted to pm1 after the probe"}},
+  "G-E_behavior_milestones": {"status": "pending", "requirements": ["3k: >=1 reopen and exact_fill>0", "6k: no >20% relative degradation vs 3k", "10 fixed seeds"]},
+  "G-F_ledger": {"status": "pending", "files": ["TRAINING_RUN_STATE.json", "EVAL_SEED_MANIFEST.json", "CHECKPOINT_MANIFEST.json", "GPU_UPLOAD_MANIFEST.json"]}
+ },
+ "hold": {"training_forbidden": true, "release_condition": "G-A..G-F all pass and supervisor verdict recorded"},
+ "red_lines": ["official base step_021700.pt only", "bare model final", "no G3/M5/oracle/external gripper controller in final decisions", "no exact_fill relaxation", "no budget expansion", "no token in files/logs/git", "no deletion of existing artifacts"]
+}

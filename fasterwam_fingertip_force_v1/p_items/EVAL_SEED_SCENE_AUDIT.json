@@ -1,0 +1,179 @@
+{
+ "worker": "supervisor",
+ "ts": "2026-11-24T01:05:01Z",
+ "seeds": {
+  "count": 80,
+  "first": 7100,
+  "last": 7909
+ },
+ "default_eval_reset": {
+  "n": 80,
+  "distinct_hashes": 1,
+  "distinct_cameras": 1,
+  "distinct_lights": 1,
+  "distinct_bins": 1,
+  "cookie_pairwise_max_m": 0.0,
+  "cookie_pairwise_mean_m": 0.0
+ },
+ "full_randomized_reset": {
+  "n": 80,
+  "distinct_hashes": 80,
+  "distinct_cameras": 1,
+  "distinct_lights": 1,
+  "distinct_bins": 80,
+  "cookie_pairwise_max_m": 0.019457483316858204,
+  "cookie_pairwise_mean_m": 0.009254981360278814
+ },
+ "default_first5": [
+  {
+   "seed": 7100,
+   "hash": "71448a579f2c3c90",
+   "source_bin": [
+    0.175,
+    0.315,
+    0.0
+   ],
+   "target_bin": [
+    0.12459999600535374,
+    -0.011566666669617177,
+    0.7497718607721491
+   ]
+  },
+  {
+   "seed": 7101,
+   "hash": "71448a579f2c3c90",
+   "source_bin": [
+    0.175,
+    0.315,
+    0.0
+   ],
+   "target_bin": [
+    0.12459999600535374,
+    -0.011566666669617177,
+    0.7497718607721491
+   ]
+  },
+  {
+   "seed": 7102,
+   "hash": "71448a579f2c3c90",
+   "source_bin": [
+    0.175,
+    0.315,
+    0.0
+   ],
+   "target_bin": [
+    0.12459999600535374,
+    -0.011566666669617177,
+    0.7497718607721491
+   ]
+  },
+  {
+   "seed": 7103,
+   "hash": "71448a579f2c3c90",
+   "source_bin": [
+    0.175,
+    0.315,
+    0.0
+   ],
+   "target_bin": [
+    0.12459999600535374,
+    -0.011566666669617177,
+    0.7497718607721491
+   ]
+  },
+  {
+   "seed": 7104,
+   "hash": "71448a579f2c3c90",
+   "source_bin": [
+    0.175,
+    0.315,
+    0.0
+   ],
+   "target_bin": [
+    0.12459999600535374,
+    -0.011566666669617177,
+    0.7497718607721491
+   ]
+  }
+ ],
+ "full_first5": [
+  {
+   "seed": 7100,
+   "hash": "643ca45c05ad0855",
+   "source_bin": [
+    0.1705754084182401,
+    0.3138572693084001,
+    0.0
+   ],
+   "target_bin": [
+    0.12251112382546298,
+    -0.011085464541773917,
+    0.7497719630694293
+   ]
+  },
+  {
+   "seed": 7101,
+   "hash": "cc67bf1418bd2c17",
+   "source_bin": [
+    0.1701665555075731,
+    0.3195451632824657,
+    0.0
+   ],
+   "target_bin": [
+    0.12289944503699993,
+    -0.019517636803579874,
+    0.7497719630694293
+   ]
+  },
+  {
+   "seed": 7102,
+   "hash": "4e07ffede5414be5",
+   "source_bin": [
+    0.1702539196149031,
+    0.31206551173616687,
+    0.0
+   ],
+   "target_bin": [
+    0.11915761741455755,
+    -0.01152357788026499,
+    0.7497719630694293
+   ]
+  },
+  {
+   "seed": 7103,
+   "hash": "62bd380ee7c00833",
+   "source_bin": [
+    0.16829903731273482,
+    0.31870495449965963,
+    0.0
+   ],
+   "target_bin": [
+    0.1296739787534443,
+    -0.005106033008935312,
+    0.7497719630694293
+   ]
+  },
+  {
+   "seed": 7104,
+   "hash": "d791324c52793c80",
+   "source_bin": [
+    0.1743266475819255,
+    0.311011455193673,
+    0.0
+   ],
+   "target_bin": [
+    0.12334455859895058,
+    -0.014262177250250092,
+    0.7497719630694293
+   ]
+  }
+ ],
+ "elapsed_s": 95.1,
+ "verdict": {
+  "default_reset_same_layout": true,
+  "default_cookie_jitter_m": 0.0,
+  "full_reset_distinct_bins": 80,
+  "full_reset_distinct_hashes": 80,
+  "note": "the current chain eval uses the default reset, which leaves bins/cameras fixed; the full reset varies bins/cookies within the 1 cm collection envelope. Freeze the full-reset seeds + hashes before the next run."
+ }
+}

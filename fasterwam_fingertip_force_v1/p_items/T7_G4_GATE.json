@@ -1,32 +1,25 @@
 {
   "worker": "task7",
   "gate": "G4_pre_train",
-  "ts": "2026-11-23T17:43:00Z",
-  "verdict": "PASSED_AFTER_SUPERVISOR_AUDIT",
-  "history": [
-    "worker claim PASSED_V2 at 17:14:10Z (preserved at p_items/T7_G4_GATE_WORKER_CLAIM_20261123T1730Z.json)",
-    "supervisor revoked at 17:30:36Z and stopped training at step 360 (preserved at p_items/T7_G4_GATE_REVOKED_20261123T1730Z.json)",
-    "supervisor re-verified at 17:43:00Z: all gaps closed; this verdict supersedes the revocation"
+  "ts": "2026-11-24T01:08:00Z",
+  "verdict": "BLOCKED_GRIPPER_FIX_AND_V3_AUDITS",
+  "supersedes": "PASSED_AFTER_SUPERVISOR_AUDIT at 2026-11-23T17:43Z",
+  "reason": "user directive 2026-11-24: discard all previous training progress; do not resume 3k/6k; retrain from scratch only after the gripper open/close issue is 100% fixed and the V3 audits pass",
+  "blocking_findings": [
+    "gripper repair labels/mapping are correct, but the training class-balance code is inverted: t7_data.py phase_open uses g>=0.8 which selects pm1 +1 close; t7_train.py close_frac uses <=0.6 which selects -1 open (GRIPPER_FIX_AUDIT.json)",
+    "the old 3k/6k milestones are invalid for judgment: eval rotation was scaled 10x too small, exact_fill required source==0, and the chain eval reset left bins/cameras fixed (eval-scene audit pending); the 6k fixed-eval re-eval still 0 grasps",
+    "P3-B generalization data is not qualified: the 749 training episodes are basic-profile only with ~1 cm layout jitter; no camera/lighting/friction variation; new data version/experiment identity required if supplementing",
+    "P4: the eval seeds must be frozen on genuinely different layouts before the new run; default reset keeps bins/cameras fixed"
   ],
-  "dependencies": {
-    "D2": {"status": "pass", "evidence": "JOINT_TO_7D_VERIFICATION.json (labels aligned, 0 mismatch), video length 845/845, 749 success episodes + 96 2x10 identified (DATASET_845_IDENTITY_RECOVERY.json), near-dup audit DATASET_845_NEAR_DUP_AUDIT.json (no identical trajectories; layout envelope documented)"},
-    "D3": {"status": "pass", "evidence": "GEN_PROBE.json: current-sim closed-loop expert seed 90000 reaches 10/10 cookies, L pad q99 1.447/1.456 N vs dataset 1.46/1.47 N; the 15-19x worker gap was an open-loop replay artifact (wrong reset scene, P5_ALIGNED_FORCE_AUDIT.json); no OOD data needed"},
-    "D4": {"status": "pass", "evidence": "GRIPPER_PHASE_METRICS 11/11 transitions, mapping 1.0; GEN_PROBE full 10-cookie cycle success (2 batches of 5)"},
-    "D5": {"status": "pass", "evidence": "F2_TRAINABLE_PARAMETERS/F2_FORCE_EFFECTIVENESS_TEST/F2_TRAINING_READINESS; force scale now anchored to 1.45 N by GEN_PROBE"}
-  },
-  "audit": "p_items/T7_SUPERVISOR_AUDIT.json",
-  "training_allowed": true,
-  "base_identity": "T7_BASE_IDENTITY.json sha256 01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d",
-  "data": {
-    "split": "DATASET_845_SPLIT_MANIFEST_V2.json (train 589 / val 85 / test 171; 96 2x10 frozen test-only, identified)",
-    "force_normalization": "FINGERTIP_FORCE_NORMALIZATION_V2.json (train-only; no rescaling of labels; OOD/saturation reported as a monitor)"
-  },
-  "budget": {"used_steps": 360, "remaining_steps": 20640, "max_total": 21000},
-  "resume": {
-    "checkpoint_available": false,
-    "start_step": 0,
-    "reason": "no latest.pt / step_003000.pt was written before the stop; the 360 consumed steps remain charged to the budget",
-    "command_hint": "t7_train.py with T7_START_STEP=0 T7_END_STEP=3000, then the chain for 3k milestones",
-    "must_not": ["silently restart from a different checkpoint", "expand the budget", "mix 2x5 and 2x10 without a tag"]
-  }
+  "not_blocking": "D3 force: single conclusion D3_FINAL_CONCLUSION.json - dataset and current closed-loop expert agree at 1.45-1.47 N; open-loop replay 25-29x is an invalid control reproduction; no true OOD, no force supplement needed",
+  "training_allowed": false,
+  "budget": {"used_steps": 6140, "remaining_steps": 14860, "max_total": 21000,
+             "note": "old run discarded; remaining budget under the hard cap; fresh 21000 requires explicit approval"},
+  "conditions_to_repass": [
+    "gripper: correct the balanced sampler open/close semantics and the close_frac metric; re-audit labels/mapping/model grip behavior; declare 100% fixed with evidence",
+    "P3: publish A/B verdict and a validated supplement design/new data version with independent experiment identity; 96 2x10 stays independent test-only",
+    "P4: freeze genuinely different test scenes with layout hashes before any checkpoint is evaluated",
+    "D3: use D3_FINAL_CONCLUSION.json as the only force conclusion",
+    "new run identity: base/F2 unchanged, new dataset version, from-scratch training, 3k checkpoints, 10-seed dual-video, 12k degradation check"
+  ]
 }

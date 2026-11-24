@@ -1,0 +1,368 @@
+{
+ "worker": "supervisor",
+ "ts": "2026-11-24T01:01:06Z",
+ "label_semantics": "pm1: +1 close (raw opening <=0.6), -1 open (raw opening >=0.8)",
+ "by_class": {
+  "2x5": {
+   "episodes": 749,
+   "close_frac_mean": 0.9350358333386039,
+   "close_frac_median": 0.9347368421052632,
+   "close_frac_min": 0.9330453563714903,
+   "close_frac_max": 0.9424184261036468,
+   "episodes_close_gt_0.95": 0,
+   "episodes_close_gt_0.97": 0,
+   "episodes_close_eq_1.0": 0,
+   "always_closed_episodes": 0,
+   "always_open_episodes": 0,
+   "transitions_mean": 3.0,
+   "transitions_median": 3.0,
+   "episodes_with_open": 749,
+   "open_run_len_median": 15.5,
+   "close_run_len_median": 221.0,
+   "pulses_1step_total": 0,
+   "raw_close_cmd_frac_mean": 0.9309567652448074,
+   "naive_mismatch_mean": 0.01056232945641447
+  },
+  "2x10": {
+   "episodes": 96,
+   "close_frac_mean": 0.9365558783062639,
+   "close_frac_median": 0.9365225390984361,
+   "close_frac_min": 0.9341262580054894,
+   "close_frac_max": 0.9395050412465628,
+   "episodes_close_gt_0.95": 0,
+   "episodes_close_gt_0.97": 0,
+   "episodes_close_eq_1.0": 0,
+   "always_closed_episodes": 0,
+   "always_open_episodes": 0,
+   "transitions_mean": 7.0,
+   "transitions_median": 7.0,
+   "episodes_with_open": 96,
+   "open_run_len_median": 17.0,
+   "close_run_len_median": 250.5,
+   "pulses_1step_total": 0,
+   "raw_close_cmd_frac_mean": 0.9282927342659945,
+   "naive_mismatch_mean": 0.011116079190100025
+  },
+  "all": {
+   "episodes": 845,
+   "close_frac_mean": 0.9352085248378882,
+   "close_frac_median": 0.9348739495798319,
+   "close_frac_min": 0.9330453563714903,
+   "close_frac_max": 0.9424184261036468,
+   "episodes_close_gt_0.95": 0,
+   "episodes_close_gt_0.97": 0,
+   "episodes_close_eq_1.0": 0,
+   "always_closed_episodes": 0,
+   "always_open_episodes": 0,
+   "transitions_mean": 3.454437869822485,
+   "transitions_median": 3.0,
+   "episodes_with_open": 845,
+   "open_run_len_median": 15.5,
+   "close_run_len_median": 221.5,
+   "pulses_1step_total": 0,
+   "raw_close_cmd_frac_mean": 0.9306541061040191,
+   "naive_mismatch_mean": 0.010625240668762177
+  }
+ },
+ "first10": [
+  {
+   "episode": 0,
+   "frames": 466,
+   "label_rows": 465,
+   "task_class": "2x5",
+   "label_close_frac": 0.9333333333333333,
+   "raw_close_cmd_frac": 0.9291845493562232,
+   "raw_open_cmd_frac": 0.0536480686695279,
+   "raw_deadband_frac": 0.017167381974248927,
+   "transitions": 3,
+   "pulses_1step": 0,
+   "open_runs": [
+    14,
+    17
+   ],
+   "close_runs": [
+    208,
+    226
+   ],
+   "first_close": 14,
+   "first_open_after_close": 222,
+   "always_closed": false,
+   "always_open": false,
+   "naive_threshold_mismatch": 0.010752688172043012
+  },
+  {
+   "episode": 1,
+   "frames": 475,
+   "label_rows": 474,
+   "task_class": "2x5",
+   "label_close_frac": 0.9345991561181435,
+   "raw_close_cmd_frac": 0.9305263157894736,
+   "raw_open_cmd_frac": 0.05263157894736842,
+   "raw_deadband_frac": 0.016842105263157894,
+   "transitions": 3,
+   "pulses_1step": 0,
+   "open_runs": [
+    14,
+    17
+   ],
+   "close_runs": [
+    213,
+    230
+   ],
+   "first_close": 14,
+   "first_open_after_close": 227,
+   "always_closed": false,
+   "always_open": false,
+   "naive_threshold_mismatch": 0.010548523206751054
+  },
+  {
+   "episode": 2,
+   "frames": 476,
+   "label_rows": 475,
+   "task_class": "2x5",
+   "label_close_frac": 0.9347368421052632,
+   "raw_close_cmd_frac": 0.930672268907563,
+   "raw_open_cmd_frac": 0.052521008403361345,
+   "raw_deadband_frac": 0.01680672268907563,
+   "transitions": 3,
+   "pulses_1step": 0,
+   "open_runs": [
+    14,
+    17
+   ],
+   "close_runs": [
+    214,
+    230
+   ],
+   "first_close": 14,
+   "first_open_after_close": 228,
+   "always_closed": false,
+   "always_open": false,
+   "naive_threshold_mismatch": 0.010526315789473684
+  },
+  {
+   "episode": 3,
+   "frames": 467,
+   "label_rows": 466,
+   "task_class": "2x5",
+   "label_close_frac": 0.9334763948497854,
+   "raw_close_cmd_frac": 0.9293361884368309,
+   "raw_open_cmd_frac": 0.05353319057815846,
+   "raw_deadband_frac": 0.017130620985010708,
+   "transitions": 3,
+   "pulses_1step": 0,
+   "open_runs": [
+    14,
+    17
+   ],
+   "close_runs": [
+    209,
+    226
+   ],
+   "first_close": 14,
+   "first_open_after_close": 223,
+   "always_closed": false,
+   "always_open": false,
+   "naive_threshold_mismatch": 0.01072961373390558
+  },
+  {
+   "episode": 4,
+   "frames": 480,
+   "label_rows": 479,
+   "task_class": "2x5",
+   "label_close_frac": 0.9352818371607515,
+   "raw_close_cmd_frac": 0.93125,
+   "raw_open_cmd_frac": 0.052083333333333336,
+   "raw_deadband_frac": 0.016666666666666666,
+   "transitions": 3,
+   "pulses_1step": 0,
+   "open_runs": [
+    14,
+    17
+   ],
+   "close_runs": [
+    215,
+    233
+   ],
+   "first_close": 14,
+   "first_open_after_close": 229,
+   "always_closed": false,
+   "always_open": false,
+   "naive_threshold_mismatch": 0.010438413361169102
+  },
+  {
+   "episode": 5,
+   "frames": 478,
+   "label_rows": 477,
+   "task_class": "2x5",
+   "label_close_frac": 0.9350104821802935,
+   "raw_close_cmd_frac": 0.9309623430962343,
+   "raw_open_cmd_frac": 0.05230125523012552,
+   "raw_deadband_frac": 0.016736401673640166,
+   "transitions": 3,
+   "pulses_1step": 0,
+   "open_runs": [
+    14,
+    17
+   ],
+   "close_runs": [
+    213,
+    233
+   ],
+   "first_close": 14,
+   "first_open_after_close": 227,
+   "always_closed": false,
+   "always_open": false,
+   "naive_threshold_mismatch": 0.010482180293501049
+  },
+  {
+   "episode": 6,
+   "frames": 475,
+   "label_rows": 474,
+   "task_class": "2x5",
+   "label_close_frac": 0.9367088607594937,
+   "raw_close_cmd_frac": 0.9326315789473684,
+   "raw_open_cmd_frac": 0.05052631578947368,
+   "raw_deadband_frac": 0.016842105263157894,
+   "transitions": 3,
+   "pulses_1step": 0,
+   "open_runs": [
+    13,
+    17
+   ],
+   "close_runs": [
+    212,
+    232
+   ],
+   "first_close": 13,
+   "first_open_after_close": 225,
+   "always_closed": false,
+   "always_open": false,
+   "naive_threshold_mismatch": 0.010548523206751054
+  },
+  {
+   "episode": 7,
+   "frames": 478,
+   "label_rows": 477,
+   "task_class": "2x5",
+   "label_close_frac": 0.9350104821802935,
+   "raw_close_cmd_frac": 0.9309623430962343,
+   "raw_open_cmd_frac": 0.05230125523012552,
+   "raw_deadband_frac": 0.016736401673640166,
+   "transitions": 3,
+   "pulses_1step": 0,
+   "open_runs": [
+    14,
+    17
+   ],
+   "close_runs": [
+    214,
+    232
+   ],
+   "first_close": 14,
+   "first_open_after_close": 228,
+   "always_closed": false,
+   "always_open": false,
+   "naive_threshold_mismatch": 0.010482180293501049
+  },
+  {
+   "episode": 8,
+   "frames": 467,
+   "label_rows": 466,
+   "task_class": "2x5",
+   "label_close_frac": 0.9334763948497854,
+   "raw_close_cmd_frac": 0.9293361884368309,
+   "raw_open_cmd_frac": 0.05353319057815846,
+   "raw_deadband_frac": 0.017130620985010708,
+   "transitions": 3,
+   "pulses_1step": 0,
+   "open_runs": [
+    14,
+    17
+   ],
+   "close_runs": [
+    209,
+    226
+   ],
+   "first_close": 14,
+   "first_open_after_close": 223,
+   "always_closed": false,
+   "always_open": false,
+   "naive_threshold_mismatch": 0.01072961373390558
+  },
+  {
+   "episode": 9,
+   "frames": 472,
+   "label_rows": 471,
+   "task_class": "2x5",
+   "label_close_frac": 0.9363057324840764,
+   "raw_close_cmd_frac": 0.9322033898305084,
+   "raw_open_cmd_frac": 0.05084745762711865,
+   "raw_deadband_frac": 0.01694915254237288,
+   "transitions": 3,
+   "pulses_1step": 0,
+   "open_runs": [
+    13,
+    17
+   ],
+   "close_runs": [
+    210,
+    231
+   ],
+   "first_close": 13,
+   "first_open_after_close": 223,
+   "always_closed": false,
+   "always_open": false,
+   "naive_threshold_mismatch": 0.010615711252653927
+  }
+ ],
+ "env_grip_signs": {
+  "joint_grip_1": 1.0,
+  "joint_grip_0": 0.341698082160101,
+  "cart_grip_plus1": 1.0,
+  "cart_grip_minus1": 0.341698082160101
+ },
+ "training_code_check": {
+  "t7_data_phase_lines": [
+   [
+    87,
+    "self.phase_open = {}"
+   ],
+   [
+    88,
+    "self.phase_rise = {}"
+   ],
+   [
+    93,
+    "self.phase_open[ep] = np.flatnonzero(g >= 0.8)"
+   ],
+   [
+    94,
+    "self.phase_rise[ep] = np.flatnonzero(np.diff((g >= 0.8).astype(int)) == 1) + 1"
+   ],
+   [
+    95,
+    "self.open_episodes = [ep for ep in self.episodes if len(self.phase_open[ep]) > 0]"
+   ],
+   [
+    109,
+    "use_open = (self.balanced and self.open_episodes and self.rng.random() < 0.5)"
+   ],
+   [
+    111,
+    "ep = self.open_episodes[self.rng.randrange(len(self.open_episodes))]"
+   ],
+   [
+    117,
+    "rises = self.phase_rise[ep]"
+   ]
+  ],
+  "t7_train_close_frac_lines": [
+   [
+    170,
+    "'episode': bb['meta']['episode'], 'close_frac': float((bb['action'][:, :, 6] <= 0.6).float().mean()),"
+   ]
+  ],
+  "finding": "labels are pm1 (+1 close). t7_data.py phase_open uses g>=0.8, which selects +1 close, so open_episodes / phase_rise are close frames/transitions, not open. t7_train.py close_frac uses action[:,:,6] <= 0.6, which selects -1 open, so the logged close_frac is an open fraction. Both are inverted relative to their names."
+ }
+}

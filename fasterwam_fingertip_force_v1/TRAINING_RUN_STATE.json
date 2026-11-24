@@ -1,9 +1,9 @@
 {
  "project": "fasterwam_fingertip_force_v1",
  "worker": "task7",
- "ts": "2026-11-24T00:52:34Z",
+ "ts": "2026-11-24T01:08:00Z",
  "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
- "phase": "S4_retrain_v3_segment_0_3000",
+ "phase": "S0_ABANDONED_OLD_RUN_gripper_fix_pending",
  "budget": {
   "max_optimizer_steps_total": 21000,
   "used_steps_current_run": 70,
@@ -16,7 +16,10 @@
     "policy": "discarded per user directive 2026-11-24; recorded as diagnostic cost, new run counted separately"
    }
   ],
-  "total_executed_all_runs_recorded": 6210
+  "total_executed_all_runs_recorded": 6210,
+  "used_steps": 6140,
+  "remaining_steps": 14860,
+  "note": "hard cap 21000; prior run consumed 6140 and is discarded; remaining 14860 for the corrected run; a fresh 21000 requires explicit user approval"
  },
  "gates": {
   "G4_pre_train": "supervisor PASSED_AFTER_SUPERVISOR_AUDIT (T7_SUPERVISOR_HOLD lifted) + V3 gripper delta T7_G4_V3_DELTA.json"
@@ -27,7 +30,7 @@
   "identity_artifact": "p_items/T7_BASE_IDENTITY.json"
  },
  "training": {
-  "status": "INTERRUPTED at step 6140 (notebook session teardown ~00:31Z); chain/watchdog/tmux dead; step_006000.pt intact; running eval/action diagnosis before resuming",
+  "status": "ABANDONED by user directive 2026-11-24: old 3k/6k progress discarded; do not resume from step_003000/step_006000; retrain from scratch after the gripper open/close fix is 100% verified and the V3 data/eval audits pass",
   "baseline_anchor": "base 10 seeds x 600 steps: exact_fill 0/10, avg_in_target 0.0, 0 safety stops (p_items/SUMMARY_step_base.json)",
   "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k",
   "checkpoint_plan": "trainable-only (action expert + F2 + proprio, 558.9M) + frozen base reference; ~5.59GB per milestone, ~39.1GB for 7",
@@ -51,7 +54,7 @@
   ],
   "pid": 509643,
   "log_path": "/workspace/fwv1/logs/t7_train.log",
-  "checkpoint": "/workspace/fwv1/train_runs/t7_21k/step_006000.pt (3.36GB) + step_003000.pt"
+  "checkpoint": "step_003000.pt/step_006000.pt retained as diagnostic evidence only, not for resume"
  },
  "evaluation": {
   "protocol": "bare model, MuJoCo, max 600 steps, safety guard kept, exact_fill 10 blocks, 20-step hold",
@@ -107,7 +110,7 @@
   "tmux_session": "fwv1",
   "logs_dir": "/workspace/fwv1/logs"
  },
- "next": "user decision on option A (force dropout + FiLM L2) or B (FiLM identity warmup) before resuming from step_006000.pt",
+ "next": "1) fix t7_data.py balanced sampler open/close inversion + t7_train.py close_frac metric; 2) P3-B data diversity gap + new data version/experiment identity; 3) P4 frozen eval scenes; 4) from-scratch run within remaining 14860 steps",
  "monitoring": {
   "status": "BLOCKED_POD_AUTH_403",
   "since": "2026-11-23T19:01:25Z",
