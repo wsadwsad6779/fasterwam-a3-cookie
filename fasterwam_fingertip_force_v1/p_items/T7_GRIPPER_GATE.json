@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "kind": "task7_gripper_supervision_gate",
- "ts": "2026-11-24T06:24:43Z",
+ "ts": "2026-11-24T07:20:40Z",
  "roles": {
   "worker": "task7 (owns the gripper fix, implementation and experiments)",
   "supervisor": "this session (independent verification, gate verdicts, written corrections, stop authority)",
@@ -12,37 +12,49 @@
   ]
  },
  "training_state": {
-  "status": "running",
-  "updated_at": "2026-11-24T04:14:39Z",
+  "status": "segment_done_3k",
+  "updated_at": "2026-11-24T07:20:40Z",
   "evidence": {
-   "pid": 306531,
    "run_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
-   "stage": "train",
-   "step": 1460,
-   "gpu_used_bytes": 24718245888,
-   "chain_pid": 454332,
-   "watchdog_pid": 454338,
+   "step": 3000,
+   "pid": null,
    "started_at": "2026-11-24T03:51:50Z",
-   "latest_checkpoint": "/workspace/fwv1/train_runs/t7_21k_v3run/latest.pt",
-   "metrics": "/workspace/fwv1/train_runs/t7_21k_v3run/metrics.jsonl",
-   "log": "/workspace/fwv1/logs/t7_train_v3run.log",
-   "checked_at": "2026-11-24T05:22:25Z"
+   "checkpoint": "/workspace/fwv1/train_runs/t7_21k_v3run/step_003000.pt",
+   "checked_at": "2026-11-24T06:57:30Z"
   },
   "previous": {
-   "status": "stopped",
+   "status": "running",
+   "updated_at": "2026-11-24T04:14:39Z",
    "evidence": {
-    "gpu_used_bytes": 28004352,
-    "t7_processes": 0,
-    "tmux_windows_closed": [
-     "train_v3",
-     "chain_v3",
-     "watchdog_v3",
-     "finalizer_v3"
-    ],
-    "pod_time_utc": "2026-11-24T01:02:39Z",
-    "v3_run_last_step": 200,
-    "latest_checkpoint": "/workspace/fwv1/train_runs/t7_21k/latest.pt",
-    "log_tail": "/workspace/fwv1/logs/t7_train.log"
+    "pid": 306531,
+    "run_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
+    "stage": "train",
+    "step": 1460,
+    "gpu_used_bytes": 24718245888,
+    "chain_pid": 454332,
+    "watchdog_pid": 454338,
+    "started_at": "2026-11-24T03:51:50Z",
+    "latest_checkpoint": "/workspace/fwv1/train_runs/t7_21k_v3run/latest.pt",
+    "metrics": "/workspace/fwv1/train_runs/t7_21k_v3run/metrics.jsonl",
+    "log": "/workspace/fwv1/logs/t7_train_v3run.log",
+    "checked_at": "2026-11-24T05:22:25Z"
+   },
+   "previous": {
+    "status": "stopped",
+    "evidence": {
+     "gpu_used_bytes": 28004352,
+     "t7_processes": 0,
+     "tmux_windows_closed": [
+      "train_v3",
+      "chain_v3",
+      "watchdog_v3",
+      "finalizer_v3"
+     ],
+     "pod_time_utc": "2026-11-24T01:02:39Z",
+     "v3_run_last_step": 200,
+     "latest_checkpoint": "/workspace/fwv1/train_runs/t7_21k/latest.pt",
+     "log_tail": "/workspace/fwv1/logs/t7_train.log"
+    }
    }
   }
  },
@@ -118,10 +130,11 @@
   "deployed": {
    "t7_data.py": "76dfdbf4c3a30661356d42a0cac0a74b2887a9472a8efca5b17dd328f09b59ab",
    "t7_train.py": "32a9f5241265526b5ddb6fed388ef10ed86c59b9edd61e5773994c5a54591569",
-   "t7_eval.py": "3518d4ef9d907b2392dc5cd1b6d0f522a0ff436a769070be64d7aa3593618be3",
+   "t7_eval.py": "f9779c0ed96c38fb53389a865269aeae23b4d010d6776c532ab3114d11bf823c",
    "t7_train.py_c01_base_sha256": "9b75f370b6ea9c0f5efe3e05f8f32bc245f158fc142e7dc7f54290c769625766",
    "t7_train.py_delta": "p_items/C01_POD_HASH_DELTA.json",
-   "t7_eval.py_delta": "p_items/C01_POD_HASH_DELTA_3PANEL.json"
+   "t7_eval.py_delta": "p_items/C01_POD_HASH_DELTA_3PANEL.json",
+   "t7_eval.py_pads_delta": "p_items/C01_POD_HASH_DELTA_PADS.json"
   },
   "verdict": "pass"
  },
@@ -255,7 +268,7 @@
     "exact_fill src==70"
    ],
    "evidence": [
-    "G_B_EVAL_REGRESSION.json sha256 41c56c014aa8068695c406bb0a0f456851208e08dd486afcfd43805917eaae65 (rerun 2026-11-24T06:22Z with composite-video eval sha 3518d4ef9d907b2392dc5cd1b6d0f522a0ff436a769070be64d7aa3593618be3; 16/16 mapping checks pass)",
+    "G_B_EVAL_REGRESSION.json sha256 e95a9c80113dea56ecb5ee2e27cf768c55a32ae758f1b397ccfea1c4508fab55 (rerun 2026-11-24T07:17Z with thin-pad eval sha f9779c0ed96c38fb53389a865269aeae23b4d010d6776c532ab3114d11bf823c; 16/16 mapping checks pass)",
     "G_B_BASE_EVAL_SUMMARY.json sha256 26b9cec8630aa5ebe3d43c7d1dec0b442471dd6aaa0bd4ab9b839a476edba781 (40-step base harness run, force_stats present)"
    ]
   },
@@ -476,9 +489,9 @@
  },
  "eval_scene_integration": {
   "status": "pass",
-  "manifest": "p_items/EVAL_SCENE_MANIFEST_V3.json",
-  "manifest_file_sha256": "d2eab4c0b4caadcee48864d9e42a33a55cdd59f7e26837ee9197bf2f81b22cbf",
-  "freeze_sha256": "9919429851cc157b59cd09676ff098b6676242a66c6c85e954a7847c8adee9bf",
+  "manifest": "p_items/EVAL_SCENE_MANIFEST_V3_1.json",
+  "manifest_file_sha256": "6af5b934222063b3c7060ba6af1a9afdde35533220e81e6c9f47a0ddec369de9",
+  "freeze_sha256": "cef079269e0de68dd8a389cf5e4b40673b9712f117ee4db8c55a1f3d3260eeec",
   "scenes": 80,
   "distinct_hashes": 80,
   "strict_reset": true,
@@ -505,7 +518,15 @@
    "seed": 9101,
    "scene_hash": "1949b78ce13f16fc",
    "all_match": true
-  }
+  },
+  "previous": {
+   "manifest": "p_items/EVAL_SCENE_MANIFEST_V3.json",
+   "freeze_sha256": "9919429851cc157b59cd09676ff098b6676242a66c6c85e954a7847c8adee9bf",
+   "reason": "prototype default config (thick pad 0.003175, target y≈-0.011); superseded by V3.1 collection config (thin pad 0.0005, target y≈0.100)"
+  },
+  "sim_config": "/workspace/fwv1/sim_repo/configs/cookie_batch.yaml",
+  "sim_config_sha256": "62f6c8638955c84761b8f3c6ef6198ecb448aafb839f72103844f4a154812df9",
+  "pad_half_thickness_m": 0.0005
  },
  "p3b_probe": {
   "status": "feasible",
@@ -538,7 +559,7 @@
  "three_k_gate": {
   "status": "armed",
   "script": "p_items/scripts/t7_milestone_report.py",
-  "script_sha256": "d30efcb3e2087e21e49ec9716c5250a3ea9569ad7dd8f0a59820f7d26dcadb0b",
+  "script_sha256": "8c5c886ffddf6b8908e194ef5d3f3cce2fc8e6e78532b30e248d645a3f70d33d",
   "chain_sha256": "93315d32390351f476a586d21eb1e686ee8a6530942addb0600119f747fa0e88",
   "watchdog_sha256": "3ede8f9b4cac045247ee75e43d59d96d920eeb5dbdeb5824f365ca16e9a7eb18",
   "stop_flag": "/workspace/fwv1/STOP_TRAINING",
@@ -564,31 +585,26 @@
   "dry_run": "aborted_v2_step_003000: parsed, 20 videos zipped, verdict failed as expected (old schema)",
   "preflight": {
    "status": "pass",
-   "ts": "2026-11-24T06:22:30Z",
+   "ts": "2026-11-24T07:17:33Z",
    "checks": 7,
    "artifact": "p_items/PREFLIGHT_3K.json",
-   "sha256": "a3b51cec2a69f18d8957c461145e66c05b3ecbc9b98b590c029a97d7216c1744",
+   "sha256": "21c449070669cde0c35664db091ff25f81f6e9adae175b3acaaa64dea6af6b1b",
    "pod_files": {
-    "/workspace/t7_milestone_report.py": "d30efcb3e2087e21e49ec9716c5250a3ea9569ad7dd8f0a59820f7d26dcadb0b",
+    "/workspace/t7_milestone_report.py": "8c5c886ffddf6b8908e194ef5d3f3cce2fc8e6e78532b30e248d645a3f70d33d",
     "/workspace/t7_data.py": "76dfdbf4c3a30661356d42a0cac0a74b2887a9472a8efca5b17dd328f09b59ab",
     "/workspace/t7_train.py": "32a9f5241265526b5ddb6fed388ef10ed86c59b9edd61e5773994c5a54591569",
-    "/workspace/_t7_eval.py": "3518d4ef9d907b2392dc5cd1b6d0f522a0ff436a769070be64d7aa3593618be3"
-   },
-   "supersedes": {
-    "ts": "2026-11-24T04:43:25Z",
-    "sha256": "641b0593eed8bd400240e255a1266591155a9ce809f8a3952954f3c45b6b4be4",
-    "eval_sha256": "cd3516352f7f1c16364e4a772ebcbc950191a6dbd2b93566de4eade2d8bcf535",
-    "report_sha256": "ef503dc451fe9729ed243e284f7a7944134cb32a97b7ed823efa1c466ed4bdd0"
+    "/workspace/_t7_eval.py": "f9779c0ed96c38fb53389a865269aeae23b4d010d6776c532ab3114d11bf823c"
    }
   },
   "armed_hashes": {
    "chain": "93315d32390351f476a586d21eb1e686ee8a6530942addb0600119f747fa0e88",
    "watchdog": "3ede8f9b4cac045247ee75e43d59d96d920eeb5dbdeb5824f365ca16e9a7eb18",
-   "report": "d30efcb3e2087e21e49ec9716c5250a3ea9569ad7dd8f0a59820f7d26dcadb0b"
+   "report": "8c5c886ffddf6b8908e194ef5d3f3cce2fc8e6e78532b30e248d645a3f70d33d"
   },
   "pod_hash_delta": "p_items/C01_POD_HASH_DELTA.json",
   "pod_hash_delta_3panel": "p_items/C01_POD_HASH_DELTA_3PANEL.json",
-  "video_spec": "one composite per seed: left_wrist | front | force panel (ch12/ch13 curves, 0-3N, 0.5N carry line, current/peak/opening/grip_cmd/in_target/source, safety if any), no occlusion; zip has 10 composites"
+  "video_spec": "one composite per seed: left_wrist | front | force panel (ch12/ch13 curves, 0-3N, 0.5N carry line, current/peak/opening/grip_cmd/in_target/source, safety if any), no occlusion; zip has 10 composites",
+  "pod_hash_delta_pads": "p_items/C01_POD_HASH_DELTA_PADS.json"
  },
  "gpu": {
   "checked_at": "2026-11-24T05:22:25Z",

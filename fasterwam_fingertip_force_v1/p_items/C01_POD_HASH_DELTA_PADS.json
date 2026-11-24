@@ -1,0 +1,64 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-24T07:20:40Z",
+ "kind": "pod_hash_delta_pads",
+ "problem": "eval env used SimConfig default: left finger pad half-thickness 0.003175 (thick) and prototype target bin y≈-0.011; the dataset/trained policy was collected with cookie_batch.yaml: 0.0005 thin pads and target bin y≈0.100",
+ "model_fix": {
+  "sim_config": "/workspace/fwv1/sim_repo/configs/cookie_batch.yaml",
+  "sim_config_sha256": "62f6c8638955c84761b8f3c6ef6198ecb448aafb839f72103844f4a154812df9",
+  "pad_half_thickness_old": 0.003175,
+  "pad_half_thickness_new": 0.0005,
+  "target_bin_y_old": -0.011085464541773917,
+  "target_bin_y_new": 0.10048120212862563
+ },
+ "files": [
+  {
+   "file": "/workspace/_t7_eval.py",
+   "old": "3518d4ef9d907b2392dc5cd1b6d0f522a0ff436a769070be64d7aa3593618be3",
+   "new": "f9779c0ed96c38fb53389a865269aeae23b4d010d6776c532ab3114d11bf823c",
+   "bytes": 24320,
+   "scope": "env config=cookie_batch.yaml (thin pads, collection scene); scene manifest V3.1; sim-config sha verified"
+  },
+  {
+   "file": "/workspace/t7_milestone_report.py",
+   "old": "d30efcb3e2087e21e49ec9716c5250a3ea9569ad7dd8f0a59820f7d26dcadb0b",
+   "new": "8c5c886ffddf6b8908e194ef5d3f3cce2fc8e6e78532b30e248d645a3f70d33d",
+   "bytes": 21408,
+   "scope": "MANIFEST -> EVAL_SCENE_MANIFEST_V3_1.json; G-D criteria unchanged"
+  },
+  {
+   "file": "/workspace/t7_freeze_eval_scenes.py",
+   "new": "dad0d0c0be2a7b0df0aaa33c7775858c0328220ca601cdcfab2c80baa160e5fd",
+   "scope": "scene freeze uses the collection sim config"
+  },
+  {
+   "file": "/workspace/fwv1/p_items/EVAL_SCENE_MANIFEST_V3_1.json",
+   "new": "6af5b934222063b3c7060ba6af1a9afdde35533220e81e6c9f47a0ddec369de9",
+   "scope": "80 scenes / 80 distinct, freeze cef079269e0de68dd8a389cf5e4b40673b9712f117ee4db8c55a1f3d3260eeec"
+  }
+ ],
+ "supersedes": {
+  "old_scene_manifest_freeze": "9919429851cc157b59cd09676ff098b6676242a66c6c85e954a7847c8adee9bf",
+  "reason": "old V3 manifest was frozen with the prototype default config (thick pads, target y≈-0.011) and cannot evaluate the trained policy",
+  "old_3k_eval_dir": "/workspace/fwv1/eval_fingertip_v1/aborted_3k_thickpads_20261124"
+ },
+ "verification": {
+  "g_b": {
+   "artifact_sha256": "e95a9c80113dea56ecb5ee2e27cf768c55a32ae758f1b397ccfea1c4508fab55",
+   "eval_sha": "f9779c0ed96c38fb53389a865269aeae23b4d010d6776c532ab3114d11bf823c",
+   "verdict": "pass"
+  },
+  "preflight": {
+   "artifact_sha256": "21c449070669cde0c35664db091ff25f81f6e9adae175b3acaaa64dea6af6b1b",
+   "ts": "2026-11-24T07:17:33Z",
+   "checks": 7,
+   "all_ok": true
+  }
+ },
+ "armed_hashes": {
+  "chain": "93315d32390351f476a586d21eb1e686ee8a6530942addb0600119f747fa0e88",
+  "watchdog": "3ede8f9b4cac045247ee75e43d59d96d920eeb5dbdeb5824f365ca16e9a7eb18",
+  "report_new": "8c5c886ffddf6b8908e194ef5d3f3cce2fc8e6e78532b30e248d645a3f70d33d"
+ },
+ "effective": "3k eval rerun (10 seeds 7100-7109) with the corrected model; training checkpoint step_003000 unchanged; criteria/protocol unchanged"
+}

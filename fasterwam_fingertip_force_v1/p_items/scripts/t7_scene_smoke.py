@@ -15,7 +15,7 @@ sys.path.insert(0, '/workspace/fwv1/sim_repo/src')
 
 import numpy as np
 
-MAN = '/workspace/fwv1/p_items/EVAL_SCENE_MANIFEST_V3.json'
+MAN = os.environ.get('T7_SCENE_MANIFEST', '/workspace/fwv1/p_items/EVAL_SCENE_MANIFEST_V3_1.json')
 OUT = '/workspace/fwv1/p_items/T7_SCENE_SMOKE.json'
 
 
@@ -43,8 +43,8 @@ def main():
     rows = []
     hashes = []
     for s in m['scenes']:
-        env = A3CookieTransferEnv(action_mode='cartesian_delta', render_mode='rgb_array',
-                                  render_cameras=False)
+        env = A3CookieTransferEnv(config=os.environ.get('T7_SIM_CONFIG', '/workspace/fwv1/sim_repo/configs/cookie_batch.yaml'),
+                                  action_mode='cartesian_delta', render_mode='rgb_array', render_cameras=False)
         u = getattr(env, 'unwrapped', env)
         env.reset(seed=int(s['seed']), options=dict(s['options']))
         rm = dict(getattr(u, 'randomization_metadata', {}) or {})
@@ -55,8 +55,8 @@ def main():
         env.close()
     ctrl = []
     for seed in (int(m['scenes'][0]['seed']), int(m['scenes'][1]['seed'])):
-        env = A3CookieTransferEnv(action_mode='cartesian_delta', render_mode='rgb_array',
-                                  render_cameras=False)
+        env = A3CookieTransferEnv(config=os.environ.get('T7_SIM_CONFIG', '/workspace/fwv1/sim_repo/configs/cookie_batch.yaml'),
+                                  action_mode='cartesian_delta', render_mode='rgb_array', render_cameras=False)
         u = getattr(env, 'unwrapped', env)
         env.reset(seed=seed)
         rm = dict(getattr(u, 'randomization_metadata', {}) or {})

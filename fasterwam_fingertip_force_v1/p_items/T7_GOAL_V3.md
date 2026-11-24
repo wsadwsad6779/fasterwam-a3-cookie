@@ -27,3 +27,8 @@
 
 ## 交付补充（2026-11-24T06:20Z 用户）
 - **每个 seed 只交付 1 个三段并排视频**：左腕夹爪视角 | 前视 | 指尖力曲线（ch12/ch13，0–3N，0.5N carry 线，当前/峰值/opening/夹爪指令/目标计数；有安全事件时红字标注）。三段互不遮挡；不再单独交付 front/left_wrist 两个文件。3k/6k/… 与最终测试同规格（10 个 seed → 10 个 composite + 一个 zip）。
+
+## 评测模型修正（2026-11-24T07:10Z 用户）
+- **必须使用采集用 sim config**：`/workspace/fwv1/sim_repo/configs/cookie_batch.yaml`（左指垫半厚 **0.0005 m 薄长垫片**；target bin y≈0.100）。默认 `SimConfig` 的 0.003175 m 厚垫 + prototype target bin（y≈-0.011）夹不住饼干，已弃用。
+- 冻结场景随模型重生成：`EVAL_SCENE_MANIFEST_V3_1.json`（同 80 seeds/options；freeze `cef07926…`；sim config sha `62f6c863…`）。旧的 V3 manifest（freeze `99194298…`）作废保留。
+- 3k 评测用 step_003000 + V3.1 + 薄垫重跑；旧的厚垫 3k eval 作废（目录 `aborted_3k_thickpads_20261124`）。G-D 判据不变。

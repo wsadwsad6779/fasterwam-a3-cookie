@@ -15,7 +15,8 @@ sys.path.insert(0, '/workspace/fwv1/sim_repo/src')
 
 import numpy as np
 
-OUT = '/workspace/fwv1/p_items/EVAL_SCENE_MANIFEST_V3.json'
+OUT = os.environ.get('T7_SCENE_MANIFEST_OUT', '/workspace/fwv1/p_items/EVAL_SCENE_MANIFEST_V3_1.json')
+SIM_CONFIG = os.environ.get('T7_SIM_CONFIG', '/workspace/fwv1/sim_repo/configs/cookie_batch.yaml')
 SEEDS = [s for base in range(7100, 7800, 100) for s in range(base, base + 10)]
 SEEDS += list(range(7900, 7910))
 
@@ -48,8 +49,8 @@ def main():
     scenes = []
     t0 = time.time()
     for seed in SEEDS:
-        env = A3CookieTransferEnv(action_mode='cartesian_delta', render_mode='rgb_array',
-                                  render_cameras=False)
+        env = A3CookieTransferEnv(config=SIM_CONFIG, action_mode='cartesian_delta',
+                                  render_mode='rgb_array', render_cameras=False)
         u = getattr(env, 'unwrapped', env)
         opts = dict(base_options)
         opts['appearance_seed'] = seed
@@ -72,6 +73,8 @@ def main():
         {'base_options': base_options, 'scenes': [{'seed': s['seed'], 'hash': s['hash']} for s in scenes]},
         sort_keys=True).encode()).hexdigest()
     manifest = {'worker': 'supervisor', 'ts': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+                'sim_config': SIM_CONFIG,
+                'sim_config_sha256': hashlib.sha256(open(SIM_CONFIG, 'rb').read()).hexdigest(),
                 'purpose': 'pre-run frozen evaluation scenes; no scene selection after checkpoint results',
                 'scope': 'basic profile: 80 distinct physical layouts (bins+cookies within ~2 cm); '
                          'cameras/light fixed; P3-B medium/advanced profiles are a separate data version',

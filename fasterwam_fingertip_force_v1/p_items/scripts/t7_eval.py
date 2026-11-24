@@ -23,7 +23,8 @@ STATS = '/workspace/fwv1/data/a3_fw_845/dataset_stats_v3.json'
 FSTATS = '/workspace/fwv1/p_items/FINGERTIP_FORCE_NORMALIZATION_V2.json'
 CACHE_DIR = '/workspace/fwv1/data/text_embeds_cache'
 SEEDS_MANIFEST = '/workspace/fwv1/p_items/EVAL_SEED_MANIFEST.json'
-SCENE_MANIFEST = '/workspace/fwv1/p_items/EVAL_SCENE_MANIFEST_V3.json'
+SCENE_MANIFEST = '/workspace/fwv1/p_items/EVAL_SCENE_MANIFEST_V3_1.json'
+SIM_CONFIG = os.environ.get('T7_SIM_CONFIG', '/workspace/fwv1/sim_repo/configs/cookie_batch.yaml')
 ROOT = '/workspace/fwv1/eval_fingertip_v1'
 PROMPT = "A video recorded from a robot's point of view executing the following instruction: transfer 10 cookies into target box"
 CONTEXT_LEN = 128
@@ -219,7 +220,8 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label,
             scene_manifest_path, scene_entry):
     from a3_dual_arm_sim import A3CookieTransferEnv
     import imageio
-    env = A3CookieTransferEnv(action_mode='cartesian_delta', render_mode='rgb_array', render_cameras=True)
+    env = A3CookieTransferEnv(config=SIM_CONFIG, action_mode='cartesian_delta',
+                              render_mode='rgb_array', render_cameras=True)
     u = getattr(env, 'unwrapped', env)
     obs, _ = env.reset(seed=seed, options=dict(scene_entry['options']))
     rm = dict(getattr(u, 'randomization_metadata', {}) or {})
@@ -367,6 +369,8 @@ def main():
         {'base_options': sm['base_options'],
          'scenes': [{'seed': s['seed'], 'hash': s['hash']} for s in sm['scenes']]},
         sort_keys=True).encode()).hexdigest()
+    if sm.get('sim_config_sha256') and sm['sim_config_sha256'] != sha256_file(SIM_CONFIG):
+        raise RuntimeError('eval sim config does not match the frozen manifest')
     if canonical != sm.get('freeze_sha256'):
         raise RuntimeError('scene manifest freeze mismatch: %s != %s'
                            % (canonical, sm.get('freeze_sha256')))

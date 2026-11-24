@@ -1,7 +1,7 @@
 {
  "worker": "task7",
  "goal_version": "V3",
- "updated_at": "2026-11-24T06:24:43Z",
+ "updated_at": "2026-11-24T07:21:29Z",
  "session_id": "607221b3-ba4c-5063-ac4f-494f15aea661",
  "old_goal_replaced": true,
  "old_goal_replaced_scope": "project ledger: V2 Goal (S1-S5/845 acceptance/gripper V2/21k) is superseded by V3; runtime session goal text could not be edited with the available tools",
@@ -69,6 +69,11 @@
    "ts": "2026-11-24T06:20:00Z",
    "change": "per-seed single 3-panel composite video: left_wrist | front | force (ch12/ch13, 0-3N, 0.5N line, current/peak); no separate front/left_wrist files",
    "reason": "user directive 2026-11-24T06:20Z"
+  },
+  {
+   "ts": "2026-11-24T07:10:00Z",
+   "change": "eval sim model corrected to the provided collection config cookie_batch.yaml (left pad 0.0005 thin, target y≈0.100); scene manifest regenerated as V3.1 (same 80 seeds/options, freeze cef07926); old V3 manifest and thick-pad 3k eval void",
+   "reason": "user directive 2026-11-24T07:10Z: gripper missing the two thin long pads"
   }
  ]
 }

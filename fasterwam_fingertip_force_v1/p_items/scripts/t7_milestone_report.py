@@ -37,7 +37,7 @@ VOUT = os.path.join(OUTDIR, ('DRY_' if DRY else '') + 'VIDEO_DOWNLOAD_step_%d.js
 STOP = '/workspace/fwv1/STOP_TRAINING'
 BASE_SHA = '01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d'
 LABELS = '/workspace/fwv1/p_items/A3_845_7D_LABELS_V3.npz'
-MANIFEST = '/workspace/fwv1/p_items/EVAL_SCENE_MANIFEST_V3.json'
+MANIFEST = '/workspace/fwv1/p_items/EVAL_SCENE_MANIFEST_V3_1.json'
 
 
 def sha256(p):
