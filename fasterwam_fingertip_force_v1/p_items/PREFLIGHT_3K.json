@@ -1,6 +1,6 @@
 {
  "worker": "task7",
- "ts": "2026-11-24T04:19:59Z",
+ "ts": "2026-11-24T04:43:25Z",
  "kind": "3k_preflight",
  "run_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
  "metrics_path": "/workspace/fwv1/train_runs/t7_21k_v3run/metrics.jsonl",
@@ -34,17 +34,17 @@
    "name": "train_metrics_finite",
    "ok": true,
    "detail": {
-    "records": 44,
-    "last_step": 440
+    "records": 82,
+    "last_step": 820
    }
   },
   {
    "name": "train_sampler_balanced",
    "ok": true,
    "detail": {
-    "mean_open": 0.07173295454545454,
-    "mean_close": 0.9058061079545454,
-    "close_neq_open_frac": 0.9090909090909091
+    "mean_open": 0.08303163109756098,
+    "mean_close": 0.8932450457317073,
+    "close_neq_open_frac": 0.9390243902439024
    }
   }
  ],
@@ -54,8 +54,8 @@
    "bytes": 10714
   },
   "/workspace/t7_train.py": {
-   "sha256": "bf4484718db5a46be853737da62ebc171dbb2690c12f0b2d0462743719cf62ae",
-   "bytes": 10229
+   "sha256": "32a9f5241265526b5ddb6fed388ef10ed86c59b9edd61e5773994c5a54591569",
+   "bytes": 10330
   },
   "/workspace/_t7_eval.py": {
    "sha256": "cd3516352f7f1c16364e4a772ebcbc950191a6dbd2b93566de4eade2d8bcf535",

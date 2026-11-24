@@ -1,7 +1,7 @@
 {
  "project": "fasterwam_fingertip_force_v1",
  "worker": "task7",
- "ts": "2026-11-24T04:40:12Z",
+ "ts": "2026-11-24T04:43:51Z",
  "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
  "phase": "S4_v3_new_run_0_3000",
  "budget": {
@@ -238,20 +238,28 @@
   "dry_run": "aborted_v2_step_003000: parsed, 20 videos zipped, verdict failed as expected (old schema)",
   "preflight": {
    "status": "pass",
-   "ts": "2026-11-24T04:20:42Z",
+   "ts": "2026-11-24T04:43:25Z",
    "checks": 7,
    "artifact": "p_items/PREFLIGHT_3K.json",
-   "sha256": "8da5edde3c2c999886a05589449e531bd27a611b3d9d652698fa77cbff478c19",
+   "sha256": "641b0593eed8bd400240e255a1266591155a9ce809f8a3952954f3c45b6b4be4",
    "pod_files": {
     "/workspace/t7_milestone_report.py": "ef503dc451fe9729ed243e284f7a7944134cb32a97b7ed823efa1c466ed4bdd0",
     "/workspace/t7_data.py": "76dfdbf4c3a30661356d42a0cac0a74b2887a9472a8efca5b17dd328f09b59ab",
-    "/workspace/t7_train.py": "bf4484718db5a46be853737da62ebc171dbb2690c12f0b2d0462743719cf62ae",
+    "/workspace/t7_train.py": "32a9f5241265526b5ddb6fed388ef10ed86c59b9edd61e5773994c5a54591569",
     "/workspace/_t7_eval.py": "cd3516352f7f1c16364e4a772ebcbc950191a6dbd2b93566de4eade2d8bcf535"
    },
-   "metrics_last_step": 440,
-   "close_neq_open_frac": 0.9091,
-   "mean_open": 0.0717
-  }
+   "supersedes": {
+    "ts": "2026-11-24T04:20:42Z",
+    "sha256": "8da5edde3c2c999886a05589449e531bd27a611b3d9d652698fa77cbff478c19",
+    "t7_train_sha256": "bf4484718db5a46be853737da62ebc171dbb2690c12f0b2d0462743719cf62ae"
+   }
+  },
+  "armed_hashes": {
+   "chain": "93315d32390351f476a586d21eb1e686ee8a6530942addb0600119f747fa0e88",
+   "watchdog": "3ede8f9b4cac045247ee75e43d59d96d920eeb5dbdeb5824f365ca16e9a7eb18",
+   "report": "ef503dc451fe9729ed243e284f7a7944134cb32a97b7ed823efa1c466ed4bdd0"
+  },
+  "pod_hash_delta": "p_items/C01_POD_HASH_DELTA.json"
  },
  "gpu": {
   "checked_at": "2026-11-24T04:20:42Z",
