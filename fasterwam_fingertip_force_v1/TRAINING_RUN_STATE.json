@@ -1,7 +1,7 @@
 {
  "project": "fasterwam_fingertip_force_v1",
  "worker": "task7",
- "ts": "2026-11-24T03:57:01Z",
+ "ts": "2026-11-24T04:10:21Z",
  "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
  "phase": "S4_v3_new_run_0_3000",
  "budget": {
@@ -53,7 +53,7 @@
   "identity_artifact": "p_items/T7_BASE_IDENTITY.json"
  },
  "training": {
-  "status": "running: fresh V3 run 0->3000; pid 306531; tmux fwv1:train_v3run; step 60; first metrics recorded",
+  "status": "running: fresh V3 run 0->3000; pid 306531; step 280; 3k gate armed",
   "baseline_anchor": "base 10 seeds x 600 steps: exact_fill 0/10, avg_in_target 0.0, 0 safety stops (p_items/SUMMARY_step_base.json)",
   "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k",
   "checkpoint_plan": "trainable-only (action expert + F2 + proprio, 558.9M) + frozen base reference; ~5.59GB per milestone, ~39.1GB for 7",
@@ -65,7 +65,7 @@
   "optimizer_state": null,
   "scheduler_state": null,
   "rng_state": null,
-  "last_logged_step": 60,
+  "last_logged_step": 280,
   "milestones": [
    3000,
    6000,
@@ -159,8 +159,8 @@
    "last_known_alive": "2026-11-23T18:30:52Z step 1200 latest.pt 3360623869B; train pid 509643, chain 509720, watchdog 513435",
    "note": "browser cookies cleared; all Jupyter API calls 403 nginx; user must sign in again. Training/chain/watchdog were designed to continue autonomously on the persistent pod; state unknown until access returns."
   },
-  "last_checked": "2026-11-24T03:57:01Z",
-  "last_checked_state": "pid 306531; GPU 24.7GB; chain 306525 + watchdog 306534 alive; step 60",
+  "last_checked": "2026-11-24T04:10:21Z",
+  "last_checked_state": "pid 306531 running; step 280; GPU ~24.7GB; chain/watchdog restarted 04:08:30 with 3k gate",
   "observed_last_step": 200,
   "observed_last_step_note": "recorded new-run budget charge remains 70 per supervisor instruction; pod log/checkpoint last observed step=200; discrepancy noted, not charged"
  },
@@ -186,5 +186,33 @@
   "exact_fill": "cookies_in_target==10 and cookies_in_source==70 (80-cookie scene), not source==0",
   "replan": "10 steps per decision (frozen protocol), not 32",
   "gripper_decode": "continuous opening: cartesian g = 2*opening-1 (V3)"
+ },
+ "three_k_gate": {
+  "status": "armed",
+  "script": "p_items/scripts/t7_milestone_report.py",
+  "script_sha256": "e40e22a5534b701a5b5729a32b620919a571a3ba2a321485613638ecb260dd8d",
+  "chain_sha256": "93315d32390351f476a586d21eb1e686ee8a6530942addb0600119f747fa0e88",
+  "watchdog_sha256": "3ede8f9b4cac045247ee75e43d59d96d920eeb5dbdeb5824f365ca16e9a7eb18",
+  "stop_flag": "/workspace/fwv1/STOP_TRAINING",
+  "criteria": [
+   "close_frac<=0.95",
+   "open_cmd_frac>=0.05",
+   "reopen_events>=1 (min over 10 seeds)",
+   "carry_force_frac_gt_0p5>=0.95",
+   "exact_fill>=1"
+  ],
+  "on_fail": "chain sets STOP flag and exits before 6k; watchdog exits on the flag; report writes G_D_3K_VERDICT + video manifest + zip",
+  "video_manifest": "p_items/VIDEO_DOWNLOAD_step_3000.json (pod); downloaded to repo at milestone report",
+  "download": "per-video and zip URLs via Jupyter contents API ?download=1",
+  "root_cause_scan": [
+   "scene manifest/freeze + per-seed scene match",
+   "labels V3 sha / no pm1",
+   "sampler 30/20/50",
+   "eval mapping constants",
+   "train metrics finite + close!=open",
+   "checkpoint step/force_head/base sha",
+   "20 videos present"
+  ],
+  "dry_run": "aborted_v2_step_003000: parsed, 20 videos zipped, verdict failed as expected (old schema)"
  }
 }

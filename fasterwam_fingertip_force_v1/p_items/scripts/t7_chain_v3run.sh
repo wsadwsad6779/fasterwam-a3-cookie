@@ -1,11 +1,13 @@
 #!/bin/bash
 # Milestone chain for the approved V3 run (fresh 21000 budget, new run dir).
-# Waits for the current segment, then per milestone: verify checkpoint ->
-# 10-seed eval on frozen scenes + dual-view videos -> resume next segment.
+# After each eval: milestone report (G-D gate at 3k, root-cause scan, video
+# manifest + zip). On failure: set STOP flag and stop before the next segment.
 LOG=/workspace/fwv1/logs/t7_chain_v3run.log
 RUN=/workspace/fwv1/train_runs/t7_21k_v3run
 EVAL=/workspace/_t7_eval.py
 TRAIN=/workspace/_t7_train.py
+REPORT=/workspace/t7_milestone_report.py
+STOP=/workspace/fwv1/STOP_TRAINING
 export T7_RUN_DIR="$RUN"
 export T7_LOG=/workspace/fwv1/logs/t7_train_v3run.log
 export T7_STATE=/workspace/fwv1/p_items/POD_JOB_STATE.json
@@ -14,6 +16,10 @@ export T7_AUX_FORCE_W=0.05
 export HF_ENDPOINT=https://hf-mirror.com
 mkdir -p /workspace/fwv1/logs "$RUN"
 exec >> "$LOG" 2>&1
+if [ -f "$STOP" ]; then
+  echo "[chain] STOP flag present at start; exiting"
+  exit 0
+fi
 echo "[chain] start $(date -u +%Y-%m-%dT%H:%M:%SZ); waiting for current segment"
 while pgrep -f "_t7_train.py" > /dev/null; do
   sleep 30
@@ -24,6 +30,7 @@ for STEP in 3000 6000 9000 12000 15000 18000 21000; do
   CKPT="$RUN/step_${SIX}.pt"
   if [ ! -f "$CKPT" ]; then
     echo "[chain] MISSING $CKPT; stopping"
+    touch "$STOP"
     exit 1
   fi
   case $STEP in
@@ -40,9 +47,14 @@ for STEP in 3000 6000 9000 12000 15000 18000 21000; do
     /opt/venv/bin/python "$EVAL" >> "/workspace/fwv1/logs/eval_step_${STEP}.log" 2>&1
   RC=$?
   echo "[chain] eval rc=$RC step=$STEP"
-  if [ $RC -ne 0 ]; then
-    echo "[chain] eval failed; stopping for diagnosis"
-    exit 1
+  T7_STEP=$STEP T7_RUN_DIR="$RUN" T7_CKPT="$CKPT" \
+    /opt/venv/bin/python "$REPORT" >> "/workspace/fwv1/logs/report_step_${STEP}.log" 2>&1
+  RRC=$?
+  echo "[chain] report rc=$RRC step=$STEP"
+  if [ $RC -ne 0 ] || [ $RRC -ne 0 ]; then
+    echo "[chain] eval/report failed; STOP flag set; stopping before next segment"
+    touch "$STOP"
+    exit 2
   fi
   NEXT=$((STEP + 3000))
   if [ $NEXT -gt 21000 ]; then
@@ -55,7 +67,8 @@ for STEP in 3000 6000 9000 12000 15000 18000 21000; do
   TRC=$?
   echo "[chain] train rc=$TRC next=$NEXT"
   if [ $TRC -ne 0 ]; then
-    echo "[chain] train failed; stopping for diagnosis"
+    echo "[chain] train failed; STOP flag set"
+    touch "$STOP"
     exit 1
   fi
   if [ -f "$RUN/latest.pt" ]; then

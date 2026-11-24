@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "kind": "task7_gripper_supervision_gate",
- "ts": "2026-11-24T03:57:01Z",
+ "ts": "2026-11-24T04:10:21Z",
  "roles": {
   "worker": "task7 (owns the gripper fix, implementation and experiments)",
   "supervisor": "this session (independent verification, gate verdicts, written corrections, stop authority)",
@@ -512,5 +512,33 @@
     "eval_ok": true
    }
   ]
+ },
+ "three_k_gate": {
+  "status": "armed",
+  "script": "p_items/scripts/t7_milestone_report.py",
+  "script_sha256": "e40e22a5534b701a5b5729a32b620919a571a3ba2a321485613638ecb260dd8d",
+  "chain_sha256": "93315d32390351f476a586d21eb1e686ee8a6530942addb0600119f747fa0e88",
+  "watchdog_sha256": "3ede8f9b4cac045247ee75e43d59d96d920eeb5dbdeb5824f365ca16e9a7eb18",
+  "stop_flag": "/workspace/fwv1/STOP_TRAINING",
+  "criteria": [
+   "close_frac<=0.95",
+   "open_cmd_frac>=0.05",
+   "reopen_events>=1 (min over 10 seeds)",
+   "carry_force_frac_gt_0p5>=0.95",
+   "exact_fill>=1"
+  ],
+  "on_fail": "chain sets STOP flag and exits before 6k; watchdog exits on the flag; report writes G_D_3K_VERDICT + video manifest + zip",
+  "video_manifest": "p_items/VIDEO_DOWNLOAD_step_3000.json (pod); downloaded to repo at milestone report",
+  "download": "per-video and zip URLs via Jupyter contents API ?download=1",
+  "root_cause_scan": [
+   "scene manifest/freeze + per-seed scene match",
+   "labels V3 sha / no pm1",
+   "sampler 30/20/50",
+   "eval mapping constants",
+   "train metrics finite + close!=open",
+   "checkpoint step/force_head/base sha",
+   "20 videos present"
+  ],
+  "dry_run": "aborted_v2_step_003000: parsed, 20 videos zipped, verdict failed as expected (old schema)"
  }
 }

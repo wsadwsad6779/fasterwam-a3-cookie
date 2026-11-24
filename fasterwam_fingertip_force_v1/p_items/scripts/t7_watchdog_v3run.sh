@@ -14,6 +14,10 @@ export T7_AUX_FORCE_W=0.05
 exec >> "$LOG" 2>&1
 echo "[watchdog] start $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 while true; do
+  if [ -f /workspace/fwv1/STOP_TRAINING ]; then
+    echo "[watchdog] STOP flag present; exiting $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+    exit 0
+  fi
   if ! pgrep -f "_t7_train.py" > /dev/null && ! pgrep -f "_t7_eval.py" > /dev/null && ! pgrep -f "_t7_chain_v3run.sh" > /dev/null; then
     LARGEST=0
     for S in 3000 6000 9000 12000 15000 18000 21000; do
