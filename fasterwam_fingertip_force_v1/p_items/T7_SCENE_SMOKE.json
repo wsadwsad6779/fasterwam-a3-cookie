@@ -1,0 +1,59 @@
+{
+ "worker": "supervisor",
+ "ts": "2026-11-24T03:16:17Z",
+ "manifest": "/workspace/fwv1/p_items/EVAL_SCENE_MANIFEST_V3.json",
+ "manifest_file_sha256": "d2eab4c0b4caadcee48864d9e42a33a55cdd59f7e26837ee9197bf2f81b22cbf",
+ "freeze_sha256": "9919429851cc157b59cd09676ff098b6676242a66c6c85e954a7847c8adee9bf",
+ "freeze_recomputed": "9919429851cc157b59cd09676ff098b6676242a66c6c85e954a7847c8adee9bf",
+ "freeze_match": true,
+ "scenes": 80,
+ "matched": 80,
+ "distinct_hashes": 80,
+ "default_reset_control": {
+  "hashes": [
+   "71448a579f2c3c90",
+   "71448a579f2c3c90"
+  ],
+  "distinct": 1
+ },
+ "sample": [
+  {
+   "seed": 7100,
+   "expected": "643ca45c05ad0855",
+   "actual": "643ca45c05ad0855",
+   "match": true,
+   "profile": "basic"
+  },
+  {
+   "seed": 7101,
+   "expected": "cc67bf1418bd2c17",
+   "actual": "cc67bf1418bd2c17",
+   "match": true,
+   "profile": "basic"
+  },
+  {
+   "seed": 7102,
+   "expected": "4e07ffede5414be5",
+   "actual": "4e07ffede5414be5",
+   "match": true,
+   "profile": "basic"
+  },
+  {
+   "seed": 7103,
+   "expected": "62bd380ee7c00833",
+   "actual": "62bd380ee7c00833",
+   "match": true,
+   "profile": "basic"
+  },
+  {
+   "seed": 7104,
+   "expected": "d791324c52793c80",
+   "actual": "d791324c52793c80",
+   "match": true,
+   "profile": "basic"
+  }
+ ],
+ "mismatches": [],
+ "elapsed_s": 54.5,
+ "verdict": "pass"
+}

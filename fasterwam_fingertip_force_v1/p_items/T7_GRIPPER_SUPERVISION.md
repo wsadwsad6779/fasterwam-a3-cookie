@@ -49,6 +49,11 @@
 - 禁止运行期"力超过阈值就张开"的外部夹爪控制器（外部控制器不得做最终决策）。
 - 纠偏单：`FasterWAM_Supervisor/PENDING_CORRECTIONS/C-20261124-02-force-grounded-grasp.md`。
 
+## 3.6 训练前监督项（2026-11-24 监督指令，训练仍禁止）
+1. **门槛账本**：G-A/G-B/G-C = pass；G-D = pipeline_fixed_probe_passed，真实 3k 的 close_frac/open_cmd_frac/reopen/夹持力标为 **blocked_on_training**；G-E/G-G/G-F = pending。账本在 `T7_GRIPPER_GATE.json` 的 `gate_ledger`，`training_allowed=false`；预算在用户确认前按 **14860** 保守上限。
+2. **P4 冻结场景接入 eval**：`t7_eval.py` 现在强制读取 `EVAL_SCENE_MANIFEST_V3.json`（80 个 basic 布局，freeze `99194298…`），按每条 manifest 的 options 调 `env.reset`，并在每次 rollout 重算/校验场景哈希；缺 seed 直接报错，**不回退默认 reset**。`EVAL_SEED_MANIFEST.json` rev3 已映射：里程碑 3000→7100-7109、6000→7200-7209、…、21000→7700-7709；独立测试 7900-7909（8100-8709/8900-8909 作废）。证据：`T7_SCENE_SMOKE.json`（80/80 命中、80 个不同布局、默认对照仅 1 个）、`G_B_SCENE_EVAL_SUMMARY.json`（seed 7100 哈希匹配）。
+3. **P3-B medium/advanced 探针**：独立实验身份 `P3B_MEDADV_PROBE_V1` / `p3b_medadv_probe_v1`，独立 manifest `P3B_SCENE_MANIFEST_V1.json`，**不并入**冻结 basic split、不用于训练。结果：medium(9101) 专家 10/10 成功、advanced(9102) 8/10；两者 eval 接口（相机+14D）均正常。仅证明跨布局可采/可评。
+
 ## 4. 待 worker 回答的开放问题
 1. 0.28 指令 vs 0.311 实测的差值：评测解码是否需要补偿？（回放 RMSE 0.0039，初步看不需要，但评测必须用实测校验。）
 2. 0.28 与 0.49 只差 0.21：策略输出抖动是否会在夹/放两档之间跳？3k 要看 grip 输出分布，不能只看 close_frac。

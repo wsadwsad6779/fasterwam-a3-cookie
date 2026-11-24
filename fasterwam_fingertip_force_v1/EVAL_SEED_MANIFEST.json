@@ -1,98 +1,107 @@
 {
  "project": "fasterwam_fingertip_force_v1",
- "ts": "2026-11-24T00:38:59Z",
+ "revision": 3,
+ "ts": "2026-11-24T02:50:00Z",
  "protocol": {
   "env": "A3CookieTransferEnv, cartesian_delta 14D, bare model",
   "max_steps": 600,
   "denoise_steps": 5,
   "action_horizon": 32,
   "seeds_per_milestone": 10,
-  "seed_reuse_across_milestones": false
+  "seed_reuse_across_milestones": false,
+  "eval_reset": "strictly frozen EVAL_SCENE_MANIFEST_V3 options; default reset forbidden"
+ },
+ "scene_manifest": {
+  "path": "p_items/EVAL_SCENE_MANIFEST_V3.json",
+  "freeze_sha256": "9919429851cc157b59cd09676ff098b6676242a66c6c85e954a7847c8adee9bf",
+  "scenes": 80,
+  "distinct_hashes": 80,
+  "profile": "basic"
  },
  "milestone_seeds": {
   "3000": [
-   8100,
-   8101,
-   8102,
-   8103,
-   8104,
-   8105,
-   8106,
-   8107,
-   8108,
-   8109
+   7100,
+   7101,
+   7102,
+   7103,
+   7104,
+   7105,
+   7106,
+   7107,
+   7108,
+   7109
   ],
   "6000": [
-   8200,
-   8201,
-   8202,
-   8203,
-   8204,
-   8205,
-   8206,
-   8207,
-   8208,
-   8209
+   7200,
+   7201,
+   7202,
+   7203,
+   7204,
+   7205,
+   7206,
+   7207,
+   7208,
+   7209
   ],
   "9000": [
-   8300,
-   8301,
-   8302,
-   8303,
-   8304,
-   8305,
-   8306,
-   8307,
-   8308,
-   8309
+   7300,
+   7301,
+   7302,
+   7303,
+   7304,
+   7305,
+   7306,
+   7307,
+   7308,
+   7309
   ],
   "12000": [
-   8400,
-   8401,
-   8402,
-   8403,
-   8404,
-   8405,
-   8406,
-   8407,
-   8408,
-   8409
+   7400,
+   7401,
+   7402,
+   7403,
+   7404,
+   7405,
+   7406,
+   7407,
+   7408,
+   7409
   ],
   "15000": [
-   8500,
-   8501,
-   8502,
-   8503,
-   8504,
-   8505,
-   8506,
-   8507,
-   8508,
-   8509
+   7500,
+   7501,
+   7502,
+   7503,
+   7504,
+   7505,
+   7506,
+   7507,
+   7508,
+   7509
   ],
   "18000": [
-   8600,
-   8601,
-   8602,
-   8603,
-   8604,
-   8605,
-   8606,
-   8607,
-   8608,
-   8609
+   7600,
+   7601,
+   7602,
+   7603,
+   7604,
+   7605,
+   7606,
+   7607,
+   7608,
+   7609
   ],
   "21000": [
-   8700,
-   8701,
-   8702,
-   8703,
-   8704,
-   8705,
-   8706,
-   8707,
-   8708,
-   8709
+   7700,
+   7701,
+   7702,
+   7703,
+   7704,
+   7705,
+   7706,
+   7707,
+   7708,
+   7709
   ]
  },
  "base_anchor": {
@@ -109,47 +118,49 @@
    7010
   ],
   "artifact": "p_items/SUMMARY_step_base.json",
-  "valid": true
+  "valid": "legacy_default_reset_only",
+  "note": "historical anchor; not scene-frozen; future base runs must use a frozen scene group"
  },
  "independent_test": {
   "status": "reserved_not_used",
   "seeds": [
-   8900,
-   8901,
-   8902,
-   8903,
-   8904,
-   8905,
-   8906,
-   8907,
-   8908,
-   8909
+   7900,
+   7901,
+   7902,
+   7903,
+   7904,
+   7905,
+   7906,
+   7907,
+   7908,
+   7909
   ]
  },
  "voided": {
-  "v2_aborted_run_seeds": [
-   7100,
-   7101,
-   7102,
-   7103,
-   7104,
-   7105,
-   7106,
-   7107,
-   7108,
-   7109,
-   7200,
-   7201,
-   7202,
-   7203,
-   7204,
-   7205,
-   7206,
-   7207,
-   7208,
-   7209
-  ],
-  "reason": "aborted run with V2 pm1 gripper labels"
+  "v2_results_on_frozen_scenes": "7100-7709 results from the aborted V2 run are void; those seeds are reassigned to the P4 frozen scenes",
+  "v3_seed_lists_never_used": [
+   [
+    8100,
+    8200,
+    8300,
+    8400,
+    8500,
+    8600,
+    8700
+   ],
+   [
+    8900,
+    8901,
+    8902,
+    8903,
+    8904,
+    8905,
+    8906,
+    8907,
+    8908,
+    8909
+   ]
+  ]
  },
  "consumed": {
   "base": [

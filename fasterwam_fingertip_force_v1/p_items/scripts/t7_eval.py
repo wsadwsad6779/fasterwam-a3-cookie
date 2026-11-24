@@ -1,4 +1,5 @@
 """Bare-model MuJoCo evaluation: checkpoint -> 10 fixed seeds -> dual-view MP4 + strict metrics."""
+import hashlib
 import json
 import os
 import sys
@@ -22,6 +23,7 @@ STATS = '/workspace/fwv1/data/a3_fw_845/dataset_stats_v3.json'
 FSTATS = '/workspace/fwv1/p_items/FINGERTIP_FORCE_NORMALIZATION_V2.json'
 CACHE_DIR = '/workspace/fwv1/data/text_embeds_cache'
 SEEDS_MANIFEST = '/workspace/fwv1/p_items/EVAL_SEED_MANIFEST.json'
+SCENE_MANIFEST = '/workspace/fwv1/p_items/EVAL_SCENE_MANIFEST_V3.json'
 ROOT = '/workspace/fwv1/eval_fingertip_v1'
 PROMPT = "A video recorded from a robot's point of view executing the following instruction: transfer 10 cookies into target box"
 CONTEXT_LEN = 128
@@ -47,6 +49,20 @@ def sha256_file(p):
         for c in iter(lambda: f.read(1 << 22), b''):
             h.update(c)
     return h.hexdigest()
+
+
+def scene_hash(rm):
+    import hashlib
+    cp = np.asarray(rm.get('cookie_positions', []), np.float64)
+    sb = np.asarray(rm.get('source_bin_position', []), np.float64)
+    tb = np.asarray(rm.get('target_bin_position', []), np.float64)
+    h = hashlib.sha1()
+    h.update(np.round(cp, 6).astype(np.float32).tobytes())
+    h.update(np.round(sb, 6).astype(np.float32).tobytes())
+    h.update(np.round(tb, 6).astype(np.float32).tobytes())
+    h.update(json.dumps(rm.get('cameras'), sort_keys=True, default=str).encode())
+    h.update(json.dumps(rm.get('light_diffuse') or rm.get('light'), sort_keys=True, default=str).encode())
+    return h.hexdigest()[:16]
 
 
 def image_to_model(obs):
@@ -136,12 +152,19 @@ def build_model(ckpt_path):
     return model, film, state
 
 
-def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label):
+def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label,
+            scene_manifest_path, scene_entry):
     from a3_dual_arm_sim import A3CookieTransferEnv
     import imageio
     env = A3CookieTransferEnv(action_mode='cartesian_delta', render_mode='rgb_array', render_cameras=True)
     u = getattr(env, 'unwrapped', env)
-    obs, _ = env.reset(seed=seed)
+    obs, _ = env.reset(seed=seed, options=dict(scene_entry['options']))
+    rm = dict(getattr(u, 'randomization_metadata', {}) or {})
+    scene_actual = scene_hash(rm)
+    scene_ok = bool(scene_actual == scene_entry['hash'])
+    if not scene_ok:
+        raise RuntimeError('scene hash mismatch seed=%d expected=%s actual=%s'
+                           % (seed, scene_entry['hash'], scene_actual))
     os.makedirs(out_dir, exist_ok=True)
     frames_f, frames_w = [], []
     ring = np.zeros((HIST, 4), np.float32)
@@ -250,6 +273,9 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label)
                             'grip_close_frac': grip_close, 'open_cmd_frac': open_cmd_frac,
                             'reopen_events': reopen_events, 'eef_path_m': round(path, 4)},
            'force_stats': force_stats,
+           'scene': {'seed': int(seed), 'profile': scene_entry.get('profile'),
+                     'expected_hash': scene_entry['hash'], 'actual_hash': scene_actual,
+                     'match': scene_ok, 'manifest': scene_manifest_path},
            'best_hold': int(best_hold), 'grasps': int(grasps),
            'final_in_target': info.get('cookies_in_target'), 'final_in_source': info.get('cookies_in_source'),
            'close_cmd_frac': float(np.mean([r['grip_cmd'] < 0 for r in rows])) if rows else None,
@@ -269,7 +295,22 @@ def main():
         seeds = [int(x) for x in seeds_env.split(',') if x.strip()]
     else:
         man = json.load(open(SEEDS_MANIFEST))
-        seeds = man['milestone_seeds'].get(str(step_label), [7100]) if step_label != 'base' else [7001]
+        seeds = man['milestone_seeds'].get(str(step_label), [7100]) if step_label != 'base' else [7100]
+    sm_path = os.environ.get('T7_SCENE_MANIFEST', SCENE_MANIFEST)
+    sm = json.load(open(sm_path))
+    canonical = hashlib.sha256(json.dumps(
+        {'base_options': sm['base_options'],
+         'scenes': [{'seed': s['seed'], 'hash': s['hash']} for s in sm['scenes']]},
+        sort_keys=True).encode()).hexdigest()
+    if canonical != sm.get('freeze_sha256'):
+        raise RuntimeError('scene manifest freeze mismatch: %s != %s'
+                           % (canonical, sm.get('freeze_sha256')))
+    scene_map = {int(s['seed']): s for s in sm['scenes']}
+    if len({s['hash'] for s in sm['scenes']}) != len(sm['scenes']):
+        raise RuntimeError('duplicate scene hashes in frozen manifest')
+    missing = [s for s in seeds if s not in scene_map]
+    if missing:
+        raise RuntimeError('eval seeds missing from frozen scene manifest: %s' % missing)
     sub = os.environ.get('T7_OUT_SUBDIR', 'step_%06d' % (int(step_label) if step_label.isdigit() else 0))
     out_root = os.path.join(ROOT, sub)
     stats = Stats()
@@ -282,7 +323,8 @@ def main():
     for seed in seeds:
         out_dir = os.path.join(out_root, 'seed_%05d' % seed)
         try:
-            r = rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label)
+            r = rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label,
+                        sm_path, scene_map[seed])
         except Exception:
             r = {'episode': int(seed), 'error': traceback.format_exc()[:1500], 'exact_fill': False}
         results.append(r)
@@ -307,6 +349,16 @@ def main():
                'protocol': {'max_steps': MAX_STEPS, 'denoise_steps': DENOISE, 'action_horizon': ACTION_HORIZON, 'replan': REPLAN,
                             'cameras': ['front', 'left_wrist']},
                'video_manifest': os.path.join(out_root, 'VIDEO_MANIFEST_step_%s.json' % step_label),
+               'scene_manifest': {
+                   'path': sm_path, 'file_sha256': sha256_file(sm_path),
+                   'freeze_sha256': sm.get('freeze_sha256'),
+                   'scenes': len(sm['scenes']),
+                   'distinct_hashes': len({s['hash'] for s in sm['scenes']}),
+                   'checks': [{'seed': r['episode'],
+                               'expected': (r.get('scene') or {}).get('expected_hash'),
+                               'actual': (r.get('scene') or {}).get('actual_hash'),
+                               'match': (r.get('scene') or {}).get('match')} for r in results],
+                   'all_match': all((r.get('scene') or {}).get('match') for r in results)},
                'force_zero': FORCE_ZERO}
     os.makedirs(out_root, exist_ok=True)
     json.dump(summary, open(os.path.join(out_root, 'SUMMARY_step_%s.json' % step_label), 'w'), indent=1)
@@ -320,7 +372,8 @@ def main():
     json.dump({'step_label': step_label, 'videos': vids, 'root': out_root, 'force_zero': FORCE_ZERO},
               open(summary['video_manifest'], 'w'), indent=1)
     print(json.dumps({'step': step_label, 'exact_fill_rate': summary['exact_fill_rate'],
-                      'avg_in_target': summary['avg_in_target']}))
+                      'avg_in_target': summary['avg_in_target'],
+                      'scene_checks_pass': summary['scene_manifest']['all_match']}))
 
 
 if __name__ == '__main__':

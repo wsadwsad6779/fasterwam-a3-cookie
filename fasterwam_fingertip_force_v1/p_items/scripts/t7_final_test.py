@@ -14,7 +14,7 @@ OUT_SEL = P + '/BEST_CHECKPOINT_SELECTION.json'
 OUT_FORCE = P + '/FORCE_CONTRIBUTION.json'
 OUT_MD = P + '/FINAL_TEST_REPORT.md'
 OUT_MAN = P + '/VIDEO_MANIFEST_final.json'
-SEEDS = ','.join(str(8900 + i) for i in range(10))
+SEEDS = ','.join(str(7900 + i) for i in range(10))
 MILESTONES = [3000, 6000, 9000, 12000, 15000, 18000, 21000]
 
 
