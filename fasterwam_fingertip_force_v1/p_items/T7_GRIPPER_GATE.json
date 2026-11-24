@@ -28,6 +28,14 @@
   "thresholds_used": false,
   "pm1_used": false
  },
+ "label_fix": {
+  "status": "final_no_further_repair",
+  "jitter": {"frames_checked": 457487, "abs_delta_p50": 0.0, "abs_delta_p90": 0.006, "abs_delta_p99": 0.08, "abs_delta_max": 0.08, "frac_le_0.01": 0.9036, "frac_gt_0.1": 0.0},
+  "threshold_pulse_test": {"thresholds_tested": [0.445, 0.446, 0.447, 0.448, 0.449, 0.451, 0.49, 0.5, 0.6, 0.8], "one_step_pulses_total": 0, "conclusion": "the raw signal produces no chatter at any threshold; flips were created by the old labeling rule, not by jitter"},
+  "v2_rule_reproduction": {"close_frac_mean": 0.9313, "release_band_frames_labeled_close": 0.9494, "open_fraction": 0.068, "transitions_per_episode_mean": 3.45, "conclusion": "pm1 <=0.6/>=0.8 + deadband + min-hold5 removed pulses but mapped the 0.49 release to close; 93% close labels taught the policy to close and never reopen"},
+  "boundary_check": {"window_start": "randint(0, n-B-AH)", "max_label_index": "ls+n-2", "valid_label_rows": "0..n-2", "cross_episode_windows": false},
+  "policy": "keep raw continuous action[7] as the target; no smoothing, no threshold, no hold; do not switch the target to measured state[7]"
+ },
  "physical_levels": {
   "role": "descriptive anatomy of THIS dataset only; not an acceptance rule, not a runtime rule, and never to be hardcoded in the policy or eval",
   "generalization_warning": "cookie geometry and count will change; 0.28/0.49/1.0 must not be treated as invariants; grasp/release decisions must be learned from force + vision by the model",
