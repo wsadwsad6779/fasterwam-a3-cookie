@@ -1,42 +1,73 @@
 {
-  "objective": "完成原始FasterWAM + 指尖力F2模型的完整数据验收、夹爪监督修复、21,000步有界训练、每3,000步的10-seed自主实验及最终独立裸模型测试，期间持续保存模型、视频和可恢复状态。",
-  "goal_version": 2,
-  "updated_at": "2026-11-23T17:00:10Z",
-  "d2_status": "completed",
-  "d2_result": {
-    "dataset_accepted": true,
-    "accepted_known": 749,
-    "quarantined_unknown_identity": 96,
-    "rejected": 0,
-    "task_class_resolution": {"metadata_single": 653, "metadata_frame_match": 96, "unknown": 96},
-    "byte_level_action_duplicate_pairs": 0,
-    "physical_groups": 845,
-    "group_leakage_after": 0,
-    "split_v2": {"train": 589, "val": 85, "test": 171},
-    "artifacts": ["DATASET_845_ACCEPTED_MANIFEST.json", "DATASET_845_FINAL_QUALITY_AUDIT.md", "DATASET_845_PROVENANCE.json", "DATASET_845_PHYSICAL_DEDUP.csv", "DATASET_845_LAYOUT_VISUAL_COVERAGE.json", "DATASET_845_TRAIN_VAL_TEST_LEAKAGE.json", "DATASET_845_SPLIT_MANIFEST_V2.json"]
+ "objective": "\u5b8c\u6210\u539f\u59cbFasterWAM + \u6307\u5c16\u529bF2\u6a21\u578b\u7684\u5b8c\u6574\u6570\u636e\u9a8c\u6536\uff08D2: DATASET_845_* \u516d\u4ef6\u5957 + DATASET_ACCEPTED=true\uff09\u3001\u6307\u5c16\u529b\u5206\u5e03/\u5f52\u4e00\u5316/OOD \u9a8c\u6536\uff08D3\uff09\u3001\u5939\u722a V2 \u6700\u7ec8\u9a8c\u6536\u4e0e\u5f00\u5ea6\u4fee\u590d\uff08D4\uff09\u3001F2 \u53ef\u8bad\u7ec3\u6027\u9a8c\u6536\uff08D5\uff09\uff1bG4 \u4f9d\u8d56 D2-D5 \u5168\u90e8\u901a\u8fc7\u540e\u624d\u5141\u8bb8\u8bad\u7ec3\uff08P9 \u5728 G4 \u901a\u8fc7\u524d\u4e0d\u5f97\u542f\u52a8\uff09\uff0c\u5b8c\u6210 21,000 \u6b65\u6709\u754c\u8bad\u7ec3\u3001\u6bcf 3,000 \u6b65\u7684 10-seed \u81ea\u4e3b\u5b9e\u9a8c\u53ca\u6700\u7ec8\u72ec\u7acb\u88f8\u6a21\u578b\u6d4b\u8bd5\uff0c\u671f\u95f4\u6301\u7eed\u4fdd\u5b58\u6a21\u578b\u3001\u89c6\u9891\u548c\u53ef\u6062\u590d\u72b6\u6001\u3002",
+ "goal_version": 2,
+ "updated_at": "2026-11-24T00:53:49Z",
+ "d2_status": "completed",
+ "status": "acknowledged_active",
+ "gates": {
+  "D2": {
+   "status": "completed",
+   "dataset_accepted": true,
+   "artifacts": [
+    "DATASET_845_ACCEPTED_MANIFEST.json",
+    "DATASET_845_FINAL_QUALITY_AUDIT.md",
+    "DATASET_845_PROVENANCE.json",
+    "DATASET_845_PROVENANCE_V2.json",
+    "DATASET_845_PHYSICAL_DEDUP.csv",
+    "DATASET_845_LAYOUT_VISUAL_COVERAGE.json",
+    "DATASET_845_TRAIN_VAL_TEST_LEAKAGE.json",
+    "DATASET_845_SPLIT_MANIFEST_V2.json"
+   ],
+   "supervisor_update": "96 2x10 identities recovered (mis-indexed metadata); frozen test-only, training stays 589 2x5"
   },
-  "gate_state": {
-    "D2": "started (P0 845-episode quality audit)",
-    "D3": "completed (accept_training_data_with_ood_flag: dataset max 1.83N vs current-sim replay 35.4N = 15-19x; 25.2% OOD frames / 11.9% saturation reported, never silently clipped; normalization V2 uses V2 train split only)",
-    "D4": "completed (verdict pass: 11/11 transitions confirmed, opening delay median 0 / max 1 step, 4 complete open-close cycles, action[7]->pm1 agreement 1.0)",
-    "D5": "completed (F2_TRAINING_READY=true: trainable 559.45M, video frozen, gripper-dim grad 0.7245, zero-init identity 0, non-zero FiLM force L2 1.572 / gripper sign flips 9.4%)",
-    "G4": "PASSED_V2 (D2-D5 all green; see T7_G4_GATE.json)",
-    "P9_21k_training": "allowed to resume; budget used 130 / 21000, remaining 20870"
+  "D3": {
+   "status": "completed_superseded_by_alignment",
+   "artifacts": [
+    "FINGERTIP_FORCE_DISTRIBUTION_AUDIT.md",
+    "FINGERTIP_FORCE_NORMALIZATION_V2.json",
+    "FORCE_OOD_ACCEPTANCE.json"
+   ],
+   "supervisor_update": "15-19x gap traced to replay misalignment; fresh closed-loop expert yields 1.45 N matching dataset; normalizer stays train-only with OOD monitor"
   },
-  "training_stop": {
-    "reason": "V2 gate: 21k training must not run before D2-D5 + G4",
-    "stopped_at": "2026-11-23T17:00:00Z",
-    "last_logged_step": 130,
-    "checkpoints_written": "none (first save scheduled at step 500)",
-    "budget_used_steps": 130,
-    "budget_remaining_steps": 20870,
-    "chain": "t7_chain.sh stopped before any milestone"
+  "D4": {
+   "status": "completed_with_V3_revision",
+   "artifacts": [
+    "GRIPPER_V2_FINAL_ACCEPTANCE.md",
+    "GRIPPER_PHASE_METRICS.json",
+    "GRIPPER_V3_ACCEPTANCE.json",
+    "GRIPPER_V3_LABEL_AUDIT.json",
+    "GRIPPER_V3_REPLAY_VIDEO_MANIFEST.json"
+   ],
+   "user_directive": "continuous opening (V3) replaces pm1 as dim6 target; open/closed/reopen verified in sim and 749/749 label audit"
   },
-  "constraints": {
-    "base": "official step_021700 only, read-only",
-    "budget": "<=21000 total, F0/F1/F2 not each 21k",
-    "no_training_before_G4": true,
-    "tokens_never_in_repo_logs_git": true,
-    "bare_model_final_eval": true
+  "D5": {
+   "status": "completed",
+   "artifacts": [
+    "F2_TRAINABLE_PARAMETERS.json",
+    "F2_FORCE_EFFECTIVENESS_TEST.json",
+    "F2_TRAINING_READINESS.md"
+   ],
+   "ready": true
+  },
+  "G4": {
+   "status": "passed_after_supervisor_audit",
+   "artifacts": [
+    "T7_G4_GATE.json",
+    "T7_G4_GATE_REVOKED_20261123T1730Z.json",
+    "T7_SUPERVISOR_AUDIT.json",
+    "T7_G4_V3_DELTA.json"
+   ],
+   "training_allowed": true
+  },
+  "P9": {
+   "status": "running_v3_after_G4",
+   "rule": "G4 \u524d\u4e0d\u5f97\u542f\u52a8\uff1bG4 \u5df2\u7531 Supervisor \u72ec\u7acb\u590d\u6838\u901a\u8fc7",
+   "budget": {
+    "max": 21000,
+    "new_run_used": 70,
+    "discarded_v2_steps": 6140
+   }
   }
+ },
+ "tool_note": "UpdateGoal in this runtime accepts only status=blocked|complete; the V2 objective is recorded here and in T7_GOAL_V2_STATE.json as the authoritative acknowledgement."
 }
