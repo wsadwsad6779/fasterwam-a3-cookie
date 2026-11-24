@@ -63,9 +63,9 @@
   "free_at_9k_estimate_gb": 28.7
  },
  "upload": {
-  "status": "not_triggered",
+  "status": "no_external_backup",
   "manifest": "p_items/GPU_UPLOAD_MANIFEST.json",
-  "note": "HF/GitHub external backup constrained; archive to /root overlay + manifest; never delete"
+  "note": "0 current-run checkpoints externally backed up; per-milestone HF attempt + sha256 verify mandatory"
  },
  "policy": {
   "keep_on_workspace": "latest.pt + newest 2 milestone checkpoints",
@@ -73,7 +73,10 @@
   "archive_rule": "after each milestone eval, if >=3 milestones exist or free < 35GB, move the oldest milestone(s) beyond the newest 2 to the archive; record sha256; never delete",
   "external_upload": "attempt HF per milestone; mark external only after sha256 verify; failures keep archive and set external_backup_pending",
   "align": "G-F GPU_UPLOAD_MANIFEST checkpoints[] entries (step/path/bytes/sha256/location/external)",
-  "refresh": "re-run df before/after every milestone and before GPU-low actions"
+  "refresh": "re-run df before/after every milestone and before GPU-low actions",
+  "archive_persistence": "same_host_move_not_backup — the /root overlay is on the rented instance; persistence across pod rebuild/restart is NOT confirmed",
+  "external_upload_required": true,
+  "external_rule": "checkpoint without an external sha256-verified copy => external=no_external_backup; per-milestone upload attempt is mandatory; record failure reasons (e.g. HF 401) instead of silently skipping"
  },
  "disk_total_bytes": 105089261568,
  "disk_used_bytes": 58042331136,

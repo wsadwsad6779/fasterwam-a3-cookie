@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "kind": "task7_gripper_supervision_gate",
- "ts": "2026-11-24T04:25:11Z",
+ "ts": "2026-11-24T04:28:57Z",
  "roles": {
   "worker": "task7 (owns the gripper fix, implementation and experiments)",
   "supervisor": "this session (independent verification, gate verdicts, written corrections, stop authority)",
@@ -597,7 +597,11 @@
    "archive_rule": "after each milestone eval, if >=3 milestones exist or free < 35GB, move the oldest milestone(s) beyond the newest 2 to the archive; record sha256; never delete",
    "external_upload": "attempt HF per milestone; mark external only after sha256 verify; failures keep archive and set external_backup_pending",
    "align": "G-F GPU_UPLOAD_MANIFEST checkpoints[] entries (step/path/bytes/sha256/location/external)",
-   "refresh": "re-run df before/after every milestone and before GPU-low actions"
-  }
+   "refresh": "re-run df before/after every milestone and before GPU-low actions",
+   "archive_persistence": "same_host_move_not_backup — the /root overlay is on the rented instance; persistence across pod rebuild/restart is NOT confirmed",
+   "external_upload_required": true,
+   "external_rule": "checkpoint without an external sha256-verified copy => external=no_external_backup; per-milestone upload attempt is mandatory; record failure reasons (e.g. HF 401) instead of silently skipping"
+  },
+  "external_backup": "no_external_backup (0 checkpoints verified externally)"
  }
 }
