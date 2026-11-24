@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "kind": "task7_gripper_supervision_gate",
- "ts": "2026-11-24T04:21:05Z",
+ "ts": "2026-11-24T04:25:11Z",
  "roles": {
   "worker": "task7 (owns the gripper fix, implementation and experiments)",
   "supervisor": "this session (independent verification, gate verdicts, written corrections, stop authority)",
@@ -581,5 +581,23 @@
   "vram_used_mb": 24178,
   "gpu_idle": false,
   "note": "training running: fresh V3 run 0->21000 (approved 2026-11-24T03:35Z), PID 306531, run dir t7_21k_v3run, step 440"
+ },
+ "storage_policy": {
+  "status": "warning_plan_archive",
+  "storage_state": "p_items/STORAGE_STATE.json",
+  "upload_manifest": "p_items/GPU_UPLOAD_MANIFEST.json",
+  "checkpoint_manifest": "p_items/CHECKPOINT_MANIFEST.json",
+  "free_gb": 38.8,
+  "min_free_gb": 50,
+  "hard_floor_gb": 30,
+  "measured_checkpoint_gb": 3.36,
+  "retention": {
+   "keep_on_workspace": "latest.pt + newest 2 milestone checkpoints",
+   "archive_dir": "/root/fwv1_checkpoint_archive",
+   "archive_rule": "after each milestone eval, if >=3 milestones exist or free < 35GB, move the oldest milestone(s) beyond the newest 2 to the archive; record sha256; never delete",
+   "external_upload": "attempt HF per milestone; mark external only after sha256 verify; failures keep archive and set external_backup_pending",
+   "align": "G-F GPU_UPLOAD_MANIFEST checkpoints[] entries (step/path/bytes/sha256/location/external)",
+   "refresh": "re-run df before/after every milestone and before GPU-low actions"
+  }
  }
 }

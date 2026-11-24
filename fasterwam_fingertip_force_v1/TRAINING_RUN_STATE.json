@@ -1,7 +1,7 @@
 {
  "project": "fasterwam_fingertip_force_v1",
  "worker": "task7",
- "ts": "2026-11-24T04:21:05Z",
+ "ts": "2026-11-24T04:25:11Z",
  "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
  "phase": "S4_v3_new_run_0_3000",
  "budget": {
@@ -63,7 +63,7 @@
   "dataset_plan": "on-the-fly AV1 video decode (28 shards, 4.5GB) + parquet action/proprio/force; frames.dat memmap (69GB) is not feasible",
   "dataset_split_approved": "V3 continuous labels + DATASET_845_SPLIT_MANIFEST_V2 (589/85/171); 96 2x10 held-out",
   "force_norm_approved": "FINGERTIP_FORCE_NORMALIZATION_V2 (train-only); D3 no true OOD",
-  "latest_checkpoint": null,
+  "latest_checkpoint": "/workspace/fwv1/train_runs/t7_21k_v3run/latest.pt",
   "optimizer_state": null,
   "scheduler_state": null,
   "rng_state": null,
@@ -78,8 +78,8 @@
    21000
   ],
   "pid": 306531,
-  "log_path": "/workspace/fwv1/logs/t7_train.log",
-  "checkpoint": "new run: no checkpoint yet; old diagnostic step_003000/006000 retained separately",
+  "log_path": "/workspace/fwv1/logs/t7_train_v3run.log",
+  "checkpoint": "new run latest.pt step 400 (sha bc6f0f94…); old diagnostic step_003000/006000 retained read-only in t7_21k",
   "new_run_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
   "launched_at": "2026-11-24T03:51:50Z",
   "first_metrics": {
@@ -94,7 +94,9 @@
   },
   "checkpoint_dir_note": "old diagnostic /workspace/fwv1/train_runs/t7_21k retained read-only (step_003000/006000 diagnostic only)",
   "current_step": 450,
-  "eval_status": "not_evaluated (new run; 3k pending)"
+  "eval_status": "not_evaluated (new run; 3k pending)",
+  "latest_checkpoint_sha256": "bc6f0f9480d72f16a04764993822511244c2a632b1e594df1b47fc1eba3b128f",
+  "latest_checkpoint_step": 400
  },
  "evaluation": {
   "protocol": "bare model, MuJoCo, max 600 steps, safety guard, exact_fill 10, 20-step hold; eval g=2a-1, rot x5, replan 10, src==70; 10 fixed seeds per 3k from the frozen manifest",

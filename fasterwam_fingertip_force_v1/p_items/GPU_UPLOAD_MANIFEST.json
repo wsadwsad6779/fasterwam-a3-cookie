@@ -1,6 +1,6 @@
 {
  "worker": "task7",
- "ts": "2026-11-23T15:55:56Z",
+ "ts": "2026-11-24T04:26:03Z",
  "free_gb_before": 43.1,
  "bundle_files": 75,
  "bundle_requested": [
@@ -111,5 +111,92 @@
   "/workspace/fwv1/wan_base/assets/performance.png",
   "/workspace/fwv1/wan_base/assets/comp_effic.png"
  ],
- "free_gb": 74.5
+ "free_gb": 74.5,
+ "v3run": {
+  "run_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
+  "approved_at": "2026-11-24T03:35:00Z",
+  "checkpoints": [
+   {
+    "step": 400,
+    "path": "/workspace/fwv1/train_runs/t7_21k_v3run/latest.pt",
+    "bytes": 3363807509,
+    "sha256": "bc6f0f9480d72f16a04764993822511244c2a632b1e594df1b47fc1eba3b128f",
+    "force_head": true,
+    "base_sha_ok": true,
+    "location": "workspace",
+    "external_backup": "not_attempted"
+   }
+  ],
+  "milestones": {
+   "3000": {
+    "step": 3000,
+    "path": "/workspace/fwv1/train_runs/t7_21k_v3run/step_003000.pt",
+    "status": "pending",
+    "location": null,
+    "sha256": null
+   },
+   "6000": {
+    "step": 6000,
+    "path": "/workspace/fwv1/train_runs/t7_21k_v3run/step_006000.pt",
+    "status": "pending",
+    "location": null,
+    "sha256": null
+   },
+   "9000": {
+    "step": 9000,
+    "path": "/workspace/fwv1/train_runs/t7_21k_v3run/step_009000.pt",
+    "status": "pending",
+    "location": null,
+    "sha256": null
+   },
+   "12000": {
+    "step": 12000,
+    "path": "/workspace/fwv1/train_runs/t7_21k_v3run/step_012000.pt",
+    "status": "pending",
+    "location": null,
+    "sha256": null
+   },
+   "15000": {
+    "step": 15000,
+    "path": "/workspace/fwv1/train_runs/t7_21k_v3run/step_015000.pt",
+    "status": "pending",
+    "location": null,
+    "sha256": null
+   },
+   "18000": {
+    "step": 18000,
+    "path": "/workspace/fwv1/train_runs/t7_21k_v3run/step_018000.pt",
+    "status": "pending",
+    "location": null,
+    "sha256": null
+   },
+   "21000": {
+    "step": 21000,
+    "path": "/workspace/fwv1/train_runs/t7_21k_v3run/step_021000.pt",
+    "status": "pending",
+    "location": null,
+    "sha256": null
+   }
+  }
+ },
+ "retention_policy": {
+  "keep_on_workspace": "latest.pt + newest 2 milestone checkpoints",
+  "archive_dir": "/root/fwv1_checkpoint_archive",
+  "archive_rule": "after each milestone eval, if >=3 milestones exist or free < 35GB, move the oldest milestone(s) beyond the newest 2 to the archive; record sha256; never delete",
+  "external_upload": "attempt HF per milestone; mark external only after sha256 verify; failures keep archive and set external_backup_pending",
+  "align": "G-F GPU_UPLOAD_MANIFEST checkpoints[] entries (step/path/bytes/sha256/location/external)",
+  "refresh": "re-run df before/after every milestone and before GPU-low actions"
+ },
+ "checkpoints": [
+  {
+   "step": 400,
+   "path": "/workspace/fwv1/train_runs/t7_21k_v3run/latest.pt",
+   "bytes": 3363807509,
+   "sha256": "bc6f0f9480d72f16a04764993822511244c2a632b1e594df1b47fc1eba3b128f",
+   "force_head": true,
+   "base_sha_ok": true,
+   "location": "workspace",
+   "external_backup": "not_attempted"
+  }
+ ]
 }
