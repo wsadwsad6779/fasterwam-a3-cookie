@@ -1,0 +1,44 @@
+{
+ "path": "/workspace/fwv1/train_runs/t7_smoke_force500/step_000502.pt",
+ "step": 502,
+ "keys": [
+  "action_expert",
+  "base_sha256",
+  "film",
+  "force_head",
+  "losses",
+  "optimizer",
+  "proprio",
+  "rng_cuda",
+  "rng_torch",
+  "scheduler",
+  "step"
+ ],
+ "force_head_keys": [
+  "0.bias",
+  "0.weight",
+  "1.bias",
+  "1.weight",
+  "3.bias",
+  "3.weight"
+ ],
+ "force_head_params": 264705,
+ "last_layer_absmax": 0.0001996103674173355,
+ "last_layer_nonzero": true,
+ "optimizer_param_groups": 1,
+ "optimizer_state_entries": 572,
+ "base_sha256": "01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d",
+ "compare": {
+  "path2": "/workspace/fwv1/train_runs/t7_smoke_force/step_000001.pt",
+  "step2": 1,
+  "force_head_max_abs_diff": 0.06241102144122124,
+  "per_key": {
+   "0.weight": 7.534027099609375e-05,
+   "0.bias": 7.280873251147568e-05,
+   "1.weight": 0.06241102144122124,
+   "1.bias": 0.060844291001558304,
+   "3.weight": 0.0001996103674173355,
+   "3.bias": 4.782465475727804e-05
+  }
+ }
+}

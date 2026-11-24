@@ -1,0 +1,40 @@
+{
+ "id": "C-20261124-01",
+ "kind": "pipeline_restore",
+ "ts": "2026-11-24T02:35:00Z",
+ "status": "closed",
+ "problem": "pod and local t7_data.py were reverted to pm1 phase_open (g<=-0.8) so the V3 balanced sampler was silently disabled; t7_train.py close_frac was byte-identical to open_frac; the metric was computed on normalized actions, not raw opening",
+ "fixes": [
+  "restored HEAD V3 scripts (phase_open g>=0.8, close_frac <=0.6) and quarantined the pm1 copies locally (p_items/_quarantine/pm1_20261124) and on the pod (/workspace/fwv1/quarantine/pm1_20261124)",
+  "replaced the half-finished worker sampler (pm1 phase_open plus a misnamed phase_close_rise at 0.8) with V3 semantics: 30% open-rise anchor, 20% release-rise anchor (>=0.35, the 0.28->0.49 release), 50% uniform",
+  "fixed the inclusive randint boundary: start in [0, n-B-AH-1] so the last video frame is n-1 (no cross-episode or out-of-range reads)",
+  "added grip_raw to the batch and moved close/open/release metrics to raw opening space (normalized-space thresholds were meaningless)",
+  "added force_target (normalized max over active pads at t+AH), force_dropped mask, and T7_FORCE_DROPOUT=0.1"
+ ],
+ "deployed_scripts": {
+  "t7_data.py": "76dfdbf4c3a30661356d42a0cac0a74b2887a9472a8efca5b17dd328f09b59ab",
+  "t7_train.py": "9b75f370b6ea9c0f5efe3e05f8f32bc245f158fc142e7dc7f54290c769625766",
+  "t7_eval.py": "bd74a085e2ad657fceee04e73039c901945b55bd705f4b3f7a9a67ee7d62fecb",
+  "t7_gripper_sampler_probe.py": "fa1e6788c14daf0eeb092cbc5e90554e2669471bc4edcdd45065d58bb1737d8b",
+  "t7_g_b_regression.py": "e52d625e9b6f0955c80ff2a19ee0975ba458bec29636e3f17e0d294150300c67",
+  "t7_batch_metric_check.py": "dd2f1c42987572a149d4cb2714afd53651a37e6b02e2295a6590760b0a8f1707",
+  "t7_ckpt_force_check.py": "388faf1504f17bb71aac6e5e679d39969b2a898b34c4b037dc6cecc836447409"
+ },
+ "pod_destinations": ["/workspace/t7_data.py", "/workspace/_t7_data.py", "/workspace/t7_train.py", "/workspace/_t7_train.py", "/workspace/t7_eval.py", "/workspace/_t7_eval.py", "/workspace/_t7_gripper_sampler_probe.py"],
+ "evidence": {
+  "sampler_probe": {"artifact": "GRIPPER_SAMPLER_PROBE_V3.json", "sha256": "294cc1282826731162ce1e587a89dfc36915e85f3a8ea6b547fd144e265a321a",
+                    "raw_open_frac_mean": 0.1482, "uniform_open_frac_mean": 0.0197, "open_gain_x": 7.5,
+                    "open_mode": {"n": 21, "open_frac": 0.2976}, "release_mode": {"n": 5, "release_frac": 0.9555, "release_edge_coverage": 1.0},
+                    "force_drop_frac": 0.095, "verdict": "pass"},
+  "batch_metric_check": {"artifact": "T7_BATCH_METRIC_CHECK.json", "sha256": "b4280f6572165a35eaf9d447bc8dd5fe03f36b653c76fb31a691b30e17f56065",
+                         "raw_close_frac": 0.8373, "raw_open_frac": 0.1286, "raw_release_frac": 0.6380,
+                         "old_normalized_metric": {"close": 0.8892, "open": 0.0926},
+                         "dropout_frac": 0.1104, "bad_episode_bounds": [], "verdict": "pass"},
+  "g_b_regression": {"artifact": "G_B_EVAL_REGRESSION.json", "sha256": "10e95987ab630fd4fa0924d14de72e4f799c3253d7c6fde0b2bbada178b7fce7", "verdict": "pass", "checks": 16},
+  "base_short_eval": {"artifact": "G_B_BASE_EVAL_SUMMARY.json", "sha256": "26b9cec8630aa5ebe3d43c7d1dec0b442471dd6aaa0bd4ab9b839a476edba781",
+                      "seeds": [7001], "max_steps": 40, "denoise": 2, "exact_fill": false,
+                      "grasps": 2, "final_in_target": 0, "safety_reason": null,
+                      "force_stats_present": true, "note": "harness end-to-end; base is expected to fail exact_fill"}
+ },
+ "verdict": "pass"
+}

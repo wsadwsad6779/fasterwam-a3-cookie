@@ -86,13 +86,16 @@ class A3BatchSource:
         self.context_mask = ctx['mask'].bool()
         self.phase_open = {}
         self.phase_rise = {}
+        self.release_rise = {}
         for ep in self.episodes:
             ls = int(self.lab_start[ep])
             lab = self.L[ls:ls + int(self.el[ep])]
             g = lab[:, 6]
             self.phase_open[ep] = np.flatnonzero(g >= 0.8)
             self.phase_rise[ep] = np.flatnonzero(np.diff((g >= 0.8).astype(int)) == 1) + 1
+            self.release_rise[ep] = np.flatnonzero(np.diff((g >= 0.35).astype(int)) == 1) + 1
         self.open_episodes = [ep for ep in self.episodes if len(self.phase_open[ep]) > 0]
+        self.release_episodes = [ep for ep in self.episodes if len(self.release_rise[ep]) > 0]
         self._readers = {}
         self._clock = 0
 
@@ -106,29 +109,44 @@ class A3BatchSource:
 
     def next_batch(self):
         B = self.batch_size
-        use_open = (self.balanced and self.open_episodes and self.rng.random() < 0.5)
-        if use_open:
-            ep = self.open_episodes[self.rng.randrange(len(self.open_episodes))]
-            n = int(self.el[ep])
-            max_start = n - B - AH
-            if max_start < 1:
-                use_open = False
-            else:
-                rises = self.phase_rise[ep]
-                if self.rng.random() < 0.5:
-                    start = self.rng.randint(0, min(4, max_start))
-                elif len(rises):
-                    edge = int(rises[self.rng.randrange(len(rises))])
-                    start = max(0, min(max_start, edge - self.rng.randint(0, 8)))
+        start = None
+        if self.balanced:
+            r = self.rng.random()
+            mode = 'open' if (r < 0.30 and self.open_episodes) else (
+                'release' if (r < 0.50 and self.release_episodes) else 'uniform')
+        else:
+            mode = 'uniform'
+        if mode in ('open', 'release'):
+            pool = self.open_episodes if mode == 'open' else self.release_episodes
+            for _ in range(4):
+                ep = pool[self.rng.randrange(len(pool))]
+                n = int(self.el[ep])
+                max_start = n - B - AH - 1
+                if max_start < 1:
+                    continue
+                if mode == 'open':
+                    edges = self.phase_rise[ep]
+                    if not len(edges):
+                        continue
+                    if self.rng.random() < 0.5:
+                        start = self.rng.randint(0, min(4, max_start))
+                    else:
+                        edge = int(edges[self.rng.randrange(len(edges))])
+                        start = max(0, min(max_start, edge - self.rng.randint(0, 12)))
                 else:
-                    start = self.rng.randint(0, max(1, min(4, max_start)))
-        if not use_open:
+                    edges = self.release_rise[ep]
+                    if not len(edges):
+                        continue
+                    edge = int(edges[self.rng.randrange(len(edges))])
+                    start = max(0, min(max_start, edge - self.rng.randint(0, 8)))
+                break
+        if start is None:
             while True:
                 ep = self.episodes[self.rng.randrange(len(self.episodes))]
                 n = int(self.el[ep])
-                if n < B + AH + 2:
+                if n < B + AH + 3:
                     continue
-                start = self.rng.randint(0, n - B - AH)
+                start = self.rng.randint(0, n - B - AH - 1)
                 break
         m = self.meta[ep]
         f_rel = 'observation.images.front/chunk-%03d/file-%03d.mp4' % (
@@ -158,6 +176,9 @@ class A3BatchSource:
         props = []
         fhist = []
         fmask = []
+        graw = []
+        ftgt = []
+        dropped = np.zeros(B, bool)
         s = self.s_map[ep]
         ls = int(self.lab_start[ep])
         for i in range(B):
@@ -165,6 +186,7 @@ class A3BatchSource:
                                           self.amin, self.amax)))
             props.append(torch.tensor(_lin(self.S[s + start + i:s + start + i + NUM_FRAMES],
                                            self.smin, self.smax)))
+            graw.append(torch.tensor(self.L[ls + start + i:ls + start + i + AH, 6].copy()))
             lo = start + i - HIST
             pad = max(0, -lo)
             rows = self.F18[s + max(0, lo):s + start + i, 12:16]
@@ -176,9 +198,23 @@ class A3BatchSource:
                 mask[HIST - len(rows):] = True
             fhist.append(torch.tensor(norm))
             fmask.append(torch.tensor(mask))
+            tgt_rows = self.F18[s + start + i + AH, 12:16]
+            tgt = np.clip((tgt_rows - self.fmean) / self.fstd * self.factive, -5, 5)
+            active = self.factive > 0
+            ftgt.append(float(tgt[active].max()) if active.any() else 0.0)
+        drop_p = float(os.environ.get('T7_FORCE_DROPOUT', '0.1'))
+        if drop_p > 0.0:
+            for i in range(B):
+                if self.rng.random() < drop_p:
+                    fhist[i] = torch.zeros_like(fhist[i])
+                    fmask[i] = torch.zeros_like(fmask[i])
+                    dropped[i] = True
         return {
             'video': video,
             'action': torch.stack(acts, 0),
+            'grip_raw': torch.stack(graw, 0),
+            'force_target': torch.tensor(ftgt, dtype=torch.float32),
+            'force_dropped': torch.tensor(dropped),
             'proprio': torch.stack(props, 0),
             'force_history': torch.stack(fhist, 0),
             'force_history_mask': torch.stack(fmask, 0),
@@ -186,7 +222,7 @@ class A3BatchSource:
             'context_mask': self.context_mask.unsqueeze(0).repeat(B, 1),
             'action_is_pad': torch.zeros(B, AH, dtype=torch.bool),
             'image_is_pad': torch.zeros(B, T_VID, dtype=torch.bool),
-            'meta': {'episode': ep, 'start': start},
+            'meta': {'episode': ep, 'start': start, 'mode': mode},
         }
 
 

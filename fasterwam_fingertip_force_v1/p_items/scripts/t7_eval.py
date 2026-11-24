@@ -234,10 +234,22 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label)
     for i in range(1, len(rows)):
         a0 = np.asarray(rows[i-1]['eef_after']); a1 = np.asarray(rows[i]['eef_after'])
         path += float(np.linalg.norm(a1 - a0))
+    pads = np.asarray([max(r['force']) for r in rows], np.float64) if rows else np.zeros(0)
+    cmd_close = np.asarray([r['grip_cmd'] < 0 for r in rows], bool) if rows else np.zeros(0, bool)
+    rel_mask = (ocmd > 0.35) & (ocmd < 0.7)
+    force_stats = {
+        'contact_frac': float((pads > 0.2).mean()) if len(pads) else None,
+        'strong_contact_frac': float((pads > 0.5).mean()) if len(pads) else None,
+        'contact_force_median': float(np.median(pads[pads > 0.2])) if (pads > 0.2).any() else None,
+        'close_cmd_force_median': float(np.median(pads[cmd_close])) if cmd_close.any() else None,
+        'release_cmd_force_median': float(np.median(pads[rel_mask])) if rel_mask.any() else None,
+        'force_max': float(pads.max()) if len(pads) else None,
+    }
     res = {'episode': int(seed), 'steps': t, 'exact_fill': bool(exact_fill),
            'action_stats': {'dp_absmean': dp_mean, 'dp_absmax': dp_max, 'rot_absmean': rot_mean,
                             'grip_close_frac': grip_close, 'open_cmd_frac': open_cmd_frac,
                             'reopen_events': reopen_events, 'eef_path_m': round(path, 4)},
+           'force_stats': force_stats,
            'best_hold': int(best_hold), 'grasps': int(grasps),
            'final_in_target': info.get('cookies_in_target'), 'final_in_source': info.get('cookies_in_source'),
            'close_cmd_frac': float(np.mean([r['grip_cmd'] < 0 for r in rows])) if rows else None,
@@ -285,6 +297,9 @@ def main():
                    'eef_path_m': float(np.mean([r['action_stats']['eef_path_m'] for r in results if r.get('action_stats')])) if any(r.get('action_stats') for r in results) else None,
                    'open_cmd_frac': float(np.mean([r['action_stats']['open_cmd_frac'] for r in results if r.get('action_stats')])) if any(r.get('action_stats') for r in results) else None,
                    'reopen_events_mean': float(np.mean([r['action_stats']['reopen_events'] for r in results if r.get('action_stats')])) if any(r.get('action_stats') for r in results) else None},
+               'force_stats_mean': {
+                   'contact_frac': float(np.mean([r['force_stats']['contact_frac'] for r in results if r.get('force_stats') and r['force_stats']['contact_frac'] is not None])) if any(r.get('force_stats') and r['force_stats']['contact_frac'] is not None for r in results) else None,
+                   'strong_contact_frac': float(np.mean([r['force_stats']['strong_contact_frac'] for r in results if r.get('force_stats') and r['force_stats']['strong_contact_frac'] is not None])) if any(r.get('force_stats') and r['force_stats']['strong_contact_frac'] is not None for r in results) else None},
                'exact_fill_count': sum(1 for r in results if r.get('exact_fill')),
                'exact_fill_rate': sum(1 for r in results if r.get('exact_fill')) / max(1, len(results)),
                'avg_in_target': float(np.mean([r.get('final_in_target') or 0 for r in results])),

@@ -1,0 +1,36 @@
+{
+ "id": "C-20261124-02",
+ "kind": "force_grounded_learning",
+ "ts": "2026-11-24T02:35:00Z",
+ "status": "implemented_smoke_pass",
+ "design": {
+  "aux_head": "LayerNorm(1024) -> Linear(1024,256) -> SiLU -> Linear(256,1); zero-init last layer; input = mean-pooled action-expert post_dit tokens (feat_dim 1024)",
+  "target": "normalized max fingertip pad force at the last action step (t+AH) over ACTIVE channels only (left pads ch12/13; right pads masked out)",
+  "loss": "L = L_main + 0.05 * MSE(force_pred, force_target) (T7_AUX_FORCE_W)",
+  "dropout": "T7_FORCE_DROPOUT=0.1 zeroes the 8-step force history and its mask per sample",
+  "checkpoint": "force_head saved with every checkpoint; optimizer state includes it (572 entries); resume loads it and falls back gracefully on old checkpoints",
+  "eval": "aux head is training-only; eval unchanged except force_stats (contact_frac, strong_contact_frac, contact/release force medians, force_max)",
+  "params": {"force_head": 264705, "trainable_total": 559718152}
+ },
+ "bug_found_and_fixed": {
+  "symptom": "at step 1 loss_force was exactly 0 and the zero-init head received zero gradient; step-1 last layer stayed 0.0",
+  "cause": "force target took max over all 4 pad channels; right pads are always 0, so no-contact frames (left channels negative after normalization) were forced to 0",
+  "fix": "take max over active channels only (factive > 0)",
+  "post_fix": "fresh smoke at step 500-502: loss_force 0.8799, last layer absmax 1.996e-4 (nonzero) after 2 steps"
+ },
+ "evidence": {
+  "smoke_step_502": {"artifact": "t7_smoke500.log", "loss_main": 1.1843, "loss_force": 0.8799, "close_frac": 0.7969, "open_frac": 0.1406, "release_frac": 0.8281, "force_drop_frac": 0.125, "feat_dim": 1024, "lr": 0.00009986, "base_sha256": "01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d"},
+  "ckpt_post": {"artifact": "T7_FORCE_HEAD_CKPT_CHECK_POST.json", "sha256": "9053f4bc182fde86ec7712a4914cbe4b309be614779186bbedb222a8a4db91e9",
+                "force_head_keys": 6, "force_head_params": 264705, "last_layer_absmax": 0.0001996, "last_layer_nonzero": true,
+                "optimizer_param_groups": 1, "optimizer_state_entries": 572},
+  "ckpt_pre": {"artifact": "T7_FORCE_HEAD_CKPT_CHECK_PRE.json", "sha256": "462e468c29bf91e2623b0d278c2fa054a8bfaea4e1da51c3e42953901ccc8c46",
+               "note": "step1 vs step11 head diff 8.4e-6: the head was connected but the zero-target bug kept most batches flat; fixed afterwards"},
+  "resume": {"log": "t7_resume_smoke.log", "resumed_from_step": 1, "ran_to_step": 11, "note": "RESUMED logged, optimizer+scheduler+RNG restored, checkpoints written"}
+ },
+ "limitations": [
+  "only 1-2 step smokes; no multi-hour run until the gate releases training",
+  "with-force vs zero-force ablation and force-based acceptance are evaluated at 3k under G-G",
+  "2x10 held-out and any new cookie count/thickness data are still pending"
+ ],
+ "verdict": "pass_smoke"
+}

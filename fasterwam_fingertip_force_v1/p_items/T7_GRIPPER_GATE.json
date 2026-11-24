@@ -33,8 +33,28 @@
   "jitter": {"frames_checked": 457487, "abs_delta_p50": 0.0, "abs_delta_p90": 0.006, "abs_delta_p99": 0.08, "abs_delta_max": 0.08, "frac_le_0.01": 0.9036, "frac_gt_0.1": 0.0},
   "threshold_pulse_test": {"thresholds_tested": [0.445, 0.446, 0.447, 0.448, 0.449, 0.451, 0.49, 0.5, 0.6, 0.8], "one_step_pulses_total": 0, "conclusion": "the raw signal produces no chatter at any threshold; flips were created by the old labeling rule, not by jitter"},
   "v2_rule_reproduction": {"close_frac_mean": 0.9313, "release_band_frames_labeled_close": 0.9494, "open_fraction": 0.068, "transitions_per_episode_mean": 3.45, "conclusion": "pm1 <=0.6/>=0.8 + deadband + min-hold5 removed pulses but mapped the 0.49 release to close; 93% close labels taught the policy to close and never reopen"},
-  "boundary_check": {"window_start": "randint(0, n-B-AH)", "max_label_index": "ls+n-2", "valid_label_rows": "0..n-2", "cross_episode_windows": false},
+  "boundary_check": {"window_start": "randint(0, n-B-AH-1) (fixed inclusive-randint off-by-one)", "video_last_frame": "n-1", "max_label_index": "ls+n-2", "valid_label_rows": "0..n-2", "cross_episode_windows": false},
   "policy": "keep raw continuous action[7] as the target; no smoothing, no threshold, no hold; do not switch the target to measured state[7]"
+ },
+ "pipeline_fix": {
+  "status": "pass",
+  "artifact": "C01_PIPELINE_RESTORE.json",
+  "changes": ["restore HEAD V3 scripts and quarantine pm1 copies locally and on pod", "30% open-rise / 20% release-rise / 50% uniform sampler", "inclusive randint boundary fixed", "raw grip metrics", "force target over active pads only"],
+  "quarantine": {"local": "p_items/_quarantine/pm1_20261124", "pod": "/workspace/fwv1/quarantine/pm1_20261124"},
+  "deployed": {"t7_data.py": "76dfdbf4c3a30661356d42a0cac0a74b2887a9472a8efca5b17dd328f09b59ab", "t7_train.py": "9b75f370b6ea9c0f5efe3e05f8f32bc245f158fc142e7dc7f54290c769625766", "t7_eval.py": "bd74a085e2ad657fceee04e73039c901945b55bd705f4b3f7a9a67ee7d62fecb"},
+  "verdict": "pass"
+ },
+ "force_learning": {
+  "status": "implemented_smoke_pass",
+  "artifact": "C02_FORCE_GROUNDED_LEARNING.json",
+  "aux_head": "LayerNorm(1024)-Linear(256)-SiLU-Linear(1), zero-init last layer, pooled post_dit tokens",
+  "aux_head_params": 264705,
+  "trainable_total": 559718152,
+  "target": "normalized max pad force at t+AH over active channels only",
+  "dropout": 0.1,
+  "smoke": {"loss_force": 0.8799, "last_layer_absmax": 0.0001996, "feat_dim": 1024},
+  "resume": "step1->step11 RESUMED with force_head and optimizer state",
+  "verdict": "pass_smoke"
  },
  "physical_levels": {
   "role": "descriptive anatomy of THIS dataset only; not an acceptance rule, not a runtime rule, and never to be hardcoded in the policy or eval",
@@ -58,6 +78,8 @@
  },
  "deployment_drift": {
   "severity": "high",
+  "status": "fixed_2026-11-24T02:35Z",
+  "evidence": "C01_PIPELINE_RESTORE.json; GRIPPER_SAMPLER_PROBE_V3.json; T7_BATCH_METRIC_CHECK.json",
   "correction": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\PENDING_CORRECTIONS\\C-20261124-01-sampler-deployment-drift.md",
   "pod_current": {
    "/workspace/t7_data.py": "phase_open uses g <= -0.8 (pm1 semantics; V3 continuous labels make this empty)",
@@ -83,9 +105,9 @@
  },
  "gates": {
   "G-A_label_semantics": {"status": "pass", "evidence": ["GRIPPER_V3_LABEL_AUDIT.json sha256 2147901bb5ba5e66db9f2a8913fbbbae44d5d3669dd75b1fb47905824e55f867", "GRIPPER_SEMANTICS_VERIFICATION.json"]},
-  "G-B_eval_mapping_regression": {"status": "pending", "fix_commit": "e74e1ea", "checks": ["g=2a-1", "trans x2", "rot x5", "replan=10", "exact_fill src==70"]},
+  "G-B_eval_mapping_regression": {"status": "pass", "fix_commit": "e74e1ea", "checks": ["g=2a-1", "trans x2", "rot x5", "replan=10", "exact_fill src==70"], "evidence": ["G_B_EVAL_REGRESSION.json sha256 10e95987ab630fd4fa0924d14de72e4f799c3253d7c6fde0b2bbada178b7fce7 (16/16 checks)", "G_B_BASE_EVAL_SUMMARY.json sha256 26b9cec8630aa5ebe3d43c7d1dec0b442471dd6aaa0bd4ab9b839a476edba781 (40-step base harness run, force_stats present)"]},
   "G-C_physics_replay": {"status": "pass", "evidence": ["GRIPPER_V3_ACCEPTANCE.json sha256 1a29c6d4b710320ba6ab41a359783f485f0b7c3aca33594ca04f33b89cbef082"], "tracking": {"lag": 0, "rmse": 0.003875976739371812, "corr": 0.9997261039333067}},
-  "G-D_training_balance": {"status": "blocked_deployment_drift", "fail_conditions": ["close_frac>0.95 at 3k", "open_cmd_frac<0.05 at 3k", "reopen_events==0 at 3k"], "correction": "C-20261124-01", "verified_probe": {"artifact": "SAMPLER_BALANCE_CHECK.json", "ts": "2026-11-24T00:45:29Z", "mean_open_frac_ge0.8_unbalanced": 0.04765625, "mean_open_frac_ge0.8_balanced": 0.2083984375, "improvement_x": 4.372950819672131, "note": "probe passed with the HEAD version; pod copies were reverted to pm1 after the probe"}},
+  "G-D_training_balance": {"status": "pipeline_fixed_probe_passed", "fail_conditions": ["close_frac>0.95 at 3k", "open_cmd_frac<0.05 at 3k", "reopen_events==0 at 3k"], "correction": "C-20261124-01", "verified_probe": {"artifact": "SAMPLER_BALANCE_CHECK.json", "ts": "2026-11-24T00:45:29Z", "mean_open_frac_ge0.8_unbalanced": 0.04765625, "mean_open_frac_ge0.8_balanced": 0.2083984375, "improvement_x": 4.372950819672131, "note": "probe passed with the HEAD version; pod copies were reverted to pm1 after the probe"}, "fixed_probe": {"artifact": "GRIPPER_SAMPLER_PROBE_V3.json", "sha256": "294cc1282826731162ce1e587a89dfc36915e85f3a8ea6b547fd144e265a321a", "open_mode_open_frac": 0.2976, "release_mode_release_edge_coverage": 1.0, "verdict": "pass"}, "batch_check": {"artifact": "T7_BATCH_METRIC_CHECK.json", "sha256": "b4280f6572165a35eaf9d447bc8dd5fe03f36b653c76fb31a691b30e17f56065", "raw_open_frac": 0.1286, "raw_close_frac": 0.8373, "verdict": "pass"}},
   "G-E_behavior_milestones": {"status": "pending", "requirements": ["3k: >=1 reopen and exact_fill>0", "6k: no >20% relative degradation vs 3k", "10 fixed seeds"]},
   "G-G_force_grounded_generalization": {"status": "pending", "requirements": ["acceptance uses measured contact force and task outcome, never aperture thresholds", "carry segments: left pad force sustained >0.5N; release segments: force back to ~0; no cookie drop during carry", "with-force vs zero-force ablation reported at every milestone (F2 must not be cosmetic)", "held-out 2x10 (96 episodes) evaluated with no aperture rules", "new cookie count/thickness enters as a new dataset version with explicit approval; never silently mixed into the frozen split"], "forbidden": "runtime force-threshold gripper controller (external controller in final decisions) is not allowed"},
   "G-F_ledger": {"status": "pending", "files": ["TRAINING_RUN_STATE.json", "EVAL_SEED_MANIFEST.json", "CHECKPOINT_MANIFEST.json", "GPU_UPLOAD_MANIFEST.json"]}
