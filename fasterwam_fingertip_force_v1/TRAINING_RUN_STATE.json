@@ -1,7 +1,7 @@
 {
  "project": "fasterwam_fingertip_force_v1",
  "worker": "task7",
- "ts": "2026-11-24T01:08:00Z",
+ "ts": "2026-11-24T03:34:00Z",
  "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
  "phase": "S0_ABANDONED_OLD_RUN_gripper_fix_pending",
  "budget": {
@@ -30,13 +30,13 @@
   "identity_artifact": "p_items/T7_BASE_IDENTITY.json"
  },
  "training": {
-  "status": "ABANDONED by user directive 2026-11-24: old 3k/6k progress discarded; do not resume from step_003000/step_006000; retrain from scratch after the gripper open/close fix is 100% verified and the V3 data/eval audits pass",
+  "status": "stopped: old V2/V3 progress abandoned; do not resume step_003000/step_006000; awaiting gate G-A..G-F and budget confirmation; training_allowed=false",
   "baseline_anchor": "base 10 seeds x 600 steps: exact_fill 0/10, avg_in_target 0.0, 0 safety stops (p_items/SUMMARY_step_base.json)",
   "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k",
   "checkpoint_plan": "trainable-only (action expert + F2 + proprio, 558.9M) + frozen base reference; ~5.59GB per milestone, ~39.1GB for 7",
   "param_budget_artifact": "p_items/T7_PARAM_BUDGET.json",
   "dataset_plan": "on-the-fly AV1 video decode (28 shards, 4.5GB) + parquet action/proprio/force; frames.dat memmap (69GB) is not feasible",
-  "dataset_split_approved": "DATASET_845_SPLIT_MANIFEST_V2.json (589 train / 85 val / 171 frozen test; 96 2x10 identified and frozen test-only; group leakage 0) \u2014 training must use this split",
+  "dataset_split_approved": "DATASET_845_SPLIT_MANIFEST_V2.json (589 train / 85 val / 171 frozen test; 96 2x10 identified and frozen test-only; group leakage 0) — training must use this split",
   "force_norm_approved": "FINGERTIP_FORCE_NORMALIZATION_V2.json (train-only; OOD/saturation monitored at eval)",
   "latest_checkpoint": null,
   "optimizer_state": null,
@@ -52,7 +52,7 @@
    18000,
    21000
   ],
-  "pid": 509643,
+  "pid": null,
   "log_path": "/workspace/fwv1/logs/t7_train.log",
   "checkpoint": "step_003000.pt/step_006000.pt retained as diagnostic evidence only, not for resume"
  },
@@ -110,13 +110,23 @@
   "tmux_session": "fwv1",
   "logs_dir": "/workspace/fwv1/logs"
  },
- "next": "1) fix t7_data.py balanced sampler open/close inversion + t7_train.py close_frac metric; 2) P3-B data diversity gap + new data version/experiment identity; 3) P4 frozen eval scenes; 4) from-scratch run within remaining 14860 steps",
+ "next": "1) pretrain items done: gate ledger, eval frozen scenes, P3-B probe; 2) no training until G-E/G-G/G-F pass on a real run and the budget total is confirmed; 3) conservative cap 14860",
  "monitoring": {
-  "status": "BLOCKED_POD_AUTH_403",
-  "since": "2026-11-23T19:01:25Z",
+  "status": "STOPPED_CONFIRMED",
+  "since": "2026-11-24T03:31:15Z",
   "last_known_alive": "2026-11-23T18:30:52Z step 1200 latest.pt 3360623869B; train pid 509643, chain 509720, watchdog 513435",
-  "evidence": "p_items/POD_ACCESS_LOST_20261123.json",
-  "note": "browser cookies cleared; all Jupyter API calls 403 nginx; user must sign in again. Training/chain/watchdog were designed to continue autonomously on the persistent pod; state unknown until access returns."
+  "evidence": "p_items/POD_ACCESS_LOST_20261123.json; p_items/POD_JOB_STATE.json (stopped/step200/pid null); T7_GRIPPER_GATE.json training_state",
+  "note": "training stopped and verified; tmux train_v3/chain_v3/watchdog_v3/finalizer_v3 closed; awaiting gate/budget; do not auto-resume",
+  "previous": {
+   "status": "BLOCKED_POD_AUTH_403",
+   "since": "2026-11-23T19:01:25Z",
+   "last_known_alive": "2026-11-23T18:30:52Z step 1200 latest.pt 3360623869B; train pid 509643, chain 509720, watchdog 513435",
+   "note": "browser cookies cleared; all Jupyter API calls 403 nginx; user must sign in again. Training/chain/watchdog were designed to continue autonomously on the persistent pod; state unknown until access returns."
+  },
+  "last_checked": "2026-11-24T03:31:15Z",
+  "last_checked_state": "GPU 28MB used; no t7_train/scene/probe processes; pod POD_JOB_STATE status=stopped step=200 pid=null",
+  "observed_last_step": 200,
+  "observed_last_step_note": "recorded new-run budget charge remains 70 per supervisor instruction; pod log/checkpoint last observed step=200; discrepancy noted, not charged"
  },
  "labels": {
   "path": "/workspace/fwv1/p_items/A3_845_7D_LABELS_V3.npz",
@@ -128,12 +138,13 @@
  "sampler": {
   "balanced": true,
   "modes": [
-   "episode-start open window",
-   "close->open rise-edge window (0-8 frames before edge)"
+   "30% episode-start/open-rise windows (0-12 frames before an open rise)",
+   "20% release-rise windows (>=0.35, the 0.28->0.49 release, 0-8 frames before)",
+   "50% uniform"
   ],
-  "evidence": "p_items/SAMPLER_BALANCE_CHECK_V3_FINAL.json (anchored batches open 14-44% vs 4.8% natural)"
+  "evidence": "p_items/SAMPLER_BALANCE_CHECK_V3_FINAL.json (anchored batches open 14-44% vs 4.8% natural); fixed pipeline: p_items/GRIPPER_SAMPLER_PROBE_V3.json sha256 294cc1282826731162ce1e587a89dfc36915e85f3a8ea6b547fd144e265a321a"
  },
- "status": "running V3 segment 0->3000 (step 70 last seen); tmux train_v3/chain_v3/watchdog_v3/finalizer_v3",
+ "status": "stopped_abandoned_awaiting_gate_budget; training_allowed=false; no auto-restart",
  "eval_fixes": {
   "rotation_scale": "labels rv=rotvec/0.5, env 0.10 rad -> factor 5 (was 0.5, 10x too small)",
   "exact_fill": "cookies_in_target==10 and cookies_in_source==70 (80-cookie scene), not source==0",
