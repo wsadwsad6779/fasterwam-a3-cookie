@@ -1,20 +1,22 @@
 {
-  "checked_at": "2026-11-23T15:25:00Z",
-  "remaining_hours": 36,
-  "remaining_hours_basis": "console showed 37h at 2026-11-23T10:50Z (1 credit/hour); ~4.5h elapsed -> ~32.5h, but supervisor state reported 37h at 14:38Z -> conservative estimate 36h",
-  "credits": 36,
-  "burn_rate_credits_per_hour": 1,
-  "gpu": {
-    "vendor": "AMD",
-    "vram_total_gb": 51.5,
-    "vram_used_mb": 28,
-    "gpu_idle": true,
-    "checked_at": "2026-11-23T15:24:57Z"
-  },
-  "time_low_hours": 5,
-  "page_status": "ok (terminal api working)",
-  "upload_status": "not_triggered",
-  "restore_manifest": "docs/RESTORE_FROM_ARCHIVE_20261119.md",
-  "gpu_restore_ready": false,
-  "note": "next check before long training; if <=5h follow GPU_UPLOAD_MANIFEST + gpu_restore.py"
+ "checked_at": "2026-11-24T00:50:37Z",
+ "remaining_hours": 36,
+ "remaining_hours_basis": "user read the Radeon console (developer.amd.com.cn/radeon) on 2026-11-24: 2 days 6 hours remaining; the earlier 17.55h worker text was a misread",
+ "credits": 39,
+ "burn_rate_credits_per_hour": null,
+ "gpu": {
+  "vendor": "AMD",
+  "vram_total_gb": 51.5,
+  "vram_used_mb": null,
+  "gpu_idle": null,
+  "checked_at": "2026-11-24T00:28:30Z"
+ },
+ "time_low_hours": 5,
+ "page_status": "jupyter api 200 (session restored in sidebar browser)",
+ "upload_status": "not_triggered",
+ "restore_manifest": "docs/RESTORE_FROM_ARCHIVE_20261119.md",
+ "gpu_restore_ready": false,
+ "note": "54h is enough for the remaining 21k segment and milestone evals; still back up checkpoints at 12k/18k and keep gpu_restore ready",
+ "auto_destroy": "not stated by user beyond the 2d6h window",
+ "source": "AMD Radeon console 2026-11-24T00:29Z: instance running, 18 credits used, 39 remaining, auto-destroy 2026-11-26 14:55"
 }

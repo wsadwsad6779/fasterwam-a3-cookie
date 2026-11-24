@@ -1,0 +1,25 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-24T00:38:59Z",
+ "kind": "aborted_training_run",
+ "reason": "user directive: fix gripper opening supervision before training; current progress discarded",
+ "last_logged_step": 6140,
+ "budget_steps_discarded": 6140,
+ "checkpoints": {
+  "step_003000.pt": {
+   "sha256": "cb95aa0826ff78163e511964d7ee1d135693bd386b705578a5784210ba6457a8",
+   "bytes": 3360635229
+  },
+  "step_006000.pt": {
+   "sha256": "2119391281ccbc4a0a6bffb815beea56cb700a0b9cad10884afc99327fc8781b",
+   "bytes": 3360635229
+  }
+ },
+ "eval_summaries_void": [
+  "p_items/SUMMARY_step_3000.json",
+  "p_items/SUMMARY_step_6000.json"
+ ],
+ "diagnosis": "policy collapsed to closed/slow-motion mode: dp_absmean 0.036 vs dataset open mean 0.157, gripper closed 95.3%, zero grasps at 3k/6k",
+ "mitigation": "V3 continuous opening labels + phase-balanced sampler; retrain from official base step 0",
+ "budget_policy": "new run counts 0/21000; the 6140 discarded steps are recorded separately and are not reused"
+}

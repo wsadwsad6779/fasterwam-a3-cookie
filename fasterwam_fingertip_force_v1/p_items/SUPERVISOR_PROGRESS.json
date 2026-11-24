@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-23T14:38:15Z",
- "stage": "switched Wan download to ModelScope (PID 148521); old .incomplete preserved/seeded; per-file size+sha256 verification enabled",
- "evidence": "p_items/POD_JOB_STATE.json, pod job_wan_ms.log",
- "next": "on done: local-dir create_fasterwam retry",
- "gpu_steps": 3,
+ "ts": "2026-11-24T00:46:00Z",
+ "stage": "pod access restored (API 200); training segment 6000->9000 INTERRUPTED at step 6140 by notebook session teardown; step_006000.pt safe; eval bugs fixed; 6k re-eval 0 grasps; FiLM-bypass diagnostic done; waiting for user decision on training fix",
+ "evidence": "p_items/EVAL_BUG_AND_6K_DIAGNOSIS.json; /workspace/fwv1/eval_fingertip_v1/step_000000/SUMMARY_step_6000diag2.json, SUMMARY_step_6000skipfilm.json",
+ "next": "option A force-history dropout + FiLM L2, or option B FiLM identity warmup; then resume 6000->9000 with fixed eval",
+ "gpu_steps": 6140,
  "mujoco_frames": 400
 }

@@ -18,9 +18,9 @@ VIDEOS = '/workspace/fwv1/data/hf_videos/videos'
 EPMETA = '/workspace/fwv1/data/hf_meta/meta/episodes/chunk-000/file-000.parquet'
 PARQ = ['/workspace/fwv1/p_items/hf_multi/data/chunk-000/file-000.parquet',
         '/workspace/fwv1/p_items/hf_multi/data/chunk-000/file-001.parquet']
-LABELS = '/workspace/fwv1/p_items/A3_845_7D_LABELS_V2.npz'
+LABELS = '/workspace/fwv1/p_items/A3_845_7D_LABELS_V3.npz'
 SPLIT = '/workspace/fwv1/p_items/DATASET_845_SPLIT_MANIFEST_V2.json'
-STATS = '/workspace/fwv1/data/a3_fw_845/dataset_stats.json'
+STATS = '/workspace/fwv1/data/a3_fw_845/dataset_stats_v3.json'
 FSTATS = '/workspace/fwv1/p_items/FINGERTIP_FORCE_NORMALIZATION_V2.json'
 CTX = None
 PROMPT = "A video recorded from a robot's point of view executing the following instruction: transfer 10 cookies into target box"
@@ -49,8 +49,9 @@ def _lin(x, lo, hi):
 
 
 class A3BatchSource:
-    def __init__(self, split='train', batch_size=8, seed=0):
+    def __init__(self, split='train', batch_size=8, seed=0, balanced=True):
         self.batch_size = int(batch_size)
+        self.balanced = bool(balanced)
         self.rng = random.Random(seed)
         sp = json.load(open(SPLIT))
         self.episodes = [int(x) for x in sp['train_episodes' if split == 'train' else 'val_episodes']]
@@ -83,6 +84,15 @@ class A3BatchSource:
                                       _ctx_name()), map_location='cpu')
         self.context = ctx['context'].float()
         self.context_mask = ctx['mask'].bool()
+        self.phase_open = {}
+        self.phase_rise = {}
+        for ep in self.episodes:
+            ls = int(self.lab_start[ep])
+            lab = self.L[ls:ls + int(self.el[ep])]
+            g = lab[:, 6]
+            self.phase_open[ep] = np.flatnonzero(g >= 0.8)
+            self.phase_rise[ep] = np.flatnonzero(np.diff((g >= 0.8).astype(int)) == 1) + 1
+        self.open_episodes = [ep for ep in self.episodes if len(self.phase_open[ep]) > 0]
         self._readers = {}
         self._clock = 0
 
@@ -96,13 +106,30 @@ class A3BatchSource:
 
     def next_batch(self):
         B = self.batch_size
-        while True:
-            ep = self.episodes[self.rng.randrange(len(self.episodes))]
+        use_open = (self.balanced and self.open_episodes and self.rng.random() < 0.5)
+        if use_open:
+            ep = self.open_episodes[self.rng.randrange(len(self.open_episodes))]
             n = int(self.el[ep])
-            if n < B + AH + 2:
-                continue
-            start = self.rng.randint(0, n - B - AH)
-            break
+            max_start = n - B - AH
+            if max_start < 1:
+                use_open = False
+            else:
+                rises = self.phase_rise[ep]
+                if self.rng.random() < 0.5:
+                    start = self.rng.randint(0, min(4, max_start))
+                elif len(rises):
+                    edge = int(rises[self.rng.randrange(len(rises))])
+                    start = max(0, min(max_start, edge - self.rng.randint(0, 8)))
+                else:
+                    start = self.rng.randint(0, max(1, min(4, max_start)))
+        if not use_open:
+            while True:
+                ep = self.episodes[self.rng.randrange(len(self.episodes))]
+                n = int(self.el[ep])
+                if n < B + AH + 2:
+                    continue
+                start = self.rng.randint(0, n - B - AH)
+                break
         m = self.meta[ep]
         f_rel = 'observation.images.front/chunk-%03d/file-%03d.mp4' % (
             int(m['videos/observation.images.front/chunk_index']),

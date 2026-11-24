@@ -38891,5 +38891,8 @@
    }
   }
  ],
- "provenance_enriched_at": "2026-11-23T17:18:11Z"
+ "provenance_enriched_at": "2026-11-23T17:18:11Z",
+ "accepted": true,
+ "supervisor_audit": "p_items/T7_SUPERVISOR_AUDIT.json (2026-11-23T17:42:47Z)",
+ "identity_recovery": "p_items/DATASET_845_IDENTITY_RECOVERY.json (96 2x10 identified, frozen test-only)"
 }

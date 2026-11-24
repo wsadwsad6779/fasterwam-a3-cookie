@@ -1,15 +1,14 @@
 {
- "started_at": "2026-11-23T15:13:33Z",
- "ts": "2026-11-23T15:22:46Z",
- "pid": 180686,
- "stage": "p7_verify",
- "log_path": "/workspace/fwv1/logs/p7_verify.log",
- "tmux_session": "fwv1",
- "status": "done",
+ "started_at": "2026-11-24T00:52:02Z",
+ "ts": "2026-11-24T00:52:02Z",
+ "pid": 3885657,
+ "stage": "train",
+ "log_path": "/workspace/fwv1/logs/t7_train.log",
+ "status": "running",
+ "step": 70,
  "expected_artifacts": [
-  "/workspace/fwv1/p_items/P4_FULL_SMOKE.json",
-  "/workspace/fwv1/p_items/P4_WAN_FASTDL.json",
-  "/workspace/fwv1/p_items/JOINT_TO_7D_VERIFICATION.json"
+  "/workspace/fwv1/train_runs/t7_21k"
  ],
- "next": "S2: P3 fingertip force real MuJoCo acceptance + P5 gripper V2 real-control replay"
+ "next": "milestone eval at 3k boundary",
+ "note": ""
 }

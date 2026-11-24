@@ -1,0 +1,76 @@
+{
+  "auditor": "supervisor",
+  "audit_ts": "2026-11-23T17:42:47Z",
+  "scope": "independent re-verification of the worker's D2-D5 and the G4 gate after the 17:18-17:30Z premature training segment",
+  "method": "read the worker artifacts, then re-run the decisive experiments on the pod (aligned replay, near-dup audit, alignment regression, fresh expert rollout)",
+  "D2_data": {
+    "verdict": "pass_with_documented_limitations",
+    "episodes": 845,
+    "identity": {
+      "known_2x5": 749,
+      "known_2x10_recovered": 96,
+      "unknown_remaining": 0,
+      "recovery_evidence": "metadata frame multiset for the 96 2x10 entries (seeds 80000-80131, controller cookie_2x10_variable_grasp, success=true) is identical, in order, to parquet episodes 749-844; the entries were only mis-indexed as 0-95",
+      "policy": "96 2x10 stay frozen test-only (task class tagged); training split unchanged at 589 2x5"
+    },
+    "success": "749/749 identity-known episodes success=true; 96 2x10 success=true",
+    "alignment": {
+      "verdict": "pass",
+      "artifact": "p_items/JOINT_TO_7D_VERIFICATION.json",
+      "checks": "label row offsets contiguous, frame boundaries match parquet, global dp diff 0.0, global gripper mismatch 0, recompute 7.7e-10",
+      "video": "front video (to-from)*20 == episode frames for all 845 (new check, 0 mismatches)",
+      "note": "7D label rows are n-1 per episode by construction (deltas), so label row offsets differ from frame offsets by episode index; this is intentional and verified, not the old ep_start=[0,1,2,3] bug"
+    },
+    "dedup_near_duplicate": {
+      "verdict": "pass_with_documented_limitation",
+      "artifact": "p_items/DATASET_845_NEAR_DUP_AUDIT.json",
+      "exact_action_duplicates": 0,
+      "action_nn_min_rad": 0.0524,
+      "action_pairs_lt_0.1rad": 60,
+      "action_cross_split_pairs_lt_0.1rad": 20,
+      "eef_cross_split_pairs_lt_0.01m": 5,
+      "layout_cross_split_pairs_lt_0.005m": 159,
+      "layout_cross_split_pairs_lt_0.01m": 1018,
+      "limitation": "all 749 layouts live in a ~1 cm jitter envelope of one basic-profile scene; no lighting/material/friction/extrinsics variation. Test layouts are unseen combinations but not a new distribution. Documented, not a blocker for the 21k run on the same envelope."
+    }
+  },
+  "D3_force": {
+    "verdict": "pass_supersedes_worker_ood_flag",
+    "dataset": "L pad max 1.83 N (2x5) / 2.16 N (2x10); contact on ~50% frames; R pads exactly 0",
+    "worker_claim": "replay peaks 26-35 N -> 15-19x -> accept_with_ood_flag",
+    "root_cause_of_gap": "the P5 replay reset used seed=10000+episode and randomize_cookies/randomize_boxes=False, i.e. NOT the recorded scene; open-loop gripper commands in a mismatched scene press cookies/table and produce 20-26 N peaks",
+    "aligned_replay": "even with the recorded seed/options the scene was still 2 cm/11 cm off (env/config drift), so replay forces remain 13-17x; open-loop replay is not a valid force comparison",
+    "fresh_expert_probe": "current-sim closed-loop same_column expert, seed 90000: 10/10 cookies in target by step 500, held through 1400+, L pad max 1.45 N",
+    "conclusion": "dataset force scale and current-sim successful-task force scale agree (~1.4-1.5 N); the 15-19x gap is a replay artifact, not a data problem",
+    "ood_data_generation": "not required for scale; the generation pipeline (collect_cookie_benchmark_cli / same_column expert) is available if later coverage needs it",
+    "normalizer": "train-only V2 stats valid; keep OOD/saturation reporting at eval as a monitor, not a data-acceptance caveat"
+  },
+  "D4_gripper": {
+    "verdict": "pass",
+    "worker_replay": "3 episodes / 1541 frames / 11 transitions confirmed 11/11 / opening delay median 0 max 1 / A3 action[7] vs 7D index 6 pm1 agreement 1.0",
+    "full_10_block_cycle": "fresh expert rollout transfers 10 cookies in 2 batches of 5 (batch_size=5, num_batches=2) and holds 10 in target; this is the full 10-block cycle",
+    "label_robustness": "pm1 hysteresis with deadband and min-hold; no micro-jitter flips in the replay metrics"
+  },
+  "D5_f2": {
+    "verdict": "pass",
+    "trainable": "559,453,447 total (action expert 558,881,799; proprio 36,864; film 534,784); video expert frozen",
+    "effectiveness": "zero-init identity 0.0; non-zero film changes action L2 1.57 vs zero; gripper dim affected (sign flips 9.4%); real vs shuffled L2 2.37",
+    "gradient": "gripper head row 6 grad 0.7245 (nonzero), other rows mean 1.2432",
+    "leakage": "force history is past-only 8 steps with mask; no future/oracle force; 8D proprio protocol kept",
+    "scale_check": "now anchored by the D3 probe (1.45 N); no scale sweep blocker"
+  },
+  "G4": {
+    "verdict": "PASSED_AFTER_SUPERVISOR_AUDIT",
+    "training_allowed": true,
+    "budget": {"used_steps": 360, "remaining_steps": 20640, "max_total": 21000},
+    "resume_note": "no checkpoint was written before the stop; the next segment starts from base step 0 and the 360 consumed steps stay charged to the budget"
+  },
+  "artifacts": {
+    "aligned_replay": "/workspace/fwv1/p_items/P5_ALIGNED_FORCE_AUDIT.json",
+    "near_dup": "/workspace/fwv1/p_items/DATASET_845_NEAR_DUP_AUDIT.json",
+    "alignment": "/workspace/fwv1/p_items/DATASET_845_ALIGNMENT_REGRESSION.json",
+    "alignment_worker": "/workspace/fwv1/p_items/JOINT_TO_7D_VERIFICATION.json",
+    "gen_probe": "/workspace/fwv1/p_items/GEN_PROBE.json",
+    "probe_log": "/workspace/fwv1/logs/gen_probe2.log"
+  }
+}

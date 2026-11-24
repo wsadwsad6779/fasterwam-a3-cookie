@@ -1,0 +1,27 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-24T00:41:02Z",
+ "episodes": 749,
+ "starts_open": 749,
+ "ends_open": 0,
+ "reopen_after_first_close": 749,
+ "episodes_with_1_rise": 749,
+ "episodes_with_2_plus_rises": 0,
+ "episodes_with_zero_rises": 0,
+ "rapid_flip_episodes": 0,
+ "big_jump_episodes": 0,
+ "mean_open_frac": 0.052289371313698825,
+ "mean_partial_frac": 0.43271009626999746,
+ "mean_closed_frac": 0.5150005324163036,
+ "no_reopen_episodes": [],
+ "zero_rise_episodes": [],
+ "rapid_flip_episode_sample": [],
+ "checks": {
+  "all_start_open": true,
+  "all_reopen_after_grip": true,
+  "no_rapid_threshold_chatter": true,
+  "no_large_command_jumps": true,
+  "has_two_close_segments_or_more": true
+ },
+ "verdict": "pass"
+}

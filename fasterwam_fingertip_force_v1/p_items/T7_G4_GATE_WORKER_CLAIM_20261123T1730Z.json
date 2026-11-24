@@ -1,0 +1,16 @@
+{
+  "worker": "task7",
+  "gate": "G4_pre_train",
+  "ts": "2026-11-23T17:14:10Z",
+  "verdict": "PASSED_V2",
+  "dependencies": {
+    "D2": {"status": "passed", "evidence": "DATASET_845_ACCEPTED_MANIFEST.json (DATASET_ACCEPTED=true; 749 accepted, 96 quarantined, 0 dup, group leakage 0; split V2 589/85/171 frozen)"},
+    "D3": {"status": "passed", "evidence": "FINGERTIP_FORCE_DISTRIBUTION_AUDIT.md + FINGERTIP_FORCE_NORMALIZATION_V2.json (train-only) + FORCE_OOD_ACCEPTANCE.json (accept_with_ood_flag; 15-19x, 25.2% OOD frames, 11.9% saturation documented)"},
+    "D4": {"status": "passed", "evidence": "GRIPPER_V2_FINAL_ACCEPTANCE.md + GRIPPER_PHASE_METRICS.json (11/11 transitions, opening delay median 0/max 1, 4 complete open-close cycles, action[7]->pm1 agreement 1.0)"},
+    "D5": {"status": "passed", "evidence": "F2_TRAINABLE_PARAMETERS.json + F2_FORCE_EFFECTIVENESS_TEST.json + F2_TRAINING_READINESS.md (F2_TRAINING_READY=true; gripper-dim grad 0.7245; zero-init identity 0; force L2 1.572; flips 9.4%)"}
+  },
+  "base_identity": "T7_BASE_IDENTITY.json sha256 01be4efc..",
+  "data_pipeline": "V2 split (589/85/171) + V2 force normalization (train-only) + on-the-fly AV1 decode",
+  "training_budget": {"used_steps": 130, "remaining_steps": 20870, "max_total": 21000},
+  "next": "resume segment from step 130 target 3000 with V2 data; then 3k/6k/.../21k checkpoints + 10-seed eval + dual-view videos"
+}

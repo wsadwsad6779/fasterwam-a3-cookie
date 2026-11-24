@@ -1,21 +1,19 @@
 {
  "worker": "task7",
- "ts": "2026-11-23T17:35:40Z",
- "source_log": "/workspace/fwv1/logs/t7_train.log",
- "segment": "130->3000",
- "step": 360,
- "loss_total": 0.8097658753395081,
- "loss_video": 0.7862310409545898,
- "loss_action": 0.023534826934337616,
- "grad_norm": 1.3394602537155151,
- "lr": 7.21476594369543e-05,
- "sec_per_step": 3.11,
- "tmux": "fwv1:train2",
- "chain": "fwv1:chain2",
- "finalizer": "fwv1:finalizer",
+ "ts": "2026-11-24T00:50:37Z",
+ "segment": "v3 0->3000",
+ "step": 40,
+ "loss_total": 2.4689,
+ "loss_action": 0.9159,
+ "grad_norm": 11.53,
+ "lr": 8.2e-06,
+ "sec_per_step": 3.09,
+ "open_frac_last_batch": 0.3008,
+ "labels": "V3 continuous opening",
+ "sampler": "phase-balanced",
  "budget": {
-  "used": 360,
-  "remaining": 20640,
+  "used": 40,
   "max": 21000
- }
+ },
+ "tmux": "fwv1:train_v3 / chain_v3 / watchdog_v3 / finalizer_v3"
 }

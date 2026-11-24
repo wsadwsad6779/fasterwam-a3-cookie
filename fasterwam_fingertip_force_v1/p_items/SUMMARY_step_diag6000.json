@@ -1,0 +1,95 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-24T00:32:00Z",
+ "step_label": "diag6000",
+ "checkpoint": "/workspace/fwv1/train_runs/t7_21k/step_006000.pt",
+ "checkpoint_sha256": "2119391281ccbc4a0a6bffb815beea56cb700a0b9cad10884afc99327fc8781b",
+ "seeds": [
+  7300,
+  7301
+ ],
+ "results": [
+  {
+   "episode": 7300,
+   "steps": 300,
+   "exact_fill": false,
+   "action_stats": {
+    "dp_absmean": 0.03667885949815779,
+    "dp_absmax": 0.27050042152404785,
+    "rot_absmean": 0.0006348216936263877,
+    "grip_close_frac": 0.9533333333333334,
+    "eef_path_m": 0.5616
+   },
+   "best_hold": 0,
+   "grasps": 0,
+   "final_in_target": 0,
+   "final_in_source": 80,
+   "close_cmd_frac": 0.9533333333333334,
+   "pad_max": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "safety_reason": null,
+   "terminated": false,
+   "elapsed_s": 19.2,
+   "videos": {
+    "front": "/workspace/fwv1/eval_fingertip_v1/diag_step_006000/seed_07300/front.mp4",
+    "left_wrist": "/workspace/fwv1/eval_fingertip_v1/diag_step_006000/seed_07300/left_wrist.mp4"
+   },
+   "events_json": "/workspace/fwv1/eval_fingertip_v1/diag_step_006000/seed_07300/events.json"
+  },
+  {
+   "episode": 7301,
+   "steps": 300,
+   "exact_fill": false,
+   "action_stats": {
+    "dp_absmean": 0.035033247373454895,
+    "dp_absmax": 0.2766810655593872,
+    "rot_absmean": 0.0006879841235543912,
+    "grip_close_frac": 0.9533333333333334,
+    "eef_path_m": 0.5343
+   },
+   "best_hold": 0,
+   "grasps": 0,
+   "final_in_target": 0,
+   "final_in_source": 80,
+   "close_cmd_frac": 0.9533333333333334,
+   "pad_max": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "safety_reason": null,
+   "terminated": false,
+   "elapsed_s": 18.4,
+   "videos": {
+    "front": "/workspace/fwv1/eval_fingertip_v1/diag_step_006000/seed_07301/front.mp4",
+    "left_wrist": "/workspace/fwv1/eval_fingertip_v1/diag_step_006000/seed_07301/left_wrist.mp4"
+   },
+   "events_json": "/workspace/fwv1/eval_fingertip_v1/diag_step_006000/seed_07301/events.json"
+  }
+ ],
+ "action_stats_mean": {
+  "dp_absmean": 0.03585605343580634,
+  "grip_close_frac": 0.9533333333333334,
+  "eef_path_m": 0.5479499999999999
+ },
+ "exact_fill_count": 0,
+ "exact_fill_rate": 0.0,
+ "avg_in_target": 0.0,
+ "safety_stop_count": 0,
+ "protocol": {
+  "max_steps": 300,
+  "denoise_steps": 5,
+  "action_horizon": 32,
+  "cameras": [
+   "front",
+   "left_wrist"
+  ]
+ },
+ "video_manifest": "/workspace/fwv1/eval_fingertip_v1/diag_step_006000/VIDEO_MANIFEST_step_diag6000.json",
+ "force_zero": false
+}

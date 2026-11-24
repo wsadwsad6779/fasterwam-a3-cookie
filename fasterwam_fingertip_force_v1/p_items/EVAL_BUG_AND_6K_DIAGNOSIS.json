@@ -1,0 +1,57 @@
+{
+  "worker": "supervisor",
+  "ts": "2026-11-24T00:46:00Z",
+  "scope": "milestone 3k/6k eval validity + 6k checkpoint behavior + training interruption",
+  "training_state": {
+    "segment": "6000->9000",
+    "last_step": 6140,
+    "status": "interrupted: process died with the notebook session teardown around 2026-11-24T00:31Z; chain, watchdog and tmux server are gone; finalizer 509532 is still waiting",
+    "checkpoints": "/workspace/fwv1/train_runs/t7_21k/step_003000.pt and step_006000.pt (3.36GB each) are intact",
+    "budget": {"used_steps": 6140, "remaining_steps": 14860, "lost_since_checkpoint": 140}
+  },
+  "eval_bugs_found_and_fixed": [
+    {
+      "bug": "rotation action scaled 10x too small",
+      "detail": "labels store rv=rotvec/0.5 rad; env CartesianDeltaAdapter uses cartesian_rotation_scale_rad=0.10; correct factor = 0.5/0.10 = 5. The eval used DT/ROT_SCALE = 0.05/0.10 = 0.5.",
+      "impact": "the gripper could not rotate to the grasp orientation in every milestone eval",
+      "fix": "rot = clip(a[3:6] * (0.5 / 0.10), -1, 1) in p_items/scripts/t7_eval.py and /workspace/_t7_eval.py"
+    },
+    {
+      "bug": "exact_fill required cookies_in_source == 0",
+      "detail": "the scene starts with 80 cookies; transferring 10 leaves 70 (FROZEN_EVAL_PROTOCOL says source_count==70). The eval required 0, so exact_fill could never be true.",
+      "impact": "even a perfect 10-cookie transfer would have been scored exact_fill=false",
+      "fix": "condition now cookies_in_target==10 and cookies_in_source==70"
+    },
+    {
+      "bug": "replan horizon 32 while the frozen protocol says 10",
+      "detail": "the eval applied all 32 predicted actions open-loop before replanning",
+      "impact": "delayed correction; mismatched with the frozen protocol",
+      "fix": "REPLAN=10"
+    }
+  ],
+  "six_k_diagnostics": {
+    "old_eval": {"exact_fill": "0/10", "grasps": 0, "pad_max_N": 0.0, "close_cmd_frac": 0.9867},
+    "fixed_eval_seed_7301": {"exact_fill": false, "grasps": 0, "dp_absmean": 0.0227, "rot_absmean": 0.00066, "eef_path_m": 0.6711, "pad_max_N": [5.61, 1.85], "close_cmd_frac": 0.975},
+    "film_bypass_seed_7302": {"exact_fill": false, "grasps": 0, "dp_absmean": 0.0452, "rot_absmean": 0.00453, "eef_path_m": 1.2096, "close_cmd_frac": 0.318},
+    "base_reference": {"grasps_total_10_seeds": 62, "pad_max_N_range": [149.8, 283.4], "exact_fill": "0/10", "close_cmd_frac": 0.89-0.985}
+  },
+  "interpretation": [
+    "the 3k/6k milestone exact_fill scores were invalid because of the rotation and exact_fill bugs; they cannot be used to judge the training",
+    "with the fixed eval the 6k checkpoint still does not grasp: translation is in range (dp 0.023-0.045, eef path 0.67-1.21 m) but rotation stays small (0.0007, 0.0045 with FiLM bypass) and the gripper closes without aligning",
+    "the F2 FiLM has a strong effect at eval: bypassing it increases motion and rotation but drops the close fraction from 97.5% to 31.8%; with FiLM the policy is 'close and barely move' when the force history is no-contact",
+    "therefore the 6k result is a model/FiLM generalization issue, not a data issue (force scale verified 1.45 N) and not just the eval bug"
+  ],
+  "proposed_next_step": {
+    "goal": "recover a policy that moves, rotates and closes correctly before spending the remaining 14860 steps",
+    "option_A": "resume from step_006000.pt with force-history dropout (20% of samples zero/masked) and a small L2 penalty on FiLM gamma/beta, fixed eval; run 6000->9000",
+    "option_B": "freeze FiLM at identity for a short 500-step warmup from step_006000.pt to confirm the action expert can act without force conditioning, then unfreeze",
+    "requires_user_confirmation": true,
+    "budget_unchanged": true
+  },
+  "artifacts": {
+    "fixed_eval_local": "p_items/scripts/t7_eval.py",
+    "fixed_eval_pod": "/workspace/_t7_eval.py",
+    "diag_summaries": "/workspace/fwv1/eval_fingertip_v1/step_000000/SUMMARY_step_6000diag2.json and SUMMARY_step_6000skipfilm.json",
+    "training_state": "TRAINING_RUN_STATE.json"
+  }
+}

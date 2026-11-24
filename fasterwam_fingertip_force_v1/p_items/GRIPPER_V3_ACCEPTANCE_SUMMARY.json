@@ -1,0 +1,39 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-24T00:38:59Z",
+ "variant": "gripper V3 continuous commanded opening",
+ "semantics": {
+  "dim6": "continuous commanded opening (raw dataset action[7], 1=open)",
+  "verified": "V3 dim6 equals raw action[7] exactly (max diff 0.0)",
+  "why": "V2 pm1 thresholding mapped on-cookie carry (~0.45) to +1, producing 93.5% close labels and teaching the policy to stay closed; V3 keeps the true opening magnitude"
+ },
+ "build_artifact": "p_items/GRIPPER_LABEL_V3_BUILD.json",
+ "replay_artifact": "p_items/GRIPPER_V3_ACCEPTANCE.json",
+ "replay_results": {
+  "episodes": [
+   100,
+   422,
+   700
+  ],
+  "lag": 0,
+  "rmse": 0.0039,
+  "corr": 0.9997,
+  "actual_open_mean_when_cmd_ge0.8": 0.967,
+  "actual_open_mean_partial": 0.463,
+  "actual_open_mean_closed_le0.35": 0.287,
+  "rise_events_per_episode": 1,
+  "fall_events_per_episode": 2,
+  "close_segments": 2,
+  "complete_close_open_reclose_cycles": 1
+ },
+ "train_opening_distribution": {
+  "open_ge0.8_frac": 0.0523,
+  "partial_0.35_0.8_frac": 0.4327,
+  "closed_le0.35_frac": 0.515,
+  "min": 0.28,
+  "max": 1.0,
+  "mean": 0.3984
+ },
+ "pm1_role": "event analysis only (auxiliary); no longer used as the training target",
+ "verdict": "pass"
+}

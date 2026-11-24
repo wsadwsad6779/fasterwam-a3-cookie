@@ -146,7 +146,7 @@ def main():
         sched.load_state_dict(ck['scheduler'])
         torch.set_rng_state(ck['rng_torch'])
         torch.cuda.set_rng_state_all(ck['rng_cuda'])
-    src = A3BatchSource(split='train', batch_size=B, seed=start_step)
+    src = A3BatchSource(split='train', batch_size=B, seed=start_step, balanced=True)
     step = start_step
     while step < END:
         bb = src.next_batch()
@@ -167,7 +167,8 @@ def main():
         rec = {'step': step, 'loss': float(loss.detach()), 'loss_video': ld.get('loss_video'),
                'loss_action': ld.get('loss_action'), 'grad_norm': float(gn),
                'lr': sched.get_last_lr()[0], 'sec': round(time.time() - t0, 2),
-               'episode': bb['meta']['episode'], 'close_frac': float((bb['action'][:, :, 6] > 0).float().mean()),
+               'episode': bb['meta']['episode'], 'close_frac': float((bb['action'][:, :, 6] <= 0.6).float().mean()),
+               'open_frac': float((bb['action'][:, :, 6] >= 0.8).float().mean()),
                'film_grad': None}
         if step % 10 == 0:
             with open(METRICS, 'a') as f:

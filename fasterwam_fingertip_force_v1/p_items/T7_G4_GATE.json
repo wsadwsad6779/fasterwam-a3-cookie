@@ -1,16 +1,32 @@
 {
   "worker": "task7",
   "gate": "G4_pre_train",
-  "ts": "2026-11-23T17:14:10Z",
-  "verdict": "PASSED_V2",
+  "ts": "2026-11-23T17:43:00Z",
+  "verdict": "PASSED_AFTER_SUPERVISOR_AUDIT",
+  "history": [
+    "worker claim PASSED_V2 at 17:14:10Z (preserved at p_items/T7_G4_GATE_WORKER_CLAIM_20261123T1730Z.json)",
+    "supervisor revoked at 17:30:36Z and stopped training at step 360 (preserved at p_items/T7_G4_GATE_REVOKED_20261123T1730Z.json)",
+    "supervisor re-verified at 17:43:00Z: all gaps closed; this verdict supersedes the revocation"
+  ],
   "dependencies": {
-    "D2": {"status": "passed", "evidence": "DATASET_845_ACCEPTED_MANIFEST.json (DATASET_ACCEPTED=true; 749 accepted, 96 quarantined, 0 dup, group leakage 0; split V2 589/85/171 frozen)"},
-    "D3": {"status": "passed", "evidence": "FINGERTIP_FORCE_DISTRIBUTION_AUDIT.md + FINGERTIP_FORCE_NORMALIZATION_V2.json (train-only) + FORCE_OOD_ACCEPTANCE.json (accept_with_ood_flag; 15-19x, 25.2% OOD frames, 11.9% saturation documented)"},
-    "D4": {"status": "passed", "evidence": "GRIPPER_V2_FINAL_ACCEPTANCE.md + GRIPPER_PHASE_METRICS.json (11/11 transitions, opening delay median 0/max 1, 4 complete open-close cycles, action[7]->pm1 agreement 1.0)"},
-    "D5": {"status": "passed", "evidence": "F2_TRAINABLE_PARAMETERS.json + F2_FORCE_EFFECTIVENESS_TEST.json + F2_TRAINING_READINESS.md (F2_TRAINING_READY=true; gripper-dim grad 0.7245; zero-init identity 0; force L2 1.572; flips 9.4%)"}
+    "D2": {"status": "pass", "evidence": "JOINT_TO_7D_VERIFICATION.json (labels aligned, 0 mismatch), video length 845/845, 749 success episodes + 96 2x10 identified (DATASET_845_IDENTITY_RECOVERY.json), near-dup audit DATASET_845_NEAR_DUP_AUDIT.json (no identical trajectories; layout envelope documented)"},
+    "D3": {"status": "pass", "evidence": "GEN_PROBE.json: current-sim closed-loop expert seed 90000 reaches 10/10 cookies, L pad q99 1.447/1.456 N vs dataset 1.46/1.47 N; the 15-19x worker gap was an open-loop replay artifact (wrong reset scene, P5_ALIGNED_FORCE_AUDIT.json); no OOD data needed"},
+    "D4": {"status": "pass", "evidence": "GRIPPER_PHASE_METRICS 11/11 transitions, mapping 1.0; GEN_PROBE full 10-cookie cycle success (2 batches of 5)"},
+    "D5": {"status": "pass", "evidence": "F2_TRAINABLE_PARAMETERS/F2_FORCE_EFFECTIVENESS_TEST/F2_TRAINING_READINESS; force scale now anchored to 1.45 N by GEN_PROBE"}
   },
-  "base_identity": "T7_BASE_IDENTITY.json sha256 01be4efc..",
-  "data_pipeline": "V2 split (589/85/171) + V2 force normalization (train-only) + on-the-fly AV1 decode",
-  "training_budget": {"used_steps": 130, "remaining_steps": 20870, "max_total": 21000},
-  "next": "resume segment from step 130 target 3000 with V2 data; then 3k/6k/.../21k checkpoints + 10-seed eval + dual-view videos"
+  "audit": "p_items/T7_SUPERVISOR_AUDIT.json",
+  "training_allowed": true,
+  "base_identity": "T7_BASE_IDENTITY.json sha256 01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d",
+  "data": {
+    "split": "DATASET_845_SPLIT_MANIFEST_V2.json (train 589 / val 85 / test 171; 96 2x10 frozen test-only, identified)",
+    "force_normalization": "FINGERTIP_FORCE_NORMALIZATION_V2.json (train-only; no rescaling of labels; OOD/saturation reported as a monitor)"
+  },
+  "budget": {"used_steps": 360, "remaining_steps": 20640, "max_total": 21000},
+  "resume": {
+    "checkpoint_available": false,
+    "start_step": 0,
+    "reason": "no latest.pt / step_003000.pt was written before the stop; the 360 consumed steps remain charged to the budget",
+    "command_hint": "t7_train.py with T7_START_STEP=0 T7_END_STEP=3000, then the chain for 3k milestones",
+    "must_not": ["silently restart from a different checkpoint", "expand the budget", "mix 2x5 and 2x10 without a tag"]
+  }
 }

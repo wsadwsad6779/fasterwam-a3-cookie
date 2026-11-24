@@ -1,0 +1,18 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-24T00:30:29Z",
+ "train_episodes": 589,
+ "open_frames": 18114,
+ "close_frames": 260770,
+ "open_frac": 0.06495173620573429,
+ "dp_absmax_open": 0.29909878969192505,
+ "dp_absmax_close": 0.28353720903396606,
+ "dp_mean_open": 0.15691915795781222,
+ "dp_mean_close": 0.044679560929819104,
+ "dp_nonzero_frac_open": 1.0,
+ "dp_nonzero_frac_close": 0.8815968094489397,
+ "gripper_from_labels": {
+  "close_frac": 0.9350482637942658,
+  "open_frac": 0.06495173620573429
+ }
+}

@@ -1,28 +1,25 @@
 {
  "project": "fasterwam_fingertip_force_v1",
  "worker": "task7",
- "ts": "2026-11-23T19:02:05Z",
+ "ts": "2026-11-24T00:52:34Z",
  "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
- "phase": "S4_training_segment_360_3000",
+ "phase": "S4_retrain_v3_segment_0_3000",
  "budget": {
   "max_optimizer_steps_total": 21000,
-  "used_steps": 1530,
-  "remaining_steps": 19470,
-  "not_per_variant": true,
-  "extra_budget_recorded": [],
-  "note": "step counter is the charged budget; segment restarted at 360 from base (no checkpoint existed) and saved latest.pt at step 400"
+  "used_steps_current_run": 70,
+  "remaining_current_run": 20930,
+  "historical_charged": [
+   {
+    "run": "v2_aborted",
+    "steps": 6140,
+    "artifact": "p_items/ABORTED_RUN_V2.json",
+    "policy": "discarded per user directive 2026-11-24; recorded as diagnostic cost, new run counted separately"
+   }
+  ],
+  "total_executed_all_runs_recorded": 6210
  },
  "gates": {
-  "G0_base_identity": "passed (p_items/T7_BASE_IDENTITY.json verdict=pass; sha256 01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d; proprio8/action7/horizon32/no-force)",
-  "G1_data_audit": "passed_after_supervisor_audit",
-  "G2_gripper_v2": "passed (11/11 transitions, mapping 1.0, full 10-cookie cycle)",
-  "G3_force_fusion": "passed (p_items/F2_FUSION_FWD_BWD_TEST.json + REAL_BATCH_F2_SMOKE.json)",
-  "G4_pre_train": "PASSED_AFTER_SUPERVISOR_AUDIT (p_items/T7_G4_GATE.json; audit p_items/T7_SUPERVISOR_AUDIT.json)",
-  "D2_dataset_acceptance": "passed (alignment verified; 749 success 2x5 + 96 identified 2x10 frozen test; near-dup/layout envelope documented)",
-  "D3_force_normalization": "passed (current-sim closed-loop expert 1.45 N == dataset scale; open-loop 15-19x gap was a replay artifact; train-only normalizer)",
-  "D4_gripper_final": "passed",
-  "D5_f2_readiness": "passed (F2_TRAINING_READY=true)",
-  "G5_milestone_loop": "pending"
+  "G4_pre_train": "supervisor PASSED_AFTER_SUPERVISOR_AUDIT (T7_SUPERVISOR_HOLD lifted) + V3 gripper delta T7_G4_V3_DELTA.json"
  },
  "base": {
   "path_pod": "/workspace/fwv1/hf_public/eval_restore_20261117/base_step_021700.pt",
@@ -30,7 +27,7 @@
   "identity_artifact": "p_items/T7_BASE_IDENTITY.json"
  },
  "training": {
-  "status": "RUNNING: segment 360->3000; worker watchdog cold-restarted from base at ~17:39Z (no checkpoint), step counter 360, latest.pt step 400 (resumable: optimizer/scheduler/RNG present), CKPT_EVERY=200",
+  "status": "INTERRUPTED at step 6140 (notebook session teardown ~00:31Z); chain/watchdog/tmux dead; step_006000.pt intact; running eval/action diagnosis before resuming",
   "baseline_anchor": "base 10 seeds x 600 steps: exact_fill 0/10, avg_in_target 0.0, 0 safety stops (p_items/SUMMARY_step_base.json)",
   "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k",
   "checkpoint_plan": "trainable-only (action expert + F2 + proprio, 558.9M) + frozen base reference; ~5.59GB per milestone, ~39.1GB for 7",
@@ -42,7 +39,7 @@
   "optimizer_state": null,
   "scheduler_state": null,
   "rng_state": null,
-  "last_logged_step": 1530,
+  "last_logged_step": 6140,
   "milestones": [
    3000,
    6000,
@@ -54,13 +51,50 @@
   ],
   "pid": 509643,
   "log_path": "/workspace/fwv1/logs/t7_train.log",
-  "checkpoint": "/workspace/fwv1/train_runs/t7_21k/latest.pt (step 400, 3.36GB)"
+  "checkpoint": "/workspace/fwv1/train_runs/t7_21k/step_006000.pt (3.36GB) + step_003000.pt"
  },
  "evaluation": {
   "protocol": "bare model, MuJoCo, max 600 steps, safety guard kept, exact_fill 10 blocks, 20-step hold",
   "seeds_manifest": "p_items/EVAL_SEED_MANIFEST.json",
   "video_manifest": "p_items/VIDEO_MANIFEST.json",
-  "last_milestone_evaluated": null
+  "last_milestone_evaluated": 6000,
+  "milestone_results": {
+   "3000": {
+    "exact_fill_rate": 0.0,
+    "avg_in_target": 0.0,
+    "grasps": 0
+   },
+   "6000": {
+    "exact_fill_rate": 0.0,
+    "avg_in_target": 0.0,
+    "grasps": 0
+   },
+   "base": {
+    "exact_fill_rate": 0.0,
+    "avg_in_target": 0.0,
+    "grasps_total": 62,
+    "pad_max_N": [
+     150,
+     283
+    ]
+   }
+  },
+  "milestone_evals_valid": false,
+  "eval_bugs": "rotation scaled 10x too small; exact_fill required source==0 instead of 70; replan 32 vs 10; fixed in p_items/scripts/t7_eval.py and /workspace/_t7_eval.py",
+  "six_k_fixed_eval": {
+   "exact_fill_rate": 0.0,
+   "grasps": 0,
+   "dp_absmean": 0.0227,
+   "rot_absmean": 0.00066,
+   "eef_path_m": 0.671
+  },
+  "six_k_skip_film": {
+   "exact_fill_rate": 0.0,
+   "grasps": 0,
+   "dp_absmean": 0.0452,
+   "rot_absmean": 0.00453,
+   "close_frac": 0.318
+  }
  },
  "resume_protocol": [
   "read p_items/T7_SUPERVISOR_AUDIT.json and p_items/T7_G4_GATE.json first",
@@ -73,12 +107,34 @@
   "tmux_session": "fwv1",
   "logs_dir": "/workspace/fwv1/logs"
  },
- "next": "train to 3000; chain evaluates 10 fixed seeds + dual-view videos; monitor 12k+ degradation",
+ "next": "user decision on option A (force dropout + FiLM L2) or B (FiLM identity warmup) before resuming from step_006000.pt",
  "monitoring": {
   "status": "BLOCKED_POD_AUTH_403",
   "since": "2026-11-23T19:01:25Z",
   "last_known_alive": "2026-11-23T18:30:52Z step 1200 latest.pt 3360623869B; train pid 509643, chain 509720, watchdog 513435",
   "evidence": "p_items/POD_ACCESS_LOST_20261123.json",
   "note": "browser cookies cleared; all Jupyter API calls 403 nginx; user must sign in again. Training/chain/watchdog were designed to continue autonomously on the persistent pod; state unknown until access returns."
+ },
+ "labels": {
+  "path": "/workspace/fwv1/p_items/A3_845_7D_LABELS_V3.npz",
+  "local_copy": "p_items/A3_845_7D_LABELS_V3.npz (gitignored)",
+  "sha256": "c4090dd2cb994a8b3524b4c2614b869035acb89dccb7c8eed0e9dbe63e4affff",
+  "dim6": "continuous commanded opening 1=open",
+  "stats": "/workspace/fwv1/data/a3_fw_845/dataset_stats_v3.json"
+ },
+ "sampler": {
+  "balanced": true,
+  "modes": [
+   "episode-start open window",
+   "close->open rise-edge window (0-8 frames before edge)"
+  ],
+  "evidence": "p_items/SAMPLER_BALANCE_CHECK_V3_FINAL.json (anchored batches open 14-44% vs 4.8% natural)"
+ },
+ "status": "running V3 segment 0->3000 (step 70 last seen); tmux train_v3/chain_v3/watchdog_v3/finalizer_v3",
+ "eval_fixes": {
+  "rotation_scale": "labels rv=rotvec/0.5, env 0.10 rad -> factor 5 (was 0.5, 10x too small)",
+  "exact_fill": "cookies_in_target==10 and cookies_in_source==70 (80-cookie scene), not source==0",
+  "replan": "10 steps per decision (frozen protocol), not 32",
+  "gripper_decode": "continuous opening: cartesian g = 2*opening-1 (V3)"
  }
 }

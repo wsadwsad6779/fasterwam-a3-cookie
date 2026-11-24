@@ -18,7 +18,7 @@ from t7_force_film import ForceFiLM
 CFG = '/workspace/fwv1/repo/stage_40k/fw/configs'
 WAN = '/workspace/fwv1/wan_base'
 BASE = '/workspace/fwv1/hf_public/eval_restore_20261117/base_step_021700.pt'
-STATS = '/workspace/fwv1/data/a3_fw_845/dataset_stats.json'
+STATS = '/workspace/fwv1/data/a3_fw_845/dataset_stats_v3.json'
 FSTATS = '/workspace/fwv1/p_items/FINGERTIP_FORCE_NORMALIZATION_V2.json'
 CACHE_DIR = '/workspace/fwv1/data/text_embeds_cache'
 SEEDS_MANIFEST = '/workspace/fwv1/p_items/EVAL_SEED_MANIFEST.json'
@@ -30,9 +30,13 @@ T_VID = 9
 MAX_STEPS = int(os.environ.get('T7_MAX_STEPS', '600'))
 DENOISE = int(os.environ.get('T7_DENOISE', '5'))
 FORCE_ZERO = os.environ.get('T7_FORCE_ZERO', '0') == '1'
+SKIP_FILM = os.environ.get('T7_SKIP_FILM', '0') == '1'
 ACTION_HORIZON = 32
 TRANS_SCALE = 0.025
 ROT_SCALE = 0.10
+LABEL_TRANS_SCALE = 0.05
+LABEL_ROT_SCALE = 0.5
+REPLAN = 10
 DT = 0.05
 
 
@@ -158,7 +162,7 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label)
         zfeat = np.clip((ring - stats.fmean) / stats.fstd * stats.factive, -5, 5).reshape(1, -1)
         if FORCE_ZERO:
             zfeat = np.zeros_like(zfeat)
-        state['z'] = torch.tensor(zfeat, dtype=torch.float32).cuda()
+        state['z'] = None if SKIP_FILM else torch.tensor(zfeat, dtype=torch.float32).cuda()
         with torch.no_grad():
             out = model.infer_action(prompt=None, context=ctx, context_mask=ctx_mask,
                                      input_image=img.cuda(), action_horizon=ACTION_HORIZON,
@@ -173,13 +177,13 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label)
             raise ValueError('unexpected action shape: %s' % (act_norm.shape,))
         _, ascale, aoff = stats.forward(np.zeros(7, np.float32), stats.amin, stats.amax)
         act = stats.backward(act_norm, ascale, aoff)
-        for k in range(ACTION_HORIZON):
+        for k in range(min(ACTION_HORIZON, REPLAN)):
             if t >= MAX_STEPS:
                 break
             a = act[k]
-            trans = np.clip(a[:3] * DT / TRANS_SCALE, -1, 1)
-            rot = np.clip(a[3:6] * DT / ROT_SCALE, -1, 1)
-            grip_cmd = -1.0 if a[6] >= 0 else 1.0
+            trans = np.clip(a[:3] * (LABEL_TRANS_SCALE / TRANS_SCALE), -1, 1)
+            rot = np.clip(a[3:6] * (LABEL_ROT_SCALE / ROT_SCALE), -1, 1)
+            grip_cmd = float(np.clip(2.0 * a[6] - 1.0, -1.0, 1.0))
             cmd = np.r_[trans, rot, grip_cmd, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
             obs, r, term, trunc, info = env.step(cmd)
             pad = np.asarray(obs['observation.force'], np.float64)[12:16]
@@ -193,8 +197,11 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label)
             prev_source = src
             rows.append({'t': t, 'grip_cmd': float(grip_cmd), 'opening': float(u._gripper_state('L')[0]),
                          'force': [float(x) for x in pad], 'in_target': info.get('cookies_in_target'),
-                         'in_source': src, 'safety': info.get('safety_reason')})
-            if info.get('cookies_in_target') == 10 and src == 0:
+                         'in_source': src, 'safety': info.get('safety_reason'),
+                         'act_dp_max': float(np.abs(a[:3]).max()), 'act_rot_max': float(np.abs(a[3:6]).max()),
+                         'act_grip_raw': float(a[6]), 'opening_cmd': float(a[6]),
+                         'eef_after': [float(x) for x in np.asarray(obs['observation.eef_pose']).reshape(-1)[:3]]})
+            if info.get('cookies_in_target') == 10 and src == 70:
                 hold += 1
                 best_hold = max(best_hold, hold)
                 if hold >= 20:
@@ -215,7 +222,22 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label)
     except Exception:
         pass
     pad_max = np.max(np.abs([r['force'] for r in rows]), axis=0).tolist() if rows else [0, 0, 0, 0]
+    import math as _m
+    dp_mean = float(np.mean([r['act_dp_max'] for r in rows])) if rows else None
+    dp_max = float(np.max([r['act_dp_max'] for r in rows])) if rows else None
+    rot_mean = float(np.mean([r['act_rot_max'] for r in rows])) if rows else None
+    grip_close = float(np.mean([r.get('opening_cmd', 1.0) <= 0.6 for r in rows])) if rows else None
+    ocmd = np.asarray([r.get('opening_cmd', 1.0) for r in rows]) if rows else np.zeros(0)
+    open_cmd_frac = float((ocmd >= 0.8).mean()) if len(ocmd) else None
+    reopen_events = int((np.diff((ocmd >= 0.8).astype(int)) == 1).sum()) if len(ocmd) > 1 else 0
+    path = 0.0
+    for i in range(1, len(rows)):
+        a0 = np.asarray(rows[i-1]['eef_after']); a1 = np.asarray(rows[i]['eef_after'])
+        path += float(np.linalg.norm(a1 - a0))
     res = {'episode': int(seed), 'steps': t, 'exact_fill': bool(exact_fill),
+           'action_stats': {'dp_absmean': dp_mean, 'dp_absmax': dp_max, 'rot_absmean': rot_mean,
+                            'grip_close_frac': grip_close, 'open_cmd_frac': open_cmd_frac,
+                            'reopen_events': reopen_events, 'eef_path_m': round(path, 4)},
            'best_hold': int(best_hold), 'grasps': int(grasps),
            'final_in_target': info.get('cookies_in_target'), 'final_in_source': info.get('cookies_in_source'),
            'close_cmd_frac': float(np.mean([r['grip_cmd'] < 0 for r in rows])) if rows else None,
@@ -257,11 +279,17 @@ def main():
     summary = {'worker': 'task7', 'ts': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
                'step_label': step_label, 'checkpoint': ckpt, 'checkpoint_sha256': sha256_file(ckpt) if ckpt and os.path.exists(ckpt) else None,
                'seeds': seeds, 'results': results,
+               'action_stats_mean': {
+                   'dp_absmean': float(np.mean([r['action_stats']['dp_absmean'] for r in results if r.get('action_stats')])) if any(r.get('action_stats') for r in results) else None,
+                   'grip_close_frac': float(np.mean([r['action_stats']['grip_close_frac'] for r in results if r.get('action_stats')])) if any(r.get('action_stats') for r in results) else None,
+                   'eef_path_m': float(np.mean([r['action_stats']['eef_path_m'] for r in results if r.get('action_stats')])) if any(r.get('action_stats') for r in results) else None,
+                   'open_cmd_frac': float(np.mean([r['action_stats']['open_cmd_frac'] for r in results if r.get('action_stats')])) if any(r.get('action_stats') for r in results) else None,
+                   'reopen_events_mean': float(np.mean([r['action_stats']['reopen_events'] for r in results if r.get('action_stats')])) if any(r.get('action_stats') for r in results) else None},
                'exact_fill_count': sum(1 for r in results if r.get('exact_fill')),
                'exact_fill_rate': sum(1 for r in results if r.get('exact_fill')) / max(1, len(results)),
                'avg_in_target': float(np.mean([r.get('final_in_target') or 0 for r in results])),
                'safety_stop_count': sum(1 for r in results if r.get('safety_reason') is not None),
-               'protocol': {'max_steps': MAX_STEPS, 'denoise_steps': DENOISE, 'action_horizon': ACTION_HORIZON,
+               'protocol': {'max_steps': MAX_STEPS, 'denoise_steps': DENOISE, 'action_horizon': ACTION_HORIZON, 'replan': REPLAN,
                             'cameras': ['front', 'left_wrist']},
                'video_manifest': os.path.join(out_root, 'VIDEO_MANIFEST_step_%s.json' % step_label),
                'force_zero': FORCE_ZERO}

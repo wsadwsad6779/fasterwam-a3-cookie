@@ -1,0 +1,27 @@
+{
+  "worker": "supervisor",
+  "ts": "2026-11-23T17:43:00Z",
+  "issue": "the D2 audit quarantined 96 episodes (749-844) as unknown identity because the metadata file has no entries with those episode_index values",
+  "finding": "the 96 2x10 metadata entries exist but are mis-indexed as episode_index 0-95; each 2x5 episode 0-95 has a second metadata entry from the 2x10 collection",
+  "mapping_rule": "the 2x10 metadata entries in file order (episode_index 0..95, seeds 80000..80131) correspond one-to-one, in order, to parquet episodes 749..844; frame counts match elementwise for all 96 (verified)",
+  "verification": {
+    "two_meta_entries": 96,
+    "late_parquet_episodes": 96,
+    "order_match_all": true,
+    "sample": [
+      {"meta_index": 0, "parquet_episode": 749, "frames": 1076, "seed": 80000},
+      {"meta_index": 1, "parquet_episode": 750, "frames": 1079, "seed": 80001},
+      {"meta_index": 95, "parquet_episode": 844, "frames": "last"}
+    ],
+    "controller": "cookie_2x10_variable_grasp",
+    "source_dataset": "local/cookie-2x10-complete-canonical-v4",
+    "success_all": true
+  },
+  "claim": "all 96 episodes are identity-known 2x10 demonstrations; the quarantine label 'unknown_identity' is superseded",
+  "policy": "keep them frozen test-only in split V2 (task class tagged 2x10); training stays 589 2x5; no 2x5/2x10 mixing",
+  "artifacts": {
+    "metadata": "/workspace/fwv1/p_items/hf_multi/a3_episode_metadata.jsonl",
+    "manifest": "/workspace/fwv1/p_items/DATASET_845_ACCEPTED_MANIFEST.json",
+    "audit": "p_items/T7_SUPERVISOR_AUDIT.json"
+  }
+}
