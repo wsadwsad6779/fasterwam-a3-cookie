@@ -263,21 +263,26 @@ def main():
             sd = os.path.join(EVAL_DIR, 'seed_%05d' % int(e.get('seed')))
         except Exception:
             continue
-        for cam, key in (('front', 'front'), ('left_wrist', 'left_wrist')):
-            if not (e.get(key) and os.path.exists(e.get(key))):
-                cand = os.path.join(sd, cam + '.mp4')
-                if os.path.exists(cand):
-                    e[key] = cand
-    if not vm.get('videos'):
+        if not (e.get('composite') and os.path.exists(e.get('composite'))):
+            cand = os.path.join(sd, 'composite.mp4')
+            if os.path.exists(cand):
+                e['composite'] = cand
+        if not (e.get('composite') and os.path.exists(e.get('composite'))):
+            legacy = e.get('front') if (e.get('front') and os.path.exists(e.get('front'))) else os.path.join(sd, 'front.mp4')
+            if os.path.exists(legacy):
+                e['composite'] = legacy
+                e['legacy_front_only'] = True
+    if not any(e.get('composite') and os.path.exists(e.get('composite')) for e in vm.get('videos', [])):
         for d in sorted(glob.glob(os.path.join(EVAL_DIR, 'seed_*'))):
             try:
                 seed = int(os.path.basename(d).split('_')[-1])
             except Exception:
                 continue
+            c = os.path.join(d, 'composite.mp4')
             f = os.path.join(d, 'front.mp4')
-            l = os.path.join(d, 'left_wrist.mp4')
-            if os.path.exists(f) and os.path.exists(l):
-                vm['videos'].append({'seed': seed, 'front': f, 'left_wrist': l,
+            p = c if os.path.exists(c) else (f if os.path.exists(f) else None)
+            if p:
+                vm['videos'].append({'seed': seed, 'composite': p,
                                      'frames': None, 'exact_fill': None, 'in_target': None})
     zip_path = (os.path.join('/tmp', 'videos_step_%d.zip' % STEP) if DRY
                 else os.path.join(EVAL_DIR, 'videos_step_%d.zip' % STEP))
@@ -285,22 +290,25 @@ def main():
         with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_STORED) as z:
             for e in vm.get('videos', []):
                 seed = e.get('seed')
-                for cam in ('front', 'left_wrist'):
-                    p = e.get(cam)
-                    if p and os.path.exists(p):
-                        rel = os.path.relpath(p, '/workspace')
-                        arc = 'seed_%05d_%s.mp4' % (int(seed), cam)
-                        z.write(p, arcname=arc)
-                        videos.append({'seed': seed, 'camera': cam, 'path': p, 'rel': rel,
-                                       'url': url_of(rel), 'bytes': os.path.getsize(p),
-                                       'sha256': sha256(p), 'frames': e.get('frames'),
-                                       'exact_fill': e.get('exact_fill'), 'in_target': e.get('in_target')})
+                p = e.get('composite')
+                if p and os.path.exists(p):
+                    rel = os.path.relpath(p, '/workspace')
+                    arc = 'seed_%05d_composite.mp4' % int(seed)
+                    z.write(p, arcname=arc)
+                    videos.append({'seed': seed, 'camera': 'composite', 'path': p, 'rel': rel,
+                                   'url': url_of(rel), 'bytes': os.path.getsize(p),
+                                   'sha256': sha256(p), 'frames': e.get('frames'),
+                                   'exact_fill': e.get('exact_fill'), 'in_target': e.get('in_target'),
+                                   'legacy_front_only': bool(e.get('legacy_front_only'))})
         zip_info = {'path': zip_path, 'rel': os.path.relpath(zip_path, '/workspace'),
                     'url': url_of(os.path.relpath(zip_path, '/workspace')),
                     'bytes': os.path.getsize(zip_path), 'sha256': sha256(zip_path)}
     except Exception as exc:
         zip_info = {'error': str(exc)[:300]}
-    fadd('videos_present', len(videos) == 20, len(videos))
+    expected_n = len({r.get('episode') for r in results}) or 10
+    fadd('videos_present', len(videos) >= expected_n and len({v['seed'] for v in videos}) >= expected_n,
+         {'videos': len(videos), 'seeds': len({v['seed'] for v in videos}), 'expected': expected_n,
+          'kind': 'composite (left_wrist|front|force ch12/ch13)'})
 
     fundamental_ok = all(x['ok'] for x in fund)
     if STEP == 3000:

@@ -65,6 +65,69 @@ def scene_hash(rm):
     return h.hexdigest()[:16]
 
 
+def _panel_font(size=12):
+    from PIL import ImageFont
+    for p in ('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
+              '/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf'):
+        if os.path.exists(p):
+            return ImageFont.truetype(p, size)
+    return ImageFont.load_default()
+
+
+def force_panel(hist, step, seed, in_target, in_source, opening, grip_cmd, safety,
+                w=320, h=256):
+    from PIL import Image, ImageDraw
+    img = Image.new('RGB', (w, h), (14, 14, 14))
+    d = ImageDraw.Draw(img)
+    f = _panel_font(12)
+    fs = _panel_font(11)
+    x0, y0, x1, y1 = 42, 20, w - 8, h - 50
+    ymax = 3.0
+    d.text((6, 3), 'grip force (N)  step %d  seed %d' % (step, seed), fill=(230, 230, 230), font=f)
+    for v in (0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0):
+        y = int(y1 - (v / ymax) * (y1 - y0))
+        d.line([(x0, y), (x1, y)], fill=(55, 55, 55))
+        d.text((6, y - 6), '%.1f' % v, fill=(170, 170, 170), font=fs)
+    yth = int(y1 - (0.5 / ymax) * (y1 - y0))
+    for x in range(x0, x1, 8):
+        d.line([(x, yth), (min(x + 4, x1), yth)], fill=(220, 70, 70))
+    N = 120
+    data = hist[-N:] if hist else []
+    if data:
+        for ci, col in ((0, (80, 200, 255)), (1, (255, 170, 60))):
+            pts = []
+            for i, pair in enumerate(data):
+                v = min(float(pair[ci]), ymax)
+                x = x0 + (i / max(1, N - 1)) * (x1 - x0)
+                y = y1 - (v / ymax) * (y1 - y0)
+                pts.append((x, y))
+            if len(pts) > 1:
+                d.line(pts, fill=col, width=2)
+        cur = data[-1]
+        peak = max(max(p) for p in data)
+    else:
+        cur = (0.0, 0.0)
+        peak = 0.0
+    d.text((x0, y1 + 3), 'L inner %.2f  L outer %.2f N' % (cur[0], cur[1]), fill=(80, 200, 255), font=f)
+    d.text((x0, y1 + 17), 'peak %.2f N (y 0-3N) | 0.5N carry line' % peak, fill=(220, 180, 120), font=fs)
+    d.text((x0, y1 + 31), ('open %.2f  gcmd %+.2f  inT %s  src %s' % (
+        opening, grip_cmd, in_target, in_source))[:52], fill=(200, 200, 200), font=fs)
+    if safety:
+        d.text((x0, 6), ('SAFETY: %s' % safety)[:46], fill=(255, 80, 80), font=fs)
+    d.rectangle([x0 - 1, y0 - 1, x1 + 1, y1 + 1], outline=(90, 90, 90))
+    return np.asarray(img)
+
+
+def composite_frame(obs, hist, step, seed, info, opening, grip_cmd):
+    wimg = np.ascontiguousarray(obs['observation.images.left_wrist'])
+    fimg = np.ascontiguousarray(obs['observation.images.front'])
+    panel = force_panel(hist, step, seed, info.get('cookies_in_target'),
+                        info.get('cookies_in_source'), opening, grip_cmd,
+                        info.get('safety_reason'))
+    div = np.full((wimg.shape[0], 2, 3), 255, np.uint8)
+    return np.hstack([wimg, div, fimg, div, panel])
+
+
 def image_to_model(obs):
     import torch.nn.functional as Fn
     f = torch.tensor(obs['observation.images.front']).permute(2, 0, 1).float() / 255.0
@@ -166,7 +229,8 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label,
         raise RuntimeError('scene hash mismatch seed=%d expected=%s actual=%s'
                            % (seed, scene_entry['hash'], scene_actual))
     os.makedirs(out_dir, exist_ok=True)
-    frames_f, frames_w = [], []
+    frames_c = []
+    force_hist = []
     ring = np.zeros((HIST, 4), np.float32)
     rows = []
     info = {}
@@ -212,8 +276,9 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label,
             pad = np.asarray(obs['observation.force'], np.float64)[12:16]
             ring = np.roll(ring, -1, axis=0)
             ring[-1] = pad
-            frames_f.append(np.ascontiguousarray(obs['observation.images.front']))
-            frames_w.append(np.ascontiguousarray(obs['observation.images.left_wrist']))
+            force_hist.append((float(pad[0]), float(pad[1])))
+            frames_c.append(composite_frame(obs, force_hist, t, seed, info if isinstance(info, dict) else {},
+                                            float(u._gripper_state('L')[0]), grip_cmd))
             src = info.get('cookies_in_source') if isinstance(info, dict) else None
             if prev_source is not None and src is not None and src < prev_source:
                 grasps += prev_source - src
@@ -236,10 +301,8 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label,
                 break
         if term or trunc:
             break
-    vf = os.path.join(out_dir, 'front.mp4')
-    vw = os.path.join(out_dir, 'left_wrist.mp4')
-    imageio.mimsave(vf, frames_f, fps=20, codec='libx264', quality=8)
-    imageio.mimsave(vw, frames_w, fps=20, codec='libx264', quality=8)
+    vc = os.path.join(out_dir, 'composite.mp4')
+    imageio.mimsave(vc, frames_c, fps=20, codec='libx264', quality=8)
     try:
         env.close()
     except Exception:
@@ -283,7 +346,7 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label,
            'close_cmd_frac': float(np.mean([r['grip_cmd'] < 0 for r in rows])) if rows else None,
            'pad_max': pad_max,
            'safety_reason': info.get('safety_reason'), 'terminated': bool(term), 'elapsed_s': round(time.time() - t0, 1),
-           'videos': {'front': vf, 'left_wrist': vw},
+           'videos': {'composite': vc},
            'events_json': os.path.join(out_dir, 'events.json')}
     json.dump({'step_label': step_label, 'seed': int(seed), 'rows': rows}, open(res['events_json'], 'w'))
     return res
@@ -368,10 +431,10 @@ def main():
     vids = []
     for r in results:
         if 'videos' in r:
-            vids.append({'seed': r['episode'], 'front': r['videos']['front'],
-                         'left_wrist': r['videos']['left_wrist'],
+            vids.append({'seed': r['episode'], 'composite': r['videos']['composite'],
                          'frames': r['steps'], 'exact_fill': r['exact_fill'],
-                         'in_target': r.get('final_in_target')})
+                         'in_target': r.get('final_in_target'),
+                         'panel': 'left_wrist|front|force(ch12/ch13, 0-3N, 0.5N line)'})
     json.dump({'step_label': step_label, 'videos': vids, 'root': out_root, 'force_zero': FORCE_ZERO},
               open(summary['video_manifest'], 'w'), indent=1)
     print(json.dumps({'step': step_label, 'exact_fill_rate': summary['exact_fill_rate'],

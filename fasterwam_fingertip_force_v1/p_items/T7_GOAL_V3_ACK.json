@@ -1,12 +1,12 @@
 {
  "worker": "task7",
  "goal_version": "V3",
- "updated_at": "2026-11-24T06:01:15Z",
+ "updated_at": "2026-11-24T06:24:43Z",
  "session_id": "607221b3-ba4c-5063-ac4f-494f15aea661",
  "old_goal_replaced": true,
  "old_goal_replaced_scope": "project ledger: V2 Goal (S1-S5/845 acceptance/gripper V2/21k) is superseded by V3; runtime session goal text could not be edited with the available tools",
  "old_goal_superseded_reason": "V2 Goal is obsolete and blocked; user approved the V3 F2 goal at 2026-11-24T05:50Z",
- "key_scope_summary": "F2-only from-scratch 21000 steps on the official base; V3 continuous labels; frozen 80 basic scenes; 3k milestones; G-D+exact_fill gates with STOP on fail; 12k -20% degradation stop; 96 2x10 held-out; P3-B separate; no budget expansion",
+ "key_scope_summary": "F2-only from-scratch 21000 steps on the official base; V3 continuous labels; frozen 80 basic scenes; 3k milestones; G-D+exact_fill gates with STOP on fail; 12k -20% degradation stop; 96 2x10 held-out; P3-B separate; no budget expansion; per-seed single 3-panel composite video (wrist|front|force)",
  "intended_objective": "V3 指尖力 F2 主模型：在官方 hustvl/FasterWAM step_021700.pt（只读，sha 01be4efc…）上从零完成 21,000 步有界训练（fresh 21000 已获用户批准；旧 V2 6140 + V3 诊断 200 另记，总约 27340，不扩预算），每 3,000 步做 10-seed 裸模型双视频评估（EVAL_SCENE_MANIFEST_V3 冻结 80 个 basic 场景，fail-closed；eval g=2a−1/rot×5/replan=10/src==70），并完成 21k 最终独立裸模型验收。标签用 V3 连续开度 A3_845_7D_LABELS_V3.npz（sha c4090dd2…，1=张开/0.28=夹住/0.49=释放；禁 pm1/阈值/平滑）；模型 F2 = Force-gated FiLM + C-02 force-grounded 辅助头（264,705 参数）+ 10% force dropout。每 3k 交付 checkpoint（t7_21k_v3run）+CHECKPOINT_MANIFEST（path+sha256）+10 个固定 seed 双视角视频+G-D 四项（close_frac≤0.95 / open_cmd_frac≥0.05 / reopen≥1 / carry 左指垫力>0.5N 占比≥95%）+exact_fill≥1，任一 fail 即 STOP 只出根因报告；12k 相对 3k >20% 退化停跑；96 条 2x10 held-out 独立、P3-B 不混入 basic；每里程碑尝试外部 sha256 备份并记录失败原因。红线：不扩预算、不删不可替代产物、token 不入库、禁运行期力阈值控制器、禁旧 Wan/p7_verify。完整合同 p_items/T7_GOAL_V3.md。",
  "contract_file": "p_items/T7_GOAL_V3.md",
  "session_goal_readback": {
@@ -63,5 +63,12 @@
   "no deletion of irreplaceable artifacts",
   "frozen scene fail-closed; eval g=2a-1/rotx5/replan10/src70",
   "96 2x10 held-out; P3-B not mixed"
+ ],
+ "deliverable_updates": [
+  {
+   "ts": "2026-11-24T06:20:00Z",
+   "change": "per-seed single 3-panel composite video: left_wrist | front | force (ch12/ch13, 0-3N, 0.5N line, current/peak); no separate front/left_wrist files",
+   "reason": "user directive 2026-11-24T06:20Z"
+  }
  ]
 }

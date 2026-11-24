@@ -1,7 +1,7 @@
 {
  "project": "fasterwam_fingertip_force_v1",
  "worker": "task7",
- "ts": "2026-11-24T05:24:06Z",
+ "ts": "2026-11-24T06:24:43Z",
  "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
  "phase": "S4_v3_new_run_0_3000",
  "budget": {
@@ -162,7 +162,7 @@
   "tmux_session": "fwv1",
   "logs_dir": "/workspace/fwv1/logs"
  },
- "next": "3k deliverables: checkpoint + 10 seeds 7100-7109 dual-view videos + G-D metrics (close_frac<=0.95, open_cmd_frac>=0.05, reopen>=1, carry force>0.5N frac>=0.95); stop and review if any fails",
+ "next": "continue F2 0->21000; 3k checkpoint+10-seed+G-D; 12k degradation; F0/F1 deferred to a later separately approved phase",
  "monitoring": {
   "status": "RUNNING",
   "since": "2026-11-24T03:56:22Z",
@@ -212,7 +212,7 @@
  "three_k_gate": {
   "status": "armed",
   "script": "p_items/scripts/t7_milestone_report.py",
-  "script_sha256": "ef503dc451fe9729ed243e284f7a7944134cb32a97b7ed823efa1c466ed4bdd0",
+  "script_sha256": "d30efcb3e2087e21e49ec9716c5250a3ea9569ad7dd8f0a59820f7d26dcadb0b",
   "chain_sha256": "93315d32390351f476a586d21eb1e686ee8a6530942addb0600119f747fa0e88",
   "watchdog_sha256": "3ede8f9b4cac045247ee75e43d59d96d920eeb5dbdeb5824f365ca16e9a7eb18",
   "stop_flag": "/workspace/fwv1/STOP_TRAINING",
@@ -238,33 +238,48 @@
   "dry_run": "aborted_v2_step_003000: parsed, 20 videos zipped, verdict failed as expected (old schema)",
   "preflight": {
    "status": "pass",
-   "ts": "2026-11-24T04:43:25Z",
+   "ts": "2026-11-24T06:22:30Z",
    "checks": 7,
    "artifact": "p_items/PREFLIGHT_3K.json",
-   "sha256": "641b0593eed8bd400240e255a1266591155a9ce809f8a3952954f3c45b6b4be4",
+   "sha256": "a3b51cec2a69f18d8957c461145e66c05b3ecbc9b98b590c029a97d7216c1744",
    "pod_files": {
-    "/workspace/t7_milestone_report.py": "ef503dc451fe9729ed243e284f7a7944134cb32a97b7ed823efa1c466ed4bdd0",
+    "/workspace/t7_milestone_report.py": "d30efcb3e2087e21e49ec9716c5250a3ea9569ad7dd8f0a59820f7d26dcadb0b",
     "/workspace/t7_data.py": "76dfdbf4c3a30661356d42a0cac0a74b2887a9472a8efca5b17dd328f09b59ab",
     "/workspace/t7_train.py": "32a9f5241265526b5ddb6fed388ef10ed86c59b9edd61e5773994c5a54591569",
-    "/workspace/_t7_eval.py": "cd3516352f7f1c16364e4a772ebcbc950191a6dbd2b93566de4eade2d8bcf535"
+    "/workspace/_t7_eval.py": "3518d4ef9d907b2392dc5cd1b6d0f522a0ff436a769070be64d7aa3593618be3"
    },
    "supersedes": {
-    "ts": "2026-11-24T04:20:42Z",
-    "sha256": "8da5edde3c2c999886a05589449e531bd27a611b3d9d652698fa77cbff478c19",
-    "t7_train_sha256": "bf4484718db5a46be853737da62ebc171dbb2690c12f0b2d0462743719cf62ae"
+    "ts": "2026-11-24T04:43:25Z",
+    "sha256": "641b0593eed8bd400240e255a1266591155a9ce809f8a3952954f3c45b6b4be4",
+    "eval_sha256": "cd3516352f7f1c16364e4a772ebcbc950191a6dbd2b93566de4eade2d8bcf535",
+    "report_sha256": "ef503dc451fe9729ed243e284f7a7944134cb32a97b7ed823efa1c466ed4bdd0"
    }
   },
   "armed_hashes": {
    "chain": "93315d32390351f476a586d21eb1e686ee8a6530942addb0600119f747fa0e88",
    "watchdog": "3ede8f9b4cac045247ee75e43d59d96d920eeb5dbdeb5824f365ca16e9a7eb18",
-   "report": "ef503dc451fe9729ed243e284f7a7944134cb32a97b7ed823efa1c466ed4bdd0"
+   "report": "d30efcb3e2087e21e49ec9716c5250a3ea9569ad7dd8f0a59820f7d26dcadb0b"
   },
-  "pod_hash_delta": "p_items/C01_POD_HASH_DELTA.json"
+  "pod_hash_delta": "p_items/C01_POD_HASH_DELTA.json",
+  "pod_hash_delta_3panel": "p_items/C01_POD_HASH_DELTA_3PANEL.json",
+  "video_spec": "one composite per seed: left_wrist | front | force panel (ch12/ch13 curves, 0-3N, 0.5N carry line, current/peak/opening/grip_cmd/in_target/source, safety if any), no occlusion; zip has 10 composites"
  },
  "gpu": {
   "checked_at": "2026-11-24T04:20:42Z",
   "vram_used_mb": 24178,
   "gpu_idle": false,
   "note": "training running: fresh V3 run 0->21000 (approved 2026-11-24T03:35Z), PID 306531, run dir t7_21k_v3run, step 440"
+ },
+ "experiment": {
+  "decision": "先 F2 21k，F0/F1 后补",
+  "decided_at": "2026-11-24T05:50:00Z",
+  "current_arm": "F2",
+  "variants": {
+   "F0": "deferred (separate budget/time later)",
+   "F1": "deferred (separate budget/time later)",
+   "F2": "running 0->21000"
+  },
+  "matrix": "F0 no force; F1 simple residual fusion; F2 zero-init FiLM (+ C-02 force-grounded aux head); same data/frozen scenes/10-seed eval when F0/F1 run",
+  "f0f1_budget": "not authorized now; needs a separate user approval"
  }
 }

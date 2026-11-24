@@ -1,6 +1,6 @@
 {
  "worker": "task7",
- "ts": "2026-11-24T04:43:25Z",
+ "ts": "2026-11-24T06:22:18Z",
  "kind": "3k_preflight",
  "run_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
  "metrics_path": "/workspace/fwv1/train_runs/t7_21k_v3run/metrics.jsonl",
@@ -34,17 +34,17 @@
    "name": "train_metrics_finite",
    "ok": true,
    "detail": {
-    "records": 82,
-    "last_step": 820
+    "records": 100,
+    "last_step": 2430
    }
   },
   {
    "name": "train_sampler_balanced",
    "ok": true,
    "detail": {
-    "mean_open": 0.08303163109756098,
-    "mean_close": 0.8932450457317073,
-    "close_neq_open_frac": 0.9390243902439024
+    "mean_open": 0.0883984375,
+    "mean_close": 0.8880078125,
+    "close_neq_open_frac": 0.92
    }
   }
  ],
@@ -58,12 +58,12 @@
    "bytes": 10330
   },
   "/workspace/_t7_eval.py": {
-   "sha256": "cd3516352f7f1c16364e4a772ebcbc950191a6dbd2b93566de4eade2d8bcf535",
-   "bytes": 20792
+   "sha256": "3518d4ef9d907b2392dc5cd1b6d0f522a0ff436a769070be64d7aa3593618be3",
+   "bytes": 23549
   },
   "/workspace/t7_milestone_report.py": {
-   "sha256": "ef503dc451fe9729ed243e284f7a7944134cb32a97b7ed823efa1c466ed4bdd0",
-   "bytes": 20357
+   "sha256": "d30efcb3e2087e21e49ec9716c5250a3ea9569ad7dd8f0a59820f7d26dcadb0b",
+   "bytes": 21406
   }
  },
  "all_ok": true

@@ -1,0 +1,47 @@
+{
+ "worker": "task7",
+ "ts": "2026-11-24T06:24:43Z",
+ "kind": "pod_hash_delta_3panel",
+ "files": [
+  {
+   "file": "/workspace/_t7_eval.py",
+   "old": "cd3516352f7f1c16364e4a772ebcbc950191a6dbd2b93566de4eade2d8bcf535",
+   "new": "3518d4ef9d907b2392dc5cd1b6d0f522a0ff436a769070be64d7aa3593618be3",
+   "bytes": 23549,
+   "scope": "per-seed output changed to one 3-panel composite video (left_wrist|front|force ch12/ch13 0-3N 0.5N line); separate front/left_wrist mp4 outputs removed; mapping/protocol/force_stats unchanged"
+  },
+  {
+   "file": "/workspace/t7_milestone_report.py",
+   "old": "ef503dc451fe9729ed243e284f7a7944134cb32a97b7ed823efa1c466ed4bdd0",
+   "new": "d30efcb3e2087e21e49ec9716c5250a3ea9569ad7dd8f0a59820f7d26dcadb0b",
+   "bytes": 21406,
+   "scope": "video manifest/zip now takes one composite per seed (10 files); G-D criteria and checkpoint checks unchanged"
+  }
+ ],
+ "unchanged": [
+  "eval mapping g=2a-1/rotx5/replan10/src70",
+  "scene manifest fail-closed",
+  "G-D criteria",
+  "checkpoint checks",
+  "sampler/labels/training code"
+ ],
+ "armed_hashes": {
+  "chain": "93315d32390351f476a586d21eb1e686ee8a6530942addb0600119f747fa0e88",
+  "watchdog": "3ede8f9b4cac045247ee75e43d59d96d920eeb5dbdeb5824f365ca16e9a7eb18",
+  "report_new": "d30efcb3e2087e21e49ec9716c5250a3ea9569ad7dd8f0a59820f7d26dcadb0b"
+ },
+ "preflight": {
+  "old": "641b0593eed8bd400240e255a1266591155a9ce809f8a3952954f3c45b6b4be4",
+  "new": "a3b51cec2a69f18d8957c461145e66c05b3ecbc9b98b590c029a97d7216c1744",
+  "ts": "2026-11-24T06:22:30Z",
+  "all_ok": true,
+  "checks": 7
+ },
+ "g_b_regression": {
+  "old": "10e95987ab630fd4fa0924d14de72e4f799c3253d7c6fde0b2bbada178b7fce7",
+  "new": "41c56c014aa8068695c406bb0a0f456851208e08dd486afcfd43805917eaae65",
+  "eval_sha": "3518d4ef9d907b2392dc5cd1b6d0f522a0ff436a769070be64d7aa3593618be3",
+  "verdict": "pass"
+ },
+ "effective": "3k eval (starts after the 3000-step checkpoint; not yet running); current training PID 306531 and chain/watchdog hashes unchanged"
+}
