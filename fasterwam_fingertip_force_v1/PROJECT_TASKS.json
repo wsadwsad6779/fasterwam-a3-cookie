@@ -361,12 +361,11 @@
   },
   {
    "id": "R2_CHUNK_MECHANISM",
-   "status": "PARTIAL",
+   "status": "DONE",
    "name": "chunk-level close-onset / truncation / cross-seed gripper similarity",
-   "note": "7504/7508 r10/16/32 done; 7504 r32=3/10 is chunk/seed luck, not an r causal claim",
+   "note": "P16: 7504 r10 executed 6 close chunks/0 in-target; r32 3 close chunks/3 strict (5 user); 7508 r32 4 close chunks/0; r32 is chunk/seed luck, not an r effect",
    "evidence": [
-    "p_items/F0_F2_DIAGNOSIS_SUMMARY.md",
-    "p_items/R_SWEEP_PROGRESS.json"
+    "p_items/P16_CHUNK_MECHANISM_7504_7508.json"
    ]
   },
   {
@@ -410,7 +409,7 @@
   "p_items/GPU_TIME_STATE.json",
   "p_items/GPU_UPLOAD_MANIFEST.json"
  ],
- "updated_at": "2026-11-25T06:28:40Z",
+ "updated_at": "2026-11-25T06:46:10Z",
  "v4": {
   "goal": "DUAL_TRACK_F0_TRAINING_F2_PAUSED_DIAG",
   "authorized": "user 2026-11-25T02:23Z: F0 up to 21k, stage1 3000 independent; F2 paused at 15800",

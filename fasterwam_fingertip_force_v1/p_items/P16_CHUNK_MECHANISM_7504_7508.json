@@ -1,0 +1,191 @@
+{
+ "schema": "task7_chunk_mechanism_v1",
+ "id": "P16_CHUNK_MECHANISM_7504_7508",
+ "created_utc": "2026-11-25T06:45:58Z",
+ "question": "is the r32 single-seed success explained by r10 truncating a late close, or by chunk/seed luck?",
+ "sources": {
+  "r10_7504": {
+   "path": "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\fasterwam_fingertip_force_v1\\p_items\\diag_chunks_r10_seed_07504.json",
+   "sha256": "0a6873ed2223b693310af464628e333820bd516870167cff8db586efc26d97c2"
+  },
+  "r16_7504": {
+   "path": "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\fasterwam_fingertip_force_v1\\p_items\\diag_chunks_r16_seed_07504.json",
+   "sha256": "ce8f9dbef0f2349d166487e704969f173b352422ec357af13f11da93f6ca21a0"
+  },
+  "r32_7504": {
+   "path": "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\fasterwam_fingertip_force_v1\\p_items\\diag_chunks_r32_seed_07504.json",
+   "sha256": "26e7dcd3919325af805d8c687b1f37f470f190d143702c47c76cc5785a457bf8"
+  },
+  "r10_7508": {
+   "path": "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\fasterwam_fingertip_force_v1\\p_items\\diag_chunks_r10_seed_07508.json",
+   "sha256": "878a8a7faae971addd8d6e05bccd1737150692c9b5155fc8f4a09bf2991df401"
+  },
+  "r16_7508": {
+   "path": "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\fasterwam_fingertip_force_v1\\p_items\\diag_chunks_r16_seed_07508.json",
+   "sha256": "05ea242970d62b95ebec5a92f08e922f3ed0b6c0e0bce304d01e0dbe5a414be3"
+  },
+  "r32_7508": {
+   "path": "C:\\Users\\ASUS\\Documents\\Qoder\\2026-10-31\\b462d38d\\_clone_default\\fasterwam_fingertip_force_v1\\p_items\\diag_chunks_r32_seed_07508.json",
+   "sha256": "bf381dd88dcd83858508f4eb10e65c766e556059dcd8928ea418cfab877a9abd"
+  }
+ },
+ "per_seed": {
+  "7504": {
+   "r10": {
+    "chunks": 60,
+    "exec_steps": 600,
+    "exec_lt_030": 0.075,
+    "exec_median": 0.4248437285423279,
+    "chunks_any_close_full32": 10,
+    "executed_close_chunks": 6,
+    "close_onsets": [
+     30,
+     29,
+     29,
+     31,
+     6,
+     0,
+     0,
+     0,
+     0,
+     4
+    ],
+    "late_onsets_ge_r": 4,
+    "early_onsets_lt_r": 6,
+    "in_target_strict": 0,
+    "grasps": 0,
+    "force_max_n": null
+   },
+   "r16": {
+    "chunks": 38,
+    "exec_steps": 608,
+    "exec_lt_030": 0.0625,
+    "exec_median": 0.45015624165534973,
+    "chunks_any_close_full32": 5,
+    "executed_close_chunks": 3,
+    "close_onsets": [
+     29,
+     1,
+     1,
+     0,
+     20
+    ],
+    "late_onsets_ge_r": 2,
+    "early_onsets_lt_r": 3,
+    "in_target_strict": 0,
+    "grasps": 0,
+    "force_max_n": 0.11134336143732071
+   },
+   "r32": {
+    "chunks": 19,
+    "exec_steps": 608,
+    "exec_lt_030": 0.1118421052631579,
+    "exec_median": 0.41499999165534973,
+    "chunks_any_close_full32": 3,
+    "executed_close_chunks": 3,
+    "close_onsets": [
+     25,
+     1,
+     0
+    ],
+    "late_onsets_ge_r": 0,
+    "early_onsets_lt_r": 3,
+    "in_target_strict": 3,
+    "grasps": 5,
+    "force_max_n": 49.7926025390625
+   }
+  },
+  "7508": {
+   "r10": {
+    "chunks": 60,
+    "exec_steps": 600,
+    "exec_lt_030": 0.07666666666666666,
+    "exec_median": 0.39882808923721313,
+    "chunks_any_close_full32": 7,
+    "executed_close_chunks": 5,
+    "close_onsets": [
+     26,
+     11,
+     3,
+     0,
+     0,
+     0,
+     0
+    ],
+    "late_onsets_ge_r": 2,
+    "early_onsets_lt_r": 5,
+    "in_target_strict": 0,
+    "grasps": 0,
+    "force_max_n": null
+   },
+   "r16": {
+    "chunks": 38,
+    "exec_steps": 608,
+    "exec_lt_030": 0.07894736842105263,
+    "exec_median": 0.44593748450279236,
+    "chunks_any_close_full32": 6,
+    "executed_close_chunks": 3,
+    "close_onsets": [
+     29,
+     30,
+     26,
+     0,
+     0,
+     0
+    ],
+    "late_onsets_ge_r": 3,
+    "early_onsets_lt_r": 3,
+    "in_target_strict": 0,
+    "grasps": 0,
+    "force_max_n": 7.76559591293335
+   },
+   "r32": {
+    "chunks": 19,
+    "exec_steps": 608,
+    "exec_lt_030": 0.1069078947368421,
+    "exec_median": 0.3531249761581421,
+    "chunks_any_close_full32": 4,
+    "executed_close_chunks": 4,
+    "close_onsets": [
+     25,
+     7,
+     0,
+     19
+    ],
+    "late_onsets_ge_r": 0,
+    "early_onsets_lt_r": 4,
+    "in_target_strict": 0,
+    "grasps": 0,
+    "force_max_n": 22.715742111206055
+   }
+  }
+ },
+ "cross_seed": {
+  "r10": {
+   "n_chunks": 60,
+   "median_abs_diff": 0.052031248807907104,
+   "max_abs_diff": 0.6300000548362732,
+   "corr": 0.25215754141303925
+  },
+  "r32": {
+   "n_chunks": 19,
+   "median_abs_diff": 0.02531251311302185,
+   "max_abs_diff": 0.5357812643051147,
+   "corr": 0.7440750068225547
+  }
+ },
+ "probe_vs_executed": {
+  "f0_probe_step3000": {
+   "median": 0.29125,
+   "lt_030": 0.625,
+   "open_ge_080": 0.0
+  },
+  "f0_executed_3k": {
+   "median": 0.43046873807907104,
+   "lt_030": 0.059,
+   "open_ge_080": 0.018833333333333334
+  },
+  "reading": "the fixed-observation probe showed a closed band, but the closed loop executed median 0.4305 with only 5.9% <0.30: the gripper returns to the mid-band in closed loop. Probe values are not behavior evidence."
+ },
+ "conclusion": "r10 truncates some late closes (7504: late onsets >=10 exist; 7508: fewer), but r10 also executed close-bearing chunks in both seeds and still reached 0 in-target. At r32, 7504 has 3 close chunks and reached 3 strict / 5 user in-target; 7508 has 4 close chunks and 0 in-target. The r32 success is chunk/seed luck on a rare closed command, not a proven r effect. The official protocol remains r10; r16/r32 are diagnostic-only; r24 was not approved and was not run."
+}
