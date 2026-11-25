@@ -24,6 +24,11 @@ while pgrep -f "[_]t7_eval" >/dev/null; do sleep 30; done
 echo "DIM7_AUDIT_BEGIN $(date -u +%FT%TZ)"
 /opt/venv/bin/python /workspace/_dim7_loss_audit.py
 echo "DIM7_AUDIT_RC=$? $(date -u +%FT%TZ)"
+if [ -f "$P/BASE_ANCHOR_V31.json" ]; then
+  echo "BASE_SKIP_EXISTING $(date -u +%FT%TZ)"
+  echo "BASE_DONE $(date -u +%FT%TZ)"
+  exit 0
+fi
 echo "BASE_EVAL_BEGIN $(date -u +%FT%TZ)"
 T7_STEP=base T7_SEEDS=7100,7101,7102,7103,7104,7105,7106,7107,7108,7109 \
   T7_MAX_STEPS=600 T7_DENOISE=5 T7_OUT_SUBDIR=base_v31_thinpads \

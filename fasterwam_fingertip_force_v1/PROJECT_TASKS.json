@@ -1,47 +1,448 @@
 {
-  "base_model_policy": "唯一基座 = hustvl/FasterWAM 官方 step_021700.pt（proprio 8 / action 7 / 无 force conditioner，只读）。禁止旧 A3 无力微调 checkpoint、Force40k、C@1000/C@8000/C@12000、V3/V4、step_040000_merged、G3/M5/oracle 作为最终策略；F0/F1/F2 必须从同一官方 checkpoint 初始化。",
-  "master_plan": {
-    "file": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
-    "ack": "p_items/T7_MASTER_PLAN_ACK.json",
-    "ack_at": "2026-11-23T15:24:30Z",
-    "budget_max_optimizer_steps": 21000,
-    "budget_is_total_not_per_variant": true,
-    "checkpoint_interval": 3000,
-    "milestones": [3000, 6000, 9000, 12000, 15000, 18000, 21000],
-    "seeds_per_milestone": 10,
-    "seed_reuse_forbidden": true,
-    "storage_min_free_gb": 30,
-    "gpu_time_low_hours": 5
-  },
-  "sequences": [
-    {"id": "S1", "name": "pod + Wan dependency + official base identity (8D/7D/32/pm1)", "status": "in_progress", "gate": "G0", "evidence": ["p_items/P4_WAN_FASTDL.json", "p_items/P4_FULL_SMOKE.json", "p_items/JOINT_TO_7D_VERIFICATION.json", "p_items/T7_BASE_IDENTITY.json"]},
-    {"id": "S2", "name": "800 data audit + gripper V2 repair + real-control replay video + re-collection decision", "status": "pending", "gate": "G1+G2", "outputs": ["DATASET_800_SOURCE_LOCATION.md", "DATASET_800_DIVERSITY_REPORT.md", "DATASET_800_DEDUPLICATION.csv", "DATASET_800_CONTACT_COVERAGE.json", "DATASET_800_SPLIT_MANIFEST.json", "GRIPPER_LABEL_V2_FINAL_AUDIT.md", "GRIPPER_EVENT_VALIDATION.json", "GRIPPER_REPLAY_VIDEO_MANIFEST.json"]},
-    {"id": "S3", "name": "fingertip force real MuJoCo acceptance + paper module portability + F0/F1/F2 (F2 selected)", "status": "completed", "gate": "G3", "outputs": ["FINGERTIP_FORCE_MUJOCO_ACCEPTANCE.json", "F2_FUSION_FWD_BWD_TEST.json", "F2_RESUME_TEST.json", "REAL_BATCH_F2_SMOKE.json", "T7_S3_PROGRESS.json"]},
-    {"id": "S4", "name": "21k segmented training with full checkpoints + 10-seed eval + dual-view videos per milestone", "status": "in_progress_setup", "blocked_by": ["G4"], "outputs": ["TRAINING_RUN_STATE.json", "CHECKPOINT_MANIFEST.json", "EVAL_SEED_MANIFEST.json", "VIDEO_MANIFEST.json"], "remaining_setup": ["full dataset loader + norm stats", "functional resume test", "eval harness", "G4 re-pass"]},
-    {"id": "S5", "name": "best checkpoint selection + independent final bare-model test + force/gripper gain quantification", "status": "blocked", "blocked_by": ["S4"], "outputs": ["FINAL_TEST_REPORT.md", "VIDEO_MANIFEST_final.json"]}
+ "base_model_policy": "\u552f\u4e00\u57fa\u5ea7 = hustvl/FasterWAM \u5b98\u65b9 step_021700.pt\uff08proprio 8 / action 7 / \u65e0 force conditioner\uff0c\u53ea\u8bfb\uff09\u3002\u7981\u6b62\u65e7 A3 \u65e0\u529b\u5fae\u8c03 checkpoint\u3001Force40k\u3001C@1000/C@8000/C@12000\u3001V3/V4\u3001step_040000_merged\u3001G3/M5/oracle \u4f5c\u4e3a\u6700\u7ec8\u7b56\u7565\uff1bF0/F1/F2 \u5fc5\u987b\u4ece\u540c\u4e00\u5b98\u65b9 checkpoint \u521d\u59cb\u5316\u3002",
+ "master_plan": {
+  "file": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
+  "ack": "p_items/T7_MASTER_PLAN_ACK.json",
+  "ack_at": "2026-11-23T15:24:30Z",
+  "budget_max_optimizer_steps": 21000,
+  "budget_is_total_not_per_variant": true,
+  "checkpoint_interval": 3000,
+  "milestones": [
+   3000,
+   6000,
+   9000,
+   12000,
+   15000,
+   18000,
+   21000
   ],
-  "gates": {
-    "G0_base_identity": {"status": "passed", "evidence": "p_items/T7_BASE_IDENTITY.json (verdict=pass); p_items/JOINT_TO_7D_VERIFICATION.json (pm1 pass)", "requirements": ["official sha256", "proprio in=8", "action out=7", "horizon 32", "pm1 verified", "no force keys"]},
-    "G1_data_audit": {"status": "passed", "evidence": "DATASET_800_SOURCE_LOCATION.md, DATASET_800_PROVENANCE.json, DATASET_800_DIVERSITY_REPORT.md, DATASET_800_DEDUPLICATION.csv, DATASET_800_FORCE_COVERAGE.json, DATASET_800_SPLIT_MANIFEST.json (675/85/85 disjoint+complete), DATASET_800_METADATA_RECONCILIATION.json, DATASET_800_SOURCE_AUDIT_T7.md (frozen hashes match)", "requirements": ["800 source/dedup/diversity", "train/val/test isolation", "no leakage"]},
-    "G2_gripper_v2": {"status": "passed", "evidence": "P5_REPLAY_VIDEO.json + P5_REPLAY_EXTENDED.json (8 independent expert episodes, all transitions confirmed, pulses 0); GRIPPER_FRAME_ERROR_ANALYSIS.json (97.66% true frame accuracy, all 36 errors within 5 steps of transitions, steady-state 0); closed-loop policy behaviour evaluated later", "requirements": ["event semantics", "real-control replay+video", "no always-closed/jitter"]},
-    "G3_force_fusion": {"status": "passed", "evidence": "FINGERTIP_FORCE_MUJOCO_ACCEPTANCE.json + F2_FUSION_FWD_BWD_TEST.json + REAL_BATCH_F2_SMOKE.json (real video/action/proprio/force/T5 context, 4 phases, fwd/bwd, grads, resume)", "requirements": ["ch12-15 verified in current MuJoCo XML", "causal processor", "normalization stats", "F1/F2 grad flow"]},
-    "G4_pre_train": {"status": "partial", "evidence": "p_items/T7_G4_GATE.json: 9 items passed (identity/data/gripper/force/F2/real batch/phases/fwd-bwd/no-leak/video), 5 pending (full loader, norm stats, functional resume, eval harness, storage plan confirmation)", "requirements": ["G0-G3", "batch has open/close/carry/release", "fwd/bwd ok", "resume test", "checkpoint space", "video record ok"]},
-    "G5_milestones": {"status": "pending", "requirements": ["save->10 new seeds->videos->analysis->resume every 3k", "12k degradation review"]}
+  "seeds_per_milestone": 10,
+  "seed_reuse_forbidden": true,
+  "storage_min_free_gb": 30,
+  "gpu_time_low_hours": 5
+ },
+ "sequences": [
+  {
+   "id": "S1",
+   "name": "pod + Wan dependency + official base identity (8D/7D/32/pm1)",
+   "status": "in_progress",
+   "gate": "G0",
+   "evidence": [
+    "p_items/P4_WAN_FASTDL.json",
+    "p_items/P4_FULL_SMOKE.json",
+    "p_items/JOINT_TO_7D_VERIFICATION.json",
+    "p_items/T7_BASE_IDENTITY.json"
+   ]
   },
-  "tasks": [
-    {"id": "P1", "name": "官方原始 FasterWAM 身份确认", "status": "done", "sequence": "S1", "evidence": "p_items/T7_BASE_IDENTITY.json verdict=pass; sha256 01be4efc..; proprio [4096,8]; action head [7,1024]; horizon 32; force keys 0"},
-    {"id": "P2", "name": "论文与源码审计 (ForceVLA/TacFiLM/ImplicitRDP/MimicGen)", "status": "done_source_level", "sequence": "S3"},
-    {"id": "P3", "name": "指尖力处理器真实 MuJoCo 验收", "status": "done", "sequence": "S3", "gate": "G3", "evidence": "p_items/FINGERTIP_FORCE_MUJOCO_ACCEPTANCE.json verdict=pass (causal prefix diff 0, channel isolation 0, invalid-frame handling, live contact agreement 1.0, first contact step 141, hist 8x4); train-split-only norm stats; domain gap documented: live pad max 27.9N vs dataset 2.16N (12.9x, 24.5% saturation)"},
-    {"id": "P4", "name": "整模集成 smoke", "status": "done", "sequence": "S1", "evidence": "p_items/P4_FULL_SMOKE.json (official mot 1393 keys 0/0, fwd/bwd ok, loss 4.824, VRAM 24.28GB)"},
-    {"id": "P5", "name": "夹爪 V2 真实控制回放验收", "status": "done_replay_openloop", "sequence": "S2", "gate": "G2", "evidence": "p_items/P5_REPLAY_VIDEO.json verdict=pass (3 expert episodes, transitions 3/3+3/3+5/5 confirmed, pulses 0, close-closed frac >=0.99); videos p_items/videos/P5_replay_ep0000/0422/0844_{front,left_wrist}.mp4; GRIPPER_LABEL_V2_FINAL_AUDIT.md", "caveat": "open-loop expert replay validates label semantics under real control; closed-loop gripper behavior evaluated later with trained policy"},
-    {"id": "P6", "name": "800 条数据定位与审计", "status": "done", "sequence": "S2", "note": "S2 must re-verify full-branch/HF trail and produce missing diversity/split artifacts", "outputs": ["DATASET_800_SOURCE_LOCATION.md", "DATASET_800_PROVENANCE.json", "DATASET_800_DIVERSITY_REPORT.md", "DATASET_800_DEDUPLICATION.csv", "DATASET_800_FORCE_COVERAGE.json"]},
-    {"id": "P7", "name": "joint→7D 转换与补采决策", "status": "done", "sequence": "S1", "evidence": "p_items/JOINT_TO_7D_VERIFICATION.json verdict=pass; V2 label offsets fixed"},
-    {"id": "P8", "name": "F0/F1/F2 矩阵冻结", "status": "done", "sequence": "S3", "note": "F2 selected with evidence: zero-init identity exact, encoder/head grads nonzero by step 2, resume exact, 534784 params, 12.76GB VRAM; F1 kept as fallback", "evidence": ["p_items/F2_FUSION_FWD_BWD_TEST.json", "p_items/F2_RESUME_TEST.json", "p_items/T7_S3_PROGRESS.json"]},
-    {"id": "P9", "name": "21k 分段主模型训练", "status": "blocked", "sequence": "S4", "budget_max_steps": 21000, "blocked_by": ["G0", "G1", "G2", "G3", "G4"]},
-    {"id": "P10", "name": "力模态消融（预算内）", "status": "blocked", "sequence": "S4", "blocked_by": ["P9"]},
-    {"id": "P11", "name": "裸模型 10-seed 评估 + 视频", "status": "blocked", "sequence": "S4", "blocked_by": ["P9"]},
-    {"id": "P12", "name": "12k 后退化专项 + 失败归因", "status": "blocked", "sequence": "S4", "blocked_by": ["P9"]}
+  {
+   "id": "S2",
+   "name": "800 data audit + gripper V2 repair + real-control replay video + re-collection decision",
+   "status": "pending",
+   "gate": "G1+G2",
+   "outputs": [
+    "DATASET_800_SOURCE_LOCATION.md",
+    "DATASET_800_DIVERSITY_REPORT.md",
+    "DATASET_800_DEDUPLICATION.csv",
+    "DATASET_800_CONTACT_COVERAGE.json",
+    "DATASET_800_SPLIT_MANIFEST.json",
+    "GRIPPER_LABEL_V2_FINAL_AUDIT.md",
+    "GRIPPER_EVENT_VALIDATION.json",
+    "GRIPPER_REPLAY_VIDEO_MANIFEST.json"
+   ]
+  },
+  {
+   "id": "S3",
+   "name": "fingertip force real MuJoCo acceptance + paper module portability + F0/F1/F2 (F2 selected)",
+   "status": "completed",
+   "gate": "G3",
+   "outputs": [
+    "FINGERTIP_FORCE_MUJOCO_ACCEPTANCE.json",
+    "F2_FUSION_FWD_BWD_TEST.json",
+    "F2_RESUME_TEST.json",
+    "REAL_BATCH_F2_SMOKE.json",
+    "T7_S3_PROGRESS.json"
+   ]
+  },
+  {
+   "id": "S4",
+   "name": "21k segmented training with full checkpoints + 10-seed eval + dual-view videos per milestone",
+   "status": "in_progress_setup",
+   "blocked_by": [
+    "G4"
+   ],
+   "outputs": [
+    "TRAINING_RUN_STATE.json",
+    "CHECKPOINT_MANIFEST.json",
+    "EVAL_SEED_MANIFEST.json",
+    "VIDEO_MANIFEST.json"
+   ],
+   "remaining_setup": [
+    "full dataset loader + norm stats",
+    "functional resume test",
+    "eval harness",
+    "G4 re-pass"
+   ]
+  },
+  {
+   "id": "S5",
+   "name": "best checkpoint selection + independent final bare-model test + force/gripper gain quantification",
+   "status": "blocked",
+   "blocked_by": [
+    "S4"
+   ],
+   "outputs": [
+    "FINAL_TEST_REPORT.md",
+    "VIDEO_MANIFEST_final.json"
+   ]
+  }
+ ],
+ "gates": {
+  "G0_base_identity": {
+   "status": "passed",
+   "evidence": "p_items/T7_BASE_IDENTITY.json (verdict=pass); p_items/JOINT_TO_7D_VERIFICATION.json (pm1 pass)",
+   "requirements": [
+    "official sha256",
+    "proprio in=8",
+    "action out=7",
+    "horizon 32",
+    "pm1 verified",
+    "no force keys"
+   ]
+  },
+  "G1_data_audit": {
+   "status": "passed",
+   "evidence": "DATASET_800_SOURCE_LOCATION.md, DATASET_800_PROVENANCE.json, DATASET_800_DIVERSITY_REPORT.md, DATASET_800_DEDUPLICATION.csv, DATASET_800_FORCE_COVERAGE.json, DATASET_800_SPLIT_MANIFEST.json (675/85/85 disjoint+complete), DATASET_800_METADATA_RECONCILIATION.json, DATASET_800_SOURCE_AUDIT_T7.md (frozen hashes match)",
+   "requirements": [
+    "800 source/dedup/diversity",
+    "train/val/test isolation",
+    "no leakage"
+   ]
+  },
+  "G2_gripper_v2": {
+   "status": "passed",
+   "evidence": "P5_REPLAY_VIDEO.json + P5_REPLAY_EXTENDED.json (8 independent expert episodes, all transitions confirmed, pulses 0); GRIPPER_FRAME_ERROR_ANALYSIS.json (97.66% true frame accuracy, all 36 errors within 5 steps of transitions, steady-state 0); closed-loop policy behaviour evaluated later",
+   "requirements": [
+    "event semantics",
+    "real-control replay+video",
+    "no always-closed/jitter"
+   ]
+  },
+  "G3_force_fusion": {
+   "status": "passed",
+   "evidence": "FINGERTIP_FORCE_MUJOCO_ACCEPTANCE.json + F2_FUSION_FWD_BWD_TEST.json + REAL_BATCH_F2_SMOKE.json (real video/action/proprio/force/T5 context, 4 phases, fwd/bwd, grads, resume)",
+   "requirements": [
+    "ch12-15 verified in current MuJoCo XML",
+    "causal processor",
+    "normalization stats",
+    "F1/F2 grad flow"
+   ]
+  },
+  "G4_pre_train": {
+   "status": "passed",
+   "evidence": "user fresh 21000 approved 2026-11-24T03:35Z; V3 pre-training gates passed; in-run G-D/G-E/G-G/G-F",
+   "requirements": [
+    "V3 labels",
+    "G-A/B/C",
+    "G-D pipeline",
+    "eval frozen scenes",
+    "budget"
+   ]
+  },
+  "G5_milestones": {
+   "status": "pending",
+   "evidence": "V4 dual-track: F0 0->3000 + F2 diagnosis; F2 paused 15800"
+  }
+ },
+ "tasks": [
+  {
+   "id": "P1",
+   "name": "\u5b98\u65b9\u539f\u59cb FasterWAM \u8eab\u4efd\u786e\u8ba4",
+   "status": "done",
+   "sequence": "S1",
+   "evidence": "p_items/T7_BASE_IDENTITY.json verdict=pass; sha256 01be4efc..; proprio [4096,8]; action head [7,1024]; horizon 32; force keys 0"
+  },
+  {
+   "id": "P2",
+   "name": "\u8bba\u6587\u4e0e\u6e90\u7801\u5ba1\u8ba1 (ForceVLA/TacFiLM/ImplicitRDP/MimicGen)",
+   "status": "done_source_level",
+   "sequence": "S3"
+  },
+  {
+   "id": "P3",
+   "name": "\u6307\u5c16\u529b\u5904\u7406\u5668\u771f\u5b9e MuJoCo \u9a8c\u6536",
+   "status": "done",
+   "sequence": "S3",
+   "gate": "G3",
+   "evidence": "p_items/FINGERTIP_FORCE_MUJOCO_ACCEPTANCE.json verdict=pass (causal prefix diff 0, channel isolation 0, invalid-frame handling, live contact agreement 1.0, first contact step 141, hist 8x4); train-split-only norm stats; domain gap documented: live pad max 27.9N vs dataset 2.16N (12.9x, 24.5% saturation)"
+  },
+  {
+   "id": "P4",
+   "name": "\u6574\u6a21\u96c6\u6210 smoke",
+   "status": "done",
+   "sequence": "S1",
+   "evidence": "p_items/P4_FULL_SMOKE.json (official mot 1393 keys 0/0, fwd/bwd ok, loss 4.824, VRAM 24.28GB)"
+  },
+  {
+   "id": "P5",
+   "name": "\u5939\u722a V2 \u771f\u5b9e\u63a7\u5236\u56de\u653e\u9a8c\u6536",
+   "status": "done_replay_openloop",
+   "sequence": "S2",
+   "gate": "G2",
+   "evidence": "p_items/P5_REPLAY_VIDEO.json verdict=pass (3 expert episodes, transitions 3/3+3/3+5/5 confirmed, pulses 0, close-closed frac >=0.99); videos p_items/videos/P5_replay_ep0000/0422/0844_{front,left_wrist}.mp4; GRIPPER_LABEL_V2_FINAL_AUDIT.md",
+   "caveat": "open-loop expert replay validates label semantics under real control; closed-loop gripper behavior evaluated later with trained policy"
+  },
+  {
+   "id": "P6",
+   "name": "800 \u6761\u6570\u636e\u5b9a\u4f4d\u4e0e\u5ba1\u8ba1",
+   "status": "done",
+   "sequence": "S2",
+   "note": "S2 must re-verify full-branch/HF trail and produce missing diversity/split artifacts",
+   "outputs": [
+    "DATASET_800_SOURCE_LOCATION.md",
+    "DATASET_800_PROVENANCE.json",
+    "DATASET_800_DIVERSITY_REPORT.md",
+    "DATASET_800_DEDUPLICATION.csv",
+    "DATASET_800_FORCE_COVERAGE.json"
+   ]
+  },
+  {
+   "id": "P7",
+   "name": "joint\u21927D \u8f6c\u6362\u4e0e\u8865\u91c7\u51b3\u7b56",
+   "status": "done",
+   "sequence": "S1",
+   "evidence": "p_items/JOINT_TO_7D_VERIFICATION.json verdict=pass; V2 label offsets fixed"
+  },
+  {
+   "id": "P8",
+   "name": "F0/F1/F2 \u77e9\u9635\u51bb\u7ed3",
+   "status": "done",
+   "sequence": "S3",
+   "note": "F2 selected with evidence: zero-init identity exact, encoder/head grads nonzero by step 2, resume exact, 534784 params, 12.76GB VRAM; F1 kept as fallback",
+   "evidence": [
+    "p_items/F2_FUSION_FWD_BWD_TEST.json",
+    "p_items/F2_RESUME_TEST.json",
+    "p_items/T7_S3_PROGRESS.json"
+   ]
+  },
+  {
+   "id": "P9",
+   "name": "21k \u5206\u6bb5\u4e3b\u6a21\u578b\u8bad\u7ec3",
+   "status": "PAUSED_ROOT_CAUSE_GRIPPER",
+   "sequence": "S4",
+   "budget_max_steps": 21000,
+   "blocked_by": [
+    "G0",
+    "G1",
+    "G2",
+    "G3",
+    "G4"
+   ]
+  },
+  {
+   "id": "P10",
+   "name": "\u529b\u6a21\u6001\u6d88\u878d\uff08\u9884\u7b97\u5185\uff09",
+   "status": "SUPERSEDED_V4",
+   "sequence": "S4",
+   "blocked_by": [
+    "P9"
+   ]
+  },
+  {
+   "id": "P11",
+   "name": "\u88f8\u6a21\u578b 10-seed \u8bc4\u4f30 + \u89c6\u9891",
+   "status": "SUPERSEDED_V4",
+   "sequence": "S4",
+   "blocked_by": [
+    "P9"
+   ]
+  },
+  {
+   "id": "P12",
+   "name": "12k \u540e\u9000\u5316\u4e13\u9879 + \u5931\u8d25\u5f52\u56e0",
+   "status": "SUPERSEDED_V4",
+   "sequence": "S4",
+   "blocked_by": [
+    "P9"
+   ]
+  },
+  {
+   "id": "F0-A1",
+   "name": "F0 \u4e00\u81f4\u6027\u9a8c\u8bc1\uff08\u57fa\u5ea7/V3\u6807\u7b7e/\u6620\u5c04/\u65e0 force \u6b8b\u7559/\u524d\u540e\u5411/\u6062\u590d\uff09",
+   "status": "DONE",
+   "sequence": "S4",
+   "requires_gpu": true,
+   "evidence": [
+    "p_items/F0_F2_CONFIG_DIFF.json",
+    "p_items/R0_PROTOCOL_FINGERPRINT.json",
+    "p_items/POD_JOB_STATE_F0.json"
+   ]
+  },
+  {
+   "id": "F0-A2",
+   "name": "F0 \u65e0\u529b\u57fa\u7ebf 0->3000\uff08\u72ec\u7acb\u9884\u7b97\uff0c\u5b98\u65b9\u57fa\u5ea7\uff0c\u540c V3 \u6570\u636e/\u534f\u8bae\uff09",
+   "status": "DONE",
+   "sequence": "S4",
+   "requires_gpu": true,
+   "note": "step 3000 reached; checkpoint step_003000.pt sha c4483513, bytes 3354213309",
+   "evidence": [
+    "p_items/POD_JOB_STATE_F0.json",
+    "fwv1/logs/f0_v3_baseline.log"
+   ]
+  },
+  {
+   "id": "F0-A3",
+   "name": "F0 step3000 \u88f8\u6a21\u578b\u8bc4\u4f30\uff08\u540c\u4e00 10-seed/\u51bb\u7ed3 V3.1/10 composite\uff09",
+   "status": "DONE",
+   "sequence": "S4",
+   "requires_gpu": true,
+   "note": "official 3k eval 10 seeds; evidence p_items/F0_EVAL_3K_DONE.json; frozen env 5/5"
+  },
+  {
+   "id": "F0-A4",
+   "name": "F0 vs F2 \u516c\u5e73\u5bf9\u7167\u62a5\u544a\uff08\u540c\u6570\u636e/\u540c\u534f\u8bae\uff1bF2 \u7528\u4fee\u6b63\u8bc4\u4f30\u5668\u91cd\u8bc4\uff09",
+   "status": "RUNNING",
+   "sequence": "S4",
+   "requires_gpu": false,
+   "note": "F2 3k paired eval first attempt silently used the base because the 3k checkpoint was archived; rerun with the archive checkpoint sha 342c4c4a is running; corrected comparison after it"
+  },
+  {
+   "id": "F0-EXT",
+   "name": "F0 \u662f\u5426\u7eed\u5230 21k\uff08\u9700\u7528\u6237\u8ffd\u52a0\u9884\u7b97\uff09",
+   "status": "APPROVED_TO_15K",
+   "sequence": "S4",
+   "requires_gpu": false,
+   "note": "user 2026-11-25T03:45:38Z approved 3k->15k; user 04:03:50Z made the continuation unconditional (no 3k hold); 15k->21k remains BLOCKED_USER"
+  },
+  {
+   "id": "F2-B1",
+   "name": "F2 32-step/replan 10/16/32 \u8bca\u65ad",
+   "status": "DONE",
+   "sequence": "S5",
+   "requires_gpu": true,
+   "note": "32-step audit + r10/16/32 single-seed diagnostics done; 10-seed grid moved to R1_REPLAN_SWEEP"
+  },
+  {
+   "id": "F2-B2",
+   "name": "F2 teacher-forced \u5939\u722a\u5206\u5e03 + action loss/\u7b2c\u4e03\u7ef4\u5ba1\u8ba1",
+   "status": "READY",
+   "sequence": "S5",
+   "requires_gpu": true
+  },
+  {
+   "id": "F2-B3",
+   "name": "F2 ForceZero / SkipFiLM \u6d88\u878d",
+   "status": "READY",
+   "sequence": "S5",
+   "requires_gpu": true
+  },
+  {
+   "id": "F2-B4",
+   "name": "F2 \u6839\u56e0\u62a5\u544a + \u5939\u722a\u4e13\u7528\u8bbe\u8ba1\uff08\u9700\u7528\u6237\u89c4\u683c\u6279\u51c6\uff09",
+   "status": "BLOCKED_USER",
+   "sequence": "S5",
+   "requires_gpu": false
+  },
+  {
+   "id": "F2-B5",
+   "name": "F2 \u4fee\u590d/\u7eed\u8bad\uff085200 \u5269\u4f59\u6b65\uff0c\u9700\u7528\u6237\u6279\u51c6\uff09",
+   "status": "BLOCKED_USER",
+   "sequence": "S5",
+   "requires_gpu": true
+  },
+  {
+   "id": "R1_REPLAN_SWEEP",
+   "status": "RUNNING",
+   "name": "r=10(official)/16/32 x seeds 7500-7509 on F2 step_015000",
+   "note": "queued behind F0 stage1 + F0/F2 3k evals; tmux fwv1:r_compare; r10 reused from official milestone",
+   "evidence": [
+    "p_items/R0_PROTOCOL_FINGERPRINT.json",
+    "p_items/R_SWEEP_PROGRESS.json"
+   ]
+  },
+  {
+   "id": "R2_CHUNK_MECHANISM",
+   "status": "PARTIAL",
+   "name": "chunk-level close-onset / truncation / cross-seed gripper similarity",
+   "note": "7504/7508 r10/16/32 done; 7504 r32=3/10 is chunk/seed luck, not an r causal claim",
+   "evidence": [
+    "p_items/F0_F2_DIAGNOSIS_SUMMARY.md",
+    "p_items/R_SWEEP_PROGRESS.json"
+   ]
+  },
+  {
+   "id": "R3_ADAPTIVE_REPLAN",
+   "status": "BLOCKED_USER",
+   "name": "contact/gripper-commitment aware replan scheduler (inference only)",
+   "note": "separate research item; needs user specification and approval; not opened"
+  },
+  {
+   "id": "R4_HOLDOUT_CONFIRMATION",
+   "status": "BLOCKED_USER",
+   "name": "holdout 7800-7829 with newly pre-registered distinct scenes",
+   "note": "outside V3.1 manifest; needs new scene pre-registration and explicit approval; not opened"
+  },
+  {
+   "id": "F0-CONT-15K",
+   "status": "RUNNING",
+   "name": "F0 3k->15k continuation with 3k milestones",
+   "note": "queued last; report first; UNCONDITIONAL after report (user 04:03:50Z); 3k selfcheck advisory only; hard stop 15000; tmux fwv1:f0_continue",
+   "evidence": [
+    "p_items/USER_INSTRUCTION_20261125_F0_CONT_15K.json",
+    "p_items/TRAINING_RUN_STATE_F0.json"
+   ]
+  },
+  {
+   "id": "F2-B1b",
+   "name": "F2 r \u5bf9\u7167\uff1ar=10/16/32 \u5728 7500-7509 \u7684 10-seed \u5e73\u5747\u5165\u76d2\u7387/exact_fill \u6298\u7ebf\u56fe",
+   "status": "READY",
+   "sequence": "S5",
+   "requires_gpu": true
+  }
+ ],
+ "state_files": [
+  "PROJECT_STATE.json",
+  "PROJECT_TASKS.json",
+  "TRAINING_RUN_STATE.json",
+  "CHECKPOINT_MANIFEST.json",
+  "EVAL_SEED_MANIFEST.json",
+  "VIDEO_MANIFEST.json",
+  "p_items/STORAGE_STATE.json",
+  "p_items/GPU_TIME_STATE.json",
+  "p_items/GPU_UPLOAD_MANIFEST.json"
+ ],
+ "updated_at": "2026-11-25T06:28:40Z",
+ "v4": {
+  "goal": "DUAL_TRACK_F0_TRAINING_F2_PAUSED_DIAG",
+  "authorized": "user 2026-11-25T02:23Z: F0 up to 21k, stage1 3000 independent; F2 paused at 15800",
+  "tracks": [
+   "A_F0",
+   "B_F2_diagnosis"
   ],
-  "state_files": ["PROJECT_STATE.json", "PROJECT_TASKS.json", "TRAINING_RUN_STATE.json", "CHECKPOINT_MANIFEST.json", "EVAL_SEED_MANIFEST.json", "VIDEO_MANIFEST.json", "p_items/STORAGE_STATE.json", "p_items/GPU_TIME_STATE.json", "p_items/GPU_UPLOAD_MANIFEST.json"],
-  "updated_at": "2026-11-23T15:25:30Z"
+  "ownership": "separate dirs/logs/state; no F2 auto-resume; F0 not via F2 scripts",
+  "budget": {
+   "F2_used": 15800,
+   "F2_remaining": 5200,
+   "F0_stage1": 3000,
+   "F0_max_if_extended": 21000,
+   "old_V2": 6140,
+   "V3_diag": 200
+  },
+  "supervisor_sync": {
+   "ts": "2026-11-25T03:28:00Z",
+   "f0_a1": "DONE",
+   "f0_a2": "RUNNING",
+   "f0_hold_trigger": "F0 3k eval self-check -> p_items/F0_GRIP_SELFCHECK_3K.json; collapse => F0_STAGE1_HOLD.json, no 6k/21k continuation",
+   "r_sweep": "R1_REPLAN_SWEEP RUNNING (queued); r>32 invalid; holdout/adaptive BLOCKED_USER"
+  }
+ },
+ "v5": {
+  "goal": "F0 baseline + F2 root-cause repair",
+  "official_replan": 10,
+  "diagnostic_replan": [
+   16,
+   32
+  ],
+  "r_compare_seeds": "7500-7509",
+  "note": "r32 diagnostic only; official score r10"
+ }
 }

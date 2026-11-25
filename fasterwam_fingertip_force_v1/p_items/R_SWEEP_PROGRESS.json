@@ -1,0 +1,131 @@
+{
+ "study": "R1_REPLAN_SWEEP",
+ "updated_utc": "2026-11-25T06:28:40Z",
+ "status": "paused_for_f2_3k_rerun; restarts after the corrected F2 paired eval",
+ "owner": "worker task7",
+ "gpu_lock_holder": "f0_v3_baseline pid 1426422",
+ "waiting_for": [
+  "F0 stage-1 0->3000 exit (F0 step 650 at 03:13Z, about 3.07 s/step)",
+  "F0 step3000 eval seeds 7100-7109",
+  "F2 step3000 paired eval and comparison"
+ ],
+ "stage1": {
+  "rs": [
+   10,
+   16,
+   32
+  ],
+  "seeds": [
+   7500,
+   7501,
+   7502,
+   7503,
+   7504,
+   7505,
+   7506,
+   7507,
+   7508,
+   7509
+  ],
+  "r10_source": "relaxed-r10 diagnostic rerun; official strict r10 anchor = 15k milestone eval, not replaced",
+  "r16_status": "queued; 7504/7508 already done as single-seed diagnostics",
+  "r32_status": "queued; 7504/7508 already done as single-seed diagnostics",
+  "r10_status": "queued",
+  "r24_status": "BLOCKED_USER: not approved in V5; not run",
+  "r24": {
+   "status": "BLOCKED_USER",
+   "reason": "V5 recognizes only r=10 as official; r16/r32 diagnostic; r=24 is not approved and was not run"
+  }
+ },
+ "single_seed_evidence_so_far": {
+  "7504": {
+   "r10_in_target": 0,
+   "r16_in_target": 0,
+   "r32_in_target": 3,
+   "r32_grasps": 5,
+   "r32_exact_fill": false,
+   "r32_force_max_n": 49.79,
+   "r32_user_in_target": 5,
+   "r32_strict_in_target": 3,
+   "note": "user watched the video: 5 in box, 2 tipped over; user rule counts them"
+  },
+  "7508": {
+   "r10_in_target": 0,
+   "r16_in_target": 0,
+   "r32_in_target": 0,
+   "r32_grasps": 0,
+   "r32_exact_fill": false,
+   "r32_force_max_n": 22.72,
+   "r32_strict_in_target": 0
+  }
+ },
+ "mechanism_facts": {
+  "exec_lt030_fraction": {
+   "7504": {
+    "r10": 0.075,
+    "r16": 0.062,
+    "r32": 0.112
+   },
+   "7508": {
+    "r10": 0.077,
+    "r16": 0.079,
+    "r32": 0.107
+   }
+  },
+  "close_onset_7504_r10": {
+   "chunks_with_any_close": 10,
+   "onset_ge_29_truncated_by_r10": 5,
+   "onset_le_6_executed_by_r10": 5
+  },
+  "r10_executed_close_chunks": {
+   "7504": 6,
+   "7508": 5
+  },
+  "cross_seed_gripper_similarity_r32": {
+   "median_abs_diff": 0.025,
+   "corr": 0.744,
+   "note": "gripper stream is largely scene-independent, consistent with a time/phase prior rather than visual servoing"
+  },
+  "conclusion": "replan truncation is real for some chunks but not sufficient: r10 still executed 6 close-bearing chunks for 7504 with 0 in target; single-seed r32 success is not evidence of a systematic r effect",
+  "strict_counter_caveat": "strict sim count excludes tilt > 15deg; the curve now reports both",
+  "cookie_positions": "events.json records 10x3 cookie positions per step; offline tip/lift analysis available"
+ },
+ "artifacts": {
+  "chain": "/workspace/_t7_r_compare_chain.sh",
+  "aggregator": "/workspace/_t7_r_compare_agg.py",
+  "log": "/workspace/fwv1/logs/r_compare.log",
+  "output_r16": "/workspace/fwv1/eval_fingertip_v1/diag15k_r16_grid",
+  "output_r32": "/workspace/fwv1/eval_fingertip_v1/diag15k_r32_grid",
+  "result": "/workspace/fwv1/p_items/R_COMPARE_15K.json",
+  "sim_patch": "none active; shared sim restored to f237b766; relaxed counter is evaluator-side",
+  "eval_script_sha256": "8c189fe732fd267fc59edb87fdd2e583e127f45a6cd6ca118a87e8dd614c7caf",
+  "runtime_facts": "p_items/R0_RUNTIME_FACTS.json"
+ },
+ "budget_note": "evaluation only; optimizer budget untouched; F2 remains at 15800/21000 with 5200 remaining",
+ "next_after_stage1": "review 10-seed curve; only if a non-monotonic gain is present, run stage2 r=4/8/12/20/24/28; holdout stays closed pending approval",
+ "counting_rule": {
+  "primary": "user rule: cookie footprint inside the target box AND its bottom edge on the box floor (within 4 mm); upright is NOT required and leaning on a wall is allowed",
+  "strict": "sim cookies_in_target additionally requires |tilt| <= 15deg (max_tilt_rad), so tipped-but-inside cookies are excluded",
+  "exact_fill": "exact_fill still uses the strict sim criterion; unchanged"
+ },
+ "frozen_env": {
+  "pre": "p_items/FROZEN_ENV_SNAPSHOT_PRE.json",
+  "post": "p_items/FROZEN_ENV_SNAPSHOT_POST.json (waiter tmux fwv1:frozen_env)",
+  "check": "p_items/FROZEN_ENV_3K_CHECK.json",
+  "frozen": {
+   "sim_code": "f237b76615e6bc4c6597c5d56516d3815620078638e96dc55d382394dfbf3617",
+   "sim_config": "62f6c8638955c84761b8f3c6ef6198ecb448aafb839f72103844f4a154812df9",
+   "eval_official": "37376d2cb0befdff309497b750886493ab8229415113d9ad3576e2e0c492114e",
+   "scene_manifest": "6af5b934222063b3c7060ba6af1a9afdde35533220e81e6c9f47a0ddec369de9",
+   "freeze": "cef079269e0de68dd8a389cf5e4b40673b9712f117ee4db8c55a1f3d3260eeec"
+  }
+ },
+ "helper_smoke": {
+  "file": "p_items/SMOKE_RELAXED_HELPER.json",
+  "steps": 5,
+  "strict_match_all": true,
+  "verdict": "read-only reimplementation matches info.cookies_in_target; relaxed counter computes"
+ },
+ "stage2_note": "stage2 candidates remain BLOCKED_USER; not approved in V5",
+ "protocol_correction": "p_items/P15_F2_3K_PROTOCOL_CORRECTION.json"
+}
