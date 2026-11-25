@@ -2,7 +2,8 @@
  "ts": "2026-11-25T16:58:00Z",
  "owner": "supervisor",
  "pipeline": "post9k -> hsweep -> h0f0 -> b234",
- "f0": {"status": "FROZEN", "frozen_at_step": 9000, "checkpoint_sha256": "7ca235ba1d5ad35aac0f8caa66334cf2cb7dbaa026b60cf15ac8842b83621979", "9k_eval": {"avg_in_target": 0, "exact_fill": "0/10", "grasps_mean": 3.2}, "12k": "BLOCKED (0 optimizer steps; no step_009200.pt)", "hard_stop": 15000},
+ "f0": {"status": "FROZEN", "frozen_at_step": 9000, "checkpoint_sha256": "7ca235ba1d5ad35aac0f8caa66334cf2cb7dbaa026b60cf15ac8842b83621979", "9k_eval": {"avg_in_target": 0, "exact_fill": "0/10", "grasps_mean": 3.2}, "12k": "RESUMING now (f0resume tmux, train pid 2802715, 9000->12000; started 2026-11-25T17:09:52Z)", "hard_stop": 15000},
+ "f0_resume": {"status": "RUNNING 12000", "tmux": "f0resume", "pid": 2802709, "train_pid": 2802715, "script": "/workspace/_t7_f0_resume_12k_15k.sh", "plan": "9k->12k(save+eval 7400-7409)->15k(stop+eval 7500-7509+frozen F0_FROZEN_15K.json); idempotent; hard stop 15000; no 15k->21k"},
  "f2": {"status": "paused", "step": 15800, "sha_prefix": "fa9d87e3", "note": "read-only inference only"},
  "hsweep_r1": {
    "status": "DONE 2026-11-25T16:54:29Z",
@@ -22,7 +23,7 @@
  },
  "b234": {"status": "DONE 2026-11-25T17:01:08Z", "results": {
    "B2": "DONE rc0 (24 samples, 11 episodes, V7 phases)",
-   "B5": "FAILED rc1 (tensor-size bug in flat_grad; L_force COS not obtained; force_head exists)",
+   "B5": "DONE rc0 v2 (L_force COMPUTED; cos(grip,force)=0.1006, cos(grip,other6)=-0.0099; g_grip 0.287 vs g_other6 0.091)",
    "B3": "DONE rc0 (20 samples; force ablation deltas ~0.003-0.012 => force bundle ~no effect on closure)",
    "B4": "DONE rc0 but INCONCLUSIVE (can_clone=false; scripted aim did not contact; 0.43 vs 0.28 both force=0)"
  }, "outputs": ["B2_SIXPHASE_TEACHER.json", "B5_FAIL.json", "B3_FORCE_ABLATION_EXPANDED.json", "B4_STATE_CLONE_043_028.json"]},

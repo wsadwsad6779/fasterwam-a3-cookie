@@ -1,19 +1,11 @@
 {
-  "checked_at": "2026-11-25T15:52:00Z",
-  "remaining_hours": "NOT_VERIFIED",
-  "remaining_hours_basis": "agent cannot read the Radeon rental console; do NOT guess",
-  "credits": "NOT_VERIFIED",
-  "burn_rate_credits_per_hour": "NOT_VERIFIED",
-  "gpu": {
-    "vendor": "AMD",
-    "note": "single GPU; at 2026-11-25T15:52Z the 9k official eval (_t7_eval pid 2656508) holds the GPU; F0 training segment stopped at step 9000",
-    "exclusive_lock": true
-  },
-  "live_work": {
-    "9k_eval_running": true,
-    "twelve_k_running": false,
-    "f2_training_state": "paused 15800 (fa9d87e3) - read-only inference only"
-  },
-  "storage_note": "move-only to /root; never delete unique checkpoints",
-  "status": "console_required"
+ "checked_at": "2026-11-25T17:10:00Z",
+ "remaining_hours": "NOT_VERIFIED",
+ "remaining_hours_basis": "agent cannot read the Radeon rental console; do NOT guess",
+ "credits": "NOT_VERIFIED",
+ "burn_rate_credits_per_hour": "NOT_VERIFIED",
+ "gpu": {"vendor": "AMD", "note": "single GPU; F0 9k frozen; starting F0 resume 9k->12k->15k (exclusive)", "exclusive_lock": true},
+ "live_work": {"f0_training": "RESUMING 9000->12000->15000", "twelve_k_allowed_now": true, "f2_training_state": "paused 15800 (read-only inference only)"},
+ "storage_note": "move-only to /root; never delete unique checkpoints",
+ "status": "console_required"
 }

@@ -24,8 +24,17 @@ SEED = 20261125
 
 
 def flat(params):
-    gs = [p.grad.detach().reshape(-1) for p in params if p.grad is not None]
-    return torch.cat(gs) if gs else None
+    # Over the FULL param set; missing .grad -> zeros, so every loss yields the SAME length vector.
+    if not params:
+        return None
+    dev = params[0].device
+    parts = []
+    for p in params:
+        if p.grad is not None:
+            parts.append(p.grad.detach().reshape(-1))
+        else:
+            parts.append(torch.zeros(p.numel(), device=dev, dtype=p.dtype))
+    return torch.cat(parts)
 
 
 def cos(a, b):
