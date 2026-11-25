@@ -20,7 +20,12 @@
    "note": "open-loop stability only; closed-loop F2 H sweep shows H>32 in-box=0; NOT a capability",
    "evidence": "p_items/H0_9K_PROBE.json"
  },
- "b234": {"status": "STARTING (triggered by H0_9K_PROBE 16:55:57)", "order": ["B2", "B5", "B3", "B4"], "outputs": ["B2_SIXPHASE_TEACHER.json", "B5_LGRIP_LFORCE_GRADCOS.json", "B3_FORCE_ABLATION_EXPANDED.json", "B4_STATE_CLONE_043_028.json"]},
+ "b234": {"status": "DONE 2026-11-25T17:01:08Z", "results": {
+   "B2": "DONE rc0 (24 samples, 11 episodes, V7 phases)",
+   "B5": "FAILED rc1 (tensor-size bug in flat_grad; L_force COS not obtained; force_head exists)",
+   "B3": "DONE rc0 (20 samples; force ablation deltas ~0.003-0.012 => force bundle ~no effect on closure)",
+   "B4": "DONE rc0 but INCONCLUSIVE (can_clone=false; scripted aim did not contact; 0.43 vs 0.28 both force=0)"
+ }, "outputs": ["B2_SIXPHASE_TEACHER.json", "B5_FAIL.json", "B3_FORCE_ABLATION_EXPANDED.json", "B4_STATE_CLONE_043_028.json"]},
  "gpu": "exclusive; after F2 H + F0 H0 only B-series remaining",
  "constraints": "no 12k; F0 frozen 9000; F2 read-only; all inference 0 optimizer; official H32/r10/exact_fill(src==70) unchanged; frozen scenes"
 }

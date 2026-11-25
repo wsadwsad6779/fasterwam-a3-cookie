@@ -1,0 +1,26 @@
+{
+ "artifact": "B3_FORCE_ABLATION_EXPANDED",
+ "checkpoint": "/workspace/fwv1/train_runs/t7_21k_v3run/step_015000.pt",
+ "n_samples": 20,
+ "note": "teacher-forced normal/zero/skip; deltas = ablation minus normal (median grip); no training",
+ "per_phase": {
+  "CARRY": {"n": 16, "label0_median": 0.28085747361183167, "label0_lt_0.30": 1,
+    "normal_p0_lt_0.30": 0.625, "normal_p0_median": 0.2982812225818634, "normal_p10_lt_0.30": 0.8125, "normal_p31_median": 0.32429686188697815, "normal_p9_lt_0.30": 0.8125,
+    "zero_p0_lt_0.30": 0.5, "zero_p0_median": 0.3017968535423279, "zero_p10_lt_0.30": 0.75, "zero_p31_median": 0.32851558923721313, "zero_p9_lt_0.30": 0.6875,
+    "skip_p0_lt_0.30": 0.4375, "skip_p0_median": 0.30671873688697815, "skip_p10_lt_0.30": 0.625, "skip_p31_median": 0.336249977350235, "skip_p9_lt_0.30": 0.5625,
+    "delta_p0_zero_minus_normal": 0.0035156309604644775, "delta_p0_skip_minus_normal": 0.008437514305114746, "delta_p31_zero_minus_normal": 0.004218727350234985, "delta_p31_skip_minus_normal": 0.011953115463256836},
+  "CLOSE": {"n": 2, "label0_median": 0.281625434756279, "label0_lt_0.30": 1,
+    "normal_p0_median": 0.3017968535423279, "normal_p31_median": 0.2849218398332596,
+    "zero_p0_median": 0.3017968535423279, "zero_p31_median": 0.2849218398332596,
+    "skip_p0_median": 0.30671873688697815, "skip_p31_median": 0.2940624803304672,
+    "delta_p0_zero_minus_normal": 0, "delta_p0_skip_minus_normal": 0.0049218833446502686, "delta_p31_zero_minus_normal": 0, "delta_p31_skip_minus_normal": 0.009140640497207642},
+  "CONTACT": {"n": 2, "label0_median": 0.44871312379837036, "label0_lt_0.30": 0,
+    "normal_p0_median": 0.4550780951976776, "normal_p31_median": 0.3671874850988388,
+    "zero_p0_median": 0.4543749690055847, "zero_p31_median": 0.3678905963897705,
+    "skip_p0_median": 0.46421873569488525, "skip_p31_median": 0.3735155910253525,
+    "delta_p0_zero_minus_normal": -0.0007031261920928955, "delta_p0_skip_minus_normal": 0.009140640497207642, "delta_p31_zero_minus_normal": 0.0007031112909317017, "delta_p31_skip_minus_normal": 0.006328105926513672},
+  "APPROACH": {"n": 0}, "RELEASE": {"n": 0}, "TRANSPORT": {"n": 0}
+ },
+ "finding": "force-input ablation (zero vs skip vs normal) changes median grip by only ~0.003-0.012 in every phase -> the force bundle has negligible effect on the closure command in teacher-forced prediction; closure bias is not caused by force input",
+ "source": "pod /workspace/fwv1/p_items/B3_FORCE_ABLATION_EXPANDED.json (3881 B)"
+}
