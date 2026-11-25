@@ -1,0 +1,37 @@
+{
+  "task": "H_HORIZON_FEASIBILITY_SOURCE_AUDIT",
+  "ts": "2026-11-25T13:40:00Z",
+  "status": "SOURCE_AUDITED (CPU-only, no GPU, no training)",
+  "question": "Can the action prediction horizon H be expanded beyond 32 (H48/H64)? Is it the same as the r-sweep?",
+  "answer_short": "No, H>32 has NOT been run. The r-sweep changed the replan interval r<=H=32, NOT H. H expansion is a separate H-HORIZON-STUDY.",
+  "source": "/workspace/fwv1/repo/stage_40k/fw/src/fasterwam/models/wan22/",
+  "facts": [
+    {"claim": "inference horizon is an explicit argument (no hard cap at 32 in the API)", "file": "fastwam.py", "lines": "1430-1445", "detail": "def infer_action(self, prompt, input_image, action_horizon, proprio, ..., num_inference_steps=20, seed=...)"},
+    {"claim": "inference builds action tokens of shape [1, action_horizon, action_dim] for any H", "file": "fastwam.py", "lines": "1323", "detail": "torch token shape (1, action_horizon, self.action_expert.action_dim)"},
+    {"claim": "action RoPE cache is 1024 long (structural cap far above 64)", "file": "action_dit.py", "lines": "99", "detail": "self.freqs = precompute_freqs_cis(attn_head_dim, end=1024)"},
+    {"claim": "RoPE guard only raises if seq_len > 1024", "file": "action_dit.py", "lines": "274-277", "detail": "if seq_len > self.freqs.shape[0]: raise 'Action token length exceeds RoPE cache'  -> H48/H64 pass (<=1024)"},
+    {"claim": "TRAINING requires action_horizon divisible by video transitions (num_frames-1)", "file": "fastwam.py", "lines": "555-558", "detail": "if action_horizon % (num_frames - 1) != 0: raise"},
+    {"claim": "TRAINING requires video T % 4 == 1", "file": "fastwam.py", "lines": "544-545", "detail": "if num_frames % 4 != 1: raise; valid T in {1,5,9,13,17,...}"}
+  ],
+  "divisibility_with_current_9frame_video": {
+    "frames": 9, "transitions": 8,
+    "valid_H_multiples_of_8": [8, 16, 24, 32, 40, 48, 56, 64],
+    "H48_valid": true, "H64_valid": true, "H52_valid": false,
+    "note": "with current 9-frame windows H48 and H64 already satisfy H%(num_frames-1)==0 (48/8=6, 64/8=8); H52 (52/8=6.5) is invalid. Keeping a 4:1 action:transition ratio (13/17 frames) is a temporal design preference, not a hard gate."
+  },
+  "three_distinct_things": {
+    "r": "replan interval: execute min(r,H) steps then re-infer. THIS is what was swept (r<=32). r>32 == r32 alias, NOT a longer prediction.",
+    "H": "action_horizon: how many future steps ONE inference predicts. Fixed at 32 in every experiment so far. H>32 = THIS separate study.",
+    "K": "num_inference_steps (denoise iterations, 5 in eval). Unrelated to r or H."
+  },
+  "what_is_needed_to_actually_expand_H": [
+    "ZERO-TRAINING PROBE (allowed, exploratory OOD): call the frozen H32 checkpoint with action_horizon=48/64. It RUNS (RoPE 1024, tokens built at H), but positions 32..47/63 are UNTRAINED -> outputs are OOD, not a valid quality claim. Needs GPU (load model) -> wait for a lock gap.",
+    "REAL EXPANSION (to claim performance): retrain at H48/H64 with new optimizer budget (WAIT_BUDGET_FOR_TRAINING), new data windows/labels (optionally 13/17 frames to keep 4:1), new milestone evals. Not authorized; separate H-HORIZON-STUDY."
+  ],
+  "guardrails": [
+    "never fold H>32 into the r curve or label r=52 as 'H52'",
+    "H x r is a 2D design; (a) fix H vary r, (b) fix r vary H, (c) both vary must be separate comparisons",
+    "a zero-training H48/H64 forward is exploratory OOD inference only; must be labeled as such"
+  ],
+  "next": "stage H1 as PREP(source-audit done)+READY(zero-training probe in a GPU gap); H48/H64 training stays WAIT_BUDGET_FOR_TRAINING; GPU owned by F0 now"
+}

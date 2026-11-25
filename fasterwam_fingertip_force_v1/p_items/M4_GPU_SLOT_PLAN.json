@@ -1,0 +1,20 @@
+{
+  "plan": "M4_PREP_GPU_SLOT_PLAN",
+  "ts": "2026-11-25T10:34:00Z",
+  "constraint": "single AMD GPU 51.5GB; ONE large model at a time; training priority; no concurrent F2 eval while F0 trains; every GPU task takes the exclusive lock and releases it",
+  "current_holder": {"experiment": "f0_v3_baseline", "pid": 3287936, "step_now": 5080, "target": 6000, "stage": "train"},
+  "ordered_slots": [
+    {"slot": 1, "task": "A0_F0_BASELINE(6k)", "type": "training", "gpu": true, "eta": "~step6000 then stop&save", "then": "F0 6k official 10-seed eval + zip + evidence (f0_watch)"},
+    {"slot": 2, "task": "B2_SIXPHASE_TEACHER", "type": "inference", "gpu": true, "opt_budget": 0, "note": "6-phase teacher-forced; pick up normal/zero/skip 2-phase and extend"},
+    {"slot": 3, "task": "B3_FORCE_ABLATIONS_EXPANDED", "type": "inference", "gpu": true, "opt_budget": 0},
+    {"slot": 4, "task": "B4_MUJOCO_STATE_CLONE_043_vs_028", "type": "inference+sim", "gpu": true, "opt_budget": 0, "note": "diagnostic intervention; label as such"},
+    {"slot": 5, "task": "B5_LGRIP_VS_LFORCE_GRADIENT", "type": "inference/grad", "gpu": true, "opt_budget": 0},
+    {"slot": 6, "task": "R1_REPLAN_SWEEP_FINE", "type": "inference", "gpu": true, "opt_budget": 0, "note": "60 new episodes r=4/8/12/20/24/28 x 10 seeds; reuse r10/16/32 partials"},
+    {"slot": 7, "task": "A0_EXT_F0_15K", "type": "training", "gpu": true, "opt_budget": 12000, "note": "resume 6k->15k ONLY after slots 2-6 finish, per current directive; 15k hard stop"}
+  ],
+  "cpu_parallel_ok": ["M2 seed freeze", "M3 R0 fingerprint", "B1 relaxed audit from logs if replayable CPU", "R3 adaptive prototype + unit tests"],
+  "lock_protocol": "acquire GPU_RESOURCE_LOCK.json (holder+pid+task) -> verify no other large model -> run serial -> release lock -> update POD_JOB_STATE",
+  "no_overlap_rule": "if B2-B5/R1 overruns, F0 15k extension waits; never start two large models to save wall time",
+  "handoff_after_each": "write/refresh the task's result_paths and last_heartbeat before releasing the lock",
+  "ledger": "PROJECT_TASKS.json"
+}

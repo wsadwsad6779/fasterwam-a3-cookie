@@ -108,15 +108,15 @@
    24,
    28
   ],
-  "stage2_trigger": "only after stage1 10-seed curve is reviewed; no interpolation for unrun r",
-  "holdout": "not opened; requires pre-registered distinct scenes and explicit approval",
-  "r24": "BLOCKED_USER: not approved in V5; not run",
-  "stage2_note": "all stage2 r values remain BLOCKED_USER; no interpolation"
+  "stage2_trigger": "requeued by un-defer V3 as R1_REPLAN_SWEEP_FINE: r=4,8,12,20,24,28 x 7500..7509 (60 new episodes; reuse r10/16/32 partials); ready for a GPU lock window after F0 6k eval; no interpolation for unrun r",
+  "holdout": "not opened; requires pre-registered distinct scenes and explicit approval (see R4_HOLDOUT_CONFIRMATION)",
+  "r24": "re-queued (was BLOCKED_USER in V5): now QUEUED under R1_REPLAN_SWEEP_FINE, inference-only, no optimizer budget; to run in a GPU lock window",
+  "stage2_note": "all stage2 r values are QUEUED/READY (inference-only, budget 0) under the un-defer V3 directive, gated on GPU availability; no interpolation"
  },
  "gpu_policy": {
-  "holder": "f0_v3_baseline pid 1426422",
-  "rule": "single large model on GPU; r-sweep waits for F0 stage-1 plus F0/F2 step3000 evals",
-  "queue": "/workspace/fwv1/logs/r_compare.log; tmux fwv1:r_compare"
+  "holder": "f0_v3_baseline pid 3287936 (2026-11-25; running to 6k and eval)",
+  "rule": "single large model on GPU; r-sweep/inference waits for an explicit lock handoff after the F0 6k eval",
+  "queue": "/workspace/fwv1/logs/r_compare.log; tmux fwv1:r_compare; post-6k slot order in M4_PREP_GPU_SLOT_PLAN"
  },
  "identity_checks": [
   {
@@ -164,7 +164,13 @@
    "ok": true
   }
  ],
- "updated_utc": "2026-11-25T08:26:41Z",
+ "updated_utc": "2026-11-25T10:30:00Z",
+ "un_defer_v3": {
+  "action": "R_FINE_SCAN/H48_H64/R_ADAPTIVE/R4_HOLDOUT/F1 staged, none blanket-DEFERRED; see PROJECT_TASKS.json txn 2c3949b3 and T7_QUEUE_UNDEFER_ACK 930975e6",
+  "effective_r": "min(requested_r,32) because ACTION_HORIZON=32; r>32 is ALIAS_OF_R32 and never an independent point",
+  "H": 32,
+  "note": "enqueue does not grant training budget; H48/H64 WAIT_BUDGET_FOR_TRAINING"
+ },
  "counting_rule": {
   "primary": "user rule: footprint inside target box AND bottom edge on the box floor (within 4 mm); upright not required; leaning on a wall allowed",
   "strict": "sim cookies_in_target requires tilt <= 15deg; exact_fill unchanged",

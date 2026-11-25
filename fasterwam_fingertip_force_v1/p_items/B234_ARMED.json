@@ -1,0 +1,20 @@
+{
+  "artifact": "B234_ARMED",
+  "ts": "2026-11-25T15:42:00Z",
+  "status": "ARMED_WAITING_H0_9K_PROBE",
+  "tmux_session": "b234",
+  "watcher_script": "/workspace/_t7_b234_after_h0.sh",
+  "trigger": "H0_9K_PROBE.json appears (F0 9k H0 probe done) then single-GPU idle",
+  "order": ["B2", "B5", "B3", "B4"],
+  "each_stage": {"timeout_s": 1500, "on_fail": "write p_items/<stage>_FAIL.json (rc+log tail), continue to next", "single_gpu": "waits until no _t7_train_f0/_t7_eval/_h_eval/_h0_zerotrain running"},
+  "deployed": {
+    "_b2_sixphase_teacher.py": "sha256 44f847e3d63ae1f7 4997B -> B2_SIXPHASE_TEACHER.json",
+    "_b5_lgrip_lforce_gradcos.py": "sha256 c45dcce75045969a 4128B -> B5_LGRIP_LFORCE_GRADCOS.json",
+    "_b3_force_ablation_expand.py": "sha256 39ecd4044c44cb07 5053B -> B3_FORCE_ABLATION_EXPANDED.json",
+    "_b4_state_clone.py": "sha256 861da9abce051314 5131B -> B4_STATE_CLONE_043_028.json (DIAGNOSTIC only)",
+    "_t7_b234_after_h0.sh": "sha256 ac7c00d4c09ad635 1814B"
+  },
+  "import_selfcheck": "IMPORTOK (all four modules import on pod, CPU, no GPU)",
+  "constraints": "B3/B4 use frozen F2 15k/F0 9k read-only, 0 optimizer steps; B4 is diagnostic (aims with sim truth), NOT bare-model success; official H32/r10/exact_fill src==70 unchanged; no 12k",
+  "note": "B5 L_force gradient is not computable in the eval-built model (force head not loaded); B5 reports grip-vs-other-action-dim gradient cosine/norms and flags force_head_loaded_in_eval_model=false honestly"
+}

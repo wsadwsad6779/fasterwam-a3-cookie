@@ -1,0 +1,31 @@
+{
+  "artifact": "POST9K_9K_VERIFY",
+  "ts": "2026-11-25T16:08:00Z",
+  "status": "9K_DONE_AND_FROZEN",
+  "checkpoint": {
+    "path": "/workspace/fwv1/f0_v3_baseline/step_009000.pt",
+    "sha256": "7ca235ba1d5ad35aac0f8caa66334cf2cb7dbaa026b60cf15ac8842b83621979",
+    "bytes": 3354213309
+  },
+  "summary_step_9000": {
+    "path": "/workspace/fwv1/eval_fingertip_v1/cmp_f0_9k/SUMMARY_step_9000.json",
+    "sha256": "b2d076bd2cbd394d3a4c7bbc56c01c860e6eb91e8e62a35224ae6c3f83d58afd",
+    "seeds": 10, "avg_in_target": 0, "exact_fill_rate": 0,
+    "grasps_mean": 3.2, "close_cmd_frac_mean": 0.9525, "open_cmd_mean": 0.028,
+    "force_max_mean": 38.12,
+    "per_seed": {"7300": 0, "7301": 0, "7302": 0, "7303": 0, "7304": 0, "7305": 0, "7306": 0, "7307": 0, "7308": 0, "7309": 0},
+    "grasp_attempts_note": "7303=19, 7306=13 attempts but final_in_target=0 (grasp != placement)"
+  },
+  "F0_EVAL_9K_DONE": "present (ts 2026-11-25T16:05:20Z, scene_all_match=true, 10 videos zip sha f5e34d4b)",
+  "F0_HELD_AT_9K": "present (ts 2026-11-25T16:06:01Z, step 9000)",
+  "GPU_FREE_FOR_MANUAL_BATCH": "present (ts 2026-11-25T16:06:01Z)",
+  "frozen_env_match": true,
+  "no_12k_proof": {
+    "t7_train_f0_processes": "NONE",
+    "f0_continue_chain": "NONE (killed by post9k)",
+    "step_over_9000": "NONE (only step_009000.pt + latest.pt; no step_009200.pt)",
+    "disclosure": "chain briefly launched the 12k trainer at 16:05:05 (pid 2682359) before post9k killed the chain at 16:05:36 and freed the GPU at 16:06:01; the trainer made 0 optimizer steps (no checkpoint beyond 9000) => F0 effectively frozen at 9000"
+  },
+  "gpu_now": "F2 H sweep running (_h_eval.py pid 2682599, H=32 in progress; F2 15k read-only)",
+  "protocol_unchanged": "9k eval: cmp_f0_9k seeds 7300-7309, replan 10, g=2a-1, rot x5, exact_fill src==70, frozen V3.1 (eval sha 5edaad7f)"
+}

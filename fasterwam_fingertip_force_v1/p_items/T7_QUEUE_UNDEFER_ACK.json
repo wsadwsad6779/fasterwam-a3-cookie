@@ -1,0 +1,53 @@
+{
+  "ack_id": "T7_QUEUE_UNDEFER_ACK",
+  "ts": "2026-11-25T10:20:00Z",
+  "for_directive": "FasterWAM Task7 full-task requeue / automatic advancement (un-defer V3): pull everything previously DEFERRED back into staged QUEUED/READY/WAIT_BUDGET_FOR_TRAINING; do not treat enqueue as a 21k training grant",
+  "SUPERSEDED_DIRECTIVES": {
+    "USER_DIRECTIVE_CURRENT(V6 08:30Z)": "defers R_FINE_SCAN/H48_H64/R_ADAPTIVE/R_ALIAS/F1_NEW_HEAD == un-deferred by this later user instruction",
+    "T7_DIRECTIVE_ACK_20261125T0820": "DEFERRED_BY_USER(R_FINE_SCAN), DEFERRED(R_ADAPTIVE/R4_HOLDOUT), DEFERRED_NOT_AUTHORIZED(H48_H64) == replaced",
+    "R-SWEEP-V2 r>32 alias allowance": "kept only as ALIAS_OF_R32 note; effective_r=min(r,32); r>32 is not an independent point"
+  },
+  "QUEUE_UNDEFER_DIFF": [
+    {"task":"R_FINE_SCAN","old":"DEFERRED_BY_USER","new":"QUEUED(READY once GPU lock free)","ledger":"R1_REPLAN_SWEEP_FINE","stage":"PREP","budget_cap":0},
+    {"task":"H48_H64","old":"DEFERRED_NOT_AUTHORIZED","new":"WAIT_BUDGET_FOR_TRAINING","ledger":"H1_H48_TECH/H2_H64_TECH/H3_H_MATRIX","stage":"PREP","budget_cap":0},
+    {"task":"R_ADAPTIVE","old":"DEFERRED","new":"QUEUED(PREP/CPU-prototype)","ledger":"R3_ADAPTIVE_REPLAN_PROTO","stage":"PREP","budget_cap":0},
+    {"task":"R4_HOLDOUT","old":"DEFERRED","new":"QUEUED(PREP; holdout-seed validation first)","ledger":"R4_HOLDOUT_CONFIRMATION","stage":"PREP","budget_cap":0},
+    {"task":"R_ALIAS","old":"DEFERRED","new":"aliased-note only (not a task)","ledger":"n/a","note":"r>32 records kept as ALIAS_OF_R32, never an independent x"},
+    {"task":"F1_NEW_HEAD","old":"DEFERRED","new":"BLOCKED_USER","ledger":"F1_NEW_HEAD","stage":"BLOCKED_USER","note":"design spec staged; training needs user spec+budget"},
+    {"task":"A/B/C grip design","old":"BLOCKED_USER","new":"BLOCKED_USER (unchanged)","ledger":"G_DESIGN_A_B_C"}
+  ],
+  "F0_LIVE_STATE": {
+    "experiment":"f0_v3_baseline","track":"A","status":"RUNNING","stage":"train",
+    "step":4830,"pid":3287936,"tmux":"fwv1:f0_continue","target":"6000",
+    "lock":"GPU_RESOURCE_LOCK.json holder=f0_v3_baseline pid 3287936 (exclusive)",
+    "state_ts":"2026-11-25T10:08:38Z (live via contents API, not stale mirror)"
+  },
+  "F2_STATE": {
+    "status":"paused","step":"15800","checkpoint":"/workspace/fwv1/train_runs/t7_21k_v3run/step_015800.pt",
+    "sha256_prefix":"fa9d87e3","remaining":"5200","auto_resume":false,
+    "ledger":"F2R_RESUME_5200 = BLOCKED_USER; queue entry is not training authorization"
+  },
+  "RUNNING_NOW": [
+    "A0_F0_BASELINE: F0 training 4830 -> 6000 (GPU held, P0)",
+    "fwv1:f0_continue (tmux) + f0_watch (milestone zip/evidence)"
+  ],
+  "R_FINE_SCAN": {"status":"QUEUED/PREP","r":"4,8,12,20,24,28","seeds":"7500..7509","new_episodes":60,"reuse":"r10/16/32 partials","H":32,"effective":"min(r,32)","budget_cap":0,"gpu":"after 6k eval lock window"},
+  "H48_H64": {"status":"WAIT_BUDGET_FOR_TRAINING","note":"separate H-HORIZON-STUDY, NOT r alias; H%(frames-1)==0 with 9-frame video invalidates H52; needs user budget+approval; no training now"},
+  "R_ADAPTIVE_R4": {"R3":"QUEUED/PREP (CPU zero-training prototype, unit tests; not new-invention dynamic-r; compare fixed-r10/best/PACE/DVAC)","R4":"QUEUED/PREP (holdout 7800..7829 must first verify distinct layouts + no leakage)"},
+  "F1_ABC": {"F1_NEW_HEAD":"BLOCKED_USER","G_DESIGN_A_B_C":"BLOCKED_USER","note":"spec only; need user decision+budget"},
+  "BUDGET_LEDGER": {
+    "no_new_optimizer_budget_created_by_this_ack": true,
+    "F0": {"cap_steps":15000,"stage_now_to":6000,"used_steps":4830,"note":"15k hard stop; 15k->21k BLOCKED_USER"},
+    "F2": {"trained_to":15800,"remaining":5200,"paused":true,"resume":"BLOCKED_USER"},
+    "WAIT_BUDGET_FOR_TRAINING_tasks": ["H1_H48_TECH","H2_H64_TECH","H3_H_MATRIX"],
+    "BLOCKED_USER_tasks": ["F2R_RESUME_5200","F1_NEW_HEAD","G_DESIGN_A_B_C"]
+  },
+  "NEXT_AUTO_ACTIONS": [
+    "1. Keep F0 training 4830->6000 (GPU held); f0_watch handles 6k zip/evidence/state",
+    "2. CPU-now: M3 refresh R0_PROTOCOL_FINGERPRINT + M2 freeze R1 seeds/protocol; M4 GPU-slot order after 6k",
+    "3. B1 relaxed-geometry audit on existing r16/r32 logs (CPU) or a small GPU replay in a lock gap",
+    "4. After F0 6k eval: serial P2/R1 GPU slots (B2/B3/B4/B5 then R1 fine) under exclusive lock handoff",
+    "5. Rebuild and ship the report after CPU+B1+R1 work lands (Z0)"
+  ],
+  "boundaries": "no new optimizer budget; F2 paused (no auto-resume); no F0>15k; no label/eval-mapping/frozen-scene change; single-GPU exclusive lock; strict exact_fill unchanged; relaxed in-box only in a separate read-only metric; no token/secret in files"
+}

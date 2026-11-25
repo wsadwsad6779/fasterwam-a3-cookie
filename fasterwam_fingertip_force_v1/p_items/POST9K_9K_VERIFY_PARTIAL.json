@@ -1,0 +1,22 @@
+{
+  "artifact": "POST9K_9K_VERIFY_PARTIAL",
+  "ts": "2026-11-25T15:52:00Z",
+  "status": "9K_EVAL_IN_PROGRESS (no 12k)",
+  "checkpoint": {
+    "path": "/workspace/fwv1/f0_v3_baseline/step_009000.pt",
+    "sha256": "7ca235ba1d5ad35aac0f8caa66334cf2cb7dbaa026b60cf15ac8842b83621979",
+    "bytes": 3354213309
+  },
+  "summary_step_9000": "PENDING (eval running; episodes 7300/7301/7302 done so far: final_in_target=0, grasps=0, exact_fill=false)",
+  "F0_EVAL_9K_DONE": "PENDING",
+  "GPU_FREE_FOR_MANUAL_BATCH": "PENDING (post9k triggers after F0_EVAL_9K_DONE)",
+  "F0_HELD_AT_9K": "PENDING",
+  "pgrep_evidence": {
+    "t7_eval_running": "2656508 /opt/venv/bin/python /workspace/_t7_eval.py  (this is the 9k official eval)",
+    "f0_continue_chain": "3287803 bash /workspace/_t7_f0_continue_chain.sh (alive, running the 9k eval stage)",
+    "t7_train_f0": "NONE (=> 12k training NOT running)"
+  },
+  "no_12k_proof": "no _t7_train_f0 process; training segment stopped at step 9000 (POD_JOB_STATE_F0 status=done step=9000); 12k has not started",
+  "protocol_unchanged": "9k eval uses cmp_f0_9k seeds 7300-7309, replan 10, g=2a-1, rot x5, exact_fill src==70, frozen V3.1 scenes",
+  "next": "when eval+report finish -> F0_EVAL_9K_DONE -> post9k kills continuation chain (prevents 12k), writes GPU_FREE + F0_HELD; then hsweep(F2 H) -> h0f0(verify full + F0 H0) -> b234(B2/B5/B3/B4)"
+}
