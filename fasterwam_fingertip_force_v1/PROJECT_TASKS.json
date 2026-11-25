@@ -416,9 +416,21 @@
   {
    "id": "F2-B1b",
    "name": "F2 r \u5bf9\u7167\uff1ar=10/16/32 \u5728 7500-7509 \u7684 10-seed \u5e73\u5747\u5165\u76d2\u7387/exact_fill \u6298\u7ebf\u56fe",
-   "status": "READY",
+   "status": "DONE",
    "sequence": "S5",
-   "requires_gpu": true
+   "requires_gpu": true,
+   "note": "observed: r10 OFFICIAL strict_anchor_match 10/10, mean_in_target user/strict 0.0/0.0, exact 0; r16 DIAGNOSTIC 0.5/0.2; r32 DIAGNOSTIC 0.7/0.3; each 10 seeds 7500-7509; exact_fill 0 at all r (R_SWEEP_EXACT_FILL.png); r10 official only, r16/r32 diagnostic, r24 not run (BLOCKED_USER)",
+   "evidence": [
+    "p_items/R_SWEEP_SUMMARY.json",
+    "p_items/R_SWEEP_CHARTS.json",
+    "p_items/R_SWEEP_RAW_RESULTS.csv",
+    "p_items/R_SWEEP_MEAN_IN_TARGET.png",
+    "p_items/R_SWEEP_EXACT_FILL.png",
+    "p_items/R_SWEEP_GRIPPER_CLOSURE.png",
+    "p_items/R_SWEEP_COST_PARETO.png",
+    "p_items/R_SWEEP_SEED_HEATMAP.png",
+    "p_items/R_COMPARE_15K.json"
+   ]
   }
  ],
  "state_files": [
@@ -432,7 +444,7 @@
   "p_items/GPU_TIME_STATE.json",
   "p_items/GPU_UPLOAD_MANIFEST.json"
  ],
- "updated_at": "2026-11-25T08:11:20Z",
+ "updated_at": "2026-11-25T08:13:10Z",
  "v4": {
   "goal": "DUAL_TRACK_F0_TRAINING_F2_PAUSED_DIAG",
   "authorized": "user 2026-11-25T02:23Z: F0 up to 21k, stage1 3000 independent; F2 paused at 15800",
