@@ -1,14 +1,10 @@
 {
  "study": "R1_REPLAN_SWEEP",
- "updated_utc": "2026-11-25T07:09:15Z",
- "status": "running since 2026-11-25T06:56:27Z (r10 first)",
+ "updated_utc": "2026-11-25T07:11:24Z",
+ "status": "running (r10 in progress since 2026-11-25T06:56:27Z)",
  "owner": "worker task7",
- "gpu_lock_holder": "f0_v3_baseline pid 1426422",
- "waiting_for": [
-  "F0 stage-1 0->3000 exit (F0 step 650 at 03:13Z, about 3.07 s/step)",
-  "F0 step3000 eval seeds 7100-7109",
-  "F2 step3000 paired eval and comparison"
- ],
+ "gpu_lock_holder": "r_compare (eval-only) pid 3189372",
+ "waiting_for": [],
  "stage1": {
   "rs": [
    10,
@@ -28,9 +24,9 @@
    7509
   ],
   "r10_source": "relaxed-r10 diagnostic rerun; official strict r10 anchor = 15k milestone eval, not replaced",
-  "r16_status": "queued; 7504/7508 already done as single-seed diagnostics",
-  "r32_status": "queued; 7504/7508 already done as single-seed diagnostics",
-  "r10_status": "queued",
+  "r16_status": "queued after r10",
+  "r32_status": "queued after r16",
+  "r10_status": "in_progress: 7/10 seeds at 2026-11-25T07:10:50Z; started 2026-11-25T06:56:27Z",
   "r24_status": "BLOCKED_USER: not approved in V5; not run",
   "r24": {
    "status": "BLOCKED_USER",
@@ -140,9 +136,15 @@
   "r32": "pending"
  },
  "partials": {
-  "r10": "p_items/R_COMPARE_PARTIAL_r10.json (written by fwv1:r_partial)",
+  "r10": "p_items/R_COMPARE_PARTIAL_r10.json (first write after the 10th seed; pod-side fwv1:r_partial, 60s loop)",
   "r16": "p_items/R_COMPARE_PARTIAL_r16.json",
   "r32": "p_items/R_COMPARE_PARTIAL_r32.json"
  },
- "postr_contention_note": "teacher-forced and ForceZero/SkipFiLM ran 06:27:51-06:39:36, overlapping the F2 3k rerun 06:28-06:39; the single-model lock was violated for ~11 min. The eval uses per-seed deterministic inference, but the timing is flagged."
+ "postr_contention_note": "teacher-forced and ForceZero/SkipFiLM ran 06:27:51-06:39:36, overlapping the F2 3k rerun 06:28-06:39; the single-model lock was violated for ~11 min. The eval uses per-seed deterministic inference, but the timing is flagged.",
+ "partial_watcher": {
+  "tmux": "fwv1:r_partial",
+  "script": "/workspace/_r_partial.py",
+  "log": "/workspace/fwv1/logs/r_partial.log",
+  "first_written": null
+ }
 }
