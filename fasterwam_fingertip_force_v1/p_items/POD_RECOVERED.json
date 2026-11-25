@@ -1,0 +1,20 @@
+{
+ "artifact": "POD_RECOVERED",
+ "ts": "2026-11-25T18:33:00Z",
+ "recovered": true,
+ "method": "clicked '\u6253\u5f00 NOTEBOOK' -> navigated /api/notebook/open -> JupyterLab /lab session restored",
+ "contents_probe": {
+  "status": 200,
+  "ts": "2026-11-25T18:33Z"
+ },
+ "f0": {
+  "step": 9930,
+  "status": "running",
+  "pid": 2802715,
+  "next": "milestone 12000 eval",
+  "ts": "2026-11-25T18:20:34Z"
+ },
+ "action": "NONE on training (step<12000; driver alive) -> record only, no kill/restart; 12k gate runs at step>=12000",
+ "instance": "rgapi-one-click-24316-57b6b870 ALIVE; auto_destroy ~2026-11-26 14:55 local; credits 17",
+ "red_lines": "no kill/delete/restart; F2 paused; no F1; official protocol unchanged"
+}
