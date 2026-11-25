@@ -45,14 +45,20 @@ with torch.no_grad():
     per_dim = ((pred - target) ** 2).mean(dim=(0, 1)).tolist()
     p6 = pred[..., 6].detach().float().cpu().numpy().reshape(-1)
     t6 = target[..., 6].detach().float().cpu().numpy().reshape(-1)
-loss6 = ((pred[..., 6] - target[..., 6]) ** 2).mean()
-model.zero_grad()
-loss6.backward()
+dim_grads = {}
+for d in range(7):
+    model.zero_grad()
+    ld_ = ((pred[..., d] - target[..., d]) ** 2).mean()
+    ld_.backward(retain_graph=(d < 6))
+    dim_grads[d] = float(torch.sqrt(sum(float(p.grad.norm()) ** 2
+                                       for p in model.action_expert.parameters()
+                                       if p.grad is not None)))
 grads = []
 for name, p in model.action_expert.named_parameters():
     if p.grad is not None:
         grads.append((name, float(p.grad.norm()), list(p.shape)))
-tot = float(torch.sqrt(sum(g[1] ** 2 for g in grads)))
+tot = dim_grads[6]
+ratio = dim_grads[6] / (sum(dim_grads[d] for d in range(6)) / 6.0) if any(dim_grads.values()) else None
 top = sorted(grads, key=lambda x: -x[1])[:10]
 stats6 = {'target_lt_0.30': float((t6 < 0.30).mean()),
           'target_open_gt_0.8': float((t6 >= 0.8).mean()),
@@ -68,6 +74,8 @@ out = {'ts': __import__('time').strftime('%Y-%m-%dT%H:%M:%SZ', __import__('time'
        'batch': {'split': 'val', 'batch_size': 2, 'seed': 20261125, 'episode': bb['meta']['episode']},
        'per_dim_loss': per_dim,
        'dim6_stats': stats6,
+       'dim_grad_total_norm': {str(k): v for k, v in dim_grads.items()},
+       'ratio_dim6_to_other6': ratio,
        'loss_action_total': float(ld.get('loss_action')) if ld.get('loss_action') is not None else None,
        'grad_total_norm_action_expert': tot,
        'grad_top': [{'name': n, 'norm': g, 'shape': s} for n, g, s in top],
