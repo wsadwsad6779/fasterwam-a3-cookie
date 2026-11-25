@@ -44,7 +44,8 @@ for seed in (7504, 7508):
             continue
         out['sources']['r%d_%d' % (r, seed)] = {'path': p, 'sha256': sha(p)}
         G = np.stack([np.asarray(c['denorm'], dtype=float)[:, 6] for c in d['chunks']])
-        ex = G[:, :r]
+        takes = [min(r, 600 - int(c.get('t', 0))) for c in d['chunks']]
+        ex = np.concatenate([g[:max(0, t)] for g, t in zip(G, takes)])
         onsets = [int(np.argmax(g < 0.30)) for g in G if (g < 0.30).any()]
         s = load(os.path.join(P, 'diag_summary_r%d_s%d.json' % (r, seed))) or {}
         res = (s.get('results') or [{}])[0]
@@ -54,10 +55,10 @@ for seed in (7504, 7508):
             'exec_lt_030': float((ex < 0.30).mean()),
             'exec_median': float(np.median(ex)),
             'chunks_any_close_full32': int(sum(1 for g in G if (g < 0.30).any())),
-            'executed_close_chunks': int(sum(1 for g in G if (g[:r] < 0.30).any())),
+            'executed_close_chunks': int(sum(1 for g, t in zip(G, takes) if (g[:max(0, t)] < 0.30).any())),
             'close_onsets': onsets,
-            'late_onsets_ge_r': int(sum(1 for o in onsets if o >= r)),
-            'early_onsets_lt_r': int(sum(1 for o in onsets if o < r)),
+            'late_onsets_ge_r': int(sum(1 for o, t in zip(onsets, takes) if o >= t)),
+            'early_onsets_lt_r': int(sum(1 for o, t in zip(onsets, takes) if o < t)),
             'in_target_strict': res.get('final_in_target') if res else (0 if r == 10 else None),
             'grasps': res.get('grasps') if res else (0 if r == 10 else None),
             'force_max_n': (res.get('force_stats') or {}).get('force_max')}

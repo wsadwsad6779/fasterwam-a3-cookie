@@ -33,7 +33,8 @@ def chunk_stats(path, replan):
     for c in d.get('chunks', []):
         rows = c.get('denorm') or []
         g = [row[6] for row in rows if len(row) > 6]
-        vals.extend(g[:replan])
+        take = min(replan, 600 - int(c.get('t', 0)))
+        vals.extend(g[:max(0, take)])
         if c.get('infer_ms') is not None:
             inf.append(float(c['infer_ms']))
     if not vals:

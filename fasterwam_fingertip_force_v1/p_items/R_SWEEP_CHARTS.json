@@ -1,5 +1,5 @@
 {
- "ts": "2026-11-25T07:44:30Z",
+ "ts": "2026-11-25T08:24:41Z",
  "source": "/workspace/fwv1/p_items/R_COMPARE_15K.json",
  "charts": {
   "R_SWEEP_MEAN_IN_TARGET.png": {
@@ -14,8 +14,8 @@
   },
   "R_SWEEP_GRIPPER_CLOSURE.png": {
    "path": "/workspace/fwv1/p_items/R_SWEEP_GRIPPER_CLOSURE.png",
-   "bytes": 30791,
-   "sha256": "08685b8cc6ab87011883d349a97b9a18b2e5192ee9b4fb545d232fdf5818c815"
+   "bytes": 30825,
+   "sha256": "c5cffedc6e91b503937de0978098e1810bba3a73f2e7b38f0783571d66c33296"
   },
   "R_SWEEP_COST_PARETO.png": {
    "path": "/workspace/fwv1/p_items/R_SWEEP_COST_PARETO.png",

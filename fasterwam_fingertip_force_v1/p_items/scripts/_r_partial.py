@@ -24,7 +24,8 @@ def chunk_exec(root, seed, r):
     vals = []
     for c in d.get('chunks', []):
         g = [row[6] for row in c.get('denorm', []) if len(row) > 6]
-        vals.extend(g[:r])
+        take = min(r, 600 - int(c.get('t', 0)))
+        vals.extend(g[:max(0, take)])
     if not vals:
         return None
     v = np.asarray(vals)

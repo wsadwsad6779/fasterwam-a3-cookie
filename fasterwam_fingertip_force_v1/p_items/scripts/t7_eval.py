@@ -1,6 +1,7 @@
 """Bare-model MuJoCo evaluation: checkpoint -> 10 fixed seeds -> dual-view MP4 + strict metrics."""
 import hashlib
 import json
+import math
 import os
 import sys
 import time
@@ -75,6 +76,18 @@ def _panel_font(size=12):
     return ImageFont.load_default()
 
 
+def _force_axis_max(peak):
+    """Axis top above the true peak so no sample is clipped at 3 N."""
+    if peak <= 3.0:
+        return 3.0
+    target = peak * 1.05
+    for step in (0.5, 1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0, 200.0, 500.0):
+        top = math.ceil(target / step) * step
+        if top / step <= 10:
+            return top
+    return math.ceil(target / 500.0) * 500.0
+
+
 def force_panel(hist, step, seed, in_target, in_source, opening, grip_cmd, safety,
                 w=320, h=256):
     from PIL import Image, ImageDraw
@@ -83,12 +96,20 @@ def force_panel(hist, step, seed, in_target, in_source, opening, grip_cmd, safet
     f = _panel_font(12)
     fs = _panel_font(11)
     x0, y0, x1, y1 = 42, 20, w - 8, h - 50
-    ymax = 3.0
+    peak_all = max(max(p) for p in hist) if hist else 0.0
+    ymax = _force_axis_max(peak_all)
     d.text((6, 3), 'grip force (N)  step %d  seed %d' % (step, seed), fill=(230, 230, 230), font=f)
-    for v in (0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0):
+    if ymax <= 3.0:
+        ticks = (0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0)
+    else:
+        n = 5
+        ticks = tuple(ymax * k / n for k in range(n + 1))
+    tstep = ticks[1] - ticks[0]
+    for v in ticks:
         y = int(y1 - (v / ymax) * (y1 - y0))
         d.line([(x0, y), (x1, y)], fill=(55, 55, 55))
-        d.text((6, y - 6), '%.1f' % v, fill=(170, 170, 170), font=fs)
+        d.text((6, y - 6), ('%.1f' if tstep < 1.0 else '%.0f') % v,
+               fill=(170, 170, 170), font=fs)
     yth = int(y1 - (0.5 / ymax) * (y1 - y0))
     for x in range(x0, x1, 8):
         d.line([(x, yth), (min(x + 4, x1), yth)], fill=(220, 70, 70))
@@ -110,7 +131,8 @@ def force_panel(hist, step, seed, in_target, in_source, opening, grip_cmd, safet
         cur = (0.0, 0.0)
         peak = 0.0
     d.text((x0, y1 + 3), 'L inner %.2f  L outer %.2f N' % (cur[0], cur[1]), fill=(80, 200, 255), font=f)
-    d.text((x0, y1 + 17), 'peak %.2f N (y 0-3N) | 0.5N carry line' % peak, fill=(220, 180, 120), font=fs)
+    d.text((x0, y1 + 17), 'peak %.2f  all %.2f N  axis 0-%.1f' % (peak, peak_all, ymax),
+           fill=(220, 180, 120), font=fs)
     d.text((x0, y1 + 31), ('open %.2f  gcmd %+.2f  inT %s  src %s' % (
         opening, grip_cmd, in_target, in_source))[:52], fill=(200, 200, 200), font=fs)
     if safety:
@@ -191,6 +213,8 @@ def build_model(ckpt_path):
     model.proprio_encoder.load_state_dict(sd['proprio_encoder'], strict=False)
     film = None
     state = {'z': None}
+    if ckpt_path and not os.path.exists(ckpt_path):
+        raise FileNotFoundError('checkpoint not found (fail-closed): %s' % ckpt_path)
     if ckpt_path and os.path.exists(ckpt_path):
         ck = torch.load(ckpt_path, map_location='cpu', weights_only=False)
         if 'action_expert' in ck:

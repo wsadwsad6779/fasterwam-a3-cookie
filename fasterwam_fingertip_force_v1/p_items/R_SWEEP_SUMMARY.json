@@ -108,7 +108,7 @@
    "mean_elapsed_s": 75.88000000000001,
    "mean_replan_calls": 38.0,
    "mean_inference_ms": 676.7578947368421,
-   "mean_exec_lt030": 0.06447368421052632,
+   "mean_exec_lt030": 0.06533333333333333,
    "n_exec_stats": 10,
    "n_user_counter": 10
   },
@@ -128,7 +128,7 @@
    "mean_elapsed_s": 68.99,
    "mean_replan_calls": 19.0,
    "mean_inference_ms": 670.1915789473685,
-   "mean_exec_lt030": 0.09391447368421053,
+   "mean_exec_lt030": 0.09516666666666666,
    "n_exec_stats": 10,
    "n_user_counter": 10
   }

@@ -1,6 +1,6 @@
 {
  "worker": "task7",
- "updated_at": "2026-11-25T08:11:20Z",
+ "updated_at": "2026-11-25T08:26:41Z",
  "phase": "F0_TRAINING_WITH_QUEUED_R_SWEEP",
  "training": {
   "last_verified_step": 15800,
@@ -287,7 +287,9 @@
    "r10": "p_items/R_COMPARE_PARTIAL_r10.json (written by fwv1:r_partial)",
    "r16": "p_items/R_COMPARE_PARTIAL_r16.json",
    "r32": "p_items/R_COMPARE_PARTIAL_r32.json"
-  }
+  },
+  "fine_scan": "DEFERRED_BY_USER",
+  "600step_audit": "p_items/R_SWEEP_600STEP_AUDIT.json (exec r16 +0.086pp, r32 +0.125pp; in-box unchanged)"
  },
  "acks": [
   "ACK 2026-11-25T03:21Z supervisor 03:12Z checklist: F0 alive at step 650; POD_JOB_STATE_F0 mirror armed; r-sweep queued behind F0 stage-1 under the same GPU lock; F2 remains paused at 15800 with no auto-resume",
@@ -498,5 +500,7 @@
   "F2-B2": "DONE (teacher15k/3k + dim7 + P18)",
   "F2-B3": "DONE (P19)",
   "note": "observations, not root-cause-confirmed"
- }
+ },
+ "directive_ack": "p_items/T7_DIRECTIVE_ACK_20261125T0820.json",
+ "eval_failclosed": "patched _t7_eval.py 5edaad7f and _t7_eval_diag.py a1a8aae6"
 }

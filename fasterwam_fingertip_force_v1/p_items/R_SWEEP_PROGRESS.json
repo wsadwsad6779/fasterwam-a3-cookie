@@ -1,6 +1,6 @@
 {
  "study": "R1_REPLAN_SWEEP",
- "updated_utc": "2026-11-25T07:45:30Z",
+ "updated_utc": "2026-11-25T08:26:41Z",
  "status": "DONE: r10/r16/r32 all complete; final R_COMPARE_15K aggregated 2026-11-25T07:44Z",
  "owner": "worker task7",
  "gpu_lock_holder": "r_compare (eval-only) pid 3189372",
@@ -183,5 +183,15 @@
   },
   "exact_all": 0.0,
   "conclusion": "three r levels all exact 0; r16 7500 and r32 7503/7504 are single cases; no r effect; truncation not the primary cause; consistent with R2"
+ },
+ "fine_scan": "DEFERRED_BY_USER (user 2026-11-25T08:20Z): r=4/8/12/20/24/28 not run; r10/16/32 kept",
+ "six_zero_step_audit": {
+  "path": "p_items/R_SWEEP_600STEP_AUDIT.json",
+  "exec_lt030_corrected": {
+   "r10": 0.052,
+   "r16": 0.06533,
+   "r32": 0.09517
+  },
+  "in_box_change": "none"
  }
 }

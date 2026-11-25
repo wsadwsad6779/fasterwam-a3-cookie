@@ -393,15 +393,15 @@
   },
   {
    "id": "R3_ADAPTIVE_REPLAN",
-   "status": "BLOCKED_USER",
+   "status": "DEFERRED",
    "name": "contact/gripper-commitment aware replan scheduler (inference only)",
-   "note": "separate research item; needs user specification and approval; not opened"
+   "note": "deferred; no validated scheduler; do not overfit to single seeds"
   },
   {
    "id": "R4_HOLDOUT_CONFIRMATION",
-   "status": "BLOCKED_USER",
+   "status": "DEFERRED",
    "name": "holdout 7800-7829 with newly pre-registered distinct scenes",
-   "note": "outside V3.1 manifest; needs new scene pre-registration and explicit approval; not opened"
+   "note": "deferred; no independent holdout opened"
   },
   {
    "id": "F0-CONT-15K",
@@ -431,6 +431,151 @@
     "p_items/R_SWEEP_SEED_HEATMAP.png",
     "p_items/R_COMPARE_15K.json"
    ]
+  },
+  {
+   "id": "R_FINE_SCAN",
+   "name": "H32 fine r scan (r4/8/12/20/24/28)",
+   "status": "DEFERRED_BY_USER",
+   "note": "not run; user says success is too low; revisit only after stable improvement"
+  },
+  {
+   "id": "H48_H64",
+   "name": "H48/H64 long-horizon prediction",
+   "status": "DEFERRED_NOT_AUTHORIZED",
+   "note": "not authorized; no replan_steps alias and no training"
+  },
+  {
+   "id": "R_ADAPTIVE",
+   "name": "Adaptive r scheduler + holdout 7800-7829",
+   "status": "DEFERRED",
+   "note": "no validated scheduler"
+  },
+  {
+   "id": "R_ALIAS",
+   "name": "r36-52 alias verification",
+   "status": "DEFERRED",
+   "note": "same as r32; cannot inflate samples"
+  },
+  {
+   "id": "F1_NEW_HEAD",
+   "name": "F1 or new FiLM/gripper head/distribution loss training",
+   "status": "BLOCKED_USER",
+   "note": "not authorized"
+  },
+  {
+   "id": "F0-6K-STOP",
+   "name": "F0 continue to 6k then stop and save",
+   "status": "RUNNING",
+   "note": "step~3430; 6k ETA~10:35Z"
+  },
+  {
+   "id": "P0-EVAL-FAILCLOSED",
+   "name": "Evaluator fail-closed on missing checkpoint all entries",
+   "status": "READY"
+  },
+  {
+   "id": "P0-FROZEN-ID",
+   "name": "Frozen scene/eval/sim fingerprints; F2 15k/15800/F0 identity separation",
+   "status": "READY"
+  },
+  {
+   "id": "P0-STORAGE",
+   "name": "Storage: external sha256 backup then delete; safe stop; no unrecoverable delete",
+   "status": "BLOCKED_USER",
+   "note": "26G<30 hard floor; external target needed"
+  },
+  {
+   "id": "P0-GPU-LOCK",
+   "name": "GPU exclusive lock; no two heavy jobs concurrent",
+   "status": "READY"
+  },
+  {
+   "id": "P1-600STEP",
+   "name": "R sweep 600-step alignment + R_SWEEP_600STEP_AUDIT + corrected 3-point",
+   "status": "READY"
+  },
+  {
+   "id": "P1-RELAXED-GEO",
+   "name": "Relaxed in-box geometry audit (per-cookie id/force/video)",
+   "status": "READY"
+  },
+  {
+   "id": "P2-TF-6STAGE",
+   "name": "Teacher-forced six-stage comparison F0/F2",
+   "status": "READY"
+  },
+  {
+   "id": "P2-CLONE",
+   "name": "MuJoCo state clone 0.43 vs 0.28 paired counterfactual",
+   "status": "READY"
+  },
+  {
+   "id": "P2-GRAD-COS",
+   "name": "L_grip vs L_force gradient cosine/norm per stage",
+   "status": "READY"
+  },
+  {
+   "id": "P3-PROFILE",
+   "name": "Zero-training profile/feature-cache plan",
+   "status": "READY"
+  },
+  {
+   "id": "F0-CONT-AFTER-EXPTS",
+   "name": "Resume F0 from 6k only after P0/P1/P2 complete",
+   "status": "BLOCKED_SEQUENCE"
+  },
+  {
+   "id": "P0_EVAL_FAILCLOSED",
+   "status": "DONE",
+   "name": "eval scripts fail closed on missing checkpoint",
+   "note": "T7_CKPT set but missing raises; empty T7_CKPT allowed for base anchor; behavior otherwise unchanged",
+   "evidence": [
+    "p_items/T7_DIRECTIVE_ACK_20261125T0820.json"
+   ]
+  },
+  {
+   "id": "P1_600STEP_AUDIT",
+   "status": "DONE",
+   "name": "r16/r32 600-step truncation audit",
+   "note": "in_target/exact unchanged; exec<0.30 corrected r16 6.533% (+0.086pp), r32 9.517% (+0.125pp); r10 unchanged",
+   "evidence": [
+    "p_items/R_SWEEP_600STEP_AUDIT.json"
+   ]
+  },
+  {
+   "id": "P1_RELAXED_GEOMETRY",
+   "status": "READY",
+   "name": "relaxed in-box geometry audit (r16 7500 / r32 7503,7504)",
+   "note": "per-cookie position/contact/video review; orientation/contact fields may be NOT_VERIFIED if not recorded",
+   "evidence": []
+  },
+  {
+   "id": "P2_TEACHER_6PHASE",
+   "status": "DEFERRED_GPU_GAP",
+   "name": "six-phase teacher-forced across independent episodes",
+   "note": "requires the F2 15k model; waits for the F0 15k hard stop or an authorized pause; not concurrent with F0",
+   "evidence": []
+  },
+  {
+   "id": "P2_STATE_CLONE",
+   "status": "DEFERRED_GPU_GAP",
+   "name": "MuJoCo state clone 0.43 vs 0.28 counterfactual",
+   "note": "GPU gap",
+   "evidence": []
+  },
+  {
+   "id": "P2_GRAD_CONFLICT",
+   "status": "DEFERRED_GPU_GAP",
+   "name": "L_grip vs L_force gradient cosine/norm on shared params",
+   "note": "GPU gap",
+   "evidence": []
+  },
+  {
+   "id": "P3_PERF",
+   "status": "DEFERRED",
+   "name": "visual/T5 feature cache and perf profiling",
+   "note": "no training-math change",
+   "evidence": []
   }
  ],
  "state_files": [
@@ -444,7 +589,7 @@
   "p_items/GPU_TIME_STATE.json",
   "p_items/GPU_UPLOAD_MANIFEST.json"
  ],
- "updated_at": "2026-11-25T08:13:10Z",
+ "updated_at": "2026-11-25T08:26:41Z",
  "v4": {
   "goal": "DUAL_TRACK_F0_TRAINING_F2_PAUSED_DIAG",
   "authorized": "user 2026-11-25T02:23Z: F0 up to 21k, stage1 3000 independent; F2 paused at 15800",
@@ -478,5 +623,25 @@
   ],
   "r_compare_seeds": "7500-7509",
   "note": "r32 diagnostic only; official score r10"
+ },
+ "v6": {
+  "directive": "p_items/USER_DIRECTIVE_V6.md",
+  "overrides": "R-SWEEP-V2 extra r; keeps r10/16/32",
+  "deferred": [
+   "R_FINE_SCAN",
+   "H48_H64",
+   "R_ADAPTIVE",
+   "R_ALIAS",
+   "F1_NEW_HEAD"
+  ],
+  "priority": [
+   "F0 6k stop",
+   "P0 trust",
+   "P1 600/relaxed",
+   "P2 mechanism",
+   "F0/F2 high-milestone comparison",
+   "only then resume F0 6k"
+  ],
+  "f2": "paused 15800; no auto-resume"
  }
 }
