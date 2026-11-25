@@ -1,6 +1,6 @@
 {
  "worker": "task7",
- "updated_at": "2026-11-25T07:09:15Z",
+ "updated_at": "2026-11-25T07:53:26Z",
  "phase": "F0_TRAINING_WITH_QUEUED_R_SWEEP",
  "training": {
   "last_verified_step": 15800,
@@ -428,5 +428,57 @@
  "teacher_3k": {
   "status": "queued in the base chain after the r sweep",
   "coverage_15k": "n=8, phases CARRY_CLOSED/CONTACT_CLOSE only"
+ },
+ "dim7_grad_audit": {
+  "status": "DONE 2026-11-25T07:48:19Z",
+  "file": "p_items/DIM7_LOSS_GRAD_AUDIT.json",
+  "per_dim_loss": [
+   0.001121,
+   0.001753,
+   0.008701,
+   0.008654,
+   0.009042,
+   0.000768,
+   0.0141
+  ],
+  "grad_total_norm": {
+   "0": 0.321,
+   "1": 0.408,
+   "2": 1.955,
+   "3": 2.522,
+   "4": 2.457,
+   "5": 0.288,
+   "6": 2.635
+  },
+  "ratio_dim6_to_mean_0_5": 1.988,
+  "reading": "dim6 has the largest per-dim loss and gradient; not starved, consistent with an objective/representation problem"
+ },
+ "incidents": [
+  {
+   "ts": "2026-11-25T07:43:50Z",
+   "kind": "dim7_script_bug_and_order",
+   "detail": "torch.sqrt(float) TypeError; base chain ended and F0 6k started 07:44:46 before dim7; stopped ~07:48, fixed math.sqrt, dim7 succeeded 07:48:19, report regenerated 07:50:31, F0 6k restarted 07:50:32; ~40 steps lost, no checkpoint lost"
+  },
+  {
+   "ts": "2026-11-25T07:41:34Z",
+   "kind": "teacher3k_r32_tail_overlap",
+   "detail": "teacher-forced 3k began ~1 min before the r32 eval summary (07:42:31); both used the F2 15k model; deterministic per seed; flagged"
+  }
+ ],
+ "report": {
+  "md": "p_items/T7_REPORT_20261125.md",
+  "json": "p_items/T7_REPORT_20261125.json",
+  "generated": "2026-11-25T07:50:31Z",
+  "includes": [
+   "three-way 3k",
+   "P18",
+   "P19",
+   "R2",
+   "r curve",
+   "teacher 15k/3k",
+   "dim7",
+   "incidents",
+   "A/B/C BLOCKED_USER"
+  ]
  }
 }

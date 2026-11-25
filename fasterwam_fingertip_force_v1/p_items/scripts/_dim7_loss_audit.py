@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import math
 import sys
 
 import numpy as np
@@ -50,9 +51,9 @@ for d in range(7):
     model.zero_grad()
     ld_ = ((pred[..., d] - target[..., d]) ** 2).mean()
     ld_.backward(retain_graph=(d < 6))
-    dim_grads[d] = float(torch.sqrt(sum(float(p.grad.norm()) ** 2
-                                       for p in model.action_expert.parameters()
-                                       if p.grad is not None)))
+    dim_grads[d] = math.sqrt(sum(float(p.grad.norm()) ** 2
+                                  for p in model.action_expert.parameters()
+                                  if p.grad is not None))
 grads = []
 for name, p in model.action_expert.named_parameters():
     if p.grad is not None:
