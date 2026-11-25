@@ -1,7 +1,7 @@
 {
  "project": "fasterwam_fingertip_force_v1",
  "worker": "task7",
- "ts": "2026-11-25T06:02:00Z",
+ "ts": "2026-11-25T18:18:00Z",
  "master_plan": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
  "phase": "V4_DUAL_TRACK",
  "budget": {
@@ -10,7 +10,9 @@
   "F0_stage1": 3000,
   "F0_max_if_extended": 21000,
   "old_V2": 6140,
-  "V3_diag": 200
+  "V3_diag": 200,
+  "F0_approved_to": 15000,
+  "F0_15k_to_21k": "blocked_user"
  },
  "gates": {
   "G4_pre_train": "PASSED_V3_BUDGET_CONFIRMED (user fresh 21000; pre-training gates pass; in-run G-D/G-E/G-G/G-F)",
@@ -36,7 +38,7 @@
   "identity_artifact": "p_items/T7_BASE_IDENTITY.json"
  },
  "training": {
-  "status": "F2 PAUSED at 15800; F0 no-force baseline authorized stage1 0->3000 independently; no auto-resume of F2; STOP_TRAINING set",
+  "status": "F0 RESUMING 9k->12k->15k (tmux f0resume, train pid 2802715); F2 PAUSED at 15800 (no auto-resume)",
   "baseline_anchor": "base 10 seeds x 600 steps: exact_fill 0/10, avg_in_target 0.0, 0 safety stops (p_items/SUMMARY_step_base.json)",
   "checkpoint_dir": "/workspace/fwv1/train_runs/t7_21k_v3run",
   "checkpoint_plan": "trainable-only (action expert + F2 + proprio, 558.9M) + frozen base reference; ~5.59GB per milestone, ~39.1GB for 7",
@@ -87,7 +89,29 @@
     "artifact": "p_items/T7_CONTINUE_AFTER_6K.json",
     "effect": "eval -> report zip -> resume 9000; no performance gating at 6k; fundamental STOP unchanged"
    }
-  ]
+  ],
+  "step": 9240,
+  "last_known": {
+   "step": 9240,
+   "ts": "2026-11-25T17:29:31Z",
+   "note": "last readable before POD 403; 12k status UNKNOWN under 403"
+  },
+  "f0_resume": {
+   "tmux": "f0resume",
+   "driver_pid": 2802709,
+   "train_pid": 2802715,
+   "from_step": 9000,
+   "target": 15000,
+   "hard_stop": 15000,
+   "fifteen_to_21k": "BLOCKED_USER",
+   "twelve_k": "UNKNOWN"
+  },
+  "f2": {
+   "status": "paused",
+   "step": 15800,
+   "sha_prefix": "fa9d87e3",
+   "training_allowed": false
+  }
  },
  "evaluation": {
   "protocol": "bare model, MuJoCo, max 600 steps, safety guard, exact_fill 10, 20-step hold; eval g=2a-1, rot x5, replan 10, src==70; 10 fixed seeds per 3k from the frozen manifest",
@@ -288,7 +312,7 @@
   "tmux_session": "fwv1",
   "logs_dir": "/workspace/fwv1/logs"
  },
- "next": "F0 consistency check -> F0 0->3000 -> F0 3k eval; F2 diagnosis (teacher-forced/loss/ForceZero/SkipFiLM) -> root cause report -> user decision on gripper-specific design/F2 resume",
+ "next": "F0 -> 9k then post9k HOLD (kill 12k); chain H0(F0_9k H32/48/64)->B2->B5->B3->B4->R1(H-escalation on F2 15k)->R1 report; then F0 resume 9k->12k(save+eval)->15k stop/freeze; then F1 0->15k",
  "monitoring": {
   "status": "RUNNING",
   "since": "2026-11-24T03:56:22Z",
@@ -310,7 +334,7 @@
   "last_checked": "2026-11-25T00:42:30Z",
   "last_checked_state": "training 15000->18000 running pid 849025 step 15070; 15k eval+report rc=0; storage 35.19GiB after archive",
   "observed_last_step": 15070,
-  "observed_last_step_note": "new run accounting: fresh 21000 approved 2026-11-24T03:35Z; used\u22481460, remaining\u224819540 (snapshot 05:22:25Z); old V2 6140 + V3 diagnostic 200 separate; no 14860 cap",
+  "observed_last_step_note": "new run accounting: fresh 21000 approved 2026-11-24T03:35Z; used¡Ö1460, remaining¡Ö19540 (snapshot 05:22:25Z); old V2 6140 + V3 diagnostic 200 separate; no 14860 cap",
   "pod_access": {
    "status": "restored_2026-11-24T13:09:23Z",
    "checks": [
@@ -471,7 +495,7 @@
   "note": "training running: fresh V3 run 0->21000 (approved 2026-11-24T03:35Z), PID 306531, run dir t7_21k_v3run, step 440"
  },
  "experiment": {
-  "decision": "\u5148 F2 21k\uff0cF0/F1 \u540e\u8865",
+  "decision": "ÏÈ F2 21k£¬F0/F1 ºó²¹",
   "decided_at": "2026-11-24T05:50:00Z",
   "current_arm": "F2",
   "variants": {
@@ -565,12 +589,15 @@
  },
  "f0": {
   "started": true,
-  "status": "stage1_done",
-  "step": 3000,
+  "status": "HELD_AT_9K_EVAL_DONE",
+  "step": 9000,
   "run_dir": "/workspace/fwv1/f0_v3_baseline",
-  "checkpoint": "/workspace/fwv1/f0_v3_baseline/step_003000.pt",
-  "checkpoint_sha256": "c448351372533d52ff25f31d86862ab5ca9d4d47d72e8ad906b4639243e7a012",
+  "checkpoint": "/workspace/fwv1/f0_v3_baseline/step_009000.pt",
+  "checkpoint_sha256": "7ca235ba1d5ad35aac0f8caa66334cf2cb7dbaa026b60cf15ac8842b83621979",
   "checkpoint_bytes": 3354213309,
+  "checkpoint_3k_sha256": "c448351372533d52ff25f31d86862ab5ca9d4d47d72e8ad906b4639243e7a012",
+  "eval_9k": "DONE: cmp_f0_9k seeds 7300-7309, all final_in_target=0, exact_fill 0, grasps_mean 3.2, close_cmd 0.9525; SUMMARY_step_9000 sha b2d076bd; F0_EVAL_9K_DONE + F0_HELD_AT_9K + GPU_FREE_FOR_MANUAL_BATCH written 16:05-16:06Z (p_items/POST9K_9K_VERIFY.json)",
+  "hold": "HELD at 9000 since 16:06:01Z; 12k trainer briefly launched 16:05:05 pid 2682359, killed 16:05:36 by post9k before any optimizer step (no ckpt beyond step_009000); GPU now used by F2 H sweep (_h_eval.py pid 2682599, read-only)",
   "force_modules": "none",
   "eval_evidence": "p_items/F0_EVAL_3K_DONE.json",
   "eval_summary": {
@@ -589,19 +616,51 @@
    "hard_stop": 15000,
    "user_authorization": "p_items/USER_INSTRUCTION_20261125_F0_CONT_15K.json"
   },
-  "next": "F0 3k->15k unconditional after the report; milestones 6k/9k/12k/15k; 15k->21k BLOCKED_USER"
+  "next": "9k eval -> F0_EVAL_9K_DONE -> post9k hold (F0_HELD_AT_9K); chain H0/B2/B5/B3/B4/R1; only then resume 9k->12k(save+eval)->15k stop/freeze; 15k->21k BLOCKED_USER"
  },
  "goal_artifact": "p_items/T7_GOAL_PAUSED_ROOT_CAUSE_GRIPPER.md",
  "tracks": {
   "A_F0": {
-   "status": "READY_AUTHORIZED",
+   "status": "HELD_AT_9K",
    "dir": "/workspace/fwv1/f0_v3_baseline/",
    "budget": {
     "stage1": 3000,
-    "max_if_extended": 21000,
+    "approved_total": 15000,
+    "hard_stop": 15000,
     "independent": true
    },
-   "rules": "official step_021700; same V3 labels/data/normalizer/sampler/optimizer; no force/FiLM/force_head/force loss/dropout; 200-500 latest + step3000; eval same protocol"
+   "rules": "official step_021700; same V3 labels/data/normalizer/sampler/optimizer; no force/FiLM/force_head/force loss/dropout; eval same protocol",
+   "stage1_3k": "exact_fill 0/10; close 0.976; exec median 0.4305; <0.30 5.9% (same mid-band collapse as F2)",
+   "checkpoint_3k_sha": "c4483513",
+   "approved": "3k->15k by user; hard stop 15000; 15k->21k blocked_user",
+   "step": 9000,
+   "pid": 901494,
+   "eta_9k": "reached 2026-11-25T15:5xZ",
+   "checkpoint_9k": {
+    "path": "/workspace/fwv1/f0_v3_baseline/step_009000.pt",
+    "sha256_prefix": "7ca235ba",
+    "bytes": 3354213309,
+    "note": "F0 run checkpoint (distinct from t7_21k_v3run step_009000 sha 7a945cf7)"
+   },
+   "eval_9k": "DONE 10/10 seeds 7300-7309: final_in_target=0, exact_fill=0, grasps_mean 3.2; SUMMARY sha b2d076bd; 12k NOT started (trainer killed pre-step, no ckpt>9000)",
+   "post9k_orchestrator": "tmux post9k minimal-hold pid 2444729 (superseded 2359633 per POST9K_HOLD_VERIFY 15:35Z): kill 12k chain, release GPU, write F0_HELD_AT_9K.json",
+   "rule": "run to 9k; HOLD at 9k (NO 12k now); chain H0->B2->B5->B3->B4->R1->report; only then resume 9k->12k(save+eval)->15k stop/freeze"
+  },
+  "C_F1": {
+   "status": "AUTHORIZED_NOT_STARTED",
+   "spec": "simple residual force fusion: ForceEncoder(4ch,hist<=8)->zero-init residual into action tokens; NO FiLM/NO C-02",
+   "init": "official base step_021700.pt sha 01be4efc",
+   "budget": "0->15000; every 3000 save+eval; hard stop 15000",
+   "starts_after": "F0 15k freeze + chain complete"
+  },
+  "r1_h_sweep": {
+   "status": "RUNNING",
+   "model": "F2 15k step_015000.pt sha 83aacf23 (read-only)",
+   "H32": "done 10/10 RC0 (16:18:53); P_R1_H32_MEASURED.json sha d392c0ec; strict 0/0/0/0/3/0, relaxed 0/0/0/2/5/0, exact_fill all false",
+   "H48": "in progress (seed 7506 at 16:31Z)",
+   "H64": "pending",
+   "evaluator_pid": 2682599,
+   "note": "inference only, 0 optimizer steps; H>32 OOD observed only"
   },
   "B_F2": {
    "status": "PAUSED_ROOT_CAUSE_GRIPPER",
@@ -612,7 +671,39 @@
     "max": 21000,
     "remaining": 5200
    },
-   "diagnosis": "gripper mean collapse: labels 49% <0.30, model <0.30 5.2%, median 0.4333; 32-step audit says replan truncation not the main cause; teacher-forced/loss/ForceZero/SkipFiLM pending"
+   "diagnosis": "gripper mean collapse: labels 49% <0.30, model <0.30 5.2%, median 0.4333; 32-step audit says replan truncation not the main cause; teacher-forced/loss/ForceZero/SkipFiLM pending",
+   "r_compare": "r10 official 10/10 in_target 0; r16 partial diagnostic; r32 running -> R_COMPARE_15K + 5 charts",
+   "next": "teacher-forced 3k -> DIM7 -> T7_REPORT -> F0 6k"
   }
- }
+ },
+ "storage_warning": "26G avail (<30 hard floor); external sha256 backup required before any delete",
+ "directive_current": "p_items/USER_DIRECTIVE_V7.md",
+ "directive_v7": {
+  "ts": "2026-11-25T15:31:00Z",
+  "f0": "run to 9k, hold at 9k, NO 12k until chain done; then resume 9k->12k(save+eval)->15k stop/freeze",
+  "chain": [
+   "H0",
+   "B2",
+   "B5",
+   "B3",
+   "B4",
+   "R1_H_escalation_sweep_F2_15k",
+   "R1_report",
+   "F0_resume_9k_12k_15k_freeze",
+   "F1_0_15k"
+  ],
+  "r1": "H-horizon escalation sweep (NOT r fine-scan); F2 15k sha 83aacf23; H=32/48/64/80/96 +16 by in-box; top2-3 +8 fine scan; <2 skip; H multiple of 8; H>32 OOD",
+  "f1": "authorized 0->15000 simple residual force fusion",
+  "superseded": [
+   "R_FINE_SCAN_r4_28 -> R1 H-scan",
+   "H48_H64 DEFERRED -> authorized inference OOD",
+   "F1_NEW_HEAD BLOCKED -> authorized 0->15k"
+  ]
+ },
+ "deferred": [
+  "R_FINE_SCAN_r4_28 (superseded by R1 H-escalation)",
+  "R_ADAPTIVE",
+  "R_ALIAS"
+ ],
+ "visibility": "POD_403 (contents 403 nginx) at 18:18Z; 12k/15k NOT_VERIFIED; do not fabricate shas"
 }
