@@ -1,8 +1,8 @@
 {
  "experiment_id": "f0_v3_baseline",
  "track": "A",
- "ts": "2026-11-25T07:58:01Z",
- "status": "running",
+ "ts": "2026-11-25T17:16:00Z",
+ "status": "resuming_12k",
  "owner": "worker",
  "priority": "P0",
  "run_dir": "/workspace/fwv1/f0_v3_baseline",
@@ -21,14 +21,8 @@
  },
  "budget": {
   "cap_steps": 15000,
-  "used_steps": 3000,
-  "remaining_steps": 12000,
-  "new_independent_budget": true,
-  "not_from_f2_remaining": true,
-  "expansion_allowed": false,
-  "stage1_cap_steps": 3000,
-  "approved_by_user_utc": "2026-11-25T03:45:38.438Z",
-  "user_instruction": "p_items/USER_INSTRUCTION_20261125_F0_CONT_15K.json"
+  "used_steps": 9040,
+  "note": "resumed from step_009000; 12k then 15000 hard stop; no 15k->21k"
  },
  "config": {
   "data": "same V2 split 589/85/171 and same video/T5 cache",
@@ -88,7 +82,7 @@
   "videos": "10 composites + zip",
   "compare_to": "F2 step_003000 same seeds/scenes/eval script; F2 15800 is not step-matched"
  },
- "next": "F0 3k official eval running (seeds 7100-7109); then F2 3k paired eval; r sweep; post_r; report; F0 6k/9k/12k/15k unconditional",
+ "next": "12k checkpoint+official 10-seed eval (7400-7409) -> 15k stop/eval/freeze (F0_FROZEN_15K.json)",
  "pid": 1426422,
  "first_metrics": {
   "step": 10,
@@ -101,12 +95,8 @@
   "note": "early F0 probe: mostly open/mid, not yet the 0.43 collapse"
  },
  "progress": {
-  "step": 650,
-  "loss_action": 0.107,
-  "grad_norm": 1.3,
-  "lr": 9.98e-05,
-  "sec_per_step": 3.07,
-  "note": "live state 03:13:55Z; ETA step3000 about 05:07Z"
+  "step": 9040,
+  "note": "f0resume tmux pid 2802709, train pid 2802715; segment 9000->12000"
  },
  "grip_probes": [
   {
