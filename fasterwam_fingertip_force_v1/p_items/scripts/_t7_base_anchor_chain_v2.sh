@@ -23,7 +23,11 @@ done
 while pgrep -f "[_]t7_eval" >/dev/null; do sleep 30; done
 echo "DIM7_AUDIT_BEGIN $(date -u +%FT%TZ)"
 /opt/venv/bin/python /workspace/_dim7_loss_audit.py
-echo "DIM7_AUDIT_RC=$? $(date -u +%FT%TZ)"
+DIMRC=$?
+echo "DIM7_AUDIT_RC=$DIMRC $(date -u +%FT%TZ)"
+if [ "$DIMRC" -ne 0 ]; then
+  echo '{"failed":true,"rc":'"$DIMRC"'}' > "$P/DIM7_LOSS_GRAD_FAILED.json"
+fi
 if [ -f "$P/BASE_ANCHOR_V31.json" ]; then
   echo "BASE_SKIP_EXISTING $(date -u +%FT%TZ)"
   echo "BASE_DONE $(date -u +%FT%TZ)"

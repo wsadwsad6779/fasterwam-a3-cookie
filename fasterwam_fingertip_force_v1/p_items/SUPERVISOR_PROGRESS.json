@@ -1,6 +1,6 @@
 {
  "worker": "task7",
- "updated_at": "2026-11-25T06:28:40Z",
+ "updated_at": "2026-11-25T06:58:52Z",
  "phase": "F0_TRAINING_WITH_QUEUED_R_SWEEP",
  "training": {
   "last_verified_step": 15800,
@@ -263,7 +263,7 @@
  },
  "goal_artifact": "p_items/T7_GOAL_PAUSED_ROOT_CAUSE_GRIPPER.md",
  "r_sweep": {
-  "status": "queued_waiting_gpu",
+  "status": "RUNNING since 2026-11-25T06:56:27Z (r10/16/32)",
   "owner": "worker",
   "tmux": "fwv1:r_compare",
   "stage1": "r=10/16/32 only (r10 official, r16/r32 diagnostic); r24 BLOCKED_USER not run",
@@ -356,12 +356,15 @@
   "next": "F2 3k paired eval, then cmp + zip + FROZEN POST"
  },
  "base_anchor": {
-  "status": "queued after post_r",
-  "tmux": "fwv1:base_anchor",
-  "seeds": "7100-7109",
-  "base_sha256": "01be4efc",
-  "eval_sha256": "37376d2c",
-  "output": "p_items/BASE_ANCHOR_V31.json"
+  "status": "DONE",
+  "file": "p_items/BASE_ANCHOR_V31.json",
+  "base_means": {
+   "in_target": 0.0,
+   "exact": 0.0,
+   "grasps": 0.1,
+   "carry": 0.988,
+   "open_cmd": 0.4133
+  }
  },
  "gpu_time": {
   "remaining_hours": null,
@@ -381,5 +384,39 @@
   "finding": "the F2 3k eval silently used the base model because the 3k checkpoint was archived to /root",
   "action": "r sweep paused; F2 3k rerun with /root/fwv1_checkpoint_archive/step_003000.pt sha 342c4c4a; base run promoted to base_v31_thinpads",
   "f0_a4": "old comparison void; corrected paired comparison after the rerun"
+ },
+ "r2_chunk_mechanism": {
+  "status": "DONE",
+  "artifact": "p_items/P16_CHUNK_MECHANISM_7504_7508.json",
+  "commit": "b374bbb",
+  "finding": "7504 r10 executed 6 close chunks/0 in-target; r32 3 close chunks/3 strict (5 user); 7508 r32 4 close chunks/0; r32 chunk/seed luck"
+ },
+ "f2_rerun": {
+  "status": "running",
+  "seeds_done": 6,
+  "total": 10,
+  "checkpoint": "/root/fwv1_checkpoint_archive/step_003000.pt",
+  "checkpoint_sha256": "342c4c4a74e63598a6a565eda59db2570878d842742fc65ba7ad343db058a34e",
+  "summary_acceptance": "new SUMMARY checkpoint_sha256 must equal 342c4c4a; old base summary (sha null) is not accepted"
+ },
+ "f2_3k_corrected": {
+  "status": "ACCEPTED",
+  "checkpoint_sha256": "342c4c4a74e63598a6a565eda59db2570878d842742fc65ba7ad343db058a34e",
+  "summary_sha256": "28b47a0be12c7789e431b9ec4a7806519344f440a8f0f4781f214f506e843cc1",
+  "exact_fill_rate": 0.0,
+  "avg_in_target": 0.0,
+  "grasps_mean": 11.6,
+  "exec_median": 0.3897,
+  "exec_lt_030": 0.0105,
+  "open_cmd": 0.0175,
+  "evidence": "p_items/P17_F2_3K_CORRECTED.json"
+ },
+ "f0_a4": {
+  "status": "DONE",
+  "f0_exec_median": 0.4305,
+  "f0_exec_lt_030": 0.059,
+  "f2_exec_median": 0.3897,
+  "f2_exec_lt_030": 0.0105,
+  "verdict": "both exact 0; both few closed-band commands; shared continuous supervision remains the leading problem"
  }
 }

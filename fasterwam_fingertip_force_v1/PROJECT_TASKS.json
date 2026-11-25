@@ -300,10 +300,16 @@
   {
    "id": "F0-A4",
    "name": "F0 vs F2 \u516c\u5e73\u5bf9\u7167\u62a5\u544a\uff08\u540c\u6570\u636e/\u540c\u534f\u8bae\uff1bF2 \u7528\u4fee\u6b63\u8bc4\u4f30\u5668\u91cd\u8bc4\uff09",
-   "status": "RUNNING",
+   "status": "DONE",
    "sequence": "S4",
    "requires_gpu": false,
-   "note": "F2 3k paired eval first attempt silently used the base because the 3k checkpoint was archived; rerun with the archive checkpoint sha 342c4c4a is running; corrected comparison after it"
+   "note": "corrected F2 3k accepted at sha 342c4c4a; F0/F2 both exact 0/10, in_target 0; F0 exec median 0.4305 (<0.30 5.9%), F2 0.3897 (1.05%); evidence P17 + F0_F2_COMPARISON_3K + F2_EVAL_3K_DONE + BASE_ANCHOR_V31",
+   "evidence": [
+    "p_items/P17_F2_3K_CORRECTED.json",
+    "p_items/F0_F2_COMPARISON_3K.json",
+    "p_items/F2_EVAL_3K_DONE.json",
+    "p_items/BASE_ANCHOR_V31.json"
+   ]
   },
   {
    "id": "F0-EXT",
@@ -353,7 +359,7 @@
    "id": "R1_REPLAN_SWEEP",
    "status": "RUNNING",
    "name": "r=10(official)/16/32 x seeds 7500-7509 on F2 step_015000",
-   "note": "queued behind F0 stage1 + F0/F2 3k evals; tmux fwv1:r_compare; r10 reused from official milestone",
+   "note": "r_compare restarted 06:56:27Z with r=10/16/32 (r10 official, r16/r32 diagnostic); r24 BLOCKED_USER; seeds 7500-7509; strict+relaxed columns",
    "evidence": [
     "p_items/R0_PROTOCOL_FINGERPRINT.json",
     "p_items/R_SWEEP_PROGRESS.json"
@@ -409,7 +415,7 @@
   "p_items/GPU_TIME_STATE.json",
   "p_items/GPU_UPLOAD_MANIFEST.json"
  ],
- "updated_at": "2026-11-25T06:46:10Z",
+ "updated_at": "2026-11-25T06:58:52Z",
  "v4": {
   "goal": "DUAL_TRACK_F0_TRAINING_F2_PAUSED_DIAG",
   "authorized": "user 2026-11-25T02:23Z: F0 up to 21k, stage1 3000 independent; F2 paused at 15800",
