@@ -1,5 +1,5 @@
 {
- "base_model_policy": "唯一基座 = hustvl/FasterWAM 官方 step_021700.pt（proprio 8 / action 7 / 无 force conditioner，只读）。禁止旧 A3 无力微调 checkpoint、Force40k、C@1000/C@8000/C@12000、V3/V4、step_040000_merged、G3/M5/oracle 作为最终策略；F0/F1/F2 必须从同一官方 checkpoint 初始化。",
+ "base_model_policy": "唯一基座 = hustvl/FasterWAM 官方 step_021700.pt（proprio 8 / action 7 / 无 force conditioner，只读）。禁止旧 A3 无力微调 checkpoint、Force40k、C@1000/C@8000/C@12000、V3/V4、step_040000_merged、G3/M5/oracle 作为最终策略；F0/F1/F2 必须从同一官方 checkpoint 初始化。 | OFFICIAL_BASE: hustvl/FasterWAM step_021700.pt sha256 01be4efca565d1890fd8a7dc1507b01c00c8cc63c16ae252287492ba9ac7550d ; READ-ONLY ; training may start ONLY from this base checkpoint; no other checkpoint is a legal init.",
  "master_plan": {
   "file": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
   "ack": "p_items/T7_MASTER_PLAN_ACK.json",
