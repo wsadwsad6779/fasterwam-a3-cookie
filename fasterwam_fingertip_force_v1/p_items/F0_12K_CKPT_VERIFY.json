@@ -1,0 +1,15 @@
+{
+  "artifact": "F0_12K_CKPT_VERIFY",
+  "ts": "2026-11-25T21:00:00Z",
+  "checkpoint": "/workspace/fwv1/f0_v3_baseline/step_012000.pt",
+  "exists": true,
+  "step": 12000,
+  "bytes": 3354213309,
+  "bytes_vs_9k": "EQUAL to step_009000.pt (3354213309). The '>3354213309' criterion is not satisfiable for same-architecture checkpoints (identical param count => identical byte size).",
+  "sha256": "d3f2a3a8897dc346ac3523ab2499ef5134f35e1401d460b098603022bb1e60f4",
+  "sha9k": "7ca235ba1d5ad35aac0f8caa66334cf2cb7dbaa026b60cf15ac8842b83621979",
+  "not_a_copy_of_9k": true,
+  "gate_decision": "PASS on the meaningful anti-copy check (sha256 differs from 9k). Byte-size is equal by architecture, not a failure.",
+  "trainer": {"pid": 2802715, "status": "done at segment 9000->12000", "ts": "2026-11-25T20:56:23Z"},
+  "next": "12k official 10-seed eval (7400-7409) auto-running via _t7_f0_resume_12k_15k.sh (fail-closed, r10/H32, g=2a-1, rot x5, src==70); SUMMARY -> cmp_f0_12k/SUMMARY_step_12000.json, then 13k->15k"
+}
