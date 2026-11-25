@@ -1,9 +1,10 @@
 {
- "ts": "2026-11-25T16:58:00Z",
+ "ts": "2026-11-25T17:20:00Z",
+ "deferred_gpu_gap": ["P2-TF-6STAGE", "P2-CLONE", "P2-GRAD-COS", "P3-PROFILE", "any GPU-needing P1/P2"],
  "owner": "supervisor",
  "pipeline": "post9k -> hsweep -> h0f0 -> b234",
  "f0": {"status": "FROZEN", "frozen_at_step": 9000, "checkpoint_sha256": "7ca235ba1d5ad35aac0f8caa66334cf2cb7dbaa026b60cf15ac8842b83621979", "9k_eval": {"avg_in_target": 0, "exact_fill": "0/10", "grasps_mean": 3.2}, "12k": "RESUMING now (f0resume tmux, train pid 2802715, 9000->12000; started 2026-11-25T17:09:52Z)", "hard_stop": 15000},
- "f0_resume": {"status": "RUNNING 12000", "tmux": "f0resume", "pid": 2802709, "train_pid": 2802715, "script": "/workspace/_t7_f0_resume_12k_15k.sh", "plan": "9k->12k(save+eval 7400-7409)->15k(stop+eval 7500-7509+frozen F0_FROZEN_15K.json); idempotent; hard stop 15000; no 15k->21k"},
+ "f0_resume": {"status": "RUNNING 12000", "tmux": "f0resume", "pid": 2802709, "train_pid": 2802715, "started_at": "2026-11-25T17:09:52Z", "step_at_write": 9040, "eta_12k": "~2026-11-25T19:40Z", "script": "/workspace/_t7_f0_resume_12k_15k.sh", "plan": "9k->12k(save+eval 7400-7409)->15k(stop+eval 7500-7509+frozen F0_FROZEN_15K.json); idempotent; hard stop 15000; no 15k->21k"},
  "f2": {"status": "paused", "step": 15800, "sha_prefix": "fa9d87e3", "note": "read-only inference only"},
  "hsweep_r1": {
    "status": "DONE 2026-11-25T16:54:29Z",
