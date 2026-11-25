@@ -18,7 +18,7 @@ def load(p):
 
 
 def chunk_exec(root, seed, r):
-    d = load(os.path.join(root, 'seed_%05d', 'chunks.json' % seed))
+    d = load(os.path.join(root, 'seed_%05d' % seed, 'chunks.json'))
     if not d:
         return None
     vals = []
@@ -62,7 +62,23 @@ for r in (10, 16, 32):
            'mean_grasps': sum(x['grasps'] or 0 for x in rows) / n if n else None,
            'mean_exec_lt_030': (sum(x['exec_lt_0.30'] for x in rows if 'exec_lt_0.30' in x)
                                 / max(1, sum(1 for x in rows if 'exec_lt_0.30' in x))),
-           'rows': rows, 'source_summary': sp}
+           'rows': rows, 'source_summary': sp,
+           'exec_median_mean': (sum(x['exec_median'] for x in rows if 'exec_median' in x)
+                                / max(1, sum(1 for x in rows if 'exec_median' in x))),
+           'note': 'r10 is the official protocol; official anchor = the 15k milestone strict r10; this relaxed r10 rerun does not replace it' if r == 10 else 'diagnostic only'}
+    if r == 10:
+        off = load(EV + '/step_015000/SUMMARY_step_15000.json') or {}
+        om = {x.get('episode'): x for x in off.get('results', [])}
+        checks = []
+        for x in rows:
+            o = om.get(x['seed'])
+            if not o:
+                continue
+            checks.append({'seed': x['seed'],
+                           'in_target_equal': (x['in_target_strict'] or 0) == (o.get('final_in_target') or 0),
+                           'exact_equal': bool(x['exact_fill']) == bool(o.get('exact_fill')),
+                           'grasps_equal': (x['grasps'] or 0) == (o.get('grasps') or 0)})
+        out['strict_anchor_match'] = {'all': bool(checks) and all(c['in_target_equal'] and c['exact_equal'] and c['grasps_equal'] for c in checks), 'per_seed': checks}
     json.dump(out, open(os.path.join(P, 'R_COMPARE_PARTIAL_r%d.json' % r), 'w'), indent=1)
     written.append('r%d n=%d user=%s strict=%s' % (r, n, out['mean_in_target_user'], out['mean_in_target_strict']))
 print(TS, 'partials:', written)

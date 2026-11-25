@@ -1,7 +1,7 @@
 {
  "study": "R1_REPLAN_SWEEP",
- "updated_utc": "2026-11-25T07:11:24Z",
- "status": "running (r10 in progress since 2026-11-25T06:56:27Z)",
+ "updated_utc": "2026-11-25T07:18:42Z",
+ "status": "running (r10 DONE, r16 in progress)",
  "owner": "worker task7",
  "gpu_lock_holder": "r_compare (eval-only) pid 3189372",
  "waiting_for": [],
@@ -24,9 +24,9 @@
    7509
   ],
   "r10_source": "relaxed-r10 diagnostic rerun; official strict r10 anchor = 15k milestone eval, not replaced",
-  "r16_status": "queued after r10",
+  "r16_status": "in_progress since 2026-11-25T07:15:52Z (pid 3216385)",
   "r32_status": "queued after r16",
-  "r10_status": "in_progress: 7/10 seeds at 2026-11-25T07:10:50Z; started 2026-11-25T06:56:27Z",
+  "r10_status": "DONE: 10/10 seeds at 2026-11-25T07:16:56Z; mean user 0.0 / strict 0.0; exact 0; grasps 1.9; exec<0.30 5.2%; exec median 0.4172; strict anchor match ALL true",
   "r24_status": "BLOCKED_USER: not approved in V5; not run",
   "r24": {
    "status": "BLOCKED_USER",
@@ -136,7 +136,12 @@
   "r32": "pending"
  },
  "partials": {
-  "r10": "p_items/R_COMPARE_PARTIAL_r10.json (first write after the 10th seed; pod-side fwv1:r_partial, 60s loop)",
+  "r10": {
+   "path": "p_items/R_COMPARE_PARTIAL_r10.json",
+   "first_written": "2026-11-25T07:16:56Z",
+   "bytes": 4149,
+   "strict_anchor_match": true
+  },
   "r16": "p_items/R_COMPARE_PARTIAL_r16.json",
   "r32": "p_items/R_COMPARE_PARTIAL_r32.json"
  },
@@ -145,6 +150,6 @@
   "tmux": "fwv1:r_partial",
   "script": "/workspace/_r_partial.py",
   "log": "/workspace/fwv1/logs/r_partial.log",
-  "first_written": null
+  "first_written": "2026-11-25T07:16:56Z"
  }
 }
