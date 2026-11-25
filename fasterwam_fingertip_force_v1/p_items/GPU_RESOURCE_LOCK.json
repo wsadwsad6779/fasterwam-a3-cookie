@@ -1,0 +1,40 @@
+{
+ "ts": "2026-11-25T07:09:15Z",
+ "holder": "r_compare (eval only)",
+ "mode": "eval-only",
+ "pid": 3189372,
+ "experiment_id": "f0_v3_baseline",
+ "f2": {
+  "status": "paused at 15800",
+  "training_allowed": false,
+  "note": "STOP_TRAINING stays; 5200 steps need user spec+budget"
+ },
+ "policy": "one large model on GPU at a time; F0 training priority; F2 GPU diagnostics wait for a real gap or explicit lock handoff",
+ "gpu": "single AMD GPU 51.5GB; training ~25GB",
+ "note": "no concurrent F2 eval/ablation while F0 trains",
+ "step": 650,
+ "queued": [
+  {
+   "name": "base_anchor_chain",
+   "status": "waiting for the r sweep to free the GPU (its _t7_eval guard)",
+   "tmux": "fwv1:base_anchor",
+   "next": "teacher-forced 3k -> dim7 audit -> skip base eval (BASE_ANCHOR exists)"
+  },
+  {
+   "name": "f0_continuation_15k",
+   "status": "waiting only; no training",
+   "tmux": "fwv1:f0_continue",
+   "starts_after": "POSTR_DONE + BASE_ANCHOR + DIM7"
+  },
+  {
+   "name": "r_partial",
+   "type": "CPU only",
+   "tmux": "fwv1:r_partial"
+  }
+ ],
+ "checkpoint": "/workspace/fwv1/train_runs/t7_21k_v3run/step_015000.pt",
+ "postr": {
+  "status": "done 06:39:36",
+  "contention": "overlapped the F2 3k rerun ~11 min; flagged"
+ }
+}

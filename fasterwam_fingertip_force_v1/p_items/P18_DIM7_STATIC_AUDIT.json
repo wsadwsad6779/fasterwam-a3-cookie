@@ -1,0 +1,65 @@
+{
+ "ts": "2026-11-25T07:04:55Z",
+ "artifact": "P18_DIM7_STATIC_AUDIT",
+ "scope": "dim6 (V3 continuous opening): loss, normalizer, weights, pm1, smoothing; gradient audit is the separate DIM7_LOSS_GRAD_AUDIT",
+ "normalizer": {
+  "file": "/workspace/fwv1/data/a3_fw_845/dataset_stats_v3.json",
+  "sha256": "af0f9997613c1c96ef356ae090fcd56b2a574e840d1da646768816bef9215cf7",
+  "dim6_min": 0.2800000011920929,
+  "dim6_max": 1.0,
+  "mapping": {
+   "0.28": -1.000000003311369,
+   "0.49": -0.4166666690122198,
+   "1.0": 1.0
+  },
+  "reading": "0.28/0.49/1.0 map to distinct values; no clipping/remap"
+ },
+ "loss": {
+  "code_line": {
+   "line": 850,
+   "text": "action_loss_token = F.mse_loss(pred_action.float(), target_action.float(), reduction=\"none\").mean(dim=2) # [B, T]"
+  },
+  "weights": "equal over 7 dims; lambda_action=1.0; no per-dim weight",
+  "noise": "flow-matching Gaussian noise; target is velocity",
+  "no_pm1": "no pm1 conversion in training or eval",
+  "no_smoothing": "no output smoothing; eval applies the predicted chunk directly"
+ },
+ "label_distribution": {
+  "lt_0.30": 0.4904,
+  "exactly_0.28": 0.4752,
+  "median": 0.3114
+ },
+ "f2_series": {
+  "exec_lt_030": {
+   "definition": "fraction of executed steps with act_grip_raw (V3 opening command) < 0.30",
+   "3k": 0.0105,
+   "6k": 0.011,
+   "9k": 0.0795,
+   "12k": 0.0488,
+   "15k": 0.052
+  },
+  "exec_median": {
+   "3k": 0.3897,
+   "6k": 0.4473,
+   "9k": 0.4431,
+   "12k": 0.4403,
+   "15k": 0.4333
+  }
+ },
+ "executed_3k": {
+  "f0": {
+   "n": 6000,
+   "median": 0.43046873807907104,
+   "lt_0.30": 0.059,
+   "open_ge_0.8": 0.018833333333333334
+  },
+  "f2": {
+   "n": 6000,
+   "median": 0.3896874785423279,
+   "lt_0.30": 0.0105,
+   "open_ge_0.8": 0.0175
+  }
+ },
+ "gradient_audit": "p_items/DIM7_LOSS_GRAD_AUDIT.json (GPU, run after the r sweep)",
+ "conclusion": "normalizer, loss weights, pm1 and smoothing are clean; the dim6 target is multimodal (49.0% <0.30) while both 3k models execute a mid-band (F0 0.4305/5.9%, F2 0.3897/1.05%). The static evidence supports a representation/objective problem, not a data mapping bug."
+}

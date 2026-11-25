@@ -10,7 +10,7 @@ TS = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
 
 
 def eval_procs():
-    out = subprocess.run(['pgrep', '-af', '_t7_eval.py'], capture_output=True, text=True).stdout
+    out = subprocess.run(['pgrep', '-af', '_t7_eval'], capture_output=True, text=True).stdout
     return [l for l in out.splitlines() if l.strip()]
 
 
@@ -41,8 +41,20 @@ if ps:
     step = e.get('T7_STEP', '?')
     root = os.path.join(EV, sub)
     seeds = sorted(glob.glob(root + '/seed_*')) if os.path.isdir(root) else []
+    try:
+        st = subprocess.run(['ps', '-o', 'lstart=', '-p', str(pid)],
+                            capture_output=True, text=True).stdout.strip()
+        start_epoch = time.mktime(time.strptime(st))
+    except Exception:
+        start_epoch = 0.0
+    done = 0
+    for sd in seeds:
+        ep = os.path.join(sd, 'events.json')
+        if os.path.exists(ep) and os.path.getmtime(ep) >= start_epoch:
+            done += 1
     state.update({'stage': sub, 'step': step, 'pid': pid, 'status': 'running',
-                  'seeds_done': len(seeds), 'expected_artifacts': [sub], 'checkpoint': e.get('T7_CKPT', ''),
+                  'seeds_done': done, 'seed_dirs_total': len(seeds),
+                  'expected_artifacts': [sub], 'checkpoint': e.get('T7_CKPT', ''),
                   'next': 'remaining seeds, then next eval phase'})
 else:
     f0 = os.path.exists(EV + '/cmp_f0_3k/SUMMARY_step_3000.json')

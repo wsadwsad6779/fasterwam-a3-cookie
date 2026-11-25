@@ -1,7 +1,7 @@
 {
  "study": "R1_REPLAN_SWEEP",
- "updated_utc": "2026-11-25T06:28:40Z",
- "status": "paused_for_f2_3k_rerun; restarts after the corrected F2 paired eval",
+ "updated_utc": "2026-11-25T07:09:15Z",
+ "status": "running since 2026-11-25T06:56:27Z (r10 first)",
  "owner": "worker task7",
  "gpu_lock_holder": "f0_v3_baseline pid 1426422",
  "waiting_for": [
@@ -127,5 +127,22 @@
   "verdict": "read-only reimplementation matches info.cookies_in_target; relaxed counter computes"
  },
  "stage2_note": "stage2 candidates remain BLOCKED_USER; not approved in V5",
- "protocol_correction": "p_items/P15_F2_3K_PROTOCOL_CORRECTION.json"
+ "protocol_correction": "p_items/P15_F2_3K_PROTOCOL_CORRECTION.json",
+ "progress": {
+  "r10": {
+   "stage": "diag15k_r10_grid",
+   "pid": 3189372,
+   "seeds_done": 5,
+   "seed_dirs_total": 6,
+   "state_ts": "2026-11-25T07:07:49Z"
+  },
+  "r16": "pending",
+  "r32": "pending"
+ },
+ "partials": {
+  "r10": "p_items/R_COMPARE_PARTIAL_r10.json (written by fwv1:r_partial)",
+  "r16": "p_items/R_COMPARE_PARTIAL_r16.json",
+  "r32": "p_items/R_COMPARE_PARTIAL_r32.json"
+ },
+ "postr_contention_note": "teacher-forced and ForceZero/SkipFiLM ran 06:27:51-06:39:36, overlapping the F2 3k rerun 06:28-06:39; the single-model lock was violated for ~11 min. The eval uses per-seed deterministic inference, but the timing is flagged."
 }

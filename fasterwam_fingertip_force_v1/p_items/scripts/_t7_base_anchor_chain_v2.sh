@@ -21,6 +21,9 @@ while true; do
   sleep 30
 done
 while pgrep -f "[_]t7_eval" >/dev/null; do sleep 30; done
+echo "TF3K_BEGIN $(date -u +%FT%TZ)"
+/opt/venv/bin/python /workspace/_teacher_forced_3k.py
+echo "TF3K_RC=$? $(date -u +%FT%TZ)"
 echo "DIM7_AUDIT_BEGIN $(date -u +%FT%TZ)"
 /opt/venv/bin/python /workspace/_dim7_loss_audit.py
 DIMRC=$?

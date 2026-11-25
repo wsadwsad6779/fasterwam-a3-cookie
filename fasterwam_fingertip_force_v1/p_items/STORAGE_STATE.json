@@ -1,85 +1,19 @@
 {
- "worker": "task7",
- "checked_at": "2026-11-24T05:22:25Z",
- "disk_total_gb": 98.0,
- "disk_used_gb": 54.0,
- "disk_free_gb": 38.8,
- "storage_min_free_gb": 50,
- "status": "STORAGE_LOW",
- "hotspots": [
-  {
-   "path": "/workspace/fwv1/wan_base",
-   "gb": 14.4,
-   "kind": "VAE 2.8GB + T5 11.36GB + config",
-   "in_use": true
-  },
-  {
-   "path": "/workspace/fwv1/data/hf_videos",
-   "gb": 4.3,
-   "kind": "28 AV1 training shards",
-   "in_use": true
-  },
-  {
-   "path": "/workspace/fwv1/train_runs/t7_21k_v3run",
-   "gb": 3.36,
-   "kind": "new run latest.pt step1400 + metrics",
-   "in_use": true
-  },
-  {
-   "path": "/workspace/fwv1/train_runs/t7_21k",
-   "gb": 3.36,
-   "kind": "old diagnostic latest.pt step200 (read-only)",
-   "in_use": false
-  },
-  {
-   "path": "/workspace/fwv1/train_runs/t7_21k_ABORTED_V2",
-   "gb": 6.72,
-   "kind": "V2 aborted checkpoints (read-only)",
-   "in_use": false
-  },
-  {
-   "path": "/workspace/fwv1/eval_fingertip_v1",
-   "gb": 0.1,
-   "kind": "eval videos",
-   "in_use": true
-  },
-  {
-   "path": "/root/fwv1_quarantine_20261124",
-   "gb": 15.7,
-   "kind": "smoke checkpoints moved off /workspace (not deleted)",
-   "in_use": false
-  }
+ "ts": "2026-11-25T07:09:15Z",
+ "artifact": "STORAGE_STATE",
+ "fs": "/dev/loop3",
+ "total_bytes": 105089261568,
+ "used_bytes": 72567853056,
+ "avail_bytes": 27135922176,
+ "avail_gib": 25.27,
+ "use_pct": 73,
+ "warning_threshold_gib": 50,
+ "policy": [
+  "move-only to /root; never delete unique checkpoints or raw data",
+  "upload + sha256 before any cleanup of regenerable files",
+  "F0 milestones keep the current checkpoint + latest; older move to /root",
+  "F2 checkpoints are not touched"
  ],
- "checkpoint_forecast": {
-  "measured_checkpoint_bytes": 3363807509,
-  "measured_checkpoint_gb": 3.36,
-  "plan_estimate_gb": 5.59,
-  "correction": "actual trainable-only checkpoints are 3.36GB, not 5.59GB",
-  "milestones": 7,
-  "all_kept_gb": 23.52,
-  "free_at_21k_all_kept_gb": 15.3,
-  "free_at_3k_estimate_gb": 35.4,
-  "free_at_6k_estimate_gb": 32.0,
-  "free_at_9k_estimate_gb": 28.7
- },
- "upload": {
-  "status": "no_external_backup",
-  "manifest": "p_items/GPU_UPLOAD_MANIFEST.json",
-  "note": "0 current-run checkpoints externally backed up; per-milestone HF attempt + sha256 verify mandatory"
- },
- "policy": {
-  "keep_on_workspace": "latest.pt + newest 2 milestone checkpoints",
-  "archive_dir": "/root/fwv1_checkpoint_archive",
-  "archive_rule": "after each milestone eval, if >=3 milestones exist or free < 35GB, move the oldest milestone(s) beyond the newest 2 to the archive; record sha256; never delete",
-  "external_upload": "attempt HF per milestone; mark external only after sha256 verify; failures keep archive and set external_backup_pending",
-  "align": "G-F GPU_UPLOAD_MANIFEST checkpoints[] entries (step/path/bytes/sha256/location/external)",
-  "refresh": "re-run df before/after every milestone and before GPU-low actions",
-  "archive_persistence": "same_host_move_not_backup — the /root overlay is on the rented instance; persistence across pod rebuild/restart is NOT confirmed",
-  "external_upload_required": true,
-  "external_rule": "checkpoint without an external sha256-verified copy => external=no_external_backup; per-milestone upload attempt is mandatory; record failure reasons (e.g. HF 401) instead of silently skipping"
- },
- "disk_total_bytes": 105089261568,
- "disk_used_bytes": 58042507264,
- "disk_free_bytes": 41661267968,
- "hard_floor_gb": 30
+ "last_move": "f0 step_003000 -> /root/fwv1_checkpoint_archive/f0_step_003000.pt at 05:59:13Z (free 22.46->25.58)",
+ "note": "actual free is 25.27 GiB, below the 50 GiB warning; the supervisor 38.8GB reading is stale"
 }

@@ -1,0 +1,94 @@
+{
+ "ts": "2026-11-25T07:04:55Z",
+ "artifact": "P19_FORCE_ABLATIONS",
+ "protocol": "F2 step_015000 sha 83aacf23; same seed/scene; r10; V3.1; read-only inference; no optimizer step",
+ "run_window": [
+  "DIAG_FORCE_START 2026-11-25T06:27:51Z",
+  "RC=0 forcezero seed=7508 2026-11-25T06:30:47Z",
+  "RC=0 forcezero seed=7504 2026-11-25T06:33:48Z",
+  "RC=0 skipfilm seed=7508 2026-11-25T06:36:37Z",
+  "RC=0 skipfilm seed=7504 2026-11-25T06:39:36Z",
+  "DIAG_FORCE_DONE 2026-11-25T06:39:36Z"
+ ],
+ "criteria": [
+  "same seed and scene as the normal r10 run",
+  "no optimizer step",
+  "exact_fill/in_target primary",
+  "gripper <0.30, carry>0.5 and force_max secondary"
+ ],
+ "results": {
+  "forcezero_7504": {
+   "exact_fill": false,
+   "in_target": 0,
+   "grasps": 7,
+   "carry_gt0p5": 0.2577132486388385,
+   "contact_frac": 0.2683333333333333,
+   "force_max": 47.52298355102539,
+   "close_cmd": 0.94,
+   "open_cmd": 0.03833333333333333,
+   "normal_reference": {
+    "exact_fill": false,
+    "in_target": 0,
+    "grasps": 0,
+    "carry_gt0p5": 0.09259259259259259,
+    "contact_frac": 0.185,
+    "force_max": 31.60087776184082
+   }
+  },
+  "forcezero_7508": {
+   "exact_fill": false,
+   "in_target": 0,
+   "grasps": 0,
+   "carry_gt0p5": 0.19320214669051877,
+   "contact_frac": 0.185,
+   "force_max": 76.34461975097656,
+   "close_cmd": 0.9383333333333334,
+   "open_cmd": 0.045,
+   "normal_reference": {
+    "exact_fill": false,
+    "in_target": 0,
+    "grasps": 0,
+    "carry_gt0p5": 0.508833922261484,
+    "contact_frac": 0.495,
+    "force_max": 142.92703247070312
+   }
+  },
+  "skipfilm_7504": {
+   "exact_fill": false,
+   "in_target": 0,
+   "grasps": 0,
+   "carry_gt0p5": 0.041379310344827586,
+   "contact_frac": 0.08166666666666667,
+   "force_max": 47.43257522583008,
+   "close_cmd": 0.9766666666666667,
+   "open_cmd": 0.02,
+   "normal_reference": {
+    "exact_fill": false,
+    "in_target": 0,
+    "grasps": 0,
+    "carry_gt0p5": 0.09259259259259259,
+    "contact_frac": 0.185,
+    "force_max": 31.60087776184082
+   }
+  },
+  "skipfilm_7508": {
+   "exact_fill": false,
+   "in_target": 0,
+   "grasps": 0,
+   "carry_gt0p5": 0.017699115044247787,
+   "contact_frac": 0.06166666666666667,
+   "force_max": 8.234467506408691,
+   "close_cmd": 0.9733333333333334,
+   "open_cmd": 0.021666666666666667,
+   "normal_reference": {
+    "exact_fill": false,
+    "in_target": 0,
+    "grasps": 0,
+    "carry_gt0p5": 0.508833922261484,
+    "contact_frac": 0.495,
+    "force_max": 142.92703247070312
+   }
+  }
+ },
+ "conclusion": "no ablation reaches in-target; forcezero increases grasps/carry on 7504 relative to normal (7 vs 0 grasps; carry 0.258 vs 0.093) while skipfilm lowers contact/carry on both seeds. The force path changes contact behavior but not success, so it is not the primary cause of the 0.43 mid-band; the shared continuous supervision remains leading."
+}

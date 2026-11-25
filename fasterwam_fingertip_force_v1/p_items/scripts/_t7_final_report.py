@@ -199,6 +199,9 @@ lines.append('')
 
 lines.append('## 6. Teacher-forced 夹爪分布（F2 step_015000）')
 if tf:
+    lines.append('- 覆盖：n=%s，variants=%s，phases=%s；未覆盖 APPROACH/RESET/RELEASE/DESCEND（同一 val 批次）。' % (
+        tf.get('n_samples'), list((tf.get('summary') or {}).keys()),
+        list(((tf.get('summary') or {}).get('normal') or {}).keys())))
     rows = []
     for variant, per in (tf.get('summary') or {}).items():
         for ph, v in per.items():
@@ -224,6 +227,20 @@ else:
     lines.append('- 缺失：`p_items/DIM7_LOSS_GRAD_AUDIT.json`（base anchor 前串行跑）。')
 lines.append('')
 
+lines.append('## 6B. Teacher-forced 3k vs 15k（同 val 观测，换 checkpoint）')
+tf3 = load(P + '/TEACHER_FORCED_3K.json')
+if tf3:
+    rows = []
+    for variant, per in (tf3.get('summary') or {}).items():
+        for ph, v in per.items():
+            rows.append([variant, ph, v.get('n'), v.get('label0_lt_0.30'), v.get('pred0_lt_0.30'),
+                         v.get('pred9_lt_0.30'), v.get('pred31_lt_0.30'), v.get('pred0_median')])
+    lines.append(table(['variant', 'phase', 'n', 'label<0.30', 'pred0<0.30', 'pred9<0.30', 'pred31<0.30', 'pred0 median'], rows))
+    lines.append('- 读法：同一批专家观测下，3k 与 15k 的 pred 分布差异反映 checkpoint/训练阶段，不是观测差异。')
+else:
+    lines.append('- 缺失：`p_items/TEACHER_FORCED_3K.json`（base 链在 r sweep 之后跑）。')
+lines.append('')
+
 lines.append('## 7. ForceZero / SkipFiLM 消融（F2 step_015000，seeds 7504/7508）')
 rows = []
 for (v, s), d in abl.items():
@@ -239,8 +256,16 @@ lines.append('- F2：暂停在 15800/21000，剩 5200；无自动续训。')
 lines.append('- F0：step3000 完成；用户 2026-11-25T03:45:38Z 批准从 3000 续训到 15000，每 3000 保存 checkpoint 并做 10-seed 评估；15000 为硬上限，15k→21k 仍为 BLOCKED_USER。')
 lines.append('- **F0 3k 自检（仅记录，不阻断）**：selfcheck 结论会写进报告与 `F0_SELFCHECK_GATE.json`，但续训按用户 2026-11-25T04:03:50Z 指令**无条件**执行 6k/9k/12k/15k，避免 GPU 空转。')
 lines.append('- 续训条件：同数据/标签/7D/8D/采样器/loss/优化器/lr/batch/clip/seed，无 force 模块；LR 余弦总跨度仍为 21000（与 F2 对齐）。')
+lines.append('- GPU 时间与顺序：GPU_TIME_STATE 的 remaining_hours 只能从 Radeon 控制台读（agent 读不到）；按最后一次控制台读数的线性估计安排——先 POSTR 诊断（r sweep + teacher + 消融 + dim7 + base，约 1.5–2h）再 F0 12k（约 10.3h）；若控制台显示剩余 <12h，则改为 F0 先走、纯评估后置。')
 lines.append('- 里程碑 seeds：6k=7200-7209、9k=7300-7309、12k=7400-7409、15k=7500-7509（与 F2 同组，配对比较）。')
 lines.append('- 队列顺序：F0 3k → F2 3k → r 扫描 → teacher-forced → ForceZero/SkipFiLM → 本报告 → F0 6k/9k/12k/15k。')
+lines.append('')
+
+lines.append('## 8A. 夹爪专用设计 A/B/C 规格草案（BLOCKED_USER，未实施）')
+lines.append('- **A 状态头 + 连续开度**：在 action expert 的 1024 维特征上加一个夹爪状态头（3 态 open/close/release + 连续开度），头约 1–2M 参数；从 15800 起联合微调头 + action expert 2–4k 步；目标是显式学双峰而不是回归均值；验证：15k/15800 权重、10-seed r10、V3.1 冻结场景；风险：头可能仍在模式内取均值，需要分类/分布损失配合。')
+lines.append('- **B 分布式损失**：把第 7 维的 MSE 换成分布式目标（two-hot/HL-Gauss 开度分箱，或 mixture-density 头），其余 6 维保持 MSE；从 15800 起 3–6k 步；需要新的标签分箱与 loss 实现；风险：会扰动其他维，需分维权重与消融。')
+lines.append('- **C Flow Matching 采样修复**：先做零训练推理修复（denoise 5→10/20、采样器/guidance、只对第 7 维做约束），不改权重；若有效再做 1–2k 步短微调；风险：推理变慢、可能仍不破均值；这是最便宜的验证项。')
+lines.append('- 共同约束：V3 连续标签、同一 8D/7D、同一 V3.1 薄垫与 r10 官方口径、exact_fill 仍按 strict；A/B/C 均需用户规格 + 预算批准后才实现；当前只写规格，不动 F2 checkpoint / STOP_TRAINING。')
 lines.append('')
 
 lines.append('## 9. 产物')

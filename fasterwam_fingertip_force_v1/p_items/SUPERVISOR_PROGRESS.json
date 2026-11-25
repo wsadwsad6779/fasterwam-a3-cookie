@@ -1,6 +1,6 @@
 {
  "worker": "task7",
- "updated_at": "2026-11-25T06:58:52Z",
+ "updated_at": "2026-11-25T07:09:15Z",
  "phase": "F0_TRAINING_WITH_QUEUED_R_SWEEP",
  "training": {
   "last_verified_step": 15800,
@@ -128,15 +128,8 @@
   "note": "local heartbeat; mirror freshness is the only live signal while the operator channel is down"
  },
  "storage": {
-  "free_bytes": 24184008704,
-  "free_gib": 22.5,
-  "warning": "actual free is 22.5 GiB, not 38.8 GiB; below the 50 GiB warning",
-  "plan": [
-   "move F0 step_003000 to /root/fwv1_checkpoint_archive after the 3k eval",
-   "then keep only the current F0 milestone + latest; move older milestones to /root",
-   "move-only with sha256; never delete unique checkpoints or raw data",
-   "external upload of 3.3 GB checkpoints is blocked: HF 401 / hf-mirror read-only, GitHub 100 MB single-file limit"
-  ]
+  "avail_gib": 25.27,
+  "file": "p_items/STORAGE_STATE.json"
  },
  "gpu": {
   "vram_used_mb": 24359,
@@ -263,7 +256,7 @@
  },
  "goal_artifact": "p_items/T7_GOAL_PAUSED_ROOT_CAUSE_GRIPPER.md",
  "r_sweep": {
-  "status": "RUNNING since 2026-11-25T06:56:27Z (r10/16/32)",
+  "status": "running 06:56:27Z; r10 5/6 seed dirs at 07:07:49Z",
   "owner": "worker",
   "tmux": "fwv1:r_compare",
   "stage1": "r=10/16/32 only (r10 official, r16/r32 diagnostic); r24 BLOCKED_USER not run",
@@ -289,7 +282,12 @@
   "artifacts": [
    "p_items/R0_PROTOCOL_FINGERPRINT.json",
    "p_items/R_SWEEP_PROGRESS.json"
-  ]
+  ],
+  "partials": {
+   "r10": "p_items/R_COMPARE_PARTIAL_r10.json (written by fwv1:r_partial)",
+   "r16": "p_items/R_COMPARE_PARTIAL_r16.json",
+   "r32": "p_items/R_COMPARE_PARTIAL_r32.json"
+  }
  },
  "acks": [
   "ACK 2026-11-25T03:21Z supervisor 03:12Z checklist: F0 alive at step 650; POD_JOB_STATE_F0 mirror armed; r-sweep queued behind F0 stage-1 under the same GPU lock; F2 remains paused at 15800 with no auto-resume",
@@ -418,5 +416,17 @@
   "f2_exec_median": 0.3897,
   "f2_exec_lt_030": 0.0105,
   "verdict": "both exact 0; both few closed-band commands; shared continuous supervision remains the leading problem"
+ },
+ "p18_p19": {
+  "paths": [
+   "p_items/P18_DIM7_STATIC_AUDIT.json",
+   "p_items/P19_FORCE_ABLATIONS.json"
+  ],
+  "p18": "normalizer/loss/pm1/smoothing clean; dim6 label 49% <0.30 vs executed F0 5.9%/F2 1.05%",
+  "p19": "forcezero/skipfilm no in-target; force path changes contact but not success"
+ },
+ "teacher_3k": {
+  "status": "queued in the base chain after the r sweep",
+  "coverage_15k": "n=8, phases CARRY_CLOSED/CONTACT_CLOSE only"
  }
 }
