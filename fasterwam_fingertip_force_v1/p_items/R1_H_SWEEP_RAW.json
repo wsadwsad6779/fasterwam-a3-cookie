@@ -1,0 +1,63 @@
+{
+  "artifact": "R1_H_SWEEP_RAW",
+  "ts": "2026-11-25T17:00:00Z",
+  "model": "/workspace/fwv1/train_runs/t7_21k_v3run/step_015000.pt",
+  "model_sha256": "83aacf23cc146af4b33027ab1cfaea0ce8fd0a0aac6c28cf683fdfc69dbab2e1",
+  "protocol": {"execute_policy": "r = H", "denoise_steps": 5, "max_steps": 600, "safety_guard": true, "seeds": [7500, 7501, 7502, 7503, 7504, 7505, 7506, 7507, 7508, 7509], "H_values": [32, 48, 64], "H_multiple_of_8": true},
+  "per_H": {
+    "32": {
+      "per_seed": [
+        {"seed": 7500, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7501, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7502, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7503, "strict": 0, "relaxed": 2, "grasps": 5},
+        {"seed": 7504, "strict": 3, "relaxed": 5, "grasps": 5},
+        {"seed": 7505, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7506, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7507, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7508, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7509, "strict": 0, "relaxed": 0, "grasps": 0}
+      ],
+      "mean_strict": 0.3, "mean_relaxed": 0.7, "exact_fill": "0/10", "grasps_mean": 1.0
+    },
+    "48": {
+      "per_seed": [
+        {"seed": 7500, "strict": 0, "relaxed": 0, "grasps": 28},
+        {"seed": 7501, "strict": 0, "relaxed": 0, "grasps": 2},
+        {"seed": 7502, "strict": 0, "relaxed": 0, "grasps": 6},
+        {"seed": 7503, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7504, "strict": 0, "relaxed": 0, "grasps": 6},
+        {"seed": 7505, "strict": 0, "relaxed": 0, "grasps": 10},
+        {"seed": 7506, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7507, "strict": 0, "relaxed": 0, "grasps": 6},
+        {"seed": 7508, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7509, "strict": 0, "relaxed": 0, "grasps": 28}
+      ],
+      "mean_strict": 0.0, "mean_relaxed": 0.0, "exact_fill": "0/10", "grasps_mean": 8.6
+    },
+    "64": {
+      "per_seed": [
+        {"seed": 7500, "strict": 0, "relaxed": 0, "grasps": 7},
+        {"seed": 7501, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7502, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7503, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7504, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7505, "strict": 0, "relaxed": 0, "grasps": 13},
+        {"seed": 7506, "strict": 0, "relaxed": 0, "grasps": 12},
+        {"seed": 7507, "strict": 0, "relaxed": 0, "grasps": 6},
+        {"seed": 7508, "strict": 0, "relaxed": 0, "grasps": 0},
+        {"seed": 7509, "strict": 0, "relaxed": 0, "grasps": 0}
+      ],
+      "mean_strict": 0.0, "mean_relaxed": 0.0, "exact_fill": "0/10", "grasps_mean": 3.8
+    }
+  },
+  "escalation": {
+    "start": [32, 48, 64],
+    "rule": "add +16 only if newest in-box > previous and shows a good result; stop on platform(|delta|<0.2)/decline",
+    "decision": "H64 (0.0) <= H48 (0.0) => platform/decline => STOP; no +16 escalation",
+    "fine_scan": "NOT performed: best interval mean in-box < 2 blocks",
+    "H_gt_32_status": "observational in-box only; UNTRAINED positions => NOT a capability"
+  },
+  "key_finding": "zero-training H expansion collapses in-box: H32 relaxed0.7/strict0.3 -> H48/H64 relaxed0.0/strict0.0; grasp ATTEMPTS rise at H48 (8.6) but no stable placement -> extended tail is OOD motion that increases attempts without placement",
+  "note": "strict and relaxed reported separately; exact_fill 0/10 every H; official H32/r10/exact_fill(src==70) unchanged; r=H observational"
+}
