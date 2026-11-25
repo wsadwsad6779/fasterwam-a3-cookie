@@ -1,0 +1,127 @@
+{
+ "ts": "2026-11-25T07:44:31Z",
+ "replan": 32,
+ "label": "diagnostic-only r32",
+ "official_anchor": false,
+ "n_seeds": 10,
+ "mean_in_target_user": 0.7,
+ "mean_in_target_strict": 0.3,
+ "exact_fill_rate": 0.0,
+ "mean_grasps": 1.0,
+ "mean_exec_lt_030": 0.09391447368421053,
+ "rows": [
+  {
+   "seed": 7500,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.975,
+   "exec_lt_0.30": 0.10032894736842106,
+   "exec_median": 0.4248437285423279
+  },
+  {
+   "seed": 7501,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9583333333333334,
+   "exec_lt_0.30": 0.07730263157894737,
+   "exec_median": 0.39390623569488525
+  },
+  {
+   "seed": 7502,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.03333333333333333,
+   "close_cmd": 0.9533333333333334,
+   "exec_lt_0.30": 0.047697368421052634,
+   "exec_median": 0.4030468463897705
+  },
+  {
+   "seed": 7503,
+   "in_target_user": 2,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 5,
+   "open_cmd": 0.03,
+   "close_cmd": 0.9533333333333334,
+   "exec_lt_0.30": 0.13980263157894737,
+   "exec_median": 0.4009374678134918
+  },
+  {
+   "seed": 7504,
+   "in_target_user": 5,
+   "in_target_strict": 3,
+   "exact_fill": false,
+   "grasps": 5,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9766666666666667,
+   "exec_lt_0.30": 0.1118421052631579,
+   "exec_median": 0.41499999165534973
+  },
+  {
+   "seed": 7505,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9766666666666667,
+   "exec_lt_0.30": 0.10526315789473684,
+   "exec_median": 0.41640621423721313
+  },
+  {
+   "seed": 7506,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9383333333333334,
+   "exec_lt_0.30": 0.06743421052631579,
+   "exec_median": 0.41218748688697815
+  },
+  {
+   "seed": 7507,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9783333333333334,
+   "exec_lt_0.30": 0.08881578947368421,
+   "exec_median": 0.4213280975818634
+  },
+  {
+   "seed": 7508,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.03833333333333333,
+   "close_cmd": 0.9466666666666667,
+   "exec_lt_0.30": 0.1069078947368421,
+   "exec_median": 0.3531249761581421
+  },
+  {
+   "seed": 7509,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.03666666666666667,
+   "close_cmd": 0.9383333333333334,
+   "exec_lt_0.30": 0.09375,
+   "exec_median": 0.4072656035423279
+  }
+ ],
+ "source_summary": "/workspace/fwv1/eval_fingertip_v1/diag15k_r32_grid/SUMMARY_step_diag15k_r32.json",
+ "exec_median_mean": 0.404804664850235,
+ "note": "diagnostic only"
+}

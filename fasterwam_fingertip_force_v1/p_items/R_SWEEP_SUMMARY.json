@@ -1,0 +1,136 @@
+{
+ "study": "R1_REPLAN_SWEEP",
+ "checkpoint_sha256": "83aacf23cc146af4b33027ab1cfaea0ce8fd0a0aac6c28cf683fdfc69dbab2e1",
+ "counting_rule": {
+  "primary": "user rule: footprint inside target box AND bottom edge on the box floor (within 4 mm); upright not required",
+  "strict": "sim cookies_in_target requires tilt <= 15deg; exact_fill unchanged",
+  "note": "all r rerun with the diagnostic script and the relaxed counter so the curve uses one rule"
+ },
+ "runs": [
+  {
+   "replan": 10,
+   "n_seeds": 10,
+   "label": "relaxed-r10 (diagnostic)",
+   "official_anchor": true,
+   "official_strict_match": {
+    "all": true,
+    "per_seed": [
+     {
+      "seed": 7500,
+      "in_target_equal": true,
+      "exact_fill_equal": true,
+      "grasps_equal": true
+     },
+     {
+      "seed": 7501,
+      "in_target_equal": true,
+      "exact_fill_equal": true,
+      "grasps_equal": true
+     },
+     {
+      "seed": 7502,
+      "in_target_equal": true,
+      "exact_fill_equal": true,
+      "grasps_equal": true
+     },
+     {
+      "seed": 7503,
+      "in_target_equal": true,
+      "exact_fill_equal": true,
+      "grasps_equal": true
+     },
+     {
+      "seed": 7504,
+      "in_target_equal": true,
+      "exact_fill_equal": true,
+      "grasps_equal": true
+     },
+     {
+      "seed": 7505,
+      "in_target_equal": true,
+      "exact_fill_equal": true,
+      "grasps_equal": true
+     },
+     {
+      "seed": 7506,
+      "in_target_equal": true,
+      "exact_fill_equal": true,
+      "grasps_equal": true
+     },
+     {
+      "seed": 7507,
+      "in_target_equal": true,
+      "exact_fill_equal": true,
+      "grasps_equal": true
+     },
+     {
+      "seed": 7508,
+      "in_target_equal": true,
+      "exact_fill_equal": true,
+      "grasps_equal": true
+     },
+     {
+      "seed": 7509,
+      "in_target_equal": true,
+      "exact_fill_equal": true,
+      "grasps_equal": true
+     }
+    ],
+    "basis": "in_target + exact_fill + grasps"
+   },
+   "effective_r": 10,
+   "mean_in_target_user": 0.0,
+   "mean_in_target_strict": 0.0,
+   "max_in_target_user": 0,
+   "placement_fraction_user": 0.0,
+   "exact_fill_rate": 0.0,
+   "mean_grasps": 1.9,
+   "mean_elapsed_s": 104.00999999999999,
+   "mean_replan_calls": 60.0,
+   "mean_inference_ms": 685.153,
+   "mean_exec_lt030": 0.052000000000000005,
+   "n_exec_stats": 10,
+   "n_user_counter": 10
+  },
+  {
+   "replan": 16,
+   "n_seeds": 10,
+   "label": "diag-r16",
+   "official_anchor": false,
+   "official_strict_match": null,
+   "effective_r": 16,
+   "mean_in_target_user": 0.5,
+   "mean_in_target_strict": 0.2,
+   "max_in_target_user": 5,
+   "placement_fraction_user": 0.05,
+   "exact_fill_rate": 0.0,
+   "mean_grasps": 0.5,
+   "mean_elapsed_s": 75.88000000000001,
+   "mean_replan_calls": 38.0,
+   "mean_inference_ms": 676.7578947368421,
+   "mean_exec_lt030": 0.06447368421052632,
+   "n_exec_stats": 10,
+   "n_user_counter": 10
+  },
+  {
+   "replan": 32,
+   "n_seeds": 10,
+   "label": "diag-r32",
+   "official_anchor": false,
+   "official_strict_match": null,
+   "effective_r": 32,
+   "mean_in_target_user": 0.7,
+   "mean_in_target_strict": 0.3,
+   "max_in_target_user": 5,
+   "placement_fraction_user": 0.07,
+   "exact_fill_rate": 0.0,
+   "mean_grasps": 1.0,
+   "mean_elapsed_s": 68.99,
+   "mean_replan_calls": 19.0,
+   "mean_inference_ms": 670.1915789473685,
+   "mean_exec_lt030": 0.09391447368421053,
+   "n_exec_stats": 10,
+   "n_user_counter": 10
+  }
+ ]
+}

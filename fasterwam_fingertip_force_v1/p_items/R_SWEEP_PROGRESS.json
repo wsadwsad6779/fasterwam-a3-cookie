@@ -1,7 +1,7 @@
 {
  "study": "R1_REPLAN_SWEEP",
- "updated_utc": "2026-11-25T07:31:45Z",
- "status": "running (r16 DONE, r32 in progress)",
+ "updated_utc": "2026-11-25T07:45:30Z",
+ "status": "DONE: r10/r16/r32 all complete; final R_COMPARE_15K aggregated 2026-11-25T07:44Z",
  "owner": "worker task7",
  "gpu_lock_holder": "r_compare (eval-only) pid 3189372",
  "waiting_for": [],
@@ -25,7 +25,7 @@
   ],
   "r10_source": "relaxed-r10 diagnostic rerun; official strict r10 anchor = 15k milestone eval, not replaced",
   "r16_status": "DONE: 10/10 at 2026-11-25T07:29:27Z; mean user 0.5 / strict 0.2; exact 0; grasps 0.5; exec<0.30 6.45%; median 0.4490; only seed 7500 non-zero (user 5 / strict 2)",
-  "r32_status": "in_progress since 2026-11-25T07:30:56Z (pid 3243365; 1/10 seed dirs)",
+  "r32_status": "DONE: 10/10 at 2026-11-25T07:42:31Z; mean user 0.7 / strict 0.3; exact 0; grasps 1.0; exec<0.30 9.39%; non-zero seeds 7503 (user 2/strict 0) and 7504 (user 5/strict 3)",
   "r10_status": "DONE: 10/10 seeds at 2026-11-25T07:16:56Z; mean user 0.0 / strict 0.0; exact 0; grasps 1.9; exec<0.30 5.2%; exec median 0.4172; strict anchor match ALL true",
   "r24_status": "BLOCKED_USER: not approved in V5; not run",
   "r24": {
@@ -127,7 +127,7 @@
  "progress": {
   "r10": "done",
   "r16": "done",
-  "r32": "running 2026-11-25T07:30:56Z pid 3243365"
+  "r32": "done 2026-11-25T07:42:31Z"
  },
  "partials": {
   "r10": {
@@ -143,7 +143,8 @@
   },
   "r32": {
    "path": "p_items/R_COMPARE_PARTIAL_r32.json",
-   "first_written": null
+   "written": "2026-11-25T07:42:31Z",
+   "bytes": 3076
   }
  },
  "postr_contention_note": "teacher-forced and ForceZero/SkipFiLM ran 06:27:51-06:39:36, overlapping the F2 3k rerun 06:28-06:39; the single-model lock was violated for ~11 min. The eval uses per-seed deterministic inference, but the timing is flagged.",
@@ -153,5 +154,34 @@
   "log": "/workspace/fwv1/logs/r_partial.log",
   "first_written": "2026-11-25T07:16:56Z"
  },
- "single_case_note": "r16 seed 7500 (user 5/strict 2) and r32 seed 7504 (user 5/strict 3) are single cases; no r-effect conclusion"
+ "single_case_note": "r16 seed 7500 (user 5/strict 2) and r32 seed 7504 (user 5/strict 3) are single cases; no r-effect conclusion",
+ "final": {
+  "R_COMPARE_15K": "p_items/R_COMPARE_15K.json (2026-11-25T07:44Z, 22685 B; r24 entry removed)",
+  "summary": "p_items/R_SWEEP_SUMMARY.json",
+  "raw_csv": "p_items/R_SWEEP_RAW_RESULTS.csv",
+  "charts": "p_items/R_SWEEP_CHARTS.json",
+  "pngs": [
+   "R_SWEEP_MEAN_IN_TARGET.png",
+   "R_SWEEP_EXACT_FILL.png",
+   "R_SWEEP_GRIPPER_CLOSURE.png",
+   "R_SWEEP_COST_PARETO.png",
+   "R_SWEEP_SEED_HEATMAP.png"
+  ]
+ },
+ "curve": {
+  "r10": {
+   "user": 0.0,
+   "strict": 0.0
+  },
+  "r16": {
+   "user": 0.5,
+   "strict": 0.2
+  },
+  "r32": {
+   "user": 0.7,
+   "strict": 0.3
+  },
+  "exact_all": 0.0,
+  "conclusion": "three r levels all exact 0; r16 7500 and r32 7503/7504 are single cases; no r effect; truncation not the primary cause; consistent with R2"
+ }
 }
