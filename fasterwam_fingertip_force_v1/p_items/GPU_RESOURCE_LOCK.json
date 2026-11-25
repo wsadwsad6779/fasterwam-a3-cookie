@@ -1,30 +1,16 @@
 {
- "ts": "2026-11-25T07:53:26Z",
- "holder": "f0_v3_baseline (training)",
- "mode": "training",
- "pid": 3287936,
- "experiment_id": "f0_v3_baseline",
- "f2": {
-  "status": "paused at 15800",
-  "training_allowed": false,
-  "note": "STOP_TRAINING stays; 5200 steps need user spec+budget"
- },
- "policy": "one large model on GPU at a time; F0 training priority; F2 GPU diagnostics wait for a real gap or explicit lock handoff",
- "gpu": "single AMD GPU 51.5GB; training ~25GB",
- "note": "no concurrent F2 eval/ablation while F0 trains",
- "step": 650,
- "queued": [
-  {
-   "name": "f0_continuation_15k",
-   "status": "running",
-   "tmux": "fwv1:f0_continue",
-   "step": 3010,
-   "started_at": "2026-11-25T07:50:32Z"
-  }
- ],
- "checkpoint": "resume /root/fwv1_checkpoint_archive/f0_step_003000.pt",
- "postr": {
-  "status": "done 06:39:36",
-  "contention": "overlapped the F2 3k rerun ~11 min; flagged"
- }
+  "ts": "2026-11-25T17:36:00Z",
+  "holder": "f0_resume",
+  "mode": "training",
+  "tmux": "f0resume",
+  "pid": 2802715,
+  "driver_pid": 2802709,
+  "experiment_id": "f0_v3_baseline",
+  "step": 9240,
+  "last_probe_ts": "2026-11-25T17:29:31Z",
+  "f2": {"status": "paused at 15800", "training_allowed": false, "note": "fa9d87e3; read-only inference only"},
+  "policy": "one large model on GPU; F0 resume (9k->12k->15k) exclusive; all other GPU jobs DEFERRED_GPU_GAP",
+  "gpu": "single AMD GPU 51.5GB",
+  "note": "updated from stale holder (pid 3287936 / 07:53Z) to current f0_resume train pid 2802715",
+  "queued_gpu_deferred": ["P2-TF-6STAGE", "P2-CLONE", "P2-GRAD-COS", "P3-PROFILE"]
 }

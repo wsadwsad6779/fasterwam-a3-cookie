@@ -734,8 +734,240 @@
    "retries": 0,
    "last_heartbeat": "previous report 20261125 done; V3 rebuild pending",
    "next_action": "regenerate report after new CPU + GPU work lands"
+  },
+  {
+   "task_id": "F0-9K-HOLD",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [
+    "POST9K_9K_VERIFY.json"
+   ],
+   "retries": 0,
+   "status": "DONE",
+   "note": "DONE; evidence POST9K_9K_VERIFY.json; commit 7b95df8",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "R1_REPORT",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [
+    "R1_H_ESCALATION_REPORT.md"
+   ],
+   "retries": 0,
+   "status": "DONE",
+   "note": "DONE; evidence R1_H_ESCALATION_REPORT.md; commit 7b95df8",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "P0-EVAL-FAILCLOSED",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [
+    "EVAL_SHA_STATUS.json"
+   ],
+   "retries": 0,
+   "status": "DONE",
+   "note": "DONE; evidence EVAL_SHA_STATUS.json; commit 7b95df8",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "P0_EVAL_FAILCLOSED",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [
+    "EVAL_SHA_STATUS.json"
+   ],
+   "retries": 0,
+   "status": "DONE",
+   "note": "DONE; evidence EVAL_SHA_STATUS.json; commit 7b95df8",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "P0-FROZEN-ID",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [
+    "P0_FROZEN_ID.json"
+   ],
+   "retries": 0,
+   "status": "DONE",
+   "note": "DONE; evidence P0_FROZEN_ID.json; commit 7b95df8",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "P1-600STEP",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [
+    "R_SWEEP_600STEP_AUDIT.json"
+   ],
+   "retries": 0,
+   "status": "DONE",
+   "note": "DONE; evidence R_SWEEP_600STEP_AUDIT.json; commit 7b95df8",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "P1_600STEP_AUDIT",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [
+    "R_SWEEP_600STEP_AUDIT.json"
+   ],
+   "retries": 0,
+   "status": "DONE",
+   "note": "DONE; evidence R_SWEEP_600STEP_AUDIT.json; commit 7b95df8",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "P1-RELAXED-GEO",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [
+    "P1_RELAXED_GEOMETRY.json"
+   ],
+   "retries": 0,
+   "status": "DONE",
+   "note": "DONE; evidence P1_RELAXED_GEOMETRY.json; commit 7b95df8",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "P1_RELAXED_GEOMETRY",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [
+    "P1_RELAXED_GEOMETRY.json"
+   ],
+   "retries": 0,
+   "status": "DONE",
+   "note": "DONE; evidence P1_RELAXED_GEOMETRY.json; commit 7b95df8",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "P2-TF-6STAGE",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [],
+   "retries": 0,
+   "status": "DEFERRED_GPU_GAP",
+   "note": "DEFERRED_GPU_GAP: F0 12k trains exclusively; no second GPU job",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "P2-CLONE",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [],
+   "retries": 0,
+   "status": "DEFERRED_GPU_GAP",
+   "note": "DEFERRED_GPU_GAP: F0 12k trains exclusively; no second GPU job",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "P2-GRAD-COS",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [],
+   "retries": 0,
+   "status": "DEFERRED_GPU_GAP",
+   "note": "DEFERRED_GPU_GAP: F0 12k trains exclusively; no second GPU job",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "P3-PROFILE",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [],
+   "retries": 0,
+   "status": "DEFERRED_GPU_GAP",
+   "note": "DEFERRED_GPU_GAP: F0 12k trains exclusively; no second GPU job",
+   "last_heartbeat": "2026-11-25T17:36Z"
+  },
+  {
+   "task_id": "F0_RESUME_9K_12K_15K",
+   "track": "harness",
+   "stage": "HARNESS",
+   "priority": "P2",
+   "gpu_need": true,
+   "optimizer_budget_used": 0,
+   "optimizer_budget_cap": 0,
+   "dependencies": [],
+   "result_paths": [
+    "f0_resume_12k_15k.log"
+   ],
+   "retries": 0,
+   "status": "RUNNING",
+   "note": "F0 resume 9k->12k->15k; tmux f0resume driver 2802709 train 2802715; step 9240 @17:29:31Z; 12k ETA NOT_VERIFIED (~4.9s/step probe)",
+   "last_heartbeat": "2026-11-25T17:36Z",
+   "tmux": "f0resume",
+   "pid": 2802715
   }
  ],
- "status_sync_ts": "2026-11-25T17:16:00Z",
+ "status_sync_ts": "2026-11-25T17:36:00Z",
  "global_state": "F0 resume 9k->12k->15k RUNNING (12k training, step 9040); H0/R1(H sweep)/B2/B3/B4/B5/B1/R2 DONE; H training not authorized; F2 paused 15800 read-only"
 }
