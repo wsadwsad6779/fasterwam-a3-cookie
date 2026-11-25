@@ -1,0 +1,26 @@
+{
+ "probe": "H0_ZEROTRAIN_H_PROBE",
+ "ts": "2026-11-25T16:55:53Z",
+ "checkpoint": "/workspace/fwv1/f0_v3_baseline/step_009000.pt",
+ "checkpoint_sha256": "7ca235ba1d5ad35aac0f8caa66334cf2cb7dbaa026b60cf15ac8842b83621979",
+ "checkpoint_is_f0": true,
+ "horizons": [32, 48, 64],
+ "seeds": [7500, 7501, 7502, 7503, 7504],
+ "denoise": 5,
+ "t_vid": 9,
+ "note": "exploratory OOD inference; positions 32+ never trained; NOT a 48/64 capability claim",
+ "verdict": {
+  "32": "trained baseline",
+  "48": "PLAUSIBLE_BUT_OOD: tail jerk 0.96x; needs closed-loop check; NOT a capability claim",
+  "64": "PLAUSIBLE_BUT_OOD: tail jerk 1.60x; needs closed-loop check; NOT a capability claim"
+ },
+ "per_seed_summary": [
+  {"seed": 7500, "repro_H32_maxabs": 0.0, "trained32_vs_H32": {"48": 0.026364, "64": 0.042202}, "H48_tail_jerk_ratio": 0.635, "H64_tail_jerk_ratio": 1.669, "H48_grip_lt030_frac": 0.0, "H64_grip_lt030_frac": 0.0},
+  {"seed": 7501, "repro_H32_maxabs": 0.0, "trained32_vs_H32": {"48": 0.024143, "64": 0.040754}, "H48_tail_jerk_ratio": 1.070, "H64_tail_jerk_ratio": 1.809, "H48_grip_lt030_frac": 0.0, "H64_grip_lt030_frac": 0.0},
+  {"seed": 7502, "repro_H32_maxabs": 0.0, "trained32_vs_H32": {"48": 0.025688, "64": 0.041526}, "H48_tail_jerk_ratio": 0.965, "H64_tail_jerk_ratio": 1.510, "H48_grip_lt030_frac": 0.0, "H64_grip_lt030_frac": 0.0},
+  {"seed": 7503, "repro_H32_maxabs": 0.0, "trained32_vs_H32": {"48": 0.029455, "64": 0.045872}, "H48_tail_jerk_ratio": 1.012, "H64_tail_jerk_ratio": 1.602, "H48_grip_lt030_frac": 0.0, "H64_grip_lt030_frac": 0.0},
+  {"seed": 7504, "repro_H32_maxabs": 0.0, "trained32_vs_H32": {"48": 0.024723, "64": 0.035539}, "H48_tail_jerk_ratio": 0.804, "H64_tail_jerk_ratio": 1.251, "H48_grip_lt030_frac": 0.0, "H64_grip_lt030_frac": 0.0}
+ ],
+ "chunks_npz": "/workspace/fwv1/p_items/H0_9K_CHUNKS.npz",
+ "note_full": "Full per_H stats (absmean, grip median/min/max, trained/tail jerk, boundary jump) are in the pod file /workspace/fwv1/p_items/H0_9K_PROBE.json (8742 B); this local copy keeps the verdict + per-seed jerk ratios. All seeds: repro_H32_maxabs=0.0 (deterministic), no NaN, grip never <0.30 (no closure commanded at start frame)."
+}

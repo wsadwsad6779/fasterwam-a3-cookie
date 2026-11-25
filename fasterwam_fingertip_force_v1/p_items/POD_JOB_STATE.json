@@ -1,14 +1,26 @@
 {
- "started_at": "2026-11-24T05:24:15Z",
- "ts": "2026-11-24T05:24:15Z",
- "pid": 306531,
- "stage": "train",
- "log_path": "/workspace/fwv1/logs/t7_train_v3run.log",
- "status": "running",
- "step": 1490,
- "expected_artifacts": [
-  "/workspace/fwv1/train_runs/t7_21k_v3run"
- ],
- "next": "milestone eval at 3k boundary",
- "note": ""
+ "ts": "2026-11-25T16:58:00Z",
+ "owner": "supervisor",
+ "pipeline": "post9k -> hsweep -> h0f0 -> b234",
+ "f0": {"status": "FROZEN", "frozen_at_step": 9000, "checkpoint_sha256": "7ca235ba1d5ad35aac0f8caa66334cf2cb7dbaa026b60cf15ac8842b83621979", "9k_eval": {"avg_in_target": 0, "exact_fill": "0/10", "grasps_mean": 3.2}, "12k": "BLOCKED (0 optimizer steps; no step_009200.pt)", "hard_stop": 15000},
+ "f2": {"status": "paused", "step": 15800, "sha_prefix": "fa9d87e3", "note": "read-only inference only"},
+ "hsweep_r1": {
+   "status": "DONE 2026-11-25T16:54:29Z",
+   "model": "F2 step_015000.pt sha 83aacf23",
+   "H32": {"relaxed": 0.7, "strict": 0.3, "exact_fill": "0/10", "seeds": 10},
+   "H48": {"relaxed": 0.0, "strict": 0.0, "exact_fill": "0/10", "seeds": 10},
+   "H64": {"relaxed": 0.0, "strict": 0.0, "exact_fill": "0/10", "seeds": 10},
+   "escalation_decision": "H64 not > H48 (platform/decline) => STOP; best interval mean in-box < 2 => NO fine scan",
+   "evidence": "p_items/H_SWEEP_RESULTS.json; h_eval_h32/48/64 SUMMARY"
+ },
+ "h0_f0_9k": {
+   "status": "DONE 2026-11-25T16:55:57Z",
+   "checkpoint": "F0 step_009000.pt sha 7ca235ba",
+   "verdict": {"48": "PLAUSIBLE_BUT_OOD tail jerk 0.96x", "64": "PLAUSIBLE_BUT_OOD tail jerk 1.60x"},
+   "note": "open-loop stability only; closed-loop F2 H sweep shows H>32 in-box=0; NOT a capability",
+   "evidence": "p_items/H0_9K_PROBE.json"
+ },
+ "b234": {"status": "STARTING (triggered by H0_9K_PROBE 16:55:57)", "order": ["B2", "B5", "B3", "B4"], "outputs": ["B2_SIXPHASE_TEACHER.json", "B5_LGRIP_LFORCE_GRADCOS.json", "B3_FORCE_ABLATION_EXPANDED.json", "B4_STATE_CLONE_043_028.json"]},
+ "gpu": "exclusive; after F2 H + F0 H0 only B-series remaining",
+ "constraints": "no 12k; F0 frozen 9000; F2 read-only; all inference 0 optimizer; official H32/r10/exact_fill(src==70) unchanged; frozen scenes"
 }
