@@ -1,5 +1,5 @@
 {
- "base_model_policy": "\u552f\u4e00\u57fa\u5ea7 = hustvl/FasterWAM \u5b98\u65b9 step_021700.pt\uff08proprio 8 / action 7 / \u65e0 force conditioner\uff0c\u53ea\u8bfb\uff09\u3002\u7981\u6b62\u65e7 A3 \u65e0\u529b\u5fae\u8c03 checkpoint\u3001Force40k\u3001C@1000/C@8000/C@12000\u3001V3/V4\u3001step_040000_merged\u3001G3/M5/oracle \u4f5c\u4e3a\u6700\u7ec8\u7b56\u7565\uff1bF0/F1/F2 \u5fc5\u987b\u4ece\u540c\u4e00\u5b98\u65b9 checkpoint \u521d\u59cb\u5316\u3002",
+ "base_model_policy": "唯一基座 = hustvl/FasterWAM 官方 step_021700.pt（proprio 8 / action 7 / 无 force conditioner，只读）。禁止旧 A3 无力微调 checkpoint、Force40k、C@1000/C@8000/C@12000、V3/V4、step_040000_merged、G3/M5/oracle 作为最终策略；F0/F1/F2 必须从同一官方 checkpoint 初始化。",
  "master_plan": {
   "file": "C:\\Users\\ASUS\\Documents\\FasterWAM_Supervisor\\TASK7_MASTER_PLAN_21K.md",
   "ack": "p_items/T7_MASTER_PLAN_ACK.json",
@@ -156,20 +156,20 @@
  "tasks": [
   {
    "id": "P1",
-   "name": "\u5b98\u65b9\u539f\u59cb FasterWAM \u8eab\u4efd\u786e\u8ba4",
+   "name": "官方原始 FasterWAM 身份确认",
    "status": "done",
    "sequence": "S1",
    "evidence": "p_items/T7_BASE_IDENTITY.json verdict=pass; sha256 01be4efc..; proprio [4096,8]; action head [7,1024]; horizon 32; force keys 0"
   },
   {
    "id": "P2",
-   "name": "\u8bba\u6587\u4e0e\u6e90\u7801\u5ba1\u8ba1 (ForceVLA/TacFiLM/ImplicitRDP/MimicGen)",
+   "name": "论文与源码审计 (ForceVLA/TacFiLM/ImplicitRDP/MimicGen)",
    "status": "done_source_level",
    "sequence": "S3"
   },
   {
    "id": "P3",
-   "name": "\u6307\u5c16\u529b\u5904\u7406\u5668\u771f\u5b9e MuJoCo \u9a8c\u6536",
+   "name": "指尖力处理器真实 MuJoCo 验收",
    "status": "done",
    "sequence": "S3",
    "gate": "G3",
@@ -177,14 +177,14 @@
   },
   {
    "id": "P4",
-   "name": "\u6574\u6a21\u96c6\u6210 smoke",
+   "name": "整模集成 smoke",
    "status": "done",
    "sequence": "S1",
    "evidence": "p_items/P4_FULL_SMOKE.json (official mot 1393 keys 0/0, fwd/bwd ok, loss 4.824, VRAM 24.28GB)"
   },
   {
    "id": "P5",
-   "name": "\u5939\u722a V2 \u771f\u5b9e\u63a7\u5236\u56de\u653e\u9a8c\u6536",
+   "name": "夹爪 V2 真实控制回放验收",
    "status": "done_replay_openloop",
    "sequence": "S2",
    "gate": "G2",
@@ -193,7 +193,7 @@
   },
   {
    "id": "P6",
-   "name": "800 \u6761\u6570\u636e\u5b9a\u4f4d\u4e0e\u5ba1\u8ba1",
+   "name": "800 条数据定位与审计",
    "status": "done",
    "sequence": "S2",
    "note": "S2 must re-verify full-branch/HF trail and produce missing diversity/split artifacts",
@@ -207,14 +207,14 @@
   },
   {
    "id": "P7",
-   "name": "joint\u21927D \u8f6c\u6362\u4e0e\u8865\u91c7\u51b3\u7b56",
+   "name": "joint→7D 转换与补采决策",
    "status": "done",
    "sequence": "S1",
    "evidence": "p_items/JOINT_TO_7D_VERIFICATION.json verdict=pass; V2 label offsets fixed"
   },
   {
    "id": "P8",
-   "name": "F0/F1/F2 \u77e9\u9635\u51bb\u7ed3",
+   "name": "F0/F1/F2 矩阵冻结",
    "status": "done",
    "sequence": "S3",
    "note": "F2 selected with evidence: zero-init identity exact, encoder/head grads nonzero by step 2, resume exact, 534784 params, 12.76GB VRAM; F1 kept as fallback",
@@ -226,7 +226,7 @@
   },
   {
    "id": "P9",
-   "name": "21k \u5206\u6bb5\u4e3b\u6a21\u578b\u8bad\u7ec3",
+   "name": "21k 分段主模型训练",
    "status": "PAUSED_ROOT_CAUSE_GRIPPER",
    "sequence": "S4",
    "budget_max_steps": 21000,
@@ -240,7 +240,7 @@
   },
   {
    "id": "P10",
-   "name": "\u529b\u6a21\u6001\u6d88\u878d\uff08\u9884\u7b97\u5185\uff09",
+   "name": "力模态消融（预算内）",
    "status": "SUPERSEDED_V4",
    "sequence": "S4",
    "blocked_by": [
@@ -249,7 +249,7 @@
   },
   {
    "id": "P11",
-   "name": "\u88f8\u6a21\u578b 10-seed \u8bc4\u4f30 + \u89c6\u9891",
+   "name": "裸模型 10-seed 评估 + 视频",
    "status": "SUPERSEDED_V4",
    "sequence": "S4",
    "blocked_by": [
@@ -258,7 +258,7 @@
   },
   {
    "id": "P12",
-   "name": "12k \u540e\u9000\u5316\u4e13\u9879 + \u5931\u8d25\u5f52\u56e0",
+   "name": "12k 后退化专项 + 失败归因",
    "status": "SUPERSEDED_V4",
    "sequence": "S4",
    "blocked_by": [
@@ -267,7 +267,7 @@
   },
   {
    "id": "F0-A1",
-   "name": "F0 \u4e00\u81f4\u6027\u9a8c\u8bc1\uff08\u57fa\u5ea7/V3\u6807\u7b7e/\u6620\u5c04/\u65e0 force \u6b8b\u7559/\u524d\u540e\u5411/\u6062\u590d\uff09",
+   "name": "F0 一致性验证（基座/V3标签/映射/无 force 残留/前后向/恢复）",
    "status": "DONE",
    "sequence": "S4",
    "requires_gpu": true,
@@ -279,7 +279,7 @@
   },
   {
    "id": "F0-A2",
-   "name": "F0 \u65e0\u529b\u57fa\u7ebf 0->3000\uff08\u72ec\u7acb\u9884\u7b97\uff0c\u5b98\u65b9\u57fa\u5ea7\uff0c\u540c V3 \u6570\u636e/\u534f\u8bae\uff09",
+   "name": "F0 无力基线 0->3000（独立预算，官方基座，同 V3 数据/协议）",
    "status": "DONE",
    "sequence": "S4",
    "requires_gpu": true,
@@ -291,7 +291,7 @@
   },
   {
    "id": "F0-A3",
-   "name": "F0 step3000 \u88f8\u6a21\u578b\u8bc4\u4f30\uff08\u540c\u4e00 10-seed/\u51bb\u7ed3 V3.1/10 composite\uff09",
+   "name": "F0 step3000 裸模型评估（同一 10-seed/冻结 V3.1/10 composite）",
    "status": "DONE",
    "sequence": "S4",
    "requires_gpu": true,
@@ -299,7 +299,7 @@
   },
   {
    "id": "F0-A4",
-   "name": "F0 vs F2 \u516c\u5e73\u5bf9\u7167\u62a5\u544a\uff08\u540c\u6570\u636e/\u540c\u534f\u8bae\uff1bF2 \u7528\u4fee\u6b63\u8bc4\u4f30\u5668\u91cd\u8bc4\uff09",
+   "name": "F0 vs F2 公平对照报告（同数据/同协议；F2 用修正评估器重评）",
    "status": "DONE",
    "sequence": "S4",
    "requires_gpu": false,
@@ -313,7 +313,7 @@
   },
   {
    "id": "F0-EXT",
-   "name": "F0 \u662f\u5426\u7eed\u5230 21k\uff08\u9700\u7528\u6237\u8ffd\u52a0\u9884\u7b97\uff09",
+   "name": "F0 是否续到 21k（需用户追加预算）",
    "status": "APPROVED_TO_15K",
    "sequence": "S4",
    "requires_gpu": false,
@@ -321,7 +321,7 @@
   },
   {
    "id": "F2-B1",
-   "name": "F2 32-step/replan 10/16/32 \u8bca\u65ad",
+   "name": "F2 32-step/replan 10/16/32 诊断",
    "status": "DONE",
    "sequence": "S5",
    "requires_gpu": true,
@@ -329,7 +329,7 @@
   },
   {
    "id": "F2-B2",
-   "name": "F2 teacher-forced \u5939\u722a\u5206\u5e03 + action loss/\u7b2c\u4e03\u7ef4\u5ba1\u8ba1",
+   "name": "F2 teacher-forced 夹爪分布 + action loss/第七维审计",
    "status": "DONE",
    "sequence": "S5",
    "requires_gpu": true,
@@ -344,7 +344,7 @@
   },
   {
    "id": "F2-B3",
-   "name": "F2 ForceZero / SkipFiLM \u6d88\u878d",
+   "name": "F2 ForceZero / SkipFiLM 消融",
    "status": "DONE",
    "sequence": "S5",
    "requires_gpu": true,
@@ -355,14 +355,14 @@
   },
   {
    "id": "F2-B4",
-   "name": "F2 \u6839\u56e0\u62a5\u544a + \u5939\u722a\u4e13\u7528\u8bbe\u8ba1\uff08\u9700\u7528\u6237\u89c4\u683c\u6279\u51c6\uff09",
+   "name": "F2 根因报告 + 夹爪专用设计（需用户规格批准）",
    "status": "BLOCKED_USER",
    "sequence": "S5",
    "requires_gpu": false
   },
   {
    "id": "F2-B5",
-   "name": "F2 \u4fee\u590d/\u7eed\u8bad\uff085200 \u5269\u4f59\u6b65\uff0c\u9700\u7528\u6237\u6279\u51c6\uff09",
+   "name": "F2 修复/续训（5200 剩余步，需用户批准）",
    "status": "BLOCKED_USER",
    "sequence": "S5",
    "requires_gpu": true
@@ -406,16 +406,13 @@
   {
    "id": "F0-CONT-15K",
    "status": "RUNNING",
-   "name": "F0 3k->15k continuation with 3k milestones",
-   "note": "queued last; report first; UNCONDITIONAL after report (user 04:03:50Z); 3k selfcheck advisory only; hard stop 15000; tmux fwv1:f0_continue",
-   "evidence": [
-    "p_items/USER_INSTRUCTION_20261125_F0_CONT_15K.json",
-    "p_items/TRAINING_RUN_STATE_F0.json"
-   ]
+   "name": "F0 continuation (now ->9k then HOLD; resume to 15k only after chain)",
+   "note": "step 9000 reached, 9k official eval running; post9k hold (pid 2444729) stops at 9k (NO 12k); hard stop 15000; resume 9k->12k(save+eval)->15k only after H0/B2/B5/B3/B4/R1 done; tmux fwv1:f0_continue",
+   "evidence": "F0 resume 9k->12k->15k via tmux f0resume train pid 2802715; step 9240@17:29Z; see F0_RESUME_9K_12K_15K"
   },
   {
    "id": "F2-B1b",
-   "name": "F2 r \u5bf9\u7167\uff1ar=10/16/32 \u5728 7500-7509 \u7684 10-seed \u5e73\u5747\u5165\u76d2\u7387/exact_fill \u6298\u7ebf\u56fe",
+   "name": "F2 r 对照：r=10/16/32 在 7500-7509 的 10-seed 平均入盒率/exact_fill 折线图",
    "status": "DONE",
    "sequence": "S5",
    "requires_gpu": true,
@@ -435,14 +432,14 @@
   {
    "id": "R_FINE_SCAN",
    "name": "H32 fine r scan (r4/8/12/20/24/28)",
-   "status": "DEFERRED_BY_USER",
-   "note": "not run; user says success is too low; revisit only after stable improvement"
+   "status": "SUPERSEDED_BY_V7_R1_HSCAN",
+   "note": "user 2026-11-25T15:12Z redefined R1 as H-escalation sweep; r fine-scan no longer run; keep r10/16/32 data"
   },
   {
    "id": "H48_H64",
-   "name": "H48/H64 long-horizon prediction",
-   "status": "DEFERRED_NOT_AUTHORIZED",
-   "note": "not authorized; no replan_steps alias and no training"
+   "name": "H48/H64 long-horizon (inference probe)",
+   "status": "AUTHORIZED_INFERENCE",
+   "note": "authorized as H0 (F0 9k) and R1 (F2 15k) zero-training OOD probe; NO H training; H must be multiple of 8"
   },
   {
    "id": "R_ADAPTIVE",
@@ -458,25 +455,97 @@
   },
   {
    "id": "F1_NEW_HEAD",
-   "name": "F1 or new FiLM/gripper head/distribution loss training",
-   "status": "BLOCKED_USER",
-   "note": "not authorized"
+   "name": "F1 (simple residual force fusion) training 0->15k",
+   "status": "AUTHORIZED_0_15K",
+   "note": "user 2026-11-25T15:12Z; ForceEncoder 4ch hist<=8 -> zero-init residual into action tokens; no FiLM/no C-02; official base; every 3k save+eval; starts after F0 15k freeze"
   },
   {
-   "id": "F0-6K-STOP",
-   "name": "F0 continue to 6k then stop and save",
+   "id": "F0-9K-HOLD",
+   "name": "F0 run to 9k then HOLD at 9k (NO 12k)",
+   "status": "DONE",
+   "note": "step_009000.pt sha 7ca235ba 3354213309B; 9k eval done 10/10 seeds 7300-7309 avg_in_target 0, exact_fill 0, grasps_mean 3.2 (SUMMARY sha b2d076bd); F0_HELD_AT_9K + GPU_FREE_FOR_MANUAL_BATCH written 16:06:01Z; 12k trainer briefly launched 16:05:05 pid 2682359, killed 16:05:36 with 0 optimizer steps (no ckpt beyond 9000); evidence p_items/POST9K_9K_VERIFY.json",
+   "evidence": "p_items/POST9K_9K_VERIFY.json + H0_9K_PROBE.json; commit 7b95df8"
+  },
+  {
+   "id": "H0_9K_PROBE",
+   "name": "H0: F0 step_009000.pt zero-training H=32/48/64 same-frame probe",
+   "status": "DONE",
+   "requires_gpu": true,
+   "note": "inference only; report verdict 32-after usable/junk; h0f0 watcher pid 2601632 WAIT H_SWEEP_RESULTS",
+   "evidence": "p_items/H0_9K_PROBE.json (F0 7ca235ba, n=5, H48/64 PLAUSIBLE_BUT_OOD); commit 7b95df8"
+  },
+  {
+   "id": "B2_SIXPHASE",
+   "name": "B2 six-phase teacher-forced across independent episodes",
+   "status": "DONE",
+   "requires_gpu": true,
+   "note": "APPROACH_OPEN/CONTACT_CLOSE/CARRY_CLOSED/DESCEND_CLOSED/RELEASE_OPEN/RESET_OPEN; b234 watcher pid 2624708 WAIT H0_9K_PROBE",
+   "evidence": "p_items/B2_SIXPHASE_TEACHER.json (24 samples/11 episodes; 4/6 phases, RELEASE/RESET=0); commit 5121905"
+  },
+  {
+   "id": "B5_GRAD_COS",
+   "name": "B5 L_grip vs L_force gradient cosine/norm per stage",
+   "status": "DONE",
+   "requires_gpu": true,
+   "note": "b234 watcher pid 2624708 WAIT H0_9K_PROBE",
+   "evidence": "p_items/B5_LGRIP_LFORCE_GRADCOS.json (cos grip/force +0.1006); B5_FAIL.json v1 archived; commit 660408d"
+  },
+  {
+   "id": "B3_FORCE_ABL_EXT",
+   "name": "B3 force ablations expanded (ForceZero/SkipFiLM more seeds/stages)",
+   "status": "DONE",
+   "requires_gpu": true,
+   "note": "b234 watcher pid 2624708 WAIT H0_9K_PROBE",
+   "evidence": "p_items/B3_FORCE_ABLATION_EXPANDED.json (20 samples; delta ~0.003-0.012); commit 5121905"
+  },
+  {
+   "id": "B4_STATE_CLONE",
+   "name": "B4 MuJoCo state clone 0.43 vs 0.28 paired counterfactual (diagnostic)",
+   "status": "DONE",
+   "requires_gpu": true,
+   "note": "diagnostic only; never count as bare-model success; b234 watcher pid 2624708 WAIT H0_9K_PROBE",
+   "evidence": "p_items/B4_STATE_CLONE_043_028.json (INCONCLUSIVE: can_clone=false, 0.43/0.28 force=0; diagnostic only); commit 5121905"
+  },
+  {
+   "id": "R1_H_SWEEP",
+   "name": "R1 H-escalation closed-loop in-box sweep on F2 15k (sha 83aacf23)",
+   "status": "DONE",
+   "requires_gpu": true,
+   "note": "DONE 2026-11-25T16:54:29Z all H=32/48/64 (10 seeds 7500-7509 each, RC0); H32 strict 0.3/relaxed 0.7, H48 0.0/0.0, H64 0.0/0.0; exact_fill 0/10 all H; H64<=H48 => plateau => no +16; best interval mean 0.7 <2 => no +8 fine scan; H>32 OOD observed only; evidence p_items/H_SWEEP_RESULTS.json sha e81dde0b",
+   "evidence": "p_items/R1_H_SWEEP_RAW.json + H_SWEEP_RESULTS.json (H32 0.7/0.3 -> H48/64 0.0; no +16, no fine-scan); commit 0076206"
+  },
+  {
+   "id": "R1_REPORT",
+   "name": "R1 H-escalation full report",
+   "status": "DONE",
+   "note": "LANDED locally 17:00Z: p_items/R1_H_SWEEP_RAW.json (per-seed strict/relaxed/grasps, matches H_SWEEP_RESULTS), p_items/R1_H_SWEEP.png, p_items/R1_H_ESCALATION_REPORT.md (plateau/no+16/no fine scan, strict/relaxed separated, H>32 OOD observed only); sha256 NOT_VERIFIED locally; worker deploying to pod + commit in the 17:00Z turn",
+   "evidence": "p_items/R1_H_ESCALATION_REPORT.md + R1_SHA256.json; commit 7b95df8"
+  },
+  {
+   "id": "F0_RESUME_9K_12K_15K",
+   "name": "F0 resume 9k->12k(save+eval)->15k stop/eval/freeze",
    "status": "RUNNING",
-   "note": "step~3430; 6k ETA~10:35Z"
+   "note": "only after chain complete; hard stop 15000; 15k->21k BLOCKED_USER",
+   "evidence": "tmux f0resume driver 2802709 train 2802715; step 9240 @2026-11-25T17:29:31Z; 12k ETA NOT_VERIFIED; gate before 13k/15k"
+  },
+  {
+   "id": "F1_TRAIN_0_15K",
+   "name": "F1 training 0->15k (every 3k save+eval)",
+   "status": "BLOCKED_USER",
+   "note": "after F0 15k freeze; residual force fusion",
+   "evidence": "BLOCKED until F0_FROZEN_15K.json (red line: F1 only after F0 15k freeze)"
   },
   {
    "id": "P0-EVAL-FAILCLOSED",
    "name": "Evaluator fail-closed on missing checkpoint all entries",
-   "status": "READY"
+   "status": "DONE",
+   "evidence": "p_items/EVAL_SHA_STATUS.json; commit 8579d0b"
   },
   {
    "id": "P0-FROZEN-ID",
    "name": "Frozen scene/eval/sim fingerprints; F2 15k/15800/F0 identity separation",
-   "status": "READY"
+   "status": "DONE",
+   "evidence": "p_items/P0_FROZEN_ID.json; commit 7b95df8"
   },
   {
    "id": "P0-STORAGE",
@@ -487,95 +556,99 @@
   {
    "id": "P0-GPU-LOCK",
    "name": "GPU exclusive lock; no two heavy jobs concurrent",
-   "status": "READY"
+   "status": "DONE",
+   "evidence": "p_items/GPU_RESOURCE_LOCK.json (holder f0_resume pid 2802715); commit 8579d0b"
   },
   {
    "id": "P1-600STEP",
    "name": "R sweep 600-step alignment + R_SWEEP_600STEP_AUDIT + corrected 3-point",
-   "status": "READY"
+   "status": "DONE",
+   "evidence": "p_items/R_SWEEP_600STEP_AUDIT.json; commit 7b95df8"
   },
   {
    "id": "P1-RELAXED-GEO",
    "name": "Relaxed in-box geometry audit (per-cookie id/force/video)",
-   "status": "READY"
+   "status": "DONE",
+   "evidence": "p_items/P1_RELAXED_GEOMETRY.json; commit 7b95df8"
   },
   {
    "id": "P2-TF-6STAGE",
    "name": "Teacher-forced six-stage comparison F0/F2",
-   "status": "READY"
+   "status": "DEFERRED_GPU_GAP",
+   "evidence": "DEFERRED_GPU_GAP: F0 12k exclusive; no second GPU job"
   },
   {
    "id": "P2-CLONE",
    "name": "MuJoCo state clone 0.43 vs 0.28 paired counterfactual",
-   "status": "READY"
+   "status": "DEFERRED_GPU_GAP",
+   "evidence": "DEFERRED_GPU_GAP: F0 12k exclusive; no second GPU job"
   },
   {
    "id": "P2-GRAD-COS",
    "name": "L_grip vs L_force gradient cosine/norm per stage",
-   "status": "READY"
+   "status": "DEFERRED_GPU_GAP",
+   "evidence": "DEFERRED_GPU_GAP: F0 12k exclusive; no second GPU job"
   },
   {
    "id": "P3-PROFILE",
    "name": "Zero-training profile/feature-cache plan",
-   "status": "READY"
+   "status": "DEFERRED_GPU_GAP",
+   "evidence": "DEFERRED_GPU_GAP: F0 12k exclusive; no second GPU job"
   },
   {
    "id": "F0-CONT-AFTER-EXPTS",
    "name": "Resume F0 from 6k only after P0/P1/P2 complete",
-   "status": "BLOCKED_SEQUENCE"
+   "status": "DONE",
+   "evidence": "SUPERSEDED: F0 resume now RUNNING (F0_RESUME_9K_12K_15K); commit 8579d0b"
   },
   {
    "id": "P0_EVAL_FAILCLOSED",
    "status": "DONE",
    "name": "eval scripts fail closed on missing checkpoint",
    "note": "T7_CKPT set but missing raises; empty T7_CKPT allowed for base anchor; behavior otherwise unchanged",
-   "evidence": [
-    "p_items/T7_DIRECTIVE_ACK_20261125T0820.json"
-   ]
+   "evidence": "p_items/EVAL_SHA_STATUS.json; commit 8579d0b"
   },
   {
    "id": "P1_600STEP_AUDIT",
    "status": "DONE",
    "name": "r16/r32 600-step truncation audit",
    "note": "in_target/exact unchanged; exec<0.30 corrected r16 6.533% (+0.086pp), r32 9.517% (+0.125pp); r10 unchanged",
-   "evidence": [
-    "p_items/R_SWEEP_600STEP_AUDIT.json"
-   ]
+   "evidence": "p_items/R_SWEEP_600STEP_AUDIT.json; commit 7b95df8"
   },
   {
    "id": "P1_RELAXED_GEOMETRY",
-   "status": "READY",
+   "status": "DONE",
    "name": "relaxed in-box geometry audit (r16 7500 / r32 7503,7504)",
    "note": "per-cookie position/contact/video review; orientation/contact fields may be NOT_VERIFIED if not recorded",
-   "evidence": []
+   "evidence": "p_items/P1_RELAXED_GEOMETRY.json; commit 7b95df8"
   },
   {
    "id": "P2_TEACHER_6PHASE",
    "status": "DEFERRED_GPU_GAP",
    "name": "six-phase teacher-forced across independent episodes",
    "note": "requires the F2 15k model; waits for the F0 15k hard stop or an authorized pause; not concurrent with F0",
-   "evidence": []
+   "evidence": "DEFERRED_GPU_GAP: F0 12k exclusive; no second GPU job"
   },
   {
    "id": "P2_STATE_CLONE",
    "status": "DEFERRED_GPU_GAP",
    "name": "MuJoCo state clone 0.43 vs 0.28 counterfactual",
    "note": "GPU gap",
-   "evidence": []
+   "evidence": "DEFERRED_GPU_GAP: F0 12k exclusive; no second GPU job"
   },
   {
    "id": "P2_GRAD_CONFLICT",
    "status": "DEFERRED_GPU_GAP",
    "name": "L_grip vs L_force gradient cosine/norm on shared params",
    "note": "GPU gap",
-   "evidence": []
+   "evidence": "DEFERRED_GPU_GAP: F0 12k exclusive; no second GPU job"
   },
   {
    "id": "P3_PERF",
-   "status": "DEFERRED",
+   "status": "DEFERRED_GPU_GAP",
    "name": "visual/T5 feature cache and perf profiling",
    "note": "no training-math change",
-   "evidence": []
+   "evidence": "DEFERRED_GPU_GAP: F0 12k exclusive; no second GPU job"
   }
  ],
  "state_files": [
@@ -589,7 +662,7 @@
   "p_items/GPU_TIME_STATE.json",
   "p_items/GPU_UPLOAD_MANIFEST.json"
  ],
- "updated_at": "2026-11-25T08:26:41Z",
+ "updated_at": "2026-11-25T17:43:00Z",
  "v4": {
   "goal": "DUAL_TRACK_F0_TRAINING_F2_PAUSED_DIAG",
   "authorized": "user 2026-11-25T02:23Z: F0 up to 21k, stage1 3000 independent; F2 paused at 15800",
@@ -643,5 +716,29 @@
    "only then resume F0 6k"
   ],
   "f2": "paused 15800; no auto-resume"
- }
+ },
+ "v7": {
+  "directive": "p_items/USER_DIRECTIVE_V7.md",
+  "ts": "2026-11-25T15:31:00Z",
+  "reflects": "task7 actual current task (2026-11-25T15:26Z)",
+  "supersedes_v6": true,
+  "current": "F0 ~8.6k running -> 9k -> post9k HOLD (kill 12k, release GPU, F0_HELD_AT_9K); NO 12k now",
+  "chain": [
+   "F0_to_9k_hold",
+   "H0_9K_PROBE",
+   "B2_SIXPHASE",
+   "B5_GRAD_COS",
+   "B3_FORCE_ABL_EXT",
+   "B4_STATE_CLONE",
+   "R1_H_SWEEP",
+   "R1_REPORT",
+   "F0_RESUME_9K_12K_15K",
+   "F1_TRAIN_0_15K"
+  ],
+  "r1": "H-escalation sweep (NOT r fine-scan); F2 15k sha 83aacf23; H mult of 8; H>32 OOD observed only",
+  "f1": "authorized 0->15000 simple residual force fusion",
+  "budget": "F0 hard stop 15000; F1 0->15000; F2 5200 not resumed; H-sweep+B2-B5 inference only",
+  "f2": "paused 15800 (fa9d87e3)"
+ },
+ "harness_note": "p_items/PROJECT_TASKS.json is NOT the harness source; this root file (id-keyed) is authoritative."
 }

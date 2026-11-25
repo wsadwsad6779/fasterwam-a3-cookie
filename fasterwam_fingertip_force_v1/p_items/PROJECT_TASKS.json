@@ -969,5 +969,6 @@
   }
  ],
  "status_sync_ts": "2026-11-25T17:36:00Z",
- "global_state": "F0 resume 9k->12k->15k RUNNING (12k training, step 9040); H0/R1(H sweep)/B2/B3/B4/B5/B1/R2 DONE; H training not authorized; F2 paused 15800 read-only"
+ "global_state": "F0 resume 9k->12k->15k RUNNING (12k training, step 9040); H0/R1(H sweep)/B2/B3/B4/B5/B1/R2 DONE; H training not authorized; F2 paused 15800 read-only",
+ "harness_note": "NOT the harness read source; the ROOT PROJECT_TASKS.json (id-keyed) is authoritative. Do not maintain two divergent status sets; mirror status there."
 }
