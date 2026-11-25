@@ -24,6 +24,6 @@
  ],
  "gpu_time": "cannot read rental console under 403; remaining_hours stays NOT_VERIFIED",
  "note": "no completed experiment rerun; no ledger/website change possible while 403",
- "checked_at": "2026-11-25T17:56:00Z",
- "last_probe": "single contents GET -> 403 nginx"
+ "checked_at": "2026-11-25T18:03:00Z",
+ "last_probe": "single contents GET -> 403"
 }
