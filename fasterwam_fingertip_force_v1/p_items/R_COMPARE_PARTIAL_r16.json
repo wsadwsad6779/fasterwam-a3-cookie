@@ -1,0 +1,127 @@
+{
+ "ts": "2026-11-25T07:30:27Z",
+ "replan": 16,
+ "label": "diagnostic-only r16",
+ "official_anchor": false,
+ "n_seeds": 10,
+ "mean_in_target_user": 0.5,
+ "mean_in_target_strict": 0.2,
+ "exact_fill_rate": 0.0,
+ "mean_grasps": 0.5,
+ "mean_exec_lt_030": 0.06447368421052632,
+ "rows": [
+  {
+   "seed": 7500,
+   "in_target_user": 5,
+   "in_target_strict": 2,
+   "exact_fill": false,
+   "grasps": 5,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9766666666666667,
+   "exec_lt_0.30": 0.10197368421052631,
+   "exec_median": 0.4557812213897705
+  },
+  {
+   "seed": 7501,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9716666666666667,
+   "exec_lt_0.30": 0.08552631578947369,
+   "exec_median": 0.44734373688697815
+  },
+  {
+   "seed": 7502,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9783333333333334,
+   "exec_lt_0.30": 0.004934210526315789,
+   "exec_median": 0.45015624165534973
+  },
+  {
+   "seed": 7503,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.02,
+   "close_cmd": 0.9766666666666667,
+   "exec_lt_0.30": 0.05756578947368421,
+   "exec_median": 0.4360937178134918
+  },
+  {
+   "seed": 7504,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9783333333333334,
+   "exec_lt_0.30": 0.0625,
+   "exec_median": 0.45015624165534973
+  },
+  {
+   "seed": 7505,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9766666666666667,
+   "exec_lt_0.30": 0.07894736842105263,
+   "exec_median": 0.44453123211860657
+  },
+  {
+   "seed": 7506,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9766666666666667,
+   "exec_lt_0.30": 0.06743421052631579,
+   "exec_median": 0.45156246423721313
+  },
+  {
+   "seed": 7507,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9783333333333334,
+   "exec_lt_0.30": 0.0805921052631579,
+   "exec_median": 0.4571874737739563
+  },
+  {
+   "seed": 7508,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.9766666666666667,
+   "exec_lt_0.30": 0.07894736842105263,
+   "exec_median": 0.44593748450279236
+  },
+  {
+   "seed": 7509,
+   "in_target_user": 0,
+   "in_target_strict": 0,
+   "exact_fill": false,
+   "grasps": 0,
+   "open_cmd": 0.018333333333333333,
+   "close_cmd": 0.975,
+   "exec_lt_0.30": 0.02631578947368421,
+   "exec_median": 0.45156246423721313
+  }
+ ],
+ "source_summary": "/workspace/fwv1/eval_fingertip_v1/diag15k_r16_grid/SUMMARY_step_diag15k_r16.json",
+ "exec_median_mean": 0.44903122782707217,
+ "note": "diagnostic only"
+}

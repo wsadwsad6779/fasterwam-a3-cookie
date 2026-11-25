@@ -1,7 +1,7 @@
 {
  "study": "R1_REPLAN_SWEEP",
- "updated_utc": "2026-11-25T07:18:42Z",
- "status": "running (r10 DONE, r16 in progress)",
+ "updated_utc": "2026-11-25T07:31:45Z",
+ "status": "running (r16 DONE, r32 in progress)",
  "owner": "worker task7",
  "gpu_lock_holder": "r_compare (eval-only) pid 3189372",
  "waiting_for": [],
@@ -24,8 +24,8 @@
    7509
   ],
   "r10_source": "relaxed-r10 diagnostic rerun; official strict r10 anchor = 15k milestone eval, not replaced",
-  "r16_status": "in_progress since 2026-11-25T07:15:52Z (pid 3216385)",
-  "r32_status": "queued after r16",
+  "r16_status": "DONE: 10/10 at 2026-11-25T07:29:27Z; mean user 0.5 / strict 0.2; exact 0; grasps 0.5; exec<0.30 6.45%; median 0.4490; only seed 7500 non-zero (user 5 / strict 2)",
+  "r32_status": "in_progress since 2026-11-25T07:30:56Z (pid 3243365; 1/10 seed dirs)",
   "r10_status": "DONE: 10/10 seeds at 2026-11-25T07:16:56Z; mean user 0.0 / strict 0.0; exact 0; grasps 1.9; exec<0.30 5.2%; exec median 0.4172; strict anchor match ALL true",
   "r24_status": "BLOCKED_USER: not approved in V5; not run",
   "r24": {
@@ -125,15 +125,9 @@
  "stage2_note": "stage2 candidates remain BLOCKED_USER; not approved in V5",
  "protocol_correction": "p_items/P15_F2_3K_PROTOCOL_CORRECTION.json",
  "progress": {
-  "r10": {
-   "stage": "diag15k_r10_grid",
-   "pid": 3189372,
-   "seeds_done": 5,
-   "seed_dirs_total": 6,
-   "state_ts": "2026-11-25T07:07:49Z"
-  },
-  "r16": "pending",
-  "r32": "pending"
+  "r10": "done",
+  "r16": "done",
+  "r32": "running 2026-11-25T07:30:56Z pid 3243365"
  },
  "partials": {
   "r10": {
@@ -142,8 +136,15 @@
    "bytes": 4149,
    "strict_anchor_match": true
   },
-  "r16": "p_items/R_COMPARE_PARTIAL_r16.json",
-  "r32": "p_items/R_COMPARE_PARTIAL_r32.json"
+  "r16": {
+   "path": "p_items/R_COMPARE_PARTIAL_r16.json",
+   "written": "2026-11-25T07:30:27Z",
+   "bytes": 3084
+  },
+  "r32": {
+   "path": "p_items/R_COMPARE_PARTIAL_r32.json",
+   "first_written": null
+  }
  },
  "postr_contention_note": "teacher-forced and ForceZero/SkipFiLM ran 06:27:51-06:39:36, overlapping the F2 3k rerun 06:28-06:39; the single-model lock was violated for ~11 min. The eval uses per-seed deterministic inference, but the timing is flagged.",
  "partial_watcher": {
@@ -151,5 +152,6 @@
   "script": "/workspace/_r_partial.py",
   "log": "/workspace/fwv1/logs/r_partial.log",
   "first_written": "2026-11-25T07:16:56Z"
- }
+ },
+ "single_case_note": "r16 seed 7500 (user 5/strict 2) and r32 seed 7504 (user 5/strict 3) are single cases; no r-effect conclusion"
 }
