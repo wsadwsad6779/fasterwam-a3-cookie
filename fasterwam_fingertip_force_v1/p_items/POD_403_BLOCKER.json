@@ -24,6 +24,15 @@
  ],
  "gpu_time": "cannot read rental console under 403; remaining_hours stays NOT_VERIFIED",
  "note": "no completed experiment rerun; no ledger/website change possible while 403",
- "checked_at": "2026-11-25T18:18:00Z",
- "last_probe": "single contents GET -> 403"
+ "checked_at": "2026-11-25T18:28:00Z",
+ "last_probe": "single contents GET -> 403 @18:28Z; console shows instance ALIVE (auto_destroy ~2026-11-26 14:55 local, ~12h35m, credits 17)",
+ "console": {
+  "reachable": true,
+  "logged_in": true,
+  "instance_alive": true,
+  "auto_destroy_local": "2026-11-26 14:55",
+  "remaining_hours_at_read": 12.58,
+  "credits_remaining": 17,
+  "reopen_link": "https://developer.amd.com.cn/radeon/api/notebook/open"
+ }
 }
