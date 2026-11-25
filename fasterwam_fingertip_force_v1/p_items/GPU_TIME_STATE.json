@@ -1,7 +1,7 @@
 {
- "checked_at": "2026-11-25T07:09:15Z",
+ "checked_at": "2026-11-25T08:11:20Z",
  "remaining_hours": null,
- "remaining_hours_basis": "linear estimate: 41.1h at the last console reading 2026-11-24T13:22Z minus ~17.8h; UNVERIFIED, console-only",
+ "remaining_hours_basis": "agent cannot read the Radeon rental console; last console reading 2026-11-24T13:22Z (41.1h) is stale; user must refresh from the console",
  "credits": 39,
  "burn_rate_credits_per_hour": null,
  "gpu": {
@@ -20,7 +20,7 @@
  "note": "F0 3k eval running in cmp_f0_3k (POD_JOB_STATE_EVAL_3K.json); F0 continuation storage plan: move step_003000 to /root after the eval, then keep only the current milestone + latest, move-only, never delete",
  "source": "agent check 2026-11-25T05:53:47Z: df /workspace avail 24,184,008,704 B (22.5 GiB); rocm-smi total 51,522,830,336 B; remaining hours require the console",
  "gpu_note": "VRAM read from rocm-smi at 13:21:03Z during training; console remaining-hours not available to this session",
- "status": "estimate_only",
+ "status": "console_required",
  "remaining_hours_estimate": 23.4,
  "measured_at": "2026-11-24T13:22:00Z (last console reading)",
  "order_decision": "estimated ~24h: POSTR diagnostics (~1.5-2h) first, then F0 12k (~10.3h); if the console shows <12h, switch to F0 first and defer the eval sweep"

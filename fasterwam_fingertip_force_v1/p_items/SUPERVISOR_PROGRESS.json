@@ -1,6 +1,6 @@
 {
  "worker": "task7",
- "updated_at": "2026-11-25T07:58:01Z",
+ "updated_at": "2026-11-25T08:11:20Z",
  "phase": "F0_TRAINING_WITH_QUEUED_R_SWEEP",
  "training": {
   "last_verified_step": 15800,
@@ -492,5 +492,11 @@
    "F0_MILESTONES.json"
   ],
   "status": "running; waiting for cmp_f0_6k/SUMMARY_step_6000.json"
+ },
+ "track_b": {
+  "F2-B1b": "DONE (R1 r sweep)",
+  "F2-B2": "DONE (teacher15k/3k + dim7 + P18)",
+  "F2-B3": "DONE (P19)",
+  "note": "observations, not root-cause-confirmed"
  }
 }

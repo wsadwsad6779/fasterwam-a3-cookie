@@ -330,16 +330,28 @@
   {
    "id": "F2-B2",
    "name": "F2 teacher-forced \u5939\u722a\u5206\u5e03 + action loss/\u7b2c\u4e03\u7ef4\u5ba1\u8ba1",
-   "status": "READY",
+   "status": "DONE",
    "sequence": "S5",
-   "requires_gpu": true
+   "requires_gpu": true,
+   "note": "observed: teacher15k n=8 only CARRY_CLOSED/CONTACT_CLOSE; teacher3k same batch; dim6 per-dim loss 0.01410, grad 2.635, ratio dim6/mean(0-5)=1.99 (velocity target median 0.848, not raw opening); P18 normalizer 0.28->-1/1.0->+1 no clip, 7-dim equal weights, no pm1, no smoothing. Observation, not root-cause-confirmed.",
+   "evidence": [
+    "p_items/TEACHER_FORCED_15K.json",
+    "p_items/TEACHER_FORCED_3K.json",
+    "p_items/DIM7_LOSS_GRAD_AUDIT.json",
+    "p_items/P18_DIM7_STATIC_AUDIT.json",
+    "p_items/P20_TEACHER3K_DIM7_SPEC.json"
+   ]
   },
   {
    "id": "F2-B3",
    "name": "F2 ForceZero / SkipFiLM \u6d88\u878d",
-   "status": "READY",
+   "status": "DONE",
    "sequence": "S5",
-   "requires_gpu": true
+   "requires_gpu": true,
+   "note": "observed: forcezero/skipfilm x 7504/7508 all exact 0 and in_target 0; forcezero 7504 7 grasps/carry 0.258 vs normal 0/0.093; skipfilm lowers contact/carry; force path changes contact, not success. Observation, not root-cause-confirmed.",
+   "evidence": [
+    "p_items/P19_FORCE_ABLATIONS.json"
+   ]
   },
   {
    "id": "F2-B4",
@@ -357,12 +369,17 @@
   },
   {
    "id": "R1_REPLAN_SWEEP",
-   "status": "RUNNING",
+   "status": "DONE",
    "name": "r=10(official)/16/32 x seeds 7500-7509 on F2 step_015000",
-   "note": "r_compare restarted 06:56:27Z with r=10/16/32 (r10 official, r16/r32 diagnostic); r24 BLOCKED_USER; seeds 7500-7509; strict+relaxed columns",
+   "note": "r10 OFFICIAL: user/strict in_target 0/0, strict_anchor_match 10/10 vs 15k milestone; r16 DIAGNOSTIC 0.5/0.2; r32 DIAGNOSTIC 0.7/0.3; exact 0 all; r24 BLOCKED_USER not run; single cases 7500(r16), 7503/7504(r32); no r-effect conclusion",
    "evidence": [
-    "p_items/R0_PROTOCOL_FINGERPRINT.json",
-    "p_items/R_SWEEP_PROGRESS.json"
+    "p_items/R_COMPARE_15K.json",
+    "p_items/R_COMPARE_PARTIAL_r10.json",
+    "p_items/R_COMPARE_PARTIAL_r16.json",
+    "p_items/R_COMPARE_PARTIAL_r32.json",
+    "p_items/R_SWEEP_SUMMARY.json",
+    "p_items/R_SWEEP_CHARTS.json",
+    "p_items/R_SWEEP_MEAN_IN_TARGET.png"
    ]
   },
   {
@@ -415,7 +432,7 @@
   "p_items/GPU_TIME_STATE.json",
   "p_items/GPU_UPLOAD_MANIFEST.json"
  ],
- "updated_at": "2026-11-25T06:58:52Z",
+ "updated_at": "2026-11-25T08:11:20Z",
  "v4": {
   "goal": "DUAL_TRACK_F0_TRAINING_F2_PAUSED_DIAG",
   "authorized": "user 2026-11-25T02:23Z: F0 up to 21k, stage1 3000 independent; F2 paused at 15800",
