@@ -1,7 +1,7 @@
 {
  "experiment_id": "f0_v3_baseline",
  "track": "A",
- "ts": "2026-11-25T07:53:26Z",
+ "ts": "2026-11-25T07:58:01Z",
  "status": "running",
  "owner": "worker",
  "priority": "P0",
@@ -212,7 +212,7 @@
   "next_after_15k": "15000->21000 remains BLOCKED_USER",
   "status": "queued; unconditional after the report",
   "started_at": "2026-11-25T07:50:32Z",
-  "current_step": 3010,
+  "current_step": 3060,
   "note": "first 6k attempt 07:44:46 was stopped at ~07:48 for the dim7 bug fix (no checkpoint lost); restarted 07:50:32 from the 3k archive"
  },
  "hold_override": {
@@ -244,5 +244,17 @@
   "step": 3010,
   "from": 3000,
   "to": 6000
+ },
+ "milestone_watch": {
+  "tmux": "fwv1:f0_watch",
+  "script": "p_items/scripts/_t7_f0_milestone_watch.sh",
+  "log": "/workspace/fwv1/logs/f0_milestone_watch.log",
+  "deliverables": [
+   "10 composite zip per milestone",
+   "F0_EVAL_6K/9K/12K/15K_DONE.json",
+   "POD_JOB_STATE_F0.last_milestone_eval",
+   "F0_MILESTONES.json"
+  ],
+  "status": "running; waiting for cmp_f0_6k/SUMMARY_step_6000.json"
  }
 }

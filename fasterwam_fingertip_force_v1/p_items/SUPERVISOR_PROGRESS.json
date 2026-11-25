@@ -1,6 +1,6 @@
 {
  "worker": "task7",
- "updated_at": "2026-11-25T07:53:26Z",
+ "updated_at": "2026-11-25T07:58:01Z",
  "phase": "F0_TRAINING_WITH_QUEUED_R_SWEEP",
  "training": {
   "last_verified_step": 15800,
@@ -202,7 +202,7 @@
  "f0": {
   "started": false,
   "reason": "section 8 requires diagnostics first and a user-defined spec/budget; no new large-scale training started",
-  "status": "stage1 done at step3000 (05:39:28Z); 3k official eval running",
+  "status": "training 6k segment; step 3060 at 2026-11-25T07:56:05Z; ETA 6k ~10:25-10:30Z",
   "budget": {
    "stage1": 3000,
    "approved_total": 15000,
@@ -480,5 +480,17 @@
    "incidents",
    "A/B/C BLOCKED_USER"
   ]
+ },
+ "f0_milestone_watch": {
+  "tmux": "fwv1:f0_watch",
+  "script": "p_items/scripts/_t7_f0_milestone_watch.sh",
+  "log": "/workspace/fwv1/logs/f0_milestone_watch.log",
+  "deliverables": [
+   "10 composite zip per milestone",
+   "F0_EVAL_6K/9K/12K/15K_DONE.json",
+   "POD_JOB_STATE_F0.last_milestone_eval",
+   "F0_MILESTONES.json"
+  ],
+  "status": "running; waiting for cmp_f0_6k/SUMMARY_step_6000.json"
  }
 }
