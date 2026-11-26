@@ -1,0 +1,27 @@
+{
+  "artifact": "F0_FROZEN_15K_FULL",
+  "ts": "2026-11-26T01:30:00Z",
+  "checkpoint": "/workspace/fwv1/f0_v3_baseline/step_015000.pt",
+  "checkpoint_sha256": "8ef072416d6f25ac1a1ea91594a829200b467be906549e07efdeed65a9442723",
+  "bytes": 3354213309,
+  "step": 15000,
+  "sha12k": "d3f2a3a8897dc346ac3523ab2499ef5134f35e1401d460b098603022bb1e60f4",
+  "not_a_copy": true,
+  "anti_copy_vs": ["7ca235ba(9k)", "d3f2a3a8(12k)", "fa9d87e3(F2 15800)", "83aacf23(F2 15k)"],
+  "summary": "/workspace/fwv1/eval_fingertip_v1/cmp_f0_15k/SUMMARY_step_15000.json",
+  "summary_sha256": "f560de9272c125dd2639bfce5e95993a85549875db0aa26ae9d0b13946f8279c",
+  "eval": {"replan": 10, "action_horizon": 32, "denoise": 5, "max_steps": 600, "seeds": [7500,7501,7502,7503,7504,7505,7506,7507,7508,7509], "n": 10, "fail_closed": true, "frozen": "V3.1 cef07926 / sim 62f6c863 / eval 5edaad7f"},
+  "metrics": {
+    "strict_in_target": 0.0,
+    "exact_fill": "0/10",
+    "relaxed_in_target": "NOT_VERIFIED (official _t7_eval has no relaxed counter)",
+    "per_seed_in_target": {"7500":0,"7501":0,"7502":0,"7503":0,"7504":0,"7505":0,"7506":0,"7507":0,"7508":0,"7509":0},
+    "grasps": "all 0 at 15k"
+  },
+  "videos": {"zip": "/workspace/fwv1/eval_fingertip_v1/cmp_f0_15k/videos_f0_step_15000.zip", "zip_sha256": "fb36fdf90d09b53c93558daea07db01a5638e567c9b850ff3b7384662fa3d988", "zip_bytes": 51948984, "count": 10, "manifest": "VIDEO_MANIFEST_f0_step_15000.json"},
+  "gate": "PASS (step 15000, bytes 3354213309, sha 8ef07241 distinct from 9k/12k/F2)",
+  "trend_F0_3k_to_15k": {"3000":0,"6000":0,"9000":0,"12000":0,"15000":0, "note": "F0 strict in-target 0 at every milestone"},
+  "hard_stop": 15000,
+  "fifteen_to_21k": "BLOCKED_USER",
+  "freeze_note": "F0 terminal at 15k; training stopped; F1 NOT started (per user 01:12Z: pause training, no F1)"
+}
