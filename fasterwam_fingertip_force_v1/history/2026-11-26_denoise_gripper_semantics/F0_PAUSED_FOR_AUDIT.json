@@ -1,0 +1,26 @@
+{
+  "artifact": "F0_PAUSED_FOR_AUDIT",
+  "ts": "2026-11-26T03:56:00Z",
+  "reason": "user emergency stop: pause GPU, audit code before continuing; no blind reruns",
+  "action_taken": "stopped+paused only; NO data deleted, NO code changed, NO retrain",
+  "actual_state_correction": "The instruction assumed F0 was mid-12k (pid 2802715) with 12k not reached. In reality F0 already hard-stopped at step 15000 and was FROZEN; 12k AND 15k were both saved and officially evaluated. This file records the true state.",
+  "stopped_step": 15000,
+  "old_pid": 401311,
+  "pid_note": "401311 was the F0 15k trainer (status=done). The 12k-stage pid 2802715 from the instruction is no longer running (that stage completed earlier).",
+  "latest_checkpoint": {
+    "path": "/workspace/fwv1/f0_v3_baseline/step_015000.pt",
+    "sha256": "8ef072416d6f25ac1a1ea91594a829200b467be906549e07efdeed65a9442723",
+    "bytes": 3354213309
+  },
+  "other_checkpoints": {
+    "F0_12k": {"path": "/workspace/fwv1/f0_v3_baseline/step_012000.pt", "sha256": "d3f2a3a8897dc346ac3523ab2499ef5134f35e1401d460b098603022bb1e60f4"},
+    "F0_9k": {"path": "/workspace/fwv1/f0_v3_baseline/step_009000.pt", "sha256": "7ca235ba1d5ad35aac0f8caa66334cf2cb7dbaa026b60cf15ac8842b83621979"}
+  },
+  "12k_15k_eval_status": "BOTH DONE (not 'unreached'): F0 12k eval -> p_items/F0_12K_EVAL.json; F0 15k eval -> cmp_f0_15k/SUMMARY_step_15000.json + F0_FROZEN_15K_FULL.json",
+  "stopped_processes": ["watchers pkill'ed: _t7_f0_resume_12k_15k.sh, _t7_wait15k_freeze.sh, _t7_h0f0_after_hsweep.sh, _t7_b234_after_h0.sh, _t7_h_sweep_after_free.sh, _t7_post9k_batch.sh (none were actively running)"],
+  "alive_processes": [],
+  "gpu": {"total_bytes": 51522830336, "used_bytes": 28004352, "idle": true, "method": "rocm-smi --showmeminfo vram"},
+  "stop_markers": ["p_items/STOP_TRAINING.json", "p_items/F0_PAUSED.json"],
+  "no_auto_restart": "all watchdogs/chain scripts exited or killed; STOP_TRAINING marker set; no new GPU job launched",
+  "next": "await user code audit; do NOT resume F0/F1/F2 or launch any GPU job until explicit go"
+}

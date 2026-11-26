@@ -1,0 +1,6 @@
+{
+  "status": "STOP_TRAINING",
+  "ts": "2026-11-26T03:56:00Z",
+  "reason": "user emergency audit pause",
+  "scope": "F0/F1/F2 all paused; no GPU job; do not auto-restart"
+}

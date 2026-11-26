@@ -1,0 +1,6 @@
+{
+  "status": "F0_PAUSED_FOR_AUDIT",
+  "stopped_step": 15000,
+  "ts": "2026-11-26T03:56:00Z",
+  "note": "F0 already frozen at 15000; 12k+15k evaluated; training/watchers stopped; GPU idle"
+}
