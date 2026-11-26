@@ -1,0 +1,30 @@
+{
+ "artifact": "DENOISE_FROZEN_OBS_RESULTS",
+ "ts": "2026-11-26T02:36:09Z",
+ "checkpoint": "/workspace/fwv1/train_runs/t7_21k_v3run/step_015000.pt",
+ "checkpoint_sha256": "83aacf23cc146af4b33027ab1cfaea0ce8fd0a0aac6c28cf683fdfc69dbab2e1",
+ "Ks": [5, 10, 20],
+ "noises_paired": [12345, 67890, 24680],
+ "n_obs": 20,
+ "protocol": "frozen expert observations from val; same img/prop/z; only K & paired noise vary; teacher-forced single infer (no rollout)",
+ "full_records_note": "216 per-(sample,K,noise) records live in pod /workspace/fwv1/p_items/DENOISE_FROZEN_OBS_RESULTS.json (64.7KB); this local copy keeps per_phase aggregate.",
+ "per_phase": {
+  "APPROACH_OPEN": {"n_samples": 0},
+  "RELEASE_OPEN": {"n_samples": 0},
+  "RESET_OPEN": {"n_samples": 0},
+  "CONTACT_CLOSE": {"n_samples": 2,
+    "K5": {"pred0_median": 0.458594, "pred0_lt030_frac": 0.0, "pred31_lt030_frac": 0.0, "frac_lt030_mean": 0.0, "infer_ms_median": 655.2},
+    "K10": {"pred0_median": 0.457187, "pred0_lt030_frac": 0.0, "pred31_lt030_frac": 0.0, "frac_lt030_mean": 0.0, "infer_ms_median": 1275.4},
+    "K20": {"pred0_median": 0.456484, "pred0_lt030_frac": 0.0, "pred31_lt030_frac": 0.0, "frac_lt030_mean": 0.0, "infer_ms_median": 2543.7}},
+  "CARRY_CLOSED": {"n_samples": 16,
+    "K5":  {"gtclosed_pred0_lt030_recall": 0.7083, "gtclosed_pred31_lt030": 0.3333, "frac_lt030_mean": 0.6882, "pred0_median": 0.29687, "infer_ms_median": 654.9},
+    "K10": {"gtclosed_pred0_lt030_recall": 0.4375, "gtclosed_pred31_lt030": 0.25,   "frac_lt030_mean": 0.4557, "pred0_median": 0.30250, "infer_ms_median": 1273.4},
+    "K20": {"gtclosed_pred0_lt030_recall": 0.4375, "gtclosed_pred31_lt030": 0.1875, "frac_lt030_mean": 0.4740, "pred0_median": 0.30250, "infer_ms_median": 2511.0}},
+  "DESCEND_CLOSED": {"n_samples": 2,
+    "K5":  {"gtclosed_pred0_lt030_recall": 0.6667, "gtclosed_pred31_lt030": 0.6667, "frac_lt030_mean": 0.8854, "pred0_median": 0.29758, "infer_ms_median": 655.0},
+    "K10": {"gtclosed_pred0_lt030_recall": 0.0,    "gtclosed_pred31_lt030": 0.6667, "frac_lt030_mean": 0.3594, "pred0_median": 0.30742, "infer_ms_median": 1273.2},
+    "K20": {"gtclosed_pred0_lt030_recall": 0.1667, "gtclosed_pred31_lt030": 0.5,    "frac_lt030_mean": 0.3594, "pred0_median": 0.31094, "infer_ms_median": 2510.5}}
+ },
+ "conclusion": "H1 (5 denoise steps too few) is REJECTED: on GT-closed expert frames, closure recall is HIGHEST at K=5 and DECREASES with K (CARRY 0.708->0.4375->0.4375; DESCEND 0.667->0->0.167). CONTACT_CLOSE never closes for any K (~0.457). More denoise converges toward the mid-band ~0.44-0.46, i.e. toward a distributional mean -> supports H2 (output/supervision mid-band) and/or H3 (state shift), not a sampling-steps deficit.",
+ "caveat": "only 2 CONTACT_CLOSE / 2 DESCEND_CLOSED observations (small); CARRY 16 obs is the robust one. inference cost: K5~0.65s, K10~1.27s, K20~2.5s per call."
+}

@@ -1,0 +1,17 @@
+{
+ "artifact": "B5_LGRIP_LFORCE_GRADCOS",
+ "ts": "2026-11-25T17:08:26Z",
+ "checkpoint": "/workspace/fwv1/train_runs/t7_21k_v3run/step_015000.pt",
+ "batch": {"split": "val", "seed": 20261125},
+ "L_force_status": "COMPUTED",
+ "L_force_reason": null,
+ "L_force_missing_keys": [],
+ "loss_force_value": 0.0007519002538174391,
+ "cos_grip_vs_force_ae": 0.1005859375,
+ "cos_grip_vs_other6": -0.0098876953125,
+ "grad_norms": {"g_grip": 0.287109375, "g_other6": 0.09130859375, "g_force_ae": 0.12890625, "g_force_head": 1.39375901222229},
+ "ratio_g_grip_to_g_other6": 3.144385026737968,
+ "force_head_loaded_from_ckpt": true,
+ "note": "TRUE L_force reconstructed from the trainer forward (feat=tokens.mean(token-dim)); COS is AUX-weight invariant; read-only, no optimizer step. Fix vs v1: flat grads over FULL action_expert param set with zeros for absent grads so lengths match.",
+ "read_only": true
+}

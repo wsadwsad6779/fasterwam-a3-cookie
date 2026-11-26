@@ -1,0 +1,18 @@
+{
+ "artifact": "B4_STATE_CLONE_043_028",
+ "can_clone": false,
+ "diagnostic_only": true,
+ "results": [
+  {"seed": 7504, "can_clone": false, "trials": [
+    {"opening": 0.43, "grip_cmd": -0.14, "hold_peak_force": 0, "cookie_lift_z": 0, "held": false},
+    {"opening": 0.28, "grip_cmd": -0.44, "hold_peak_force": 0, "cookie_lift_z": 0, "held": false}
+  ]},
+  {"seed": 7508, "can_clone": false, "trials": [
+    {"opening": 0.43, "grip_cmd": -0.14, "hold_peak_force": 0, "cookie_lift_z": 0, "held": false},
+    {"opening": 0.28, "grip_cmd": -0.44, "hold_peak_force": 0, "cookie_lift_z": 0, "held": false}
+  ]}
+ ],
+ "verdict": "INCONCLUSIVE: scripted top-down approach did not reach the cookie (hold_peak_force=0, lift=0 for BOTH 0.43 and 0.28); no env get_state/set_state so true state-clone unavailable",
+ "note": "DIAGNOSTIC only (aims with sim truth), NOT a bare-model success; the 0.43-vs-0.28 physical comparison was NOT obtained because the scripted controller did not establish contact",
+ "source": "pod /workspace/fwv1/p_items/B4_STATE_CLONE_043_028.json (992 B)"
+}

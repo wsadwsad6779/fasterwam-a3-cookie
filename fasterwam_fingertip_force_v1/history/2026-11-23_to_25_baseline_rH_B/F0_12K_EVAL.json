@@ -1,0 +1,18 @@
+{
+  "artifact": "F0_12K_EVAL",
+  "ts": "2026-11-25T21:37:00Z",
+  "checkpoint": "/workspace/fwv1/f0_v3_baseline/step_012000.pt",
+  "checkpoint_sha256": "d3f2a3a8897dc346ac3523ab2499ef5134f35e1401d460b098603022bb1e60f4",
+  "summary": "/workspace/fwv1/eval_fingertip_v1/cmp_f0_12k/SUMMARY_step_12000.json",
+  "protocol": {"replan": 10, "action_horizon": 32, "denoise": 5, "max_steps": 600, "seeds": [7400,7401,7402,7403,7404,7405,7406,7407,7408,7409], "n": 10, "eval_script_failclosed": true},
+  "results": {
+    "avg_in_target_strict": 0.0,
+    "exact_fill": "0/10",
+    "relaxed_in_target": "NOT_VERIFIED (official _t7_eval.py has no relaxed counter; relaxed only in _t7_eval_diag.py)",
+    "grasps": {"7402": 7, "7407": 2, "others": 0, "mean": 0.9},
+    "per_seed_in_target": {"7400":0,"7401":0,"7402":0,"7403":0,"7404":0,"7405":0,"7406":0,"7407":0,"7408":0,"7409":0}
+  },
+  "gate": "12k ckpt sha d3f2a3a8 != 9k 7ca235ba => PASS (not a copy); bytes equal by architecture",
+  "note": "F0 (no-force) at 12k: strict in-target 0/10, exact_fill 0/10, same mid-band-collapse as 9k; grasps attempts (7402=7,7407=2) but no placement",
+  "next": "continue 12k->15k (hard stop 15000) then 15k eval 7500-7509 -> F0_FROZEN_15K.json"
+}

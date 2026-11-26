@@ -1,0 +1,51 @@
+{
+ "source": "R_COMPARE_PARTIAL_r{10,16,32}.json (F2 15k sha 83aacf23, seeds 7500-7509)",
+ "H": 32,
+ "r_effective_rule": "min(r,32)",
+ "note": "3-point interim; fine r QUEUED pending GPU; no interpolation",
+ "per_r": {
+  "10": {
+   "n_seeds": 10,
+   "in_target_strict_mean": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "in_target_user_mean": 0.0,
+   "exact_fill_rate": 0.0,
+   "grasps_mean": 1.9,
+   "exec_lt030_mean": 0.05199999999999999,
+   "exec_median_mean": 0.41717966496944425,
+   "inference_calls_per_600": 60.0
+  },
+  "16": {
+   "n_seeds": 10,
+   "in_target_strict_mean": 0.2,
+   "ci95": [
+    0.0,
+    0.6
+   ],
+   "in_target_user_mean": 0.5,
+   "exact_fill_rate": 0.0,
+   "grasps_mean": 0.5,
+   "exec_lt030_mean": 0.06533333333333333,
+   "exec_median_mean": 0.4485390424728394,
+   "inference_calls_per_600": 37.5
+  },
+  "32": {
+   "n_seeds": 10,
+   "in_target_strict_mean": 0.3,
+   "ci95": [
+    0.0,
+    0.9
+   ],
+   "in_target_user_mean": 0.7,
+   "exact_fill_rate": 0.0,
+   "grasps_mean": 1.0,
+   "exec_lt030_mean": 0.09516666666666666,
+   "exec_median_mean": 0.4045937269926071,
+   "inference_calls_per_600": 18.75
+  }
+ },
+ "small_sample_warning": "n=10 seeds, exploratory; bootstrap CI wide; do not cherry-pick the best r; exact_fill observed 0/10 at every r (report as 0/10, not 'always 0')"
+}

@@ -1,0 +1,63 @@
+{
+  "artifact": "GRIPPER_ACTION_SEMANTICS_AUDIT",
+  "ts": "2026-11-26T02:58:00Z",
+  "scope": "read-only source audit of the ACTUAL decode chain used by our F0/F2 evals (pod) vs official FasterWAM eval-time binarize",
+  "verified_from_source": {
+    "a3_env_gripper": {
+      "file": "/workspace/fwv1/sim_repo/src/a3_dual_arm_sim/sim/actions.py",
+      "line": 149,
+      "code": "np.r_[targets[0], (command[0,6]+1.0)/2.0, targets[1], (command[1,6]+1.0)/2.0]",
+      "meaning": "A3 env expects grip command g in [-1,1]; internal gripper TARGET OPENING = (g+1)/2 in [0,1]"
+    },
+    "our_eval_decode": {
+      "file": "/workspace/_t7_eval.py",
+      "line": 299,
+      "code": "grip_cmd = float(np.clip(2.0*a[6]-1.0, -1.0, 1.0))  # a = stats.backward(act_norm) = raw opening in [0.28,1.0]",
+      "meaning": "we do NOT binarize; we map continuous raw opening a -> g=2a-1 -> env -> target opening = ((2a-1)+1)/2 = a"
+    },
+    "composition": "env target opening == a EXACTLY (identity). 2a-1 is NOT a bug; it cancels env's (g+1)/2. No sign/threshold misalignment in the current continuous decode."
+  },
+  "value_table": [
+    {"a_raw_opening": 0.28, "act_norm_dim6": -1.0,    "eval_grip_cmd(g=2a-1)": -0.44, "env_target_opening=(g+1)/2": 0.28, "data_semantics": "grasp (1.37N)"},
+    {"a_raw_opening": 0.43, "act_norm_dim6": -0.5833, "eval_grip_cmd(g=2a-1)": -0.14, "env_target_opening=(g+1)/2": 0.43, "data_semantics": "mid-band (model's common output) -> jaws target 0.43, likely TOO OPEN to grip a ~0.28-thickness cookie"},
+    {"a_raw_opening": 0.49, "act_norm_dim6": -0.4167, "eval_grip_cmd(g=2a-1)": -0.02, "env_target_opening=(g+1)/2": 0.49, "data_semantics": "release (0N)"},
+    {"a_raw_opening": 1.00, "act_norm_dim6": 1.0,     "eval_grip_cmd(g=2a-1)": 1.0,   "env_target_opening=(g+1)/2": 1.0,  "data_semantics": "open"}
+  ],
+  "official_fasterwam_difference": {
+    "config": "configs/sim_libero(_plus).yaml: replan_steps 10, binarize_gripper: true",
+    "eval": "experiments/libero/eval_libero_single.py: if binarize_gripper: action[...,-1]=np.sign(action[...,-1]) (after denorm+convention)",
+    "training": "still continuous flow-matching action MSE; NOT a gripper classifier",
+    "our_status": "we REMOVED eval-time binarize; we feed continuous opening a. This is the key executor difference."
+  },
+  "consequence_of_midband_0p43_under_two_executors": {
+    "continuous(current)": "target opening 0.43 -> jaws stay ~0.43 open -> do NOT close on a ~0.28 cookie -> no grip -> 0 in-box (what we observe).",
+    "official_sign_binarize": "g=-0.14 (a=0.43<0.5) -> sign -1 -> env opening 0.0 (fully closed) -> WOULD grip the cookie; BUT a=0.49 (release, g=-0.02<0) also -> sign -1 -> closed -> CANNOT release -> still fails exact_fill.",
+    "synthesis": "With a mid-band output, CONTINUOUS fails to grip and BINARIZE fails to release. Either way exact_fill=0; the two executors fail differently. => the executor choice is NOT a free fix; the root issue remains that the MODEL OUTPUT is mid-band (~0.43) rather than crisp 0.28/1.0 (H2), plus whether autonomous states reach grasp (H3)."
+  },
+  "is_0p28_a_universal_grasp_criterion": "NO. 0.28 is the jaw opening when the finger is blocked by a ~21.5mm cookie; it changes with cookie count/thickness. Do NOT use opening~0.28 as the accept/criterion; use finger FORCE + task result (in_target/exact_fill). [consistent with user]",
+  "v1_v2_v3_history": {
+    "V1": "pm1 from adjacent actual-opening sign (jitter -> false flips) [log/audit support, p_items/GRIPPER_LABEL_V2_FINAL_AUDIT]",
+    "V2": "phase-hold pm1 (±1); 93.5% closed labels -> robot pre-closes [p_items/GRIPPER_LABEL_V2_FINAL_AUDIT.md, GRIPPER_LABEL_V2_MANIFEST]",
+    "V3": "train on raw expert action[6] continuous 0.28/0.49/1.0; eval continuous map g=2a-1 [GRIPPER_LABEL_V3_BUILD.json; this audit]",
+    "note": "The bridge/action_adapter*.py quoted by another agent are NOT tracked in this local clone's main/a3-cookie-r27 branches (git ls-tree found none); cannot git-diff them here. Mark NOT_FOUND_LOCAL."
+  },
+  "highest_value_no_train_next": {
+    "name": "THREE-EXECUTOR no-train eval on F0/F2 15k, same scenes/seeds",
+    "executors": [
+      "CONT: continuous opening a (current, g=2a-1)",
+      "BIN_SIGN: official sign binarize g -> env ((sign(g)+1)/2)",
+      "BIN_DATA: close if a<=0.35 else open if a>=0.80 else hold-previous (data-natural thresholds, NOT 0.5/0 magic)"
+    ],
+    "measures": "grasp(contact+lift), stable lift/carry, release success, strict/relaxed in-box, exact_fill; per seed",
+    "why": "directly tests whether the mid-band output is the binding failure and which executor semantics best matches the physical task, WITHOUT retraining",
+    "label": "diagnostic executor protocol; NOT official F0/F2 scores",
+    "cost": "eval only, 0 optimizer; run serially after the current f0 r-sweep"
+  },
+  "hypotheses_status": {
+    "decode_bug_in_current_continuous_path": "REJECTED (identity verified by source)",
+    "0p28_universal": "REJECTED",
+    "executor_choice_can_fix_alone": "REJECTED by analysis (continuous no-grip vs binarize no-release under mid-band)",
+    "output_is_midband_(H2)": "SUPPORTED (P1: K sweep drifts to ~0.43-0.46; executed<0.30 ~5%)",
+    "autonomous_state_reach_(H3)": "OPEN (teacher-forced CARRY closure recall 0.708 at K5 vs autonomous rare)"
+  }
+}
