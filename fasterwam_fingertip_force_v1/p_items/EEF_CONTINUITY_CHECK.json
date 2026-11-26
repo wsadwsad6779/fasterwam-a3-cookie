@@ -1,8 +1,0 @@
-{
- "episodes": [
-  {"ep": 0, "frames": 466, "pos_min": [0.06523872911930084, 0.10794443637132645, 0.7638344168663025], "pos_max": [0.12509064376354218, 0.28368306159973145, 0.919999361038208], "dp_max": 0.014947909116159428, "dp_p99": 0.014907432370400578, "dp_argmax_step": 226, "frame_index_at_jump": [226, 227], "fi_diff_min": 1, "fi_diff_max": 1},
-  {"ep": 1, "frames": 475, "pos_min": [0.055414751172065735, 0.10526296496391296, 0.7638543844223022], "pos_max": [0.1139482781291008, 0.2998366951942444, 0.919999361038208], "dp_max": 0.014944392154760155, "dp_p99": 0.014792287199427155, "dp_argmax_step": 233, "frame_index_at_jump": [233, 234], "fi_diff_min": 1, "fi_diff_max": 1},
-  {"ep": 2, "frames": 476, "pos_min": [0.06791354715824127, 0.0924956202507019, 0.763844907283783], "pos_max": [0.12576085329055786, 0.28980132937431335, 0.919999361038208], "dp_max": 0.01494700247396215, "dp_p99": 0.014895663164824059, "dp_argmax_step": 232, "frame_index_at_jump": [232, 233], "fi_diff_min": 1, "fi_diff_max": 1}
- ],
- "conclusion": "Within-episode EEF position is continuous (frame_index step=1 everywhere); dp_max about 14.95 mm/step, physically plausible at 20 Hz. The earlier 0.294 m/step came from computing diff over the unfiltered multi-episode array (cross-episode jump), not from the data."
-}
