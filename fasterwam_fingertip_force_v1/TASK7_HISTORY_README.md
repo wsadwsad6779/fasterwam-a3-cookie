@@ -8,12 +8,15 @@ https://huggingface.co/datasets/wsadwsad6779/fasterwam-a3-cookie-task7
 - `history/2026-11-26_denoise_gripper_semantics/` — 去噪步数审计、夹爪动作语义审计、旧实验溯源、F0 r-sweep（含 README.md）
 - 工作区（未归档的完整证据/脚本/中间件）仍在 `p_items/`、以及仓库根的历史文件。
 
-## 分支索引（origin 实际状态，git ls-remote 核实）
-- `fingertip-force-v1`：**唯一有内容的分支**（293 文件：p_items 全套证据、训练/评估脚本、本归档）。
-- `main` / `a3-cookie-r27` / `archive-2026-11-01` / `backup-2026-11-01-r6-audit` / `rescue-40k-restore-20261117`：**origin 上为空树（0 文件）**。
-- 本分支（`history-2026-11-24_to_11-30`）由 fingertip-force-v1 派生，仅**新增** history/ 与本文档，未改历史文件；设为默认分支。
-
-> 注：若你认为"还有很多分支"，那可能在另一台机器/另一个仓库或官方 hustvl/FasterWAM；本仓 origin 经 ls-remote 只有以上 6 个。
+## 分支索引（按时间命名，2026-11-26 重命名；origin 实际）
+- `2026-11-01_archive`（1221 文件）
+- `2026-11-01_backup-r6-audit`（288）
+- `2026-11-08_a3-cookie-r27`（239；含 bridge/action_adapter_v3.py 等适配器）
+- `2026-11-17_rescue-40k`（680）
+- `2026-11-19_main`（1082）
+- `2026-11-24_fingertip-force`（1375）
+- `history-2026-11-24_to_11-30`（本周归档，**默认分支**，本 README 所在）
+> 原名 main/a3-cookie-r27/archive-2026-11-01/backup-2026-11-01-r6-audit/rescue-40k-restore-20261117/fingertip-force-v1 已按时间前缀重命名（内容/提交未改）。
 
 ## 冻结状态（勿改）
 - F0 15k 冻结：`step_015000.pt` sha256 `8ef07241…`（strict/relaxed 0/10）。
