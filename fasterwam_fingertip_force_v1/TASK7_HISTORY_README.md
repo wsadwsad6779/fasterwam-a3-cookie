@@ -25,3 +25,9 @@ https://huggingface.co/datasets/wsadwsad6779/fasterwam-a3-cookie-task7
 
 ## 安全
 HF token 仅在命令环境临时使用，**未写入任何文件/提交**；因已在对话中出现，建议尽快在 HuggingFace 后台 **rotate**。
+
+
+## 2026-11-26 追加（F0 r-sweep + 视频包 + 上传状态）
+- **F0 15k r=10/16/32 ×7500–7509（同 diag 评估器）**：strict 0/0/0、relaxed 0/0/0、**曾入盒 0/0/0**、exact 0；grasps 0/0.9/1.1。→ **r32 不救 F0（连曾入盒都0）**；r32 入盒是 F2(力) 特有（r16 strict0.2/relaxed0.5，r32 strict0.3/relaxed0.7）。证据见 history/2026-11-26_denoise_gripper_semantics/F0_R_SWEEP_RESULTS.json。
+- **全视频打包（pod）**：`/workspace/fwv1/EVAL_VIDEOS_named_20261126.zip`（314 个 mp4，1.32GB，sha256 `3a68853d4fbb2007c9f5c969546be429189e3c3d1f39d25b96ebdcfe14c12c3d`；内含 `00_MANIFEST.csv`，按实验/seed 命名）。/workspace 销毁后持久保留，可从 JupyterLab 文件浏览器下载。
+- **HF 上传**：本机到 huggingface.co 上传端点连接超时（WinError 10060/10061），pod 直连 HF 亦不可用 → **HF 本轮未完成**（仓 `wsadwsad6779/fasterwam-a3-cookie-task7` 已建、空）。需在能连 HF 的网络执行：`huggingface-cli upload --repo-type dataset wsadwsad6779/fasterwam-a3-cookie-task7 ./history history`。
