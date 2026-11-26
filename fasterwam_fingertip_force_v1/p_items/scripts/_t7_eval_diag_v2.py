@@ -304,6 +304,11 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label,
     t0 = time.time()
     strict_mismatch = 0
     relaxed_reimpl = None
+    # v2: per-step FULL physical pose capture (position + orientation) for offline strict/relaxed
+    pose_pos = []
+    pose_mat = []
+    tb_pos_l = []
+    tb_mat_l = []
     while t < MAX_STEPS:
         img = image_to_model(obs)
         prop_raw = np.asarray(obs['observation.state'], np.float64)[:8]
@@ -341,6 +346,13 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label,
             grip_cmd = float(np.clip(2.0 * a[6] - 1.0, -1.0, 1.0))
             cmd = np.r_[trans, rot, grip_cmd, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
             obs, r, term, trunc, info = env.step(cmd)
+            try:
+                pose_pos.append(np.asarray(u.data.xpos[u._cookie_bodies], np.float32).copy())          # [N,3]
+                pose_mat.append(np.asarray(u.data.xmat[u._cookie_bodies], np.float32).reshape(-1, 9).copy())  # [N,9]
+                tb_pos_l.append(np.asarray(u.data.xpos[u._target_bin_body], np.float32).copy())          # [3]
+                tb_mat_l.append(np.asarray(u.data.xmat[u._target_bin_body], np.float32).reshape(9).copy())    # [9]
+            except Exception:
+                pass
             strict_reimpl = sum(1 for i in range(u.task_config.cookie_count)
                                 if cookie_inside_target_reimpl(u, i, True, False))
             relaxed_reimpl = sum(1 for i in range(u.task_config.cookie_count)
@@ -384,6 +396,8 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label,
     # v2: persist per-step trajectory so relaxed/strict can be recomputed OFFLINE (no replay)
     try:
         _cp = [r['cookie_pos'] for r in rows if r.get('cookie_pos') is not None]
+        _floor_top = float(env.config.cookie_transfer.target_floor_z_m
+                           + env.config.cookie_transfer.bin_wall_thickness_m / 2)
         np.savez_compressed(os.path.join(out_dir, 'trajectory.npz'),
                             t=np.array([r['t'] for r in rows], np.int32),
                             grip_cmd=np.array([r['grip_cmd'] for r in rows], np.float32),
@@ -393,9 +407,22 @@ def rollout(model, film, state, seed, stats, ctx, ctx_mask, out_dir, step_label,
                             in_target=np.array([(r['in_target'] if r['in_target'] is not None else -1) for r in rows], np.int32),
                             in_target_relaxed=np.array([(r['in_target_relaxed'] if r['in_target_relaxed'] is not None else -1) for r in rows], np.int32),
                             eef=np.array([r['eef_after'] for r in rows], np.float32) if rows else np.zeros((0, 3), np.float32),
-                            cookie_pos=np.array(_cp, np.float32) if _cp else np.zeros((0,), np.float32))
+                            cookie_pos=np.array(_cp, np.float32) if _cp else np.zeros((0,), np.float32),
+                            # full physical pose for offline strict/relaxed (position + orientation matrix)
+                            cookie_xpos_step=np.array(pose_pos, np.float32),          # [T,N,3]
+                            cookie_xmat_step=np.array(pose_mat, np.float32),          # [T,N,9]
+                            target_bin_pos_step=np.array(tb_pos_l, np.float32),       # [T,3]
+                            target_bin_mat_step=np.array(tb_mat_l, np.float32),       # [T,9]
+                            cookie_half_size=np.asarray(env.COOKIE_HALF_SIZE, np.float32),
+                            target_inner_half_size=np.asarray(env.TARGET_INNER_HALF_SIZE, np.float32),
+                            contact_tol=float(env.CONTACT_CONTAINMENT_TOLERANCE_M),
+                            floor_top=_floor_top,
+                            wall_height=float(env.TARGET_WALL_HEIGHT),
+                            max_tilt_rad=float(env.task_config.max_tilt_rad),
+                            cookie_count=int(u.task_config.cookie_count))
     except Exception:
         pass
+
 
     vc = os.path.join(out_dir, 'composite.mp4')
     imageio.mimsave(vc, frames_c, fps=20, codec='libx264', quality=8)
